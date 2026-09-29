@@ -1,0 +1,19 @@
+idf_component_register(
+    SRCS "app_main.cpp"
+    INCLUDE_DIRS "."
+    PRIV_REQUIRES
+        app_state
+        storage
+        library
+        decoder
+        audio_pipeline
+        audio_i2s
+        playback
+        input
+        ui
+        power
+        settings
+        diagnostics
+)
+
+target_compile_features(${COMPONENT_LIB} PUBLIC cxx_std_17)
