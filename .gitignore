@@ -1,0 +1,28 @@
+# ESP-IDF build products
+firmware/build/
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/dependencies.lock
+firmware/managed_components/
+
+# Editors and operating systems
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+.DS_Store
+
+# Generated manufacturing and CAD backup files
+hardware/kicad/*-backups/
+hardware/kicad/*.lck
+hardware/kicad/~*
+*.bak
+*.tmp
+
+# Secrets must never enter the repository
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+.wakatime.cfg
