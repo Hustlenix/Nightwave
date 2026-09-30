@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - "firmware/**"
+      - "tests/**"
       - ".github/workflows/firmware.yml"
   pull_request:
     paths:
       - "firmware/**"
+      - "tests/**"
       - ".github/workflows/firmware.yml"
   workflow_dispatch:
 
@@ -19,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-      - name: Build ESP32-S3 firmware skeleton
+      - name: Build ESP32-S3 firmware
         uses: espressif/esp-idf-ci-action@v1
         with:
           esp_idf_version: v6.1

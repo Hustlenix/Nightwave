@@ -13,4 +13,10 @@ struct DiagnosticSnapshot {
     std::uint32_t pcm_queue_depth_ms{0};
 };
 
+void log_boot_diagnostics();
+DiagnosticSnapshot capture_diagnostics(std::uint32_t audio_underruns,
+                                       std::uint32_t storage_errors,
+                                       std::uint32_t decode_errors,
+                                       std::uint32_t pcm_queue_depth_ms);
+
 }  // namespace nightwave

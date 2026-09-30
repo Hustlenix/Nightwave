@@ -6,6 +6,11 @@ on:
       - "docs/**"
       - "hardware/*.csv"
       - "tools/**"
+      - "tests/**"
+      - "firmware/components/audio_pipeline/**"
+      - "firmware/components/decoder/**"
+      - "firmware/components/input/**"
+      - "firmware/components/playback/**"
       - ".github/workflows/project-quality.yml"
       - "firmware/components/app_state/include/nightwave/hardware_config.h"
   pull_request:
@@ -13,6 +18,11 @@ on:
       - "docs/**"
       - "hardware/*.csv"
       - "tools/**"
+      - "tests/**"
+      - "firmware/components/audio_pipeline/**"
+      - "firmware/components/decoder/**"
+      - "firmware/components/input/**"
+      - "firmware/components/playback/**"
       - ".github/workflows/project-quality.yml"
       - "firmware/components/app_state/include/nightwave/hardware_config.h"
   workflow_dispatch:
@@ -29,3 +39,9 @@ jobs:
         run: python3 tools/validate_project.py
       - name: Generate deterministic audio fixtures
         run: python3 tools/generate_test_media.py --output .generated/test-media
+      - name: Configure portable firmware tests
+        run: cmake -S tests -B build/host-tests -DCMAKE_BUILD_TYPE=Release
+      - name: Build portable firmware tests
+        run: cmake --build build/host-tests --config Release --parallel
+      - name: Run portable firmware tests
+        run: ctest --test-dir build/host-tests --build-config Release --output-on-failure
