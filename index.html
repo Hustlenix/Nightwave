@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <meta name="description" content="NIGHTWAVE — a T4 pocket music player built around a real embedded audio pipeline: SDMMC, software decoding, FreeRTOS buffering, DSP, I2S/DMA, custom audio and power hardware." />
+  <title>NIGHTWAVE — T4 Pocket Music Player</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="pointer-glow" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#top" aria-label="NIGHTWAVE home">NIGHTWAVE<span>/T4</span></a>
+    <nav class="nav" data-nav aria-label="Primary">
+      <a href="#system">System</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#build">Build</a>
+      <a href="#experiment">Experiment</a>
+    </nav>
+    <div class="header-actions">
+      <a class="source-link" href="https://github.com/Hustlenix/Nightwave" target="_blank" rel="noreferrer">SOURCE ↗</a>
+      <button class="menu-toggle" type="button" data-menu aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><b class="sr-only">Toggle navigation</b></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" data-mobile-nav aria-hidden="true">
+    <a href="#system">System <span>02</span></a>
+    <a href="#hardware">Hardware <span>04</span></a>
+    <a href="#build">Build <span>08</span></a>
+    <a href="#experiment">Experiment <span>09</span></a>
+    <a href="https://github.com/Hustlenix/Nightwave" target="_blank" rel="noreferrer">Source <span>↗</span></a>
+  </div>
+
+  <main id="main">
+    <section class="cinematic-hero" id="top" data-explode-section>
+      <div class="cinematic-sticky">
+        <div class="cinematic-grid" aria-hidden="true"></div>
+
+        <div class="cinematic-copy" data-cinematic-copy>
+          <p class="eyebrow">POCKET AUDIO / EMBEDDED SYSTEMS / REV. 0</p>
+          <h1>NO CLOUD.<br>NO PHONE.<br><span>JUST MUSIC.</span></h1>
+          <p class="hero-deck">A pocket music player that reads, decodes, buffers and outputs your music itself. No streaming stack. No companion app. No DFPlayer doing the hard part off-screen.</p>
+          <div class="hero-meta" aria-label="Project targets">
+            <span><b>12H+</b> design runtime</span>
+            <span><b>ESP32-S3</b> audio engine</span>
+            <span><b>2-LAYER</b> mixed-signal PCB target</span>
+          </div>
+        </div>
+
+        <div class="cinematic-stage" data-explode-stage aria-label="Scroll-controlled exploded concept view of NIGHTWAVE">
+          <div class="stage-meta">
+            <span>CONCEPT ARCHITECTURE</span>
+            <span data-cinematic-percent>00%</span>
+            <span>NOT YET FABRICATED</span>
+          </div>
+
+          <div class="phase-rail" aria-hidden="true">
+            <i data-rail-progress></i>
+            <span data-rail-phase="sealed"><b>01</b>SEALED</span>
+            <span data-rail-phase="ignition"><b>02</b>OPEN</span>
+            <span data-rail-phase="exploded"><b>03</b>PARTS</span>
+            <span data-rail-phase="mapped"><b>04</b>MAP</span>
+          </div>
+
+          <div class="blast-core" aria-hidden="true"></div>
+          <div class="blast-ring ring-a" aria-hidden="true"></div>
+          <div class="blast-ring ring-b" aria-hidden="true"></div>
+          <div class="blast-spark spark-a" aria-hidden="true"></div>
+          <div class="blast-spark spark-b" aria-hidden="true"></div>
+          <div class="blast-spark spark-c" aria-hidden="true"></div>
+
+          <div class="exploded-device" data-explode-scene>
+            <div class="exploded-part rear-shell" data-part="rear">
+              <div class="shell-ribs"></div>
+              <span class="part-tag">REAR SHELL</span>
+            </div>
+
+            <div class="exploded-part battery-module" data-part="battery">
+              <div class="battery-print"><b>3.7V</b><span>LI-ION</span><small>FULL-NIGHT POWER TARGET</small></div>
+              <span class="part-tag">BATTERY</span>
+            </div>
+
+            <div class="exploded-part speaker-module" data-part="speaker">
+              <div class="speaker-cone"><i></i></div>
+              <span class="part-tag">SPEAKER</span>
+            </div>
+
+            <div class="exploded-part main-pcb" data-part="pcb">
+              <div class="pcb-traces"></div>
+              <div class="pcb-chip chip-mcu"><small>MCU</small><b>ESP32-S3</b></div>
+              <div class="pcb-chip chip-dac"><small>AUDIO</small><b>DAC / AMP</b></div>
+              <div class="pcb-chip chip-pmic"><small>POWER</small><b>PMIC</b></div>
+              <div class="pcb-slot">microSD</div>
+              <span class="part-tag">MAIN PCB</span>
+            </div>
+
+            <div class="exploded-part display-module" data-part="display">
+              <div class="display-glass">
+                <div class="mini-status"><span>SD / 047</span><span>64%</span></div>
+                <strong>MIDNIGHT<br>PROTOCOL</strong>
+                <div class="mini-progress"><i></i></div>
+              </div>
+              <span class="part-tag">DISPLAY</span>
+            </div>
+
+            <div class="exploded-part control-plate" data-part="controls">
+              <button tabindex="-1" aria-hidden="true">⏮</button>
+              <div class="mini-wheel"><i></i></div>
+              <button tabindex="-1" aria-hidden="true">⏭</button>
+              <button tabindex="-1" aria-hidden="true">−</button>
+              <button class="mini-play" tabindex="-1" aria-hidden="true">▶</button>
+              <button tabindex="-1" aria-hidden="true">+</button>
+              <span class="part-tag">CONTROLS</span>
+            </div>
+
+            <div class="exploded-part storage-card" data-part="storage">
+              <b>microSD</b><span>LOCAL MUSIC</span>
+              <i></i><i></i><i></i><i></i>
+              <span class="part-tag">STORAGE</span>
+            </div>
+
+            <div class="exploded-part audio-jack" data-part="jack">
+              <span></span>
+              <b>3.5</b>
+              <span class="part-tag">HEADPHONE JACK</span>
+            </div>
+
+            <div class="exploded-part front-shell" data-part="front">
+              <div class="front-cutout display-cutout"></div>
+              <div class="front-cutout control-cutout"></div>
+              <div class="shell-mark">NIGHTWAVE</div>
+              <span class="part-tag">FRONT SHELL</span>
+            </div>
+
+            <div class="component-callout callout-display"><em>01</em><i></i><span><b>DISPLAY</b>Track state, library and system feedback.</span></div>
+            <div class="component-callout callout-pcb"><em>02</em><i></i><span><b>ESP32-S3 CORE</b>Filesystem, decoding, buffers, DSP and UI.</span></div>
+            <div class="component-callout callout-battery"><em>03</em><i></i><span><b>POWER SYSTEM</b>Rechargeable cell, charge path and fuel data.</span></div>
+            <div class="component-callout callout-speaker"><em>04</em><i></i><span><b>SPEAKER PATH</b>Dedicated class-D output for built-in audio.</span></div>
+            <div class="component-callout callout-controls"><em>05</em><i></i><span><b>PHYSICAL INPUT</b>Playback and volume without a phone.</span></div>
+            <div class="component-callout callout-storage"><em>06</em><i></i><span><b>LOCAL STORAGE</b>Your files live on removable microSD.</span></div>
+          </div>
+
+          <div class="cinematic-phase">
+            <span data-phase-kicker>01 / SEALED</span>
+            <strong data-phase-title>THE PLAYER</strong>
+            <p data-phase-copy>A self-contained music player. Scroll to open the system.</p>
+          </div>
+
+          <div class="cinematic-scroll-cue"><span>SCROLL TO DISASSEMBLE</span><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cinematic-handoff" aria-label="Transition from product view to engineering">
+      <div>
+        <span>THE OBJECT IS ONLY THE OUTSIDE.</span>
+        <strong>NOW FOLLOW THE SIGNAL.</strong>
+      </div>
+      <div class="handoff-path" aria-hidden="true">
+        <i></i><b>SD</b><i></i><b>PCM</b><i></i><b>I²S</b><i></i><b>AIR</b>
+      </div>
+    </section>
+
+    <section class="statement cine-section" id="premise" data-cine-section="premise">
+      <p class="section-index">01 / PREMISE</p>
+      <div class="statement-grid reveal">
+        <h2>A music player should be able to play music <em>without asking another computer to do it.</em></h2>
+        <div class="statement-copy">
+          <p>NIGHTWAVE is a standalone hardware experiment: load your own audio files onto a microSD card, plug in headphones or use the built-in speaker, and control playback using physical inputs.</p>
+          <p>The T4 version deliberately removes the easiest shortcut. Instead of sending “play track 5” to a decoder module, the ESP32-S3 owns the filesystem, decoding, buffering, scheduling, DSP and audio transport.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="chapter-slate chapter-dark" data-chapter-slate>
+      <div class="chapter-number">01</div>
+      <div class="chapter-copy">
+        <span>SIGNAL</span>
+        <strong>SOFTWARE<br>BECOMES<br>SOUND.</strong>
+        <p>The file is only the beginning. The hard part is keeping every stage moving in real time.</p>
+      </div>
+      <div class="chapter-trace" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </section>
+
+    <section class="anti-shortcut dark-section cine-section" id="system" data-cine-section="system">
+      <div class="section-head reveal">
+        <p class="section-index">02 / THE DIFFERENCE</p>
+        <h2>NOT A MODULE<br>CARRIER.</h2>
+      </div>
+      <div class="compare reveal">
+        <article>
+          <p class="compare-label">COMMON SHORTCUT</p>
+          <div class="mini-pipeline muted">
+            <span>MCU</span><b>→</b><span>DFPLAYER</span><b>→</b><span>AUDIO</span>
+          </div>
+          <p>The controller sends high-level commands while a dedicated module hides the filesystem, decoding and most audio complexity.</p>
+        </article>
+        <article class="active">
+          <p class="compare-label">NIGHTWAVE / TARGET</p>
+          <div class="mini-pipeline">
+            <span>SDMMC</span><b>→</b><span>DECODE</span><b>→</b><span>PCM</span><b>→</b><span>I²S</span>
+          </div>
+          <p>The firmware owns the whole playback path. That creates the real engineering work: latency, DMA, ring buffers, task synchronization, audio quality and failure recovery.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="pipeline-section cine-section" data-cine-section="pipeline">
+      <div class="section-head reveal">
+        <p class="section-index">03 / DATA PATH</p>
+        <h2>FROM FILE<br>TO AIR.</h2>
+      </div>
+      <div class="pipeline" data-pipeline>
+        <article class="pipe-step reveal"><span>01</span><h3>microSD</h3><p>Direct file access over SDMMC / FATFS.</p></article>
+        <article class="pipe-step reveal"><span>02</span><h3>Decoder</h3><p>Compressed MP3/WAV data becomes PCM samples.</p></article>
+        <article class="pipe-step reveal"><span>03</span><h3>Buffering</h3><p>FreeRTOS queues and ring buffers absorb SD latency.</p></article>
+        <article class="pipe-step reveal"><span>04</span><h3>DSP</h3><p>Digital volume, EQ, limiter and smooth ramps.</p></article>
+        <article class="pipe-step reveal"><span>05</span><h3>I²S + DMA</h3><p>Deterministic streaming without blocking the UI.</p></article>
+        <article class="pipe-step reveal"><span>06</span><h3>Output</h3><p>Stereo DAC/headphone amp plus class-D speaker path.</p></article>
+      </div>
+    </section>
+
+
+    <section class="chapter-slate chapter-light" data-chapter-slate>
+      <div class="chapter-number">02</div>
+      <div class="chapter-copy">
+        <span>SYSTEM</span>
+        <strong>SIX<br>SUBSYSTEMS.<br>ONE DEVICE.</strong>
+        <p>Storage, compute, audio, input, display and power have to behave like one product.</p>
+      </div>
+      <div class="chapter-orbit" aria-hidden="true"><b></b><b></b><b></b></div>
+    </section>
+
+    <section class="architecture dark-section cine-section" id="hardware" data-cine-section="architecture">
+      <div class="section-head reveal">
+        <p class="section-index">04 / ARCHITECTURE</p>
+        <h2>SIX SYSTEMS.<br>ONE DEVICE.</h2>
+      </div>
+      <div class="system-map reveal" data-system-map role="img" aria-label="Architecture map for NIGHTWAVE music player">
+        <div class="sys sys-storage"><small>STORAGE</small><strong>microSD</strong><span>SDMMC / FATFS</span></div>
+        <div class="sys sys-core"><small>COMPUTE</small><strong>ESP32-S3</strong><span>decoder · FreeRTOS · UI · DSP</span></div>
+        <div class="sys sys-dac"><small>HEADPHONES</small><strong>STEREO DAC</strong><span>I²S → analog → amp</span></div>
+        <div class="sys sys-speaker"><small>SPEAKER</small><strong>CLASS-D</strong><span>I²S mono path</span></div>
+        <div class="sys sys-ui"><small>INTERFACE</small><strong>DISPLAY + INPUT</strong><span>OLED/TFT · encoder · buttons</span></div>
+        <div class="sys sys-power"><small>POWER</small><strong>1S Li-Ion</strong><span>charge · power path · fuel gauge</span></div>
+        <svg viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M216 118 H410"/><path d="M590 195 H780"/><path d="M590 252 H780"/><path d="M500 340 V432"/><path d="M410 270 H220"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="proof-section cine-section" data-cine-section="proof">
+      <p class="section-index">05 / ENGINEERING PROOF</p>
+      <div class="proof-grid">
+        <article class="proof-feature reveal">
+          <p class="status planned">DESIGN TARGET</p>
+          <h3>Real-time audio that survives the ugly cases.</h3>
+          <p>SD latency spikes, decoder stalls, pause/resume, seek, track changes and UI work all compete for time. The firmware must keep the audio path fed without clicks or underruns.</p>
+        </article>
+        <article class="proof-metric reveal"><strong>&lt; 1</strong><span>audible glitch target during normal playback</span></article>
+        <article class="proof-metric reveal"><strong>12H+</strong><span>runtime design target before measured validation</span></article>
+        <article class="proof-feature reveal">
+          <p class="status planned">VALIDATION REQUIRED</p>
+          <h3>Battery life is measured, not advertised.</h3>
+          <p>Final runtime will be reported only after a controlled full-discharge test with battery capacity, output mode, volume level and start/stop times documented.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="hardware-stack dark-section cine-section" data-cine-section="stack">
+      <div class="section-head reveal">
+        <p class="section-index">06 / HARDWARE STACK</p>
+        <h2>THE BOARD IS<br>THE PRODUCT.</h2>
+      </div>
+      <div class="bom-grid reveal">
+        <div><span>MCU</span><strong>ESP32-S3</strong><p>Owns playback pipeline and system control.</p></div>
+        <div><span>STORAGE</span><strong>microSD</strong><p>Direct filesystem access; no cloud dependency.</p></div>
+        <div><span>HEADPHONE PATH</span><strong>I²S DAC + AMP</strong><p>Stereo output with proper analog stage.</p></div>
+        <div><span>SPEAKER PATH</span><strong>Digital class-D</strong><p>Independent built-in speaker output.</p></div>
+        <div><span>POWER</span><strong>1S Li-Ion system</strong><p>Charging, power-path management and fuel gauge.</p></div>
+        <div><span>PCB</span><strong>2-layer mixed-signal</strong><p>Audio routing, return paths, power integrity and testability matter.</p></div>
+      </div>
+    </section>
+
+    <section class="interface-section cine-section cine-interface" data-cine-section="interface">
+      <div class="interface-copy reveal">
+        <p class="section-index">07 / INTERACTION</p>
+        <h2>PHYSICAL<br>BY DEFAULT.</h2>
+        <p>The interface is intentionally tangible. Core playback should never require a phone or touchscreen maze. Buttons and an encoder stay usable in the dark, in a pocket, or without looking.</p>
+      </div>
+      <div class="ui-demo reveal" data-ui-demo aria-label="Interactive concept display UI">
+        <div class="ui-chrome"><span>NOW PLAYING</span><span data-ui-volume>VOL 64</span></div>
+        <div class="album-mark" data-album-mark>NS</div>
+        <h3 data-ui-track>MIDNIGHT PROTOCOL</h3>
+        <p><span data-ui-number>TRACK 047</span> / LOCAL STORAGE</p>
+        <div class="ui-progress"><i data-ui-progress></i></div>
+        <div class="ui-time"><span data-ui-elapsed>02:18</span><span data-ui-duration>04:00</span></div>
+        <div class="ui-actions">
+          <button type="button" data-action="previous" aria-label="Previous track">⏮</button>
+          <button type="button" class="ui-play" data-action="play" aria-label="Play or pause" aria-pressed="false">▶</button>
+          <button type="button" data-action="next" aria-label="Next track">⏭</button>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="chapter-slate chapter-dark fabrication-slate" data-chapter-slate>
+      <div class="chapter-number">03</div>
+      <div class="chapter-copy">
+        <span>FABRICATION</span>
+        <strong>DESIGN<br>IS NOT<br>PROOF.</strong>
+        <p>The schematic becomes a board. The board becomes a device. Every physical gate can still fail.</p>
+      </div>
+      <div class="fab-layers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    </section>
+
+    <section class="build-section dark-section cine-section cine-build" id="build" data-cine-section="build">
+      <div class="section-head reveal">
+        <p class="section-index">08 / BUILD PLAN</p>
+        <h2>DESIGN.<br>PROVE.<br>THEN FABRICATE.</h2>
+      </div>
+      <div class="build-list">
+        <div class="build-row reveal"><span>01</span><strong>Architecture + datasheets</strong><em>IN PROGRESS</em></div>
+        <div class="build-row reveal"><span>02</span><strong>Power budget + BOM</strong><em>PLANNED</em></div>
+        <div class="build-row reveal"><span>03</span><strong>Breadboard subsystem bring-up</strong><em>PHYSICAL GATE</em></div>
+        <div class="build-row reveal"><span>04</span><strong>Firmware audio engine</strong><em>PLANNED</em></div>
+        <div class="build-row reveal"><span>05</span><strong>KiCad schematic + review</strong><em>PLANNED</em></div>
+        <div class="build-row reveal"><span>06</span><strong>PCB layout + DRC</strong><em>PLANNED</em></div>
+        <div class="build-row reveal"><span>07</span><strong>Enclosure + speaker cavity</strong><em>PLANNED</em></div>
+        <div class="build-row reveal"><span>08</span><strong>Fabrication + staged bring-up</strong><em>PHYSICAL GATE</em></div>
+        <div class="build-row reveal"><span>09</span><strong>Measured overnight runtime</strong><em>SHIP GATE</em></div>
+      </div>
+    </section>
+
+    <section class="experiment-section cine-section cine-experiment" id="experiment" data-cine-section="experiment">
+      <div class="experiment-grid reveal">
+        <div>
+          <p class="section-index">09 / THE EXPERIMENT</p>
+          <h2>CAN AN AI DRIVE A REAL HARDWARE BUILD?</h2>
+        </div>
+        <div class="experiment-copy">
+          <p>ChatGPT Work is being used as a digital engineering partner: research, calculations, firmware, schematic review, PCB planning, CAD support, test procedures and documentation.</p>
+          <p>The physical world stays non-negotiable. Parts must be ordered, solder joints made, voltages measured, audio listened to, runtime tested and the final device demonstrated by a human.</p>
+          <div class="boundary">
+            <span>AI</span><b>research · code · analysis · design assistance</b>
+            <span>HUMAN</span><b>purchase · assembly · measurement · validation</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="chapter-slate chapter-light validation-slate" data-chapter-slate>
+      <div class="chapter-number">04</div>
+      <div class="chapter-copy">
+        <span>VALIDATION</span>
+        <strong>THE DEVICE<br>HAS TO<br>SURVIVE REALITY.</strong>
+        <p>Measured runtime, stable playback and real audio output decide whether the project is finished.</p>
+      </div>
+      <div class="validation-pulse" aria-hidden="true"><i></i><b></b></div>
+    </section>
+
+    <section class="finale dark-section cine-section cine-finale" data-cine-section="finale">
+      <p class="eyebrow reveal">THE SHIP CONDITION</p>
+      <h2 class="reveal">PUT A SONG ON THE CARD.<br>PRESS PLAY.<br><span>HEAR IT.</span></h2>
+      <p class="finale-copy reveal">Everything before that is design work. That moment is proof.</p>
+      <div class="finale-actions reveal">
+        <a href="https://github.com/Hustlenix/Nightwave" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a>
+        <a href="#top">BACK TO TOP ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>NIGHTWAVE / T4 HARDWARE PROJECT</span>
+    <span>CONCEPT SITE · REV.0</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
