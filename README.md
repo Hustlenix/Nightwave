@@ -2,7 +2,7 @@
 
 Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It is intended to read a user's MP3 and PCM/WAV files directly from microSD, decode them on an ESP32-S3, and play them through either wired stereo headphones or a built-in speaker—without a phone, app, network, Bluetooth, or streaming service.
 
-> Status: Phase 0 and Phase 1 digital engineering are complete. The architecture and component choices are provisional until the physical audio prototype is built and measured. No physical runtime, working hardware, final PCB, enclosure, or tier has been claimed.
+> Status: Phase 0, Phase 1 digital engineering, and the Phase 2 procurement/wiring package are complete. The architecture and component choices remain provisional until the physical audio prototype is built and measured. No physical runtime, working hardware, final PCB, enclosure, or tier has been claimed.
 
 ## Architecture
 
@@ -18,7 +18,7 @@ StorageTask -> compressed ring buffer -> DecoderTask -> PCM ring buffer
                                                    I2S + DMA
                                       +-----------------+-----------------+
                                       |                                   |
-                                PCM5102A DAC                       MAX98357A amp
+                                PCM5102A DAC                       MAX98360C amp
                                       |                                   |
                               TPA6132A2 headphone amp                mono speaker
                                       |
@@ -27,6 +27,8 @@ StorageTask -> compressed ring buffer -> DecoderTask -> PCM ring buffer
 
 The ESP32 owns file enumeration, storage reads, MP3/WAV decoding, buffering, playback state, I2S output, buttons, UI, settings, diagnostics, and power policy. Nightwave does not use DFPlayer or another module that hides the storage/decode/playback pipeline.
 
+The bench prototype uses an available MAX98357A breakout as a functional speaker-path proxy; the provisional final-board selection is MAX98360C.
+
 ## Current implementation
 
 - repository and required engineering-document structure;
@@ -34,6 +36,7 @@ The ESP32 owns file enumeration, storage reads, MP3/WAV decoding, buffering, pla
 - datasheet-backed provisional component comparison, BOM, pin budget, power tree, risk register, prototype plan, and decoder study;
 - ESP-IDF 6.1 C++ firmware skeleton with typed interfaces for state, events, playback commands, audio data, storage, decoding, I2S, input, UI, power, settings, and diagnostics;
 - CI definition for an ESP32-S3 firmware build.
+- exact Phase 2 prototype BOM, pin-by-pin wiring table, voltage/current plan, deterministic test-media generator, and staged bring-up checklist.
 
 The skeleton does **not** yet mount an SD card, decode audio, drive I2S, render a display, or prove any physical subsystem. Those behaviors begin with the bench prototype in Phase 2 onward.
 
@@ -59,6 +62,10 @@ The development baseline is `ESP32-S3-DevKitC-1-N8R8`; the provisional final mod
 - [Pin budget](docs/pin-budget.md)
 - [Power tree](docs/power-tree.md)
 - [Prototype plan](docs/prototype-plan.md)
+- [Prototype BOM](hardware/prototype-BOM.csv)
+- [Prototype wiring](docs/prototype-wiring.md)
+- [Prototype bring-up checklist](docs/prototype-bringup.md)
+- [Deterministic test media](docs/test-tracks.md)
 - [Risk register](docs/risks.md)
 - [Preliminary BOM](hardware/BOM.csv)
 - [AI disclosure](docs/ai-disclosure.md)

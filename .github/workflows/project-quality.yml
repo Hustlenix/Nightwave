@@ -1,0 +1,31 @@
+name: Project quality
+
+on:
+  push:
+    paths:
+      - "docs/**"
+      - "hardware/*.csv"
+      - "tools/**"
+      - ".github/workflows/project-quality.yml"
+      - "firmware/components/app_state/include/nightwave/hardware_config.h"
+  pull_request:
+    paths:
+      - "docs/**"
+      - "hardware/*.csv"
+      - "tools/**"
+      - ".github/workflows/project-quality.yml"
+      - "firmware/components/app_state/include/nightwave/hardware_config.h"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Validate BOMs and wiring consistency
+        run: python3 tools/validate_project.py
+      - name: Generate deterministic audio fixtures
+        run: python3 tools/generate_test_media.py --output .generated/test-media

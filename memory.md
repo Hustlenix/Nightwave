@@ -10,11 +10,7 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
-Begin Phase 0, then Phase 1:
-- verify current Pixl/Trial rules;
-- initialize/inspect repo and tracking;
-- research and lock the architecture;
-- do not order the final PCB yet.
+Complete the digital preparation for Phase 2, then stop at the physical prototype gate. Do not order a final PCB, connect a lithium battery, fabricate measurements, or infer breakout pinouts.
 
 ## Finalized product decisions
 
@@ -54,7 +50,7 @@ Begin Phase 0, then Phase 1:
 
 - PCM5102A stereo DAC.
 - TPA6132A2 or equivalent headphone amplifier.
-- MAX98357A or equivalent I²S speaker amplifier.
+- MAX98360C provisional final I²S speaker amplifier; MAX98357A documented prototype proxy.
 - BQ24074/BQ25185-class charger/power-path IC.
 - MAX17048-class fuel gauge.
 
@@ -177,7 +173,7 @@ Engineering target is >=10 hours speaker playback and >=12 hours headphone playb
 
 ## Current implementation status
 
-Phase 0 and the digital portion of Phase 1 were completed on 2026-09-29/30.
+Phase 0, the digital portion of Phase 1, and the digital preparation for Phase 2 were completed on 2026-09-29/30.
 
 - The live Pixl project 1200 and current public Trial, hardware, ship, energy, and first-project pages were checked. The Trial is a physical local-file music player; Nightwave's eight-hour acceptance target is an internal requirement, not quoted Pixl wording.
 - Hackatime configuration and the installed editor extension were detected without exposing or changing the API key. Attribution to the new repository still requires a genuine human editor heartbeat and Pixl-link verification.
@@ -185,18 +181,20 @@ Phase 0 and the digital portion of Phase 1 were completed on 2026-09-29/30.
 - Phase 1 artifacts now include source-linked research, a provisional component matrix, pin budget, power tree, task/buffer architecture, decoder study, preliminary BOM, risks, and prototype plan.
 - The selected final-board direction is ESP32-S3-WROOM-1-N16R8, 1-bit SDMMC, PCM5102A plus TPA6132A2 for headphones, MAX98360C for the speaker, BQ25185 power-path charging, TPS63802 3.3 V buck-boost regulation, and MAX17048 fuel gauging. These selections remain provisional until schematic review and bench validation.
 - A compile-oriented ESP-IDF interface scaffold exists; it deliberately starts no hardware drivers and claims no playback behavior.
+- Phase 2 now has an exact prototype BOM, supplier alternatives, machine-readable pin-by-pin wiring, voltage-domain/current-planning tables, deterministic WAV generator, MP3 conversion recipe, and staged bring-up checklist.
+- Repository checks cross-validate the prototype wiring against firmware GPIO constants. This caught and corrected swapped playback and volume button constants before physical wiring.
+- The priced portion of the prototype BOM is USD 67.60. It excludes the unavailable/unpriced TPA6132A2EVM2, builder-supplied microSD/headphones/test equipment, tax, and shipping.
 
 No physical prototype, purchased final parts, measured runtime, finished schematic/PCB, enclosure, demo, submission, funding approval, or Pixl tier is claimed.
 
 ## Next recommended action
 
-HUMAN GATE before Phase 2:
-1. open this repository in the normally tracked editor and make a small genuine human edit;
-2. wait for Hackatime to show the resulting Nightwave project and verify it is linked to Pixl project 1200;
-3. confirm access to the listed prototype modules, protected LiPo, speaker, headphones, microSD card, bench supply/current measurement, and basic soldering tools;
-4. return the displayed Hackatime project/status and any unavailable hardware.
-
-After that gate, build and measure the modular audio proof: SD read, MP3/WAV decode, I2S DAC/headphones, I2S speaker amplifier, jack detection/output switching, charge-while-play behavior, and current draw.
+HUMAN GATE before board-specific Phase 3 firmware:
+1. make a genuine human edit in the tracked editor, verify the resulting Hackatime project, and link it to Pixl project 1200;
+2. review/approve the Phase 1 architecture and confirm understanding of direct SD, software decoding, buffering, I²S, the separate headphone/speaker paths, and charger/fuel-gauge roles;
+3. obtain the exact parts in `hardware/prototype-BOM.csv` or report substitutions before wiring;
+4. return clear photos of both sides of every module, the DevKitC revision, microSD and headphone models, power-source/test-equipment details, and unavailable parts;
+5. only after wiring review, follow `docs/prototype-bringup.md` without a lithium battery and return logs/measurements.
 
 ## Session-start instruction for ChatGPT Work
 

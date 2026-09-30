@@ -1,0 +1,33 @@
+Signal,DevKit_Pin,Destination,Destination_Pin,Voltage_Domain,Direction_From_ESP,Bringup_Stage,Notes
+GROUND,GND,All modules,GND,0 V,Power,All,One common ground; power off before rewiring
+SD_POWER,3V3,SparkFun BOB-00544,VCC,3.3 V,Power,SD,Never apply 5 V
+SD_CLK,GPIO12,SparkFun BOB-00544,CLK,3.3 V,Output,SD,Keep short; no pull-up on clock
+SD_CMD,GPIO11,SparkFun BOB-00544,CMD,3.3 V,Bidirectional,SD,10 kohm pull-up to 3V3
+SD_D0,GPIO13,SparkFun BOB-00544,DAT0,3.3 V,Bidirectional,SD,10 kohm pull-up to 3V3
+SD_D1,NC,SparkFun BOB-00544,DAT1,3.3 V,Not connected,SD,10 kohm pull-up to 3V3 even in 1-bit mode
+SD_D2,NC,SparkFun BOB-00544,DAT2,3.3 V,Not connected,SD,10 kohm pull-up to 3V3 even in 1-bit mode
+SD_D3,NC,SparkFun BOB-00544,CD/DAT3,3.3 V,Not connected,SD,This is DAT3 not a mechanical card-detect pin; use 10 kohm pull-up
+I2S_BCLK_DAC,GPIO5,Adafruit PCM5102 6250,BCLK,3.3 V,Output,DAC,Shared I2S clock
+I2S_LRCLK_DAC,GPIO6,Adafruit PCM5102 6250,WSEL,3.3 V,Output,DAC,Shared word-select clock
+I2S_DOUT_DAC,GPIO7,Adafruit PCM5102 6250,DIN,3.3 V,Output,DAC,Shared I2S data
+DAC_POWER,3V3,Adafruit PCM5102 6250,VIN,3.3 V,Power,DAC,Board accepts 3 to 5 V; use 3.3 V for this prototype
+DAC_MUTE,GPIO18,Adafruit PCM5102 6250,MUTE,3.3 V,Output,DAC,Confirm breakout polarity before first drive; hold muted during reconfiguration
+HEADPHONE_LEFT,NA,Adafruit PCM5102 6250 L output,TPA6132A2EVM2 INL,Analog,Analog,Headphone,Shunt JP1 for single-ended input
+HEADPHONE_RIGHT,NA,Adafruit PCM5102 6250 R output,TPA6132A2EVM2 INR,Analog,Analog,Headphone,Shunt JP2 for single-ended input
+HEADPHONE_POWER,3V3,TPA6132A2EVM2,VDD,3.3 V,Power,Headphone,EVM guide permits 2.5 to 5.5 V; connect ground before VDD
+HEADPHONE_LOAD,NA,TPA6132A2EVM2,3.5 mm output,Analog,Output,Headphone,Set gain to 0 dB and digital volume to zero before insertion
+I2S_BCLK_SPK,GPIO5,Adafruit MAX98357A 3006,BCLK,3.3 V,Output,Speaker,Shared I2S clock
+I2S_LRCLK_SPK,GPIO6,Adafruit MAX98357A 3006,LRC,3.3 V,Output,Speaker,Shared word-select clock
+I2S_DOUT_SPK,GPIO7,Adafruit MAX98357A 3006,DIN,3.3 V,Output,Speaker,Shared I2S data
+SPK_ENABLE,GPIO17,Adafruit MAX98357A 3006,SD,3.3 V,Output,Speaker,Start low; high enables the board in its default mono-mix mode
+SPK_POWER,5V,Adafruit MAX98357A 3006,VIN,5 V,Power,Speaker,Prefer separately current-limited 5 V source with common ground during first power test
+SPK_OUTPUT_POS,NA,Adafruit MAX98357A 3006,+,BTL,Output,Speaker,Connect only to speaker positive lead
+SPK_OUTPUT_NEG,NA,Adafruit MAX98357A 3006,-,BTL,Output,Speaker,Connect only to speaker negative lead; never connect to ground
+OLED_POWER,3V3,Adafruit OLED 938,VIN,3.3 V,Power,UI,Breakout accepts higher input but use 3.3 V
+I2C_SDA,GPIO8,Adafruit OLED 938,DATA/SDA,3.3 V,Bidirectional,UI,Default I2C address should be verified by scan
+I2C_SCL,GPIO9,Adafruit OLED 938,CLK/SCL,3.3 V,Output,UI,Begin at 100 kHz
+BTN_PREV,GPIO1,Button PREVIOUS,Other terminal to GND,3.3 V,Input,Input,Use internal pull-up and software debounce
+BTN_PLAY,GPIO2,Button PLAY/PAUSE,Other terminal to GND,3.3 V,Input,Input,Use internal pull-up and software debounce
+BTN_NEXT,GPIO4,Button NEXT,Other terminal to GND,3.3 V,Input,Input,Use internal pull-up and software debounce
+BTN_VOL_DOWN,GPIO10,Button VOLUME DOWN,Other terminal to GND,3.3 V,Input,Input,Use internal pull-up and software debounce
+BTN_VOL_UP,GPIO15,Button VOLUME UP,Other terminal to GND,3.3 V,Input,Input,Use internal pull-up and software debounce

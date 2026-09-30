@@ -21,16 +21,18 @@ Lithium power is deliberately excluded from the first audio proof. Use USB/bench
 
 ## Candidate prototype parts
 
+The exact dated order list is [`hardware/prototype-BOM.csv`](../hardware/prototype-BOM.csv), the connection table is [`hardware/prototype-wiring.csv`](../hardware/prototype-wiring.csv), and the staged procedure is [`prototype-bringup.md`](prototype-bringup.md).
+
 | Subsystem | Candidate | Voltage/interface | What it proves | What it does not prove |
 |---|---|---|---|---|
 | MCU | ESP32-S3-DevKitC-1-N8R8 | USB 5 V; 3.3 V GPIO | toolchain, PSRAM, tasks, GPIO, I2S/SD timing | final power/layout/antenna/size |
-| storage | quality microSD breakout with direct 3.3 V pins and card detect | SDMMC 1-bit or SDSPI fallback | mount/read/latency/removal | final socket footprint and signal integrity |
-| DAC | PCM5102A breakout | shared I2S, 3.3/5 V per exact board | stereo DAC clocks and line audio | custom analog layout/noise |
-| headphone amp | TPA6132A2 EVM or documented compatible breakout | analog stereo | safe headphone drive, gain, mute/pops | final QFN layout/ESD/jack detect |
-| speaker amp | MAX98357A breakout | shared I2S, 5 V | mono mix/channel mode, speaker playback | final MAX98360C package/EMI/layout |
-| display | exact 1.3 in SH1106 module | I2C 3.3 V logic | UI scheduling/readability | final vendor/connector/current |
+| storage | SparkFun BOB-00544 raw 3.3 V socket plus five 10 kΩ pull-ups | SDMMC 1-bit | mount/read/latency | no mechanical card detect; final socket/removal behavior |
+| DAC | Adafruit 6250 PCM5102 breakout | shared I2S, 3.3 V | stereo DAC clocks and line audio | custom analog layout/noise |
+| headphone amp | TI TPA6132A2EVM2 | analog stereo, 3.3 V | safe headphone drive, gain, mute/pops | final QFN layout/ESD/jack detect; procurement remains gated |
+| speaker amp | Adafruit 3006 MAX98357A breakout | shared I2S, 5 V | mono mix/channel mode, speaker playback | final MAX98360C package/EMI/layout |
+| display | Adafruit 938 1.3 in SSD1306 breakout | I2C 3.3 V | UI scheduling/readability | final SH1106 vendor/connector/current |
 | controls | five momentary buttons | GPIO to GND with pulls | debounce/UX event model | final switch height/ergonomics |
-| speaker | CMS-28528N-L152 or available 8 Ω bench substitute | differential Class-D | load/audio/acoustic experiments | final cavity and grille |
+| speaker | Adafruit 6486 8 Ω/2 W bench speaker | differential Class-D | load/audio/acoustic experiments | final CMS-28528N-L152 cavity and grille |
 
 ## Bring-up sequence
 

@@ -29,7 +29,7 @@ Audio output task
   │ I²S DMA
   ├──────────────────────┐
   ▼                      ▼
-PCM5102A               MAX98357A
+PCM5102A               MAX98360C
 stereo DAC             mono Class-D
   │                      │
   ▼                      ▼
@@ -380,7 +380,7 @@ The DAC line output MUST NOT be assumed safe for arbitrary low-impedance headpho
 ESP32-S3 I²S
    │
    ▼
-MAX98357A-class Class-D
+MAX98360C-class Class-D
    │ differential speaker output
    ▼
 4–8 ohm speaker

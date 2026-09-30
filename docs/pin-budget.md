@@ -36,7 +36,7 @@ Source: [ESP32-S3 GPIO documentation](https://docs.espressif.com/projects/esp-id
 | HP_ENABLE | GPIO | 18 | Out | No | No | headphone path enable | PROVISIONAL |
 | DISPLAY_RESET | GPIO | 40 | Out | No | No | deterministic OLED reset if required | PROVISIONAL |
 
-Prototype breakouts may force different pins; any variant must live in one board configuration and preserve the reserved list.
+Prototype breakouts may force different pins; any variant must live in one board configuration and preserve the reserved list. The exact Phase 2 wiring package keeps this map except that SparkFun BOB-00544 has no mechanical card-detect switch, so GPIO14 is deliberately unwired. ESP32-S3-DevKitC-1 v1.1 also uses GPIO38 for its onboard RGB LED, so the final-board `POWER_HOLD` assignment is not used on the development board.
 
 ## Final Board Provisional Pin Map
 
