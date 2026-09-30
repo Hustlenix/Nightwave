@@ -10,7 +10,7 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
-Complete the digital preparation for Phase 2, then stop at the physical prototype gate. Do not order a final PCB, connect a lithium battery, fabricate measurements, or infer breakout pinouts.
+Complete and validate the Phase 3 firmware foundation, then stop at the physical prototype gate. Do not order a final PCB, connect a lithium battery, fabricate measurements, or infer breakout pinouts.
 
 ## Finalized product decisions
 
@@ -173,28 +173,32 @@ Engineering target is >=10 hours speaker playback and >=12 hours headphone playb
 
 ## Current implementation status
 
-Phase 0, the digital portion of Phase 1, and the digital preparation for Phase 2 were completed on 2026-09-29/30.
+Phase 0, the digital portion of Phase 1, the digital preparation for Phase 2, and the first Phase 3 firmware implementation were completed on 2026-09-29/30.
 
 - The live Pixl project 1200 and current public Trial, hardware, ship, energy, and first-project pages were checked. The Trial is a physical local-file music player; Nightwave's eight-hour acceptance target is an internal requirement, not quoted Pixl wording.
 - Hackatime configuration and the installed editor extension were detected without exposing or changing the API key. Attribution to the new repository still requires a genuine human editor heartbeat and Pixl-link verification.
 - The public GitHub repository is `https://github.com/Hustlenix/Nightwave`; `main` has meaningful milestone commits and its ESP-IDF 6.1 CI build passes.
 - Phase 1 artifacts now include source-linked research, a provisional component matrix, pin budget, power tree, task/buffer architecture, decoder study, preliminary BOM, risks, and prototype plan.
 - The selected final-board direction is ESP32-S3-WROOM-1-N16R8, 1-bit SDMMC, PCM5102A plus TPA6132A2 for headphones, MAX98360C for the speaker, BQ25185 power-path charging, TPS63802 3.3 V buck-boost regulation, and MAX17048 fuel gauging. These selections remain provisional until schematic review and bench validation.
-- A compile-oriented ESP-IDF interface scaffold exists; it deliberately starts no hardware drivers and claims no playback behavior.
+- The Phase 1 interface scaffold has been replaced by ESP-IDF components for safe-muted startup, chip/reset/heap/PSRAM diagnostics, debounced buttons, 1-bit SDMMC mount/enumeration/benchmarking, I2S DMA, a low-level ramped tone, robust WAV parsing, and two-task buffered WAV playback with underrun telemetry.
+- Portable host tests cover generated WAV media, RIFF chunk/error parsing, ring behavior, volume, overflow-safe stereo-to-mono mixing, debounce, and playback state. The ESP-IDF build and host suite are CI gates.
+- The PCM ring holds 16,384 usable stereo frames (341 ms at 48 kHz); that is an unmeasured starting value documented in `docs/audio-buffer-analysis.md`.
+- The Adafruit 6309 TLV320DAC3100 breakout is the provisional bench headphone alternative because the TI TPA6132A2EVM2 remains unavailable for direct order. This does not change the provisional final PCM5102A + TPA6132A2 architecture.
 - Phase 2 now has an exact prototype BOM, supplier alternatives, machine-readable pin-by-pin wiring, voltage-domain/current-planning tables, deterministic WAV generator, MP3 conversion recipe, and staged bring-up checklist.
 - Repository checks cross-validate the prototype wiring against firmware GPIO constants. This caught and corrected swapped playback and volume button constants before physical wiring.
-- The priced portion of the prototype BOM is USD 67.60. It excludes the unavailable/unpriced TPA6132A2EVM2, builder-supplied microSD/headphones/test equipment, tax, and shipping.
+- The captured priced subtotal is USD 74.55 including the optional Adafruit 6309 headphone alternative. It excludes the unavailable/unpriced TPA6132A2EVM2, builder-supplied microSD/headphones/test equipment, tax, and shipping.
 
 No physical prototype, purchased final parts, measured runtime, finished schematic/PCB, enclosure, demo, submission, funding approval, or Pixl tier is claimed.
 
 ## Next recommended action
 
-HUMAN GATE before board-specific Phase 3 firmware:
+HUMAN GATE for Phase 3 bench evidence:
 1. make a genuine human edit in the tracked editor, verify the resulting Hackatime project, and link it to Pixl project 1200;
 2. review/approve the Phase 1 architecture and confirm understanding of direct SD, software decoding, buffering, I²S, the separate headphone/speaker paths, and charger/fuel-gauge roles;
-3. obtain the exact parts in `hardware/prototype-BOM.csv` or report substitutions before wiring;
+3. obtain the exact parts in `hardware/prototype-BOM.csv` or report substitutions before wiring; no purchase has been authorized by the repository work;
 4. return clear photos of both sides of every module, the DevKitC revision, microSD and headphone models, power-source/test-equipment details, and unavailable parts;
-5. only after wiring review, follow `docs/prototype-bringup.md` without a lithium battery and return logs/measurements.
+5. only after wiring review, follow `docs/phase3-firmware-bringup.md` and `docs/prototype-bringup.md` without a lithium battery and return logs/measurements;
+6. do not begin MP3 integration until real WAV playback is stable and its SD/underrun evidence is understood.
 
 ## Session-start instruction for ChatGPT Work
 

@@ -85,8 +85,14 @@ def validate_required_files() -> None:
         "docs/prototype-wiring.md",
         "docs/prototype-bringup.md",
         "docs/test-tracks.md",
+        "docs/headphone-prototype-options.md",
+        "docs/audio-buffer-analysis.md",
+        "docs/mp3-integration-plan.md",
+        "docs/phase3-firmware-bringup.md",
         "hardware/prototype-BOM.csv",
         "hardware/prototype-wiring.csv",
+        "measurements/audio-prototype.csv",
+        "measurements/current-draw.csv",
         "tools/generate_test_media.py",
     ]
     missing = [path for path in required if not (ROOT / path).is_file()]

@@ -61,7 +61,7 @@ For the TI TPA6132A2EVM2:
 - begin with the source muted and digital volume at zero;
 - connect headphones only to the EVM output jack.
 
-The official EVM guide permits 2.5–5.5 V and documents those jumper settings. If the EVM cannot be obtained, stop headphone validation at the PCM5102 line output. Do not replace it with an unidentified marketplace module. An open MIT breakout is recorded as a fabrication alternative, but it requires separate schematic and assembly review.
+The official EVM guide permits 2.5–5.5 V and documents those jumper settings. Do not replace it with an unidentified marketplace module. `docs/headphone-prototype-options.md` selects the documented Adafruit 6309 TLV320DAC3100 breakout as a provisional separate headphone-test path; it requires its own reviewed wiring and ESP-IDF I2C driver and does not validate the PCM5102 plus TPA6132A2 chain. An open MIT TPA6132A2 breakout remains a fabrication alternative only after schematic and assembly review.
 
 ## Speaker signal path
 
