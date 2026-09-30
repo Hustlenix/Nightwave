@@ -6,7 +6,8 @@ namespace nightwave {
 
 class ButtonDebouncer {
   public:
-    explicit ButtonDebouncer(std::uint32_t debounce_ms = 25)
+    ButtonDebouncer() = default;
+    explicit ButtonDebouncer(std::uint32_t debounce_ms)
         : debounce_ms_(debounce_ms) {}
 
     bool update(bool raw_pressed, std::uint32_t now_ms) {

@@ -8,6 +8,7 @@
 #include "esp_system.h"
 #include "esp_timer.h"
 #include "esp_idf_version.h"
+#include "esp_flash.h"
 
 namespace nightwave {
 namespace {
@@ -19,6 +20,8 @@ void log_boot_diagnostics() {
     esp_chip_info(&chip);
     const esp_app_desc_t* app = esp_app_get_description();
     const auto psram_bytes = esp_psram_is_initialized() ? esp_psram_get_size() : 0;
+    std::uint32_t flash_bytes = 0;
+    if (esp_flash_get_size(nullptr, &flash_bytes) != ESP_OK) flash_bytes = 0;
 
     ESP_LOGI(kTag, "BOOT OK");
     ESP_LOGI(kTag, "project=%s version=%s idf=%s", app->project_name,
@@ -26,7 +29,7 @@ void log_boot_diagnostics() {
     ESP_LOGI(kTag,
              "target=ESP32-S3 revision=%d cores=%d flash=%luMB reset_reason=%d",
              chip.revision, chip.cores,
-             static_cast<unsigned long>(chip.flash_size / (1024U * 1024U)),
+             static_cast<unsigned long>(flash_bytes / (1024U * 1024U)),
              static_cast<int>(esp_reset_reason()));
     ESP_LOGI(kTag, "heap_free=%lu heap_min=%lu psram=%lu",
              static_cast<unsigned long>(heap_caps_get_free_size(MALLOC_CAP_8BIT)),
