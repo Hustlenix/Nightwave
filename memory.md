@@ -192,6 +192,22 @@ No physical prototype, purchased final parts, measured runtime, finished schemat
 
 ## Next recommended action
 
+### Phase 4 request audit, 2026-09-30
+
+The new Phase 4 request requires physical Phase 3 evidence before entry. Audit
+found no device logs, build photos, or audio measurement rows. Phase 4 has not
+started. MP3 remains unimplemented and awaits physical WAV evidence.
+
+Independent Phase 3 preflight repairs move the 4 KiB read buffer off its 4 KiB
+task stack, gate task startup until both workers exist, cancel the producer on
+audio failure, and wait for producer cleanup before advertising idle. A stop
+timeout retains live resources and refuses a new track. Short reads now cancel
+with an error. Flash defaults match the documented N8R8 baseline (8 MB).
+
+`docs/audio-validation.md` records the gate and exact evidence handoff. New
+underrun and memory-stability CSVs contain headers only. Runtime concurrency,
+audio correctness, stack adequacy, and stability are still physically unverified.
+
 HUMAN GATE for Phase 3 bench evidence:
 1. make a genuine human edit in the tracked editor, verify the resulting Hackatime project, and link it to Pixl project 1200;
 2. review/approve the Phase 1 architecture and confirm understanding of direct SD, software decoding, buffering, I²S, the separate headphone/speaker paths, and charger/fuel-gauge roles;

@@ -2,6 +2,10 @@
 
 This is the exact current digital handoff. The firmware builds for ESP32-S3 in CI, but no physical command below has been run on the user's hardware yet.
 
+See `docs/audio-validation.md` for the Phase 4 entry audit and prerequisite
+repairs. Use the repaired build for the first WAV bench test. On the N8R8
+baseline, verify 8 MB flash in menuconfig if reusing an older sdkconfig.
+
 ## Build and flash
 
 Use ESP-IDF 6.1 and the USB-to-UART connector on the confirmed `ESP32-S3-DevKitC-1-N8R8`:
@@ -82,7 +86,11 @@ status
 
 The parser accepts RIFF/WAVE PCM, 16-bit mono/stereo, and 22.05/32/44.1/48 kHz; it skips bounded unknown chunks and rejects inconsistent/truncated files. Playback uses a storage task, a 16,384-frame PCM ring, an audio task, and I2S DMA. Any `AUDIO UNDERRUN` line is a test failure to investigate, not a message to hide.
 
-Use `stop` to cancel and force both output controls low. Do not remove the card during playback until removal recovery has been implemented and tested.
+Use `stop` to request cancellation. Normal cleanup mutes and stops I2S after
+the producer closes its file. If `STOP PENDING` appears, cleanup has not finished;
+the player retains live resources and refuses another track. Capture the log
+and retry `status`/`stop`; do not remove the card or start a new hardware test.
+Card removal recovery has not been implemented or tested.
 
 ## Evidence to return
 

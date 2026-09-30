@@ -15,7 +15,8 @@ class WavPlayer {
   public:
     bool start(const char* path, I2sAudioSink& sink, OutputPath output,
                std::uint8_t volume_percent);
-    void stop();
+    // False means a worker is still exiting; retain its resources and retry.
+    bool stop();
     bool playing() const { return playing_.load(); }
     std::uint32_t underruns() const { return underruns_.load(); }
     std::uint32_t errors() const { return errors_.load(); }
@@ -32,6 +33,8 @@ class WavPlayer {
     void audio_task();
 
     std::array<StereoFrame, kRingSlots> ring_storage_{};
+    // ESP-IDF task stack sizes are bytes. Keep the 4 KiB read block off-stack.
+    std::array<std::uint8_t, kReadBytes> read_buffer_{};
     PcmRingBuffer<StereoFrame> ring_{ring_storage_.data(), ring_storage_.size()};
     WavInfo info_{};
     std::FILE* file_{nullptr};
@@ -43,8 +46,6 @@ class WavPlayer {
     std::atomic<bool> playing_{false};
     std::atomic<std::uint32_t> underruns_{0};
     std::atomic<std::uint32_t> errors_{0};
-    void* storage_task_handle_{nullptr};
-    void* audio_task_handle_{nullptr};
 };
 
 }  // namespace nightwave

@@ -138,8 +138,9 @@ void execute_command(char* line) {
             ESP_LOGE(kTag, "usage: wav <speaker|line> </sdcard/file.wav>");
         }
     } else if (std::strcmp(command, "stop") == 0) {
-        g_player.stop();
-        g_audio.stop();
+        if (!g_player.stop()) {
+            ESP_LOGW(kTag, "stop still pending; retain hardware and retry status/stop");
+        }
     } else if (std::strcmp(command, "status") == 0) {
         const auto status = nightwave::capture_diagnostics(
             g_player.underruns(), g_storage.errors(), g_player.errors(),

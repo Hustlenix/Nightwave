@@ -99,8 +99,10 @@ bool WavPlayer::start(const char* path, I2sAudioSink& sink, OutputPath output,
         ++errors_;
         return false;
     }
-    storage_task_handle_ = storage_handle;
-    audio_task_handle_ = audio_handle;
+    // Workers wait for notification so partial task creation cannot race
+    // rollback (including fclose and I2S teardown).
+    xTaskNotifyGive(storage_handle);
+    xTaskNotifyGive(audio_handle);
     ESP_LOGI(kTag,
              "WAV START rate=%lu source_channels=%u data_bytes=%llu unknown_chunks=%lu volume=%u",
              static_cast<unsigned long>(info_.format.sample_rate_hz),
@@ -110,12 +112,16 @@ bool WavPlayer::start(const char* path, I2sAudioSink& sink, OutputPath output,
     return true;
 }
 
-void WavPlayer::stop() {
+bool WavPlayer::stop() {
     stop_requested_.store(true);
     for (int attempt = 0; attempt < 100 && playing(); ++attempt) {
         vTaskDelay(pdMS_TO_TICKS(10));
     }
-    if (sink_ != nullptr) sink_->stop();
+    if (playing()) {
+        ESP_LOGE(kTag, "STOP PENDING: worker cleanup incomplete; track restart refused");
+        return false;
+    }
+    return true;
 }
 
 std::uint32_t WavPlayer::queue_depth_ms() const {
@@ -125,15 +131,17 @@ std::uint32_t WavPlayer::queue_depth_ms() const {
 }
 
 void WavPlayer::storage_task_entry(void* context) {
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
     static_cast<WavPlayer*>(context)->storage_task();
 }
 
 void WavPlayer::audio_task_entry(void* context) {
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
     static_cast<WavPlayer*>(context)->audio_task();
 }
 
 void WavPlayer::storage_task() {
-    std::array<std::uint8_t, kReadBytes> bytes{};
+    auto& bytes = read_buffer_;
     std::uint64_t remaining = info_.data_size;
     while (!stop_requested_.load() && remaining > 0) {
         const std::size_t wanted = static_cast<std::size_t>(
@@ -141,8 +149,11 @@ void WavPlayer::storage_task() {
         const std::size_t aligned = wanted - (wanted % info_.block_align);
         if (aligned == 0) break;
         const std::size_t received = std::fread(bytes.data(), 1, aligned, file_);
-        if (received == 0) {
-            if (std::ferror(file_)) ++errors_;
+        if (received != aligned) {
+            ++errors_;
+            stop_requested_.store(true);
+            ESP_LOGE(kTag, "WAV read incomplete: requested=%u received=%u",
+                     static_cast<unsigned>(aligned), static_cast<unsigned>(received));
             break;
         }
         remaining -= received;
@@ -163,8 +174,10 @@ void WavPlayer::storage_task() {
     }
     std::fclose(file_);
     file_ = nullptr;
+    ESP_LOGI(kTag, "STORAGE EXIT stack_free_min_bytes=%u",
+             static_cast<unsigned>(uxTaskGetStackHighWaterMark(nullptr)));
+    // Last publication: after this store the producer never touches track data.
     source_done_.store(true);
-    storage_task_handle_ = nullptr;
     vTaskDelete(nullptr);
 }
 
@@ -201,15 +214,23 @@ void WavPlayer::audio_task() {
         block.format.channel_count = 2;
         if (sink_->write(block) != AudioSinkStatus::kAccepted) {
             ++errors_;
+            // Stop the producer before it can block forever on a full ring.
+            stop_requested_.store(true);
             break;
         }
     }
+    // The audio worker owns I2S teardown. Do not advertise idle until the
+    // producer has closed the file and stopped accessing the ring/config.
+    while (!source_done_.load()) {
+        vTaskDelay(pdMS_TO_TICKS(1));
+    }
     sink_->stop();
-    playing_.store(false);
-    audio_task_handle_ = nullptr;
     ESP_LOGI(kTag, "WAV STOP underruns=%lu errors=%lu",
              static_cast<unsigned long>(underruns_.load()),
              static_cast<unsigned long>(errors_.load()));
+    ESP_LOGI(kTag, "AUDIO EXIT stack_free_min_bytes=%u",
+             static_cast<unsigned>(uxTaskGetStackHighWaterMark(nullptr)));
+    playing_.store(false);
     vTaskDelete(nullptr);
 }
 
