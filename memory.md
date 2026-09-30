@@ -208,6 +208,10 @@ with an error. Flash defaults match the documented N8R8 baseline (8 MB).
 underrun and memory-stability CSVs contain headers only. Runtime concurrency,
 audio correctness, stack adequacy, and stability are still physically unverified.
 
+Preflight repair commit `ce48169` passed Firmware CI (run `36750836556`) and
+Project quality CI (run `36750836808`, including portable host tests). Local
+project validation and whitespace checks passed. No physical test was run.
+
 HUMAN GATE for Phase 3 bench evidence:
 1. make a genuine human edit in the tracked editor, verify the resulting Hackatime project, and link it to Pixl project 1200;
 2. review/approve the Phase 1 architecture and confirm understanding of direct SD, software decoding, buffering, I²S, the separate headphone/speaker paths, and charger/fuel-gauge roles;

@@ -23,6 +23,12 @@ build/host-test health, not physical playback.
 
 ## Phase 3 preflight repairs
 
+Repair commit: `ce4816965049b92f5cea02e8bdfb664f8803ce6f`.
+Both [Firmware CI](https://github.com/Hustlenix/Nightwave/actions/runs/36750836556)
+and [Project quality CI](https://github.com/Hustlenix/Nightwave/actions/runs/36750836808)
+passed for that commit. Project quality ran the portable host-test executable
+successfully. These checks do not exercise FreeRTOS worker lifetimes on a device.
+
 Source inspection before the bench handoff found prerequisite defects:
 
 - A 4096-byte automatic read array occupied a task with a 4096-byte stack.
