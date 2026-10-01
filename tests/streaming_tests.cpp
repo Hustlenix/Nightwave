@@ -115,6 +115,7 @@ int main(int argc, char** argv) {
         CHECK(!player->start(argv[1], sink, OutputPath::kLine, 8));
         player->pause(true); CHECK(player->paused());
         player->pause(false); CHECK(!player->paused());
+        player->set_output(OutputPath::kSpeaker); player->set_output(OutputPath::kLine);
         CHECK(player->stop()); join_all(); CHECK(muted && !player->playing());
     }
     CHECK(player->start(argv[1], sink, OutputPath::kLine, 8));
@@ -122,8 +123,10 @@ int main(int argc, char** argv) {
     player->pause(true);
     CHECK(await([] { return muted.load(); }));
     const auto paused_writes = writes.load();
+    const auto paused_position = player->position_ms();
     std::this_thread::sleep_for(std::chrono::milliseconds(5));
     CHECK(writes == paused_writes);
+    CHECK(player->position_ms() == paused_position);
     player->pause(false); CHECK(await([] { return !muted; }));
     fault = true; CHECK(await([&] { return !player->playing(); }));
     join_all(); CHECK(player->errors() > 0 && muted); fault = false;
@@ -138,7 +141,13 @@ int main(int argc, char** argv) {
         CHECK(player->start(argv[i], sink, OutputPath::kLine, 8));
         CHECK(await([&] { return !player->playing(); }));
         join_all(); CHECK(player->errors() == 0 && muted);
+        CHECK(player->position_ms() > 0);
+        CHECK(player->start(argv[i], sink, OutputPath::kLine, 8, 1000));
+        CHECK(player->position_ms() == 1000);
+        CHECK(await([&] { return !player->playing(); }));
+        join_all(); CHECK(player->errors() == 0 && player->position_ms() > 1000);
     }
+    CHECK(!player->start(argv[1], sink, OutputPath::kLine, 8, 1800001));
     GainRamp ramp;
     for (int i = 0; i < 1024; ++i) ramp.step(32767);
     CHECK(ramp.value() == 32767);

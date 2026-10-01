@@ -68,6 +68,11 @@ void print_help() {
         "  volume <0..100>               ramped digital volume\n"
         "  stop                          stop playback and mute outputs\n"
         "  status                        queue/underrun/error counters\n"
+        "  mode <normal|shuffle|all|track> playback sequence mode\n"
+        "  sleep <off|15|30|45|60|end>    ramp/stop/display sleep timer\n"
+        "  seek <milliseconds>           WAV seek / bounded MP3 decode-discard\n"
+        "  last                          explicit saved-track resume\n"
+        "  selftest                      JSON software/hardware availability\n"
         "  help                          show this text\n\n");
 }
 
@@ -158,6 +163,7 @@ void execute_command(char* line) {
         const auto output = parse_output(strtok_r(nullptr, " \r\n", &context));
         const char* path = strtok_r(nullptr, "\r\n", &context);
         while (path != nullptr && *path == ' ') ++path;
+        g_frontend.stopped(); // Console playback has no folder auto-advance queue.
         if (output == nightwave::OutputPath::kMuted || path == nullptr ||
             !g_storage.mount() || !g_player.start(path, g_audio, output, 8)) {
             ESP_LOGE(kTag, "usage: play <speaker|line> </sdcard/file.wav|mp3>");
@@ -173,9 +179,32 @@ void execute_command(char* line) {
         if (value) g_frontend.volume(static_cast<std::uint8_t>(
             std::clamp(std::atoi(value), 0, 100)), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
     } else if (std::strcmp(command, "stop") == 0) {
+        g_frontend.stopped();
         if (!g_player.stop()) {
             ESP_LOGW(kTag, "stop still pending; retain hardware and retry status/stop");
         }
+    } else if (std::strcmp(command, "last") == 0) {
+        if (!g_storage.mount() || !g_frontend.resume_saved()) ESP_LOGW(kTag, "saved-track resume unavailable/invalid");
+    } else if (std::strcmp(command, "seek") == 0) {
+        const char* value = strtok_r(nullptr, " \r\n", &context);
+        char* end = nullptr;
+        const unsigned long position = value ? std::strtoul(value, &end, 10) : 1800001;
+        if (!value || end == value || *end || position > 1800000 || !g_frontend.seek_current(static_cast<std::uint32_t>(position))) ESP_LOGW(kTag, "seek requires 0..1800000 ms and an active queue track");
+    } else if (std::strcmp(command, "mode") == 0) {
+        const char* value = strtok_r(nullptr, " \r\n", &context);
+        if (value) {
+            const char* names[] = {"normal", "shuffle", "all", "track"};
+            for (unsigned i = 0; i < 4; ++i) if (!std::strcmp(value, names[i])) g_frontend.mode(static_cast<nightwave::PlaybackMode>(i), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
+        }
+    } else if (std::strcmp(command, "sleep") == 0) {
+        const char* value = strtok_r(nullptr, " \r\n", &context);
+        if (value) {
+            const char* names[] = {"off", "15", "30", "45", "60", "end"};
+            for (unsigned i = 0; i < 6; ++i) if (!std::strcmp(value, names[i])) g_frontend.sleep_timer(static_cast<nightwave::SleepMode>(i), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
+        }
+    } else if (std::strcmp(command, "selftest") == 0) {
+        std::printf("{\"type\":\"nightwave_selftest\",\"schema\":1,\"gpio_map_unique\":%s,\"storage_mounted\":%s,\"bluetooth\":\"architecture_pending\",\"battery\":\"unmeasured\",\"acoustic_output\":\"unverified\",\"physical_pass\":false}\n",
+            nightwave::hardware::pins_are_unique() ? "true" : "false", g_storage.mount() ? "true" : "false");
     } else if (std::strcmp(command, "status") == 0) {
         const auto status = nightwave::capture_diagnostics(
             g_player.underruns(), g_storage.errors(), g_player.errors(),
@@ -189,6 +218,9 @@ void execute_command(char* line) {
                  static_cast<unsigned long>(status.decode_errors),
                  static_cast<unsigned long>(status.minimum_free_heap_bytes));
         const auto t = g_player.telemetry();
+        std::printf("{\"type\":\"nightwave_stream\",\"schema\":1,\"position_ms\":%lu,\"pcm_ms\":%lu,\"encoded_bytes\":%lu,\"underruns\":%lu,\"errors\":%lu,\"sd_worst_us\":%lu,\"decode_worst_us\":%lu,\"bluetooth\":\"architecture_pending\",\"battery\":null}\n",
+            static_cast<unsigned long>(g_player.position_ms()), static_cast<unsigned long>(t.pcm_ms), static_cast<unsigned long>(t.compressed_bytes),
+            static_cast<unsigned long>(t.underruns), static_cast<unsigned long>(t.errors), static_cast<unsigned long>(t.sd_worst_us), static_cast<unsigned long>(t.decoder_worst_us));
         ESP_LOGI(kTag, "STREAM compressed=%lu sd_worst_us=%lu decode_worst_us=%lu stack_min_bytes=%lu/%lu/%lu",
             static_cast<unsigned long>(t.compressed_bytes), static_cast<unsigned long>(t.sd_worst_us),
             static_cast<unsigned long>(t.decoder_worst_us), static_cast<unsigned long>(t.storage_stack_bytes),

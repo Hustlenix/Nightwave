@@ -7,6 +7,8 @@
 #include "nightwave/storage.h"
 #include "nightwave/settings.h"
 #include "nightwave/button_monitor.h"
+#include "nightwave/media_documents.h"
+#include "nightwave/playback_policy.h"
 namespace nightwave {
 // Main/UiTask call these methods under one command mutex. I2S remains owned by
 // AudioOutputTask; this class only changes atomic controls or waits for stop.
@@ -21,11 +23,18 @@ class PlayerFrontend {
     void tick(std::uint32_t now);
     void track_started(const char* path);
     void volume(std::uint8_t value, std::uint32_t now);
+    void mode(PlaybackMode value, std::uint32_t now);
+    void sleep_timer(SleepMode value, std::uint32_t now) { sleep_.set(value, now); }
+    bool resume_saved();
+    bool seek_current(std::uint32_t position) { return play_queue(playing_index_, position); }
+    void stopped();
  private:
     struct Entry { std::array<char, 256> name{}; bool directory{false}; };
     bool scan();
     bool play(std::size_t index);
-    void next(int direction);
+    bool play_queue(std::size_t index, std::uint32_t position = 0);
+    bool open_playlist(std::size_t index);
+    void next(int direction, bool automatic = false);
     void parent();
     void event(const ButtonEvent&);
     TextFrame frame() const;
@@ -34,12 +43,22 @@ class PlayerFrontend {
     OledDisplay oled_{};
     PlayerNavigation nav_{};
     Settings settings_{};
+    PlaybackPolicy policy_{};
+    SleepTimer sleep_{};
+    TrackMetadata metadata_{};
+    Lyrics lyrics_{};
+    DocumentStatus lyric_status_{DocumentStatus::kMissing};
     std::array<Entry, 128> entries_{};
     std::array<char, 256> folder_{'/','s','d','c','a','r','d',0};
     std::array<char, 256> title_{};
+    std::array<std::array<char, 256>, 128> queue_{};
+    std::size_t queue_count_{0}, menu_item_{0};
     std::size_t playing_index_{0};
     std::uint32_t last_render_{0}, changed_at_{0}, route_changed_{0};
+    std::uint32_t last_checkpoint_{0}, sleep_fade_at_{0};
+    std::uint32_t now_{0};
     bool oled_ready_{false}, dirty_{false}, nvs_ready_{false}, was_running_{false};
     bool headphone_{false}, detect_candidate_{false}, truncated_{false}, display_asleep_{false};
+    bool auto_advance_{false}, sleep_fading_{false};
 };
 }  // namespace nightwave

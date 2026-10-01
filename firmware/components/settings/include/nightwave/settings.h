@@ -1,10 +1,12 @@
 #pragma once
 
 #include <cstdint>
+#include <array>
 
 namespace nightwave {
 
 enum class RepeatMode : std::uint8_t { kOff, kTrack, kAll };
+enum class OutputPreference : std::uint8_t { kAutomatic, kSpeaker, kWired, kBluetooth };
 
 struct Settings {
     std::uint8_t volume_percent{8};
@@ -12,6 +14,8 @@ struct Settings {
     bool shuffle{false};
     std::uint32_t resume_track_id{0};
     std::uint32_t resume_position_ms{0};
+    OutputPreference output{OutputPreference::kAutomatic};
+    std::array<char, 256> resume_path{}, playlist_path{}, library_folder{};
 };
 bool initialize_settings();
 bool load_settings(Settings&);

@@ -36,8 +36,9 @@ bool save_settings(const Settings& value) { saved_volume = value.volume_percent;
 bool OledDisplay::initialize(OledController controller) { controller_ = controller; return true; }
 bool OledDisplay::show(const TextFrame& value) { displayed = value; return true; }
 bool OledDisplay::sleep(bool) { return true; }
-bool StreamingPlayer::start(const char* path, I2sAudioSink&, OutputPath output, std::uint8_t volume) {
+bool StreamingPlayer::start(const char* path, I2sAudioSink&, OutputPath output, std::uint8_t volume, std::uint32_t seek_ms) {
     selected = path; set_volume(volume); output_.store(output); paused_.store(false);
+    position_ms_.store(seek_ms);
     const bool ok = !std::strstr(path, "corrupt");
     errors_.store(ok ? 0 : 1); running_.store(ok); return ok;
 }
@@ -57,6 +58,7 @@ int main(int argc, char** argv) {
         std::ofstream file(root_path / name); file << "simulated media";
     }
     std::ofstream(root_path / "sub" / "nested.wav") << "simulated media";
+    std::ofstream(root_path / "01.lrc") << "[00:00]original lyric test\n[00:01]second test line\n";
     const auto root = root_path.string();
     SdStorage sd; I2sAudioSink sink; ButtonMonitor buttons;
     auto player = std::make_unique<StreamingPlayer>();
@@ -71,6 +73,7 @@ int main(int argc, char** argv) {
     press(ButtonId::kPrevious, ButtonGesture::kLongPress); CHECK(shows("/ sub"));
     press(ButtonId::kNext); press(ButtonId::kPlayPause);
     CHECK(selected.find("01.wav") != std::string::npos && player->playing()); CHECK(shows("PLAYING"));
+    press(ButtonId::kNext, ButtonGesture::kLongPress); CHECK(shows("original lyric test"));
     press(ButtonId::kPlayPause); CHECK(player->paused() && shows("PAUSED"));
     press(ButtonId::kPlayPause); CHECK(!player->paused());
     press(ButtonId::kNext); CHECK(selected.find("02.mp3") != std::string::npos);
@@ -87,6 +90,20 @@ int main(int argc, char** argv) {
     const auto before_wake = selected;
     press(ButtonId::kNext); CHECK(selected == before_wake); // Wake only.
     press(ButtonId::kNext); CHECK(selected != before_wake);
+    press(ButtonId::kVolumeDown, ButtonGesture::kLongPress); CHECK(shows("BT HW NOT SELECTED"));
+    press(ButtonId::kPlayPause); CHECK(shows("SHUFFLE"));
+    press(ButtonId::kNext); press(ButtonId::kPlayPause); CHECK(shows("15 MIN"));
+    now += 900000; ui.tick(now); now += 250; ui.tick(now); CHECK(!player->playing());
+    // Playlist browser path and real .m3u parser integration (created after
+    // old browser-order assertions, so those assertions remain deterministic).
+    std::ofstream(root_path / "a.m3u") << "02.mp3\n01.wav\n";
+    PlayerFrontend playlist_ui(sd, *player, sink, buttons, root.c_str()); playlist_ui.initialize();
+    now = 200; playlist_ui.tick(now); now += 250;
+    events.push_back({ButtonId::kNext, ButtonGesture::kPress, now}); playlist_ui.tick(now); // 01.wav
+    now += 250; events.push_back({ButtonId::kNext, ButtonGesture::kPress, now}); playlist_ui.tick(now); // 02.mp3
+    now += 250; events.push_back({ButtonId::kNext, ButtonGesture::kPress, now}); playlist_ui.tick(now); // a.m3u
+    now += 250; events.push_back({ButtonId::kPlayPause, ButtonGesture::kPress, now}); playlist_ui.tick(now);
+    CHECK(selected.find("02.mp3") != std::string::npos && player->playing());
     card = false;
     PlayerFrontend no_sd(sd, *player, sink, buttons, root.c_str()); no_sd.initialize();
     now = 200; no_sd.tick(now); CHECK(shows("NO SD"));

@@ -19,10 +19,13 @@ struct StreamTelemetry {
 class StreamingPlayer {
  public:
     bool start(const char* path, I2sAudioSink& sink, OutputPath output,
-               std::uint8_t volume);
+               std::uint8_t volume, std::uint32_t seek_ms = 0);
     bool stop();
     bool playing() const { return running_.load(); }
     bool paused() const { return paused_.load(); }
+    // Media frames accepted by I2S, excluding underrun silence. DMA lead is
+    // bounded by the sink queue; this is not an acoustic measurement.
+    std::uint32_t position_ms() const { return position_ms_.load(); }
     void pause(bool value) { paused_.store(value); }
     void set_volume(std::uint8_t value) { volume_.store(value > 100 ? 100 : value); }
     void set_output(OutputPath value) { output_.store(value); }
@@ -47,6 +50,7 @@ class StreamingPlayer {
     std::unique_ptr<Mp3Decoder> mp3_{};
     WavInfo wav_{};
     std::uint64_t bytes_remaining_{0};
+    std::uint32_t seek_ms_{0};
     std::FILE* file_{nullptr};
     I2sAudioSink* sink_{nullptr};
     std::atomic<bool> running_{false}, cancel_{false}, paused_{false};
@@ -54,6 +58,7 @@ class StreamingPlayer {
     std::atomic<std::uint8_t> volume_{8};
     std::atomic<OutputPath> output_{OutputPath::kMuted};
     std::atomic<std::uint32_t> rate_{0}, underruns_{0}, errors_{0};
+    std::atomic<std::uint32_t> position_ms_{0};
     std::atomic<std::uint32_t> sd_us_{0}, decoder_us_{0};
     std::atomic<std::uint32_t> storage_stack_{0}, decoder_stack_{0}, audio_stack_{0};
 };

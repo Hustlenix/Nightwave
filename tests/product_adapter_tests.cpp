@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <cstring>
 #include "driver/i2c_master.h"
 #include "nvs.h"
 #include "nightwave/oled_display.h"
@@ -9,6 +10,7 @@ namespace {
 int failures = 0, i2c_fail = 0, removed = 0, deleted = 0;
 int nvs_error = 0, closes = 0, commits = 0;
 std::uint8_t stored = 8;
+std::vector<std::uint8_t> stored_blob;
 std::vector<std::vector<std::uint8_t>> packets;
 #define CHECK(value) do { if (!(value)) { ++failures; std::cerr << __LINE__ << ": " << #value << '\n'; } } while(false)
 }
@@ -38,6 +40,16 @@ esp_err_t nvs_get_u8(nvs_handle_t, const char*, std::uint8_t* value) {
 esp_err_t nvs_set_u8(nvs_handle_t, const char*, std::uint8_t value) {
     if (nvs_error == 4) return 2;
     stored = value; return ESP_OK;
+}
+esp_err_t nvs_get_blob(nvs_handle_t, const char*, void* dst, std::size_t* size) {
+    if (nvs_error == 3) return 2;
+    if (stored_blob.empty()) return ESP_ERR_NVS_NOT_FOUND;
+    if (*size < stored_blob.size()) return 2;
+    *size = stored_blob.size(); std::memcpy(dst, stored_blob.data(), *size); return ESP_OK;
+}
+esp_err_t nvs_set_blob(nvs_handle_t, const char*, const void* src, std::size_t size) {
+    if (nvs_error == 4) return 2;
+    const auto* bytes = static_cast<const std::uint8_t*>(src); stored_blob.assign(bytes, bytes + size); return ESP_OK;
 }
 esp_err_t nvs_commit(nvs_handle_t) { ++commits; return nvs_error == 5 ? 2 : ESP_OK; }
 void nvs_close(nvs_handle_t) { ++closes; }
@@ -74,6 +86,13 @@ int main() {
     Settings value; CHECK(initialize_settings()); CHECK(load_settings(value) && value.volume_percent == 8);
     value.volume_percent = 14; CHECK(save_settings(value)); value.volume_percent = 8;
     CHECK(load_settings(value) && value.volume_percent == 14);
+    value.repeat_mode = RepeatMode::kAll; value.shuffle = true; value.output = OutputPreference::kWired;
+    std::strcpy(value.resume_path.data(), "/sdcard/music/test.mp3"); value.resume_position_ms = 123456;
+    std::strcpy(value.playlist_path.data(), "/sdcard/a.m3u"); std::strcpy(value.library_folder.data(), "/sdcard/music");
+    CHECK(save_settings(value)); Settings restored; CHECK(load_settings(restored));
+    CHECK(restored.repeat_mode == RepeatMode::kAll && restored.shuffle && restored.output == OutputPreference::kWired);
+    CHECK(restored.resume_position_ms == 123456 && !std::strcmp(restored.resume_path.data(), value.resume_path.data()));
+    stored_blob[25] ^= 1; CHECK(!load_settings(restored)); stored_blob.clear();
     stored = 255; value.volume_percent = 8; CHECK(!load_settings(value)); CHECK(value.volume_percent == 8);
     for (int error = 1; error <= 5; ++error) {
         nvs_error = error;
