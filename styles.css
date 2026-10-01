@@ -1740,7 +1740,6 @@ svg{max-width:100%}
    SMOOTH SCROLL NAVIGATION
    ========================================================= */
 html{
-  scroll-behavior:smooth;
   scroll-padding-top:84px;
 }
 body{
