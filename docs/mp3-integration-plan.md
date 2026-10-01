@@ -1,27 +1,32 @@
 # MP3 integration plan
 
-Status: decoder selected and adapter contract prepared. The 2026-10-01 funding
+Status: pinned decoder integrated and three-task product path implemented.
+The 2026-10-01 funding
 request authorizes digital integration before physical WAV tests. Bench evidence
 remains pending and must not be inferred from CI or software decoding tests.
 
 ## Selected decoder
 
-`chmorgan/esp-libhelix-mp3` 1.0.3 remains the provisional selection. It provides an ESP-IDF-oriented Apache-2.0 wrapper around the integer Helix decoder. Nightwave will own the file, buffers, bounded resynchronization, task scheduling, volume/mixing, I2S, and errors.
+`chmorgan/esp-libhelix-mp3` 1.0.3 is pinned in the firmware component manifest.
+Its wrapper is Apache-2.0 but the bundled Helix decoder retains RPSL/RCSL terms;
+see decoder-licenses.md. Nightwave owns files, bounded framing/resync, buffers,
+task scheduling, output gain, I2S and errors.
 
-The dependency is not yet added to the firmware manifest. Pinning/integration
-must be tested independently; it does not establish hardware playback readiness.
+ESP-IDF and host decoding tests have passed; software-validation.md records
+the actual runs. This does not establish physical playback readiness.
 
 ## Adapter boundary
 
-The future adapter will implement `AudioDecoder` and consume a byte-ring view. It must:
+The adapter implements `AudioDecoder` and consumes retained contiguous staging
+bytes from the ring. The implemented boundary is:
 
 1. parse and skip ID3v2 using a bounded synchsafe length;
 2. retain incomplete frames across ring wrap;
-3. call `MP3FindSyncWord` and `MP3Decode` with a finite resync-byte budget;
+3. validate Layer III headers and call `MP3Decode` with a finite recovery budget;
 4. validate reported sample rate, channel count, and sample count;
 5. emit stereo PCM frames, duplicating mono without destructive gain;
-6. report format changes so output can mute, drain, reconfigure, prefill, and ramp;
-7. expose bytes consumed, frames decoded, failures, resync bytes, and decode timing;
+6. reject unsupported/mid-track rate changes; reconfigure between tracks after teardown;
+7. expose consumption/frame results, errors, bounded recovery and worst decode timing;
 8. terminate cleanly on EOF, truncated data, unsupported free-format streams, or stop.
 
 ## Physical verification still required

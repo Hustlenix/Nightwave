@@ -160,3 +160,20 @@ CAD envelope and total cost remain provisional.
 
 ### Validation still required
 Phase 2–6 hardware prototype and current/runtime measurements.
+
+## ADR-008 — Separate digital funding design from physical evidence
+
+Date: 2026-10-01
+Status: current user execution direction, subject to program authorship rules
+
+The funding request supersedes ADR-007's physical-before-digital scheduling
+constraint. Firmware, calculated power models and legitimate design assistance
+may proceed now. Physical results, builder authorship and another person's
+sanity check cannot be fabricated. Current rules require the builder's original
+hardware design, not a fully AI-generated hardware submission. No paid order
+or funding submission occurs with mandatory design items missing.
+
+The larger model-based battery candidate does not itself lock final power:
+charger timer, input-current eligibility, NTC and peak-load compatibility must
+be resolved in the builder-owned electrical design. The prior component table
+is historical research, not a fabrication BOM.

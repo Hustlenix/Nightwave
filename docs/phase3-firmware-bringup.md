@@ -130,6 +130,7 @@ for the bench procedure above.
   DMA timing, FreeRTOS scheduling, electrical behavior, or sound quality.
 
 Reference: [Espressif I2S API](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/i2s.html).
-Physical verification and MP3 integration remain outstanding. This repair is not
+Physical verification remains outstanding; MP3 digital integration was added on
+2026-10-01 (see software-validation.md). This repair is not
 a claim that Phase 3 has met its hardware exit criteria.
 

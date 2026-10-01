@@ -68,5 +68,7 @@ Executed evidence at `13ed6be` (2026-10-01):
 - [ESP32-S3 firmware build](https://github.com/Hustlenix/Nightwave/actions/runs/36864360208): success.
 - [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36864360149): five test executables, 5/5 passed.
 
-The additional OLED/NVS adapter suite is not claimed executed until the next
-successful CI record is appended.
+At `a2aa741`, [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36865138075)
+ran all six executables successfully, including actual OLED/NVS adapters against
+mock APIs. A further AddressSanitizer pass is being added and is not claimed
+complete until its successful run is recorded.

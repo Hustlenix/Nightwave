@@ -7,9 +7,9 @@ digital development before physical validation. Historical missing-evidence
 results below still apply, but no longer block software implementation. See
 `pixl-funding-readiness.md`. No physical result has been supplied.
 
-## Current result
+## Historical 2026-09-30 result (superseded for digital execution)
 
-**Phase 4 has not started.** The Phase 4 request explicitly requires physical
+At this historical checkpoint, **Phase 4 had not started.** The prior request required physical
 Phase 3 evidence before entry. The repository contains no returned device logs,
 build photos, or measured audio results. Both existing measurement CSVs contain
 headers only. Firmware and project-quality CI passed for `a66576a`; this establishes
@@ -22,7 +22,7 @@ build/host-test health, not physical playback.
 | Real SD mounts and files enumerate | Not physically verified |
 | I2S tone reaches the speaker | Not physically verified |
 | Supported WAV plays on that speaker | Not physically verified |
-| MP3 plays or remaining blocker is understood | MP3 decoder is not integrated; integration awaits physical WAV evidence |
+| MP3 physical playback | Not physically verified; digital integration now implemented |
 | Power source | USB/bench power is specified; actual source not provided |
 | 30-minute / two-hour stability | Not run |
 

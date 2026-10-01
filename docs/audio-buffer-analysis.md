@@ -2,13 +2,14 @@
 
 Status: implemented defaults, awaiting hardware measurement.
 
-## Current WAV path
+## Current WAV/MP3 path (2026-10-01)
 
 ```text
 FatFS / SDMMC read (StorageTask, priority 5, 4096-byte chunks)
-    -> format conversion and Q15 volume
+    -> 32768-byte SPSC encoded ring
+    -> DecoderTask (priority 6, WAV conversion or Helix MP3)
     -> SPSC PCM ring (16,384 stereo frames)
-    -> AudioOutputTask (priority 8, 256-frame writes)
+    -> AudioOutputTask (priority 8, ramped Q15 volume, 256-frame writes)
     -> ESP-IDF I2S standard driver (8 DMA descriptors x 256 frames)
 ```
 
@@ -25,11 +26,17 @@ The PCM ring stores 16,384 usable stereo frames. Each frame is two signed 16-bit
 | 44,100 Hz | 371 ms | 5.80 ms | 46.44 ms |
 | 48,000 Hz | 341 ms | 5.33 ms | 42.67 ms |
 
-These are arithmetic capacities, not measured tolerance. The player pre-fills up to the 100 ms low-water target before enabling the selected output. Every empty-ring event while the source is not complete increments and logs `AUDIO UNDERRUN`.
+These are arithmetic capacities, not measured tolerance. The player pre-fills
+to 100 ms before configuring/enabling output, unless a short source has already
+finished decoding. Empty-ring events before decoder completion increment the
+underrun counter; live status and session-exit logs expose it.
 
 ## Compressed-data stage
 
-MP3 remains intentionally gated on physical WAV stability. The portable SPSC ring is type-generic and ready to instantiate as a byte ring between `StorageTask` and the future `DecoderTask`. That stage is not claimed active yet. The eventual minimum compressed capacity will be chosen from measured SD worst-read latency and MP3 bitrate, with margin for metadata and frame boundaries.
+The 2026-10-01 funding request supersedes the old physical-before-MP3 gate.
+The active byte ring is 32 KiB, with a separate 4096-byte decoder staging area
+for contiguous frame/refill input. Capacities remain conservative starting
+allocations, not measurement-tuned final requirements.
 
 For illustration only, a 32 KiB compressed ring holds about 2.05 seconds at 128 kbit/s or 0.82 seconds at 320 kbit/s. These figures are capacity calculations, not observed performance.
 
