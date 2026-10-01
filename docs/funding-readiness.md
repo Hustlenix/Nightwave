@@ -8,6 +8,9 @@ Checked: 2026-10-01. **NOT READY.** This checklist records evidence, not intent.
 - [x] WAV/MP3 three-task source, OLED/five-button browser, volume persistence;
   firmware and host CI (see software-validation.md for limits)
 - [ ] Final BOM with every part linked, priced and totalled
+- [ ] Builder Bluetooth architecture choice and verified A2DP SOURCE solution
+- [ ] Builder display choice and updated GPIO/memory/power/mechanical budgets
+- [ ] Remaining expanded-scope software and declared performance acceptance
 - [ ] Builder-authored schematic and PCB sources
 - [ ] Footprint verification and reviewed ERC/DRC
 - [ ] Gerbers, drills, CPL, assembly BOM, schematic PDF and board STEP
@@ -34,7 +37,8 @@ Research, calculations, candidate-part/footprint checks, firmware, test work,
 PCB/CAD constraints and review preparation continue independently. Codex must
 not generate the final schematic, routing or enclosure wholesale. The builder
 authors those editable sources and records choices in builder-decisions.md.
-Start with [the MCU builder task](builder-tasks.md), using
+First decide [Bluetooth architecture](bluetooth-architecture.md) and
+[display](display-selection.md); then start [the MCU builder task](builder-tasks.md), using
 [subsystem requirements](schematic-requirements.md). Return the actual sources
 for specific review, then revise and re-review. PCB/CAD constraints are in
 [layout and mechanical requirements](layout-mechanical-requirements.md).
@@ -45,7 +49,10 @@ sources. An authenticated Project 1200 session is still needed to check its
 funding fields. There is no finished funding package to submit yet.
 
 Current priced BOM is only a preliminary core subtotal, not a funding/order total.
-The updated candidate subtotal is $55.97. Power calculations identify a larger
+The historical candidate subtotal is $55.97, excluding new BT/display choices.
+It is not the updated product cost. Expanded-load calculations in
+[engineering budgets](engineering-budgets.md) invalidate a blanket eight-hour
+claim for the 6600 mAh candidate. Power calculations identify a larger
 pack, but charge-timer and peak-load compatibility are unresolved; final power
 design is not marked complete. Builder hardware authorship is a genuine gate,
 not the obsolete physical-before-software gate. Review/approval alone does not

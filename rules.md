@@ -2,6 +2,13 @@
 
 # Nightwave — Implementation Rules
 
+2026-10-01 final addendum: Bluetooth A2DP SOURCE and a larger/readable display
+are required research/decision gates before final schematic work. Wireless
+output is permitted; cloud/phone dependency is not. Builder materially authors
+the final schematic, PCB placement/routing and editable enclosure; AI researches,
+implements software, explains and reviews. Record real choices only after the
+builder makes them. Never infer hours, measurements, hardware success or approval.
+
 These rules govern ChatGPT Work, coding agents, and human implementation.
 
 ## 1. Product truth

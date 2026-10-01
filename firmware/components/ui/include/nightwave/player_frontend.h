@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <cstdio>
+#include <memory>
 #include "nightwave/player_navigation.h"
 #include "nightwave/oled_display.h"
 #include "nightwave/streaming_player.h"
@@ -29,8 +30,14 @@ class PlayerFrontend {
     bool seek_current(std::uint32_t position) { return play_queue(playing_index_, position); }
     void stopped();
     bool output_preference(OutputPreference value, std::uint32_t now);
+    std::size_t queue_size() const { return assets_ ? queue_count_ : 0; }
  private:
     struct Entry { std::array<char, 256> name{}; bool directory{false}; };
+    struct UiAssets {
+        Lyrics lyrics{};
+        std::array<std::array<char, 256>, 128> queue{};
+    };
+    struct AssetsDeleter { void operator()(UiAssets*) const; };
     bool scan();
     bool play(std::size_t index);
     bool play_queue(std::size_t index, std::uint32_t position = 0);
@@ -48,12 +55,11 @@ class PlayerFrontend {
     PlaybackPolicy policy_{};
     SleepTimer sleep_{};
     TrackMetadata metadata_{};
-    Lyrics lyrics_{};
+    std::unique_ptr<UiAssets, AssetsDeleter> assets_{};
     DocumentStatus lyric_status_{DocumentStatus::kMissing};
     std::array<Entry, 128> entries_{};
     std::array<char, 256> folder_{'/','s','d','c','a','r','d',0};
     std::array<char, 256> title_{};
-    std::array<std::array<char, 256>, 128> queue_{};
     std::size_t queue_count_{0}, menu_item_{0};
     std::size_t playing_index_{0};
     std::uint32_t last_render_{0}, changed_at_{0}, route_changed_{0};

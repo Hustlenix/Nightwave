@@ -42,6 +42,12 @@ stop timeout is not permission to delete live resources or start a new track.
 - Actual OLED/NVS adapters with mocked APIs: SH1106 page/offset versus SSD1306
   window addressing, render bytes, sleep/wake, bus errors/cleanup, volume
   persistence, malformed stored values and open/set/commit/init failures.
+- Bounded LRC sorting/offset/multi-tags/duplicate timestamps/UTF-8, malformed and
+  overlong documents, local M3U root containment, ID3 UTF-8/UTF-16 and WAV duration;
+  1000 parser/fuzz/shuffle operations and sleep-timer unsigned-clock rollover.
+- New real-frontend metadata/lyrics/settings/sleep/M3U controls with fake playback,
+  sample clock freeze/direct WAV/MP3 decode-discard seek in real streaming tests,
+  and actual checked NVS blob serialization/corruption handling.
 
 CI generates its own WAV tones and encodes MP3 with FFmpeg; no songs are fetched.
 Host Helix math substitutes equivalent C primitives; device builds use Xtensa
@@ -59,8 +65,9 @@ cmake --build build/host-tests --parallel
 ctest --test-dir build/host-tests --output-on-failure
 ```
 
-CI is the executed C++/ESP-IDF evidence in this Windows run; no local C++
-compiler is on PATH. Execution records below must name a successful commit/run,
+CI supplies full C++/ESP-IDF evidence; no Windows C++ compiler is on PATH.
+Ubuntu WSL has g++ but no CMake; targeted frontend/ASAN tests can also run there.
+Execution records below must name a successful commit/run,
 not merely the presence of workflow files.
 
 Executed evidence at `13ed6be` (2026-10-01):
@@ -86,3 +93,19 @@ engineering-calculation self-tests, and all six suites in both Release and
 AddressSanitizer with leak detection. This validates software and calculated
 screening examples, not schematic/footprint correctness or physical behavior.
 Device firmware source is unchanged from the previously successful device build.
+
+At `35b7ab4`, [device build](https://github.com/Hustlenix/Nightwave/actions/runs/36878328683)
+and [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36878328795)
+succeeded, with 7/7 Release and 7/7 AddressSanitizer/leak suites. Initial
+54ba552 exposed a clipped corrupt-path error title; fixed to show the filename.
+The later playlist-resume test exposed a noncanonical CTest fixture root
+(tests/../) conflicting with the canonical SD-root contract. Test roots now use
+weakly_canonical, and suite-owned generated playlists are cleared before each
+run to make Release/ASAN reruns independent. No user media is removed.
+
+Current UI lyrics/queue allocate explicitly in S3 PSRAM after boot; host tests
+allocate them on the heap. The radio/display/power/load limits and unfinished
+expanded-scope features are documented in engineering-budgets.md. A passing
+build/sanitizer result does not establish physical sync, timing or production
+readiness. Performance counters saturate at UINT32_MAX; discard derived averages
+after saturation. Stack minima are meaningful only after workers report them.

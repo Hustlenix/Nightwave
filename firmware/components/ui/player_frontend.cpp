@@ -23,7 +23,22 @@ bool playlist(const char* name) {
     return dot && (!strcasecmp(dot, ".m3u") || !strcasecmp(dot, ".m3u8"));
 }
 }
+void PlayerFrontend::AssetsDeleter::operator()(UiAssets* p) const {
+    if (!p) return;
+#ifdef ESP_PLATFORM
+    p->~UiAssets(); heap_caps_free(p);
+#else
+    delete p;
+#endif
+}
 void PlayerFrontend::initialize() {
+#ifdef ESP_PLATFORM
+    auto* memory = heap_caps_malloc(sizeof(UiAssets), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    if (memory) assets_.reset(new (memory) UiAssets);
+#else
+    assets_.reset(new (std::nothrow) UiAssets);
+#endif
+    if (!assets_) ESP_LOGW("ui", "UI assets unavailable; playback UI disabled, console remains available");
     nvs_ready_ = initialize_settings();
     if (nvs_ready_) load_settings(settings_);
     policy_.mode = settings_.shuffle ? PlaybackMode::kShuffle : settings_.repeat_mode == RepeatMode::kTrack ?
@@ -71,13 +86,13 @@ bool PlayerFrontend::scan() {
     return true;
 }
 void PlayerFrontend::track_started(const char* path) {
-    if (!auto_advance_ && path && path != queue_[0].data() && std::strlen(path) < queue_[0].size()) {
-        std::strcpy(queue_[0].data(), path); queue_count_ = 1; playing_index_ = 0;
+    if (assets_ && !auto_advance_ && path && path != assets_->queue[0].data() && std::strlen(path) < assets_->queue[0].size()) {
+        std::strcpy(assets_->queue[0].data(), path); queue_count_ = 1; playing_index_ = 0;
     }
     const auto* slash = path ? std::strrchr(path, '/') : nullptr;
     std::snprintf(title_.data(), title_.size(), "%.255s", slash ? slash + 1 : (path ? path : ""));
     read_metadata(path, metadata_);
-    lyric_status_ = lyrics_.load(path);
+    lyric_status_ = assets_ ? assets_->lyrics.load(path) : DocumentStatus::kLimit;
     if (metadata_.title[0]) std::snprintf(title_.data(), title_.size(), "%s", metadata_.title.data());
     std::snprintf(settings_.resume_path.data(), settings_.resume_path.size(), "%s", path ? path : "");
     settings_.resume_position_ms = player_.position_ms();
@@ -107,6 +122,7 @@ bool PlayerFrontend::output_preference(OutputPreference value, std::uint32_t now
     settings_.output = value; player_.set_output(selected_output()); dirty_ = true; changed_at_ = now; return true;
 }
 bool PlayerFrontend::resume_saved() {
+    if (!assets_) return false;
     // A saved absolute path must remain under the selected SD root.
     const auto root_length = std::strlen(root_);
     if (root_length + 1 >= settings_.resume_path.size()) return false;
@@ -121,11 +137,11 @@ bool PlayerFrontend::resume_saved() {
             for (std::size_t i = 0; i < list->size(); ++i) if (!std::strcmp(list->path(i), checked.data())) { index = i; restored = true; break; }
             if (restored) {
                 queue_count_ = list->size();
-                for (std::size_t i = 0; i < queue_count_; ++i) std::strcpy(queue_[i].data(), list->path(i));
+                for (std::size_t i = 0; i < queue_count_; ++i) std::strcpy(assets_->queue[i].data(), list->path(i));
             }
         }
     }
-    if (!restored) { std::strcpy(queue_[0].data(), checked.data()); queue_count_ = 1; }
+    if (!restored) { std::strcpy(assets_->queue[0].data(), checked.data()); queue_count_ = 1; }
     auto_advance_ = restored;
     return play_queue(index, settings_.resume_position_ms);
 }
@@ -134,7 +150,7 @@ void PlayerFrontend::volume(std::uint8_t value, std::uint32_t now) {
     player_.set_volume(settings_.volume_percent); dirty_ = true; changed_at_ = now;
 }
 bool PlayerFrontend::play(std::size_t index) {
-    if (index >= nav_.count || entries_[index].directory) return false;
+    if (!assets_ || index >= nav_.count || entries_[index].directory) return false;
     if (playlist(entries_[index].name.data())) return open_playlist(index);
     queue_count_ = 0; std::size_t selected = 0;
     for (std::size_t i = 0; i < nav_.count; ++i) {
@@ -142,8 +158,8 @@ bool PlayerFrontend::play(std::size_t index) {
         if (i == index) selected = queue_count_;
         std::array<char, 512> joined{};
         const int bytes = std::snprintf(joined.data(), joined.size(), "%s/%s", folder_.data(), entries_[i].name.data());
-        if (bytes <= 0 || static_cast<std::size_t>(bytes) >= queue_[queue_count_].size()) continue;
-        std::strcpy(queue_[queue_count_].data(), joined.data());
+        if (bytes <= 0 || static_cast<std::size_t>(bytes) >= assets_->queue[queue_count_].size()) continue;
+        std::strcpy(assets_->queue[queue_count_].data(), joined.data());
         ++queue_count_;
     }
     settings_.playlist_path[0] = 0;
@@ -151,20 +167,21 @@ bool PlayerFrontend::play(std::size_t index) {
     auto_advance_ = true; return play_queue(selected);
 }
 bool PlayerFrontend::open_playlist(std::size_t index) {
+    if (!assets_) return false;
     std::array<char, 512> path{};
     std::snprintf(path.data(), path.size(), "%s/%s", folder_.data(), entries_[index].name.data());
     // Large bounded playlist lives on heap, not the 6 KiB UI stack.
     std::unique_ptr<Playlist> list(new (std::nothrow) Playlist);
     if (!list || list->load(path.data(), root_) != DocumentStatus::kOk || !list->size()) { nav_.screen = PlayerScreen::kCorrupt; return false; }
     queue_count_ = list->size();
-    for (std::size_t i = 0; i < queue_count_; ++i) std::strcpy(queue_[i].data(), list->path(i));
+    for (std::size_t i = 0; i < queue_count_; ++i) std::strcpy(assets_->queue[i].data(), list->path(i));
     std::snprintf(settings_.playlist_path.data(), settings_.playlist_path.size(), "%.255s", path.data());
     auto_advance_ = true; return play_queue(0);
 }
 bool PlayerFrontend::play_queue(std::size_t index, std::uint32_t position) {
-    if (index >= queue_count_) return false;
+    if (!assets_ || index >= queue_count_) return false;
     playing_index_ = index;
-    const auto* path = queue_[index].data();
+    const auto* path = assets_->queue[index].data();
     const auto* slash = std::strrchr(path, '/');
     std::snprintf(title_.data(), title_.size(), "%s", slash ? slash + 1 : path);
     if (!player_.stop()) { nav_.screen = PlayerScreen::kCorrupt; return false; }
@@ -262,8 +279,8 @@ TextFrame PlayerFrontend::frame() const {
                 static_cast<unsigned long>(player_.position_ms() / 1000 % 60), metadata_.duration_ms ? "WAV LENGTH KNOWN" : "LENGTH UNKNOWN"); text.line(6, line.data());
             text.line(7, "HOLD NEXT: LYRICS"); break;
         case PlayerScreen::kLyrics: {
-            const auto* current = lyrics_.current(player_.position_ms());
-            const auto* upcoming = lyrics_.next(player_.position_ms());
+            const auto* current = assets_ ? assets_->lyrics.current(player_.position_ms()) : nullptr;
+            const auto* upcoming = assets_ ? assets_->lyrics.next(player_.position_ms()) : nullptr;
             text.line(2, title_.data());
             text.line(4, current ? current->text.data() : lyric_status_ == DocumentStatus::kOk ? "LYRICS START SOON" : "NO VALID .LRC");
             text.line(6, upcoming ? upcoming->text.data() : "");

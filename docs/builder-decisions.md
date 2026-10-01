@@ -1,5 +1,31 @@
 # Builder decisions
 
+## Mandatory next decisions — not made yet
+
+### BD-14 Bluetooth architecture
+
+- Decision: A2DP SOURCE transport/platform, before final schematic.
+- Alternatives: S3 + BM83 AT; original ESP32-WROVER main MCU; S3 + ESP32 coprocessor.
+- My selection: PENDING BUILDER INPUT.
+- Why I selected it: PENDING; never fill an AI-written first-person justification.
+- Tradeoffs: See bluetooth-architecture.md; firmware access, rates, GPIO, power, cost and antennas.
+- Evidence: Manufacturer research is linked in bluetooth-architecture.md; builder source/journal PENDING.
+- Validation still required: chosen firmware/tools, one-headphone source demo, latency/rates, power, source review.
+
+### BD-15 Display
+
+- Decision: readable display SKU/envelope, before schematic/CAD.
+- Alternatives: provisional OLED; Adafruit 3787 1.54-inch TFT; Waveshare non-touch 1.69-inch TFT.
+- My selection: PENDING BUILDER INPUT.
+- Why I selected it: PENDING BUILDER INPUT.
+- Tradeoffs: Readability, SPI/GPIO/RAM, backlight power, driver and enclosure size.
+- Evidence: Maker snapshots/calculations in display-selection.md; builder source/journal PENDING.
+- Validation still required: exact drawing, driver, brightness/current, glyph/wrapping and fit tests.
+
+For subsequent choices use these seven fields: Decision / Alternatives / My
+selection / Why I selected it / Tradeoffs / Evidence / Validation still required.
+Earlier research records below remain historical prompts, not completed choices.
+
 2026-10-01. Candidate comparisons below are AI-prepared research prompts, not
 builder selections. The existing BOM's SELECTED labels are historical candidate
 status, not proof of human authorship or final approval. Fill choices and reasons

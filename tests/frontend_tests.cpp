@@ -25,6 +25,11 @@ esp_err_t gpio_config(const gpio_config_t*) { return ESP_OK; }
 int gpio_get_level(gpio_num_t) { return headphone ? 0 : 1; }
 std::int64_t esp_timer_get_time() { return 0; }
 namespace nightwave {
+// This suite fakes StreamingPlayer completely; its decoder is never allocated.
+// Real Helix/streaming behavior is exercised by the separate decoder suites.
+Mp3Decoder::~Mp3Decoder() = default;
+DecodeResult Mp3Decoder::decode(EncodedBytes, bool) { return {}; }
+void Mp3Decoder::reset() {}
 bool SdStorage::mount() { mounted_ = card; return card; }
 bool ButtonMonitor::poll(ButtonEvent& event) {
     if (events.empty()) return false;
@@ -53,13 +58,14 @@ int main(int argc, char** argv) {
     namespace fs = std::filesystem;
     if (argc != 2) return EXIT_FAILURE;
     const auto root_path = fs::path(argv[1]) / "frontend-fixture";
+    fs::remove(root_path / "a.m3u"); // Remove only this suite's prior generated playlist.
     fs::create_directories(root_path / "sub");
     for (const auto* name : {"01.wav", "02.mp3", "z-corrupt.mp3", "ignored.txt"}) {
         std::ofstream file(root_path / name); file << "simulated media";
     }
     std::ofstream(root_path / "sub" / "nested.wav") << "simulated media";
     std::ofstream(root_path / "01.lrc") << "[00:00]original lyric test\n[00:01]second test line\n";
-    const auto root = root_path.string();
+    const auto root = fs::weakly_canonical(root_path).string(); // SD roots are canonical; CTest uses tests/../ paths.
     SdStorage sd; I2sAudioSink sink; ButtonMonitor buttons;
     auto player = std::make_unique<StreamingPlayer>();
     PlayerFrontend ui(sd, *player, sink, buttons, root.c_str());
@@ -107,6 +113,7 @@ int main(int argc, char** argv) {
     CHECK(!playlist_ui.output_preference(OutputPreference::kBluetooth, now));
     CHECK(playlist_ui.output_preference(OutputPreference::kWired, now));
     CHECK(playlist_ui.resume_saved() && selected.find("02.mp3") != std::string::npos);
+    CHECK(playlist_ui.queue_size() == 2);
     now += 250; events.push_back({ButtonId::kNext, ButtonGesture::kPress, now}); playlist_ui.tick(now);
     CHECK(selected.find("01.wav") != std::string::npos);
     card = false;

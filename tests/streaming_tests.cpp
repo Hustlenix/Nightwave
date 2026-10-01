@@ -143,7 +143,7 @@ int main(int argc, char** argv) {
         join_all(); CHECK(player->errors() == 0 && muted);
         CHECK(player->position_ms() > 0);
         CHECK(player->start(argv[i], sink, OutputPath::kLine, 8, 1000));
-        CHECK(player->position_ms() == 1000);
+        CHECK(player->position_ms() >= 1000); // Workers may already have accepted a block.
         CHECK(await([&] { return !player->playing(); }));
         join_all(); CHECK(player->errors() == 0 && player->position_ms() > 1000);
     }

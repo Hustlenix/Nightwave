@@ -14,6 +14,13 @@ verification items. External I2C pull-ups to 3.3 V are required.
 | Hold Play/Pause (700 ms) | Return to now-playing if active | Open/refresh browser |
 | Hold Previous | Parent directory | Parent directory/browser |
 | Hold Volume + | Diagnostics | Diagnostics |
+| Hold Next | Current/next LRC view | Current/next LRC view |
+| Hold Volume - | Settings | Mode / sleep / saved resume / output settings |
+
+In Settings, Previous/Next selects a row and Play cycles normal/shuffle/repeat-all/
+repeat-track, sleep off/15/30/45/60/end-track, explicitly resumes saved music, or
+cycles auto/speaker/wired output. Bluetooth is unavailable until architecture
+selection; selecting unavailable BT via API is refused without speaker fallback.
 
 Short actions occur on debounced release; holding suppresses the short action.
 When the screen sleeps after 30 s, the first gesture only wakes it. No-SD/mount
@@ -24,8 +31,12 @@ starting another file; a timed-out stop refuses restart and retains resources.
 The browser lists directories before supported files, skips hidden entries and
 unsupported extensions, and limits a folder to 128 entries and paths below
 256 bytes. It explicitly displays a limit warning. Navigation is per-folder;
-there is no whole-card recursive index, shuffle, seek or repeat UI yet. File
-names provide track titles, not parsed ID3 metadata. The ASCII OLED renderer
+there is no whole-card recursive index or artist/album library yet. A scan
+examines at most 512 directory entries. Normal EOF stops at the last queued
+track; repeat/shuffle modes change automatic advancement. Playlist entries form
+an independent play queue that browser refreshes do not overwrite. ID3/WAV INFO
+provide title/artist/album when supported, otherwise filename fallback. WAV
+duration is computed; MP3 duration remains unknown. The ASCII OLED renderer
 uppercases lowercase and substitutes unsupported characters; source paths are
 not modified by display truncation.
 
@@ -34,10 +45,22 @@ switch wiring must implement that polarity; unconnected prototype input defaults
 to speaker. A raw switched audio contact is not automatically a safe digital
 detect signal. Routing is break-before-make; plug transients require bench tests.
 
-Volume is persisted in NVS after 2 s without change. Default 8% is intentionally
+Volume/mode/output, last path/position and playlist/folder strings persist in a
+versioned length/checksum-validated NVS record after 2 s without change. Playback
+checkpoints position once per minute; button pause and explicit stop also save.
+Boot never auto-plays. Resume explicitly restores saved M3U context if available,
+otherwise resumes the single track. Full folder/browser restoration remains open.
+Default 8% is intentionally
 low, not a guaranteed acoustic-safe level. NVS errors leave settings volatile;
-firmware does not erase the partition silently. Other legacy Settings fields
-(shuffle/repeat/resume) are not persisted or exposed as implemented features.
+firmware does not erase the partition silently. Legacy volume-only storage is
+migrated into the new record when it is saved.
+
+LRC uses the same media stem, current/next timestamp lookup, stable sorting,
+multi-tags and bounded offset. Missing/invalid LRC clears lyric state but does
+not stop valid music. Lyrics follow accepted PCM position, not wall time. I2S
+DMA lead and 5 Hz display refresh mean acoustic sync is still unverified.
+Sleep fades/holds playback, stops after a 200 ms control delay and sleeps the
+screen; it does not yet shut down a physical power latch.
 
 Battery displays `BAT ?` / `BATTERY UNMEASURED`; there is no fabricated SOC,
 fuel-gauge readout, charge indicator, power-latch or low-battery shutdown claim.
@@ -52,7 +75,12 @@ values require hardware; host fake values are not measurements.
 
 `board`, `sd`, `bench [path]`, `tone speaker|line [Hz]`,
 `play speaker|line /sdcard/file.wav|mp3` (`wav` alias), `pause`, `resume`,
-`volume 0..100`, `stop`, `status`, `help`.
+`volume 0..100`, `stop`, `status`, `mode normal|shuffle|all|track`,
+`sleep off|15|30|45|60|end`, `seek 0..1800000`, `last`, `selftest`, `help`.
+WAV seek is direct; MP3 seeks by cancellable decode/discard from track start,
+capped at 30 minutes. No fast-seek index is claimed. Boot/status/selftest emit
+schema-1 JSON records; tools/analyze_diagnostics.py analyses real captured logs
+without inferring physical acceptance from a software self-test.
 
 UI and console commands are serialized. Storage/decoder/audio workers never
 wait on the UI/console mutex. Tone and SD benchmarking are diagnostics, not

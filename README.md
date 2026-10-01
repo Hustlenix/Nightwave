@@ -1,17 +1,21 @@
 # Nightwave
 
-Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It is intended to read a user's MP3 and PCM/WAV files directly from microSD, decode them on an ESP32-S3, and play them through either wired stereo headphones or a built-in speaker—without a phone, app, network, Bluetooth, or streaming service.
+Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It reads user-owned MP3 and PCM/WAV files directly from microSD, with software decoding, physical controls, wired stereo headphones and a built-in speaker. The 2026-10-01 scope adds Bluetooth headphone/speaker output and synced LRC lyrics; neither a phone nor a streaming service is required. Bluetooth hardware/transport is not selected or implemented yet.
 
 > Status (2026-10-01): WAV/MP3 three-task streaming, OLED/five-button interaction,
-> volume persistence and host regression tests are digitally implemented.
+> lyrics/metadata/M3U, modes, bounded seek/resume, sleep timer and versioned
+> persistence are implemented for the provisional hardware. See the
+> [expanded-scope checkpoint](docs/engineering-budgets.md) for remaining software.
 > Firmware and host CI pass. **Funding package is NOT READY:** final power design,
 > complete BOM, builder-owned PCB/CAD, manufacturing files and human reviews are
 > missing. No physical playback, runtime, fit, final hardware or tier is claimed.
 
 ## Why it exists
 
-Hardware design now proceeds in builder-authored mentor/reviewer mode. Start
-with [builder tasks](docs/builder-tasks.md), [subsystem requirements](docs/schematic-requirements.md)
+Hardware design proceeds in builder-authored mentor/reviewer mode. **Before
+final schematic tasks**, choose [Bluetooth architecture](docs/bluetooth-architecture.md)
+and [display](docs/display-selection.md). Then use
+[builder tasks](docs/builder-tasks.md), [subsystem requirements](docs/schematic-requirements.md)
 and [your decision log](docs/builder-decisions.md). AI research and review are
 disclosed; final schematic, routing and enclosure must be materially authored
 by the builder. The reported Pixl clarification does not mark missing work done.
@@ -57,7 +61,12 @@ The bench prototype uses an available MAX98357A breakout as a functional speaker
   SPSC PCM ring, pause/resume, cancellation, gain ramps and queue/error telemetry;
 - SH1106 OLED driver (SSD1306 option), file/folder browser, now-playing, five
   buttons, headphone indicator, no-SD/error screens, sleep and diagnostics;
-- delayed NVS persistence for volume, without destructive automatic NVS erase;
+- bounded LRC, ID3v2.3/v2.4/ID3v1/WAV INFO metadata and local M3U/M3U8 loading;
+- normal/shuffle/repeat-all/repeat-track; accepted-sample lyric clock; WAV direct
+  seek and MP3 decode-discard resume capped at 30 minutes;
+- versioned checked NVS volume/mode/output/resume/playlist/folder persistence,
+  explicit saved-track resume and 15/30/45/60-minute/end-track sleep timers;
+- JSON boot/stream/performance/self-test records, with unmeasured hardware marked;
 - portable tests for WAV parsing, generated fixtures, ring wrap/full behavior, stereo-to-mono arithmetic, volume scaling, button debounce, and playback state;
 - CI definitions for both ESP32-S3 firmware and portable host tests;
 - exact Phase 2 prototype BOM, pin-by-pin wiring table, voltage/current plan, deterministic test-media generator, and staged bring-up checklist.
@@ -73,7 +82,8 @@ removing a real card during playback has been tested.
 
 Previous/Next navigate the browser or change playing tracks. Play opens a folder
 or starts/toggles playback. Volume +/- changes gain. Hold Play for the browser,
-hold Previous for the parent folder, hold Volume + for diagnostics. First input
+hold Previous for the parent folder, hold Volume + for diagnostics, hold Next
+for lyrics and hold Volume - for mode/sleep/resume/output settings. First input
 after the 30 s display sleep wakes without changing playback.
 See [complete controls and limitations](docs/player-controls.md).
 

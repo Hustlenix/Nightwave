@@ -3,6 +3,12 @@
 Checked 2026-10-01. This is a conservative design-input model, not a completed
 power circuit, a measured runtime claim, or authorization to connect lithium.
 
+Final-master scope adds Bluetooth and a builder-selected readable display.
+The old OLED-only profile below is historical, not the updated product load.
+See [expanded scenarios](engineering-budgets.md): assumed TFT load changes the
+6.6 Ah speaker profile to 7.99 h with margins; louder audio/BT scanning is worse.
+Neither pack size nor charger is locked. Measure and optimise before enlarging.
+
 ## Estimated normal speaker-playback profile
 
 | 3.3 V consumer | Estimated average mA | Estimated concurrent peak mA |

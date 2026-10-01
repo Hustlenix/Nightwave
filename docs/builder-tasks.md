@@ -1,6 +1,11 @@
 # Builder tasks and source-review handoff
 
-2026-10-01. Start with task 1 (MCU); the remaining tasks are staged assignments,
+2026-10-01 final-addendum override: **do not start final schematic/PCB/CAD tasks
+until Bluetooth architecture (BD-14) and display (BD-15) choices are recorded**.
+Read bluetooth-architecture.md and display-selection.md. The existing S3 pin
+table and OLED envelope are provisional and cannot be treated as final.
+
+After those decisions, start with task 1 (MCU); remaining tasks are assignments,
 not a demand to complete the whole device before review. Return one subsystem
 at a time. AI keeps independent research/test/documentation work moving, but
 never claims your decisions/hours or authors final design files wholesale.
@@ -21,7 +26,8 @@ retest evidence. Do not mark ERC/DRC or fit passed unless actually executed.
 
 ### Objective
 
-Create the MCU sheet first; it can proceed while power selection is researched.
+After BD-14/BD-15, create the chosen MCU sheet. Do not assume the S3 is locked
+if the builder chose a platform change. Reconcile the combined GPIO/power budget.
 
 ### What I need to create
 

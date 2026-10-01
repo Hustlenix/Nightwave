@@ -2,6 +2,17 @@
 
 # Nightwave — Offline Music Player (T4 Target)
 
+## 2026-10-01 scope freeze override
+
+Required: local MP3/WAV, speaker, wired stereo jack, Bluetooth headphones/speakers,
+synced sidecar LRC, metadata, songs/folders/artists/albums/playlists, playback modes,
+persisted resume/settings, sleep timer, readable builder-selected display,
+rechargeable USB-C power-path/fuel gauge and diagnostic evidence. Bluetooth is an
+output option, not a phone/cloud playback dependency. See engineering-budgets.md
+for honest implementation gaps. Builder selects Bluetooth/display before final
+schematic and materially authors schematic, PCB layout/routing and enclosure.
+No physical result, funding eligibility or T4 award is inferred.
+
 ## 1. Product definition
 
 **Nightwave** is a standalone, battery-powered physical music player that plays a user's own audio files from removable storage through built-in speakers or wired headphones, with no phone, app, network connection, or streaming dependency.
@@ -23,7 +34,7 @@ The current Pixl Trial says the battery must last “a full night” and the ach
 Nightwave MUST:
 
 - load the user's own audio files from removable microSD storage;
-- play audio without a phone, web service, app, Wi-Fi, Bluetooth, cellular connection, or streaming service;
+- play local audio without a phone, web service, app, Wi-Fi, cellular connection, or streaming service; Bluetooth is an optional output, not a required dependency;
 - provide physical controls for play/pause, previous/next track, volume up, and volume down;
 - play through a built-in physical speaker;
 - play through wired 3.5 mm headphones;

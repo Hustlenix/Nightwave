@@ -27,3 +27,4 @@ jobs:
           esp_idf_version: v6.1
           target: esp32s3
           path: firmware
+          command: idf.py build size size-components

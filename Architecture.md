@@ -2,6 +2,16 @@
 
 # Nightwave — Technical Architecture
 
+## 2026-10-01 final execution scope override
+
+Local software decoding remains mandatory. New scope includes synced .lrc,
+metadata/M3U, playback modes/resume/sleep and Bluetooth audio output. S3 remains
+the working target, not an A2DP-capable chip. Choose docs/bluetooth-architecture.md
+and docs/display-selection.md before final schematic work. No MCU/radio/display
+change has been silently selected. docs/engineering-budgets.md distinguishes
+implemented software from remaining full-card library, HAL/power and transport
+work. Older two-output/OLED references below are historical provisional design.
+
 ## 1. Architecture objective
 
 Nightwave is not an ESP32 remote control for a self-contained MP3 module. The ESP32-S3 owns the storage, decode, buffering, playback state, UI, and power policy.

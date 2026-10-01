@@ -101,6 +101,12 @@ def validate_required_files() -> None:
         "docs/layout-mechanical-requirements.md",
         "docs/component-research-followup.md",
         "tools/engineering_calculations.py",
+        "docs/bluetooth-architecture.md",
+        "docs/display-selection.md",
+        "docs/engineering-budgets.md",
+        "docs/expanded-software-checkpoint.md",
+        "docs/expanded-bench-gate.md",
+        "tools/analyze_diagnostics.py",
     ]
     missing = [path for path in required if not (ROOT / path).is_file()]
     if missing:
@@ -142,6 +148,8 @@ def main() -> None:
     validate_builder_task_packet()
     from engineering_calculations import self_test
     self_test()
+    from analyze_diagnostics import self_test as diagnostics_self_test
+    diagnostics_self_test()
     print("Nightwave project checks passed")
 
 

@@ -4,6 +4,13 @@
 
 ## Execution philosophy
 
+2026-10-01 final addendum: finish independent software/research, then stop for
+builder Bluetooth architecture and display decisions before final schematic
+tasks. See docs/bluetooth-architecture.md, docs/display-selection.md and
+docs/engineering-budgets.md. The new scope includes lyrics, metadata/library,
+modes/resume/sleep and Bluetooth output; old exclusions are superseded.
+The provisional OLED and S3 pin map are not a final hardware lock.
+
 2026-10-01 builder-authored continuation: the builder reports direct Pixl
 clarification allowing AI tutoring/review with actual human engineering work.
 This supersedes any instruction below for Codex to author final schematic,

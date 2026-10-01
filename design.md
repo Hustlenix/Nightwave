@@ -2,6 +2,13 @@
 
 # Nightwave — Physical + Interface Design System
 
+2026-10-01 visual scope override: original angular industrial/comic-tech identity,
+high contrast and lyric readability. Use Nightwave-owned shapes/typography,
+not Marvel names, characters, logos or copied reactor/helmet art. Colour screen,
+window/cutouts and final enclosure dimensions follow the builder's display/BT
+decisions; no final CAD is assistant-authored. Earlier retro/OLED sketches below
+are historical exploratory direction, not an approved physical design.
+
 ## 1. Design principles
 
 Nightwave should look and behave like a small intentional consumer device, not a development board inside a box.

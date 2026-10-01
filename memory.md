@@ -10,6 +10,13 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+Latest 2026-10-01 final master/addendum supersedes older two-output scope.
+Bluetooth A2DP SOURCE and readable display must be chosen by builder before
+final schematic tasks. Do not silently switch MCU or preserve old OLED. Current
+software adds bounded lyrics/metadata/M3U, modes, seek/resume, sleep and checked
+settings. Full-card library, chosen BT/TFT and reviewed power/HAL remain open.
+See docs/engineering-budgets.md for exact limits and current evidence ledger.
+
 Complete the digital software/design preparation for Pixl funding under the
 2026-10-01 request. The old physical-before-digital gate is superseded; physical
 validation remains pending. Do not order hardware, connect lithium, invent
