@@ -12,6 +12,8 @@ on:
       - "firmware/components/decoder/**"
       - "firmware/components/input/**"
       - "firmware/components/playback/**"
+      - "firmware/components/ui/**"
+      - "firmware/components/settings/**"
       - ".github/workflows/project-quality.yml"
       - "firmware/components/app_state/include/nightwave/hardware_config.h"
   pull_request:
@@ -25,6 +27,8 @@ on:
       - "firmware/components/decoder/**"
       - "firmware/components/input/**"
       - "firmware/components/playback/**"
+      - "firmware/components/ui/**"
+      - "firmware/components/settings/**"
       - ".github/workflows/project-quality.yml"
       - "firmware/components/app_state/include/nightwave/hardware_config.h"
   workflow_dispatch:

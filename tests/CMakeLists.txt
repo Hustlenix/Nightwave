@@ -26,6 +26,7 @@ else()
 endif()
 
 enable_testing()
+find_package(Threads REQUIRED)
 include(FetchContent)
 # Same decoder revision bundled by esp-libhelix-mp3 1.0.3. Keep upstream notices.
 FetchContent_Declare(helix_source
@@ -45,6 +46,21 @@ add_executable(nightwave_mp3_tests mp3_tests.cpp
 target_include_directories(nightwave_mp3_tests PRIVATE
     ../firmware/components/decoder/include ../firmware/components/audio_pipeline/include)
 target_link_libraries(nightwave_mp3_tests PRIVATE nightwave_host_helix)
+add_executable(nightwave_streaming_tests streaming_tests.cpp
+    ../firmware/components/playback/streaming_player.cpp
+    ../firmware/components/decoder/mp3_decoder.cpp
+    ../firmware/components/decoder/wav_parser.cpp)
+target_include_directories(nightwave_streaming_tests PRIVATE fakes
+    ../firmware/components/playback/include ../firmware/components/decoder/include
+    ../firmware/components/audio_pipeline/include ../firmware/components/audio_i2s/include
+    ../firmware/components/app_state/include ../firmware/components/ui/include)
+target_link_libraries(nightwave_streaming_tests PRIVATE nightwave_host_helix Threads::Threads)
+if(NOT MSVC)
+    target_compile_options(nightwave_streaming_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_streaming_tests COMMAND nightwave_streaming_tests
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/02_left_right_stereo_44100.wav
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-cbr.mp3)
 if(MSVC)
     target_compile_options(nightwave_mp3_tests PRIVATE /W4 /WX)
 else()

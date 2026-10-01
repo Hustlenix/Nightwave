@@ -8,6 +8,8 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/semphr.h"
+#include "esp_timer.h"
 
 #include "nightwave/audio_sink.h"
 #include "nightwave/button_monitor.h"
@@ -15,6 +17,7 @@
 #include "nightwave/hardware_config.h"
 #include "nightwave/storage.h"
 #include "nightwave/streaming_player.h"
+#include "nightwave/player_frontend.h"
 
 namespace {
 
@@ -25,6 +28,18 @@ nightwave::SdStorage g_storage;
 nightwave::I2sAudioSink g_audio;
 nightwave::StreamingPlayer g_player;
 nightwave::ButtonMonitor g_buttons;
+nightwave::PlayerFrontend g_frontend(g_storage, g_player, g_audio, g_buttons);
+SemaphoreHandle_t g_commands = nullptr;
+
+void ui_task(void*) {
+    while (true) {
+        if (xSemaphoreTake(g_commands, pdMS_TO_TICKS(10)) == pdTRUE) {
+            g_frontend.tick(static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
+            xSemaphoreGive(g_commands);
+        }
+        vTaskDelay(pdMS_TO_TICKS(25));
+    }
+}
 
 static_assert(nightwave::hardware::pins_are_unique(),
               "Nightwave GPIO assignments must be unique");
@@ -146,6 +161,8 @@ void execute_command(char* line) {
         if (output == nightwave::OutputPath::kMuted || path == nullptr ||
             !g_storage.mount() || !g_player.start(path, g_audio, output, 8)) {
             ESP_LOGE(kTag, "usage: play <speaker|line> </sdcard/file.wav|mp3>");
+        } else {
+            g_frontend.track_started(path);
         }
     } else if (std::strcmp(command, "pause") == 0) {
         g_player.pause(true);
@@ -153,8 +170,8 @@ void execute_command(char* line) {
         g_player.pause(false);
     } else if (std::strcmp(command, "volume") == 0) {
         const char* value = strtok_r(nullptr, " \r\n", &context);
-        if (value) g_player.set_volume(static_cast<std::uint8_t>(
-            std::clamp(std::atoi(value), 0, 100)));
+        if (value) g_frontend.volume(static_cast<std::uint8_t>(
+            std::clamp(std::atoi(value), 0, 100)), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
     } else if (std::strcmp(command, "stop") == 0) {
         if (!g_player.stop()) {
             ESP_LOGW(kTag, "stop still pending; retain hardware and retry status/stop");
@@ -194,13 +211,20 @@ extern "C" void app_main() {
         g_storage.enumerate_supported_files();
     }
     print_help();
+    g_commands = xSemaphoreCreateMutex();
+    if (!g_commands) { ESP_LOGE(kTag, "command mutex unavailable"); return; }
+    g_frontend.initialize();
+    if (xTaskCreate(ui_task, "UiTask", 6144, nullptr, 3, nullptr) != pdPASS)
+        ESP_LOGE(kTag, "UI task unavailable; console remains active");
 
     std::array<char, 256> line{};
     while (true) {
         std::printf("nightwave> ");
         std::fflush(stdout);
         if (std::fgets(line.data(), line.size(), stdin) != nullptr) {
+            xSemaphoreTake(g_commands, portMAX_DELAY);
             execute_command(line.data());
+            xSemaphoreGive(g_commands);
         } else {
             clearerr(stdin);
             vTaskDelay(pdMS_TO_TICKS(100));

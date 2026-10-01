@@ -1,1 +1,1 @@
-idf_component_register(INCLUDE_DIRS "include")
+idf_component_register(SRCS "settings.cpp" INCLUDE_DIRS "include" REQUIRES nvs_flash)
