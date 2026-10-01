@@ -1,4 +1,5 @@
 #include "nightwave/diagnostics.h"
+#include <cstdio>
 
 #include "esp_app_desc.h"
 #include "esp_chip_info.h"
@@ -13,6 +14,15 @@
 namespace nightwave {
 namespace {
 constexpr char kTag[] = "diagnostics";
+void json_string(const char* text) {
+    std::putchar('"');
+    for (const auto* p = reinterpret_cast<const unsigned char*>(text); *p; ++p) {
+        if (*p == '"' || *p == '\\') { std::putchar('\\'); std::putchar(*p); }
+        else if (*p < 32) std::printf("\\u%04x", *p);
+        else std::putchar(*p);
+    }
+    std::putchar('"');
+}
 }
 
 void log_boot_diagnostics() {
@@ -35,6 +45,12 @@ void log_boot_diagnostics() {
              static_cast<unsigned long>(heap_caps_get_free_size(MALLOC_CAP_8BIT)),
              static_cast<unsigned long>(heap_caps_get_minimum_free_size(MALLOC_CAP_8BIT)),
              static_cast<unsigned long>(psram_bytes));
+    std::printf("{\"type\":\"nightwave_boot\",\"schema\":1,\"firmware_version\":");
+    json_string(app->version);
+    std::printf(",\"idf_version\":"); json_string(esp_get_idf_version());
+    std::printf(",\"reset_reason\":%d,\"heap_free_bytes\":%lu,\"heap_min_bytes\":%lu,\"psram_bytes\":%lu}\n",
+        static_cast<int>(esp_reset_reason()), static_cast<unsigned long>(heap_caps_get_free_size(MALLOC_CAP_8BIT)),
+        static_cast<unsigned long>(heap_caps_get_minimum_free_size(MALLOC_CAP_8BIT)), static_cast<unsigned long>(psram_bytes));
 }
 
 DiagnosticSnapshot capture_diagnostics(std::uint32_t audio_underruns,

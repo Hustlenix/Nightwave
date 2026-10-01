@@ -104,6 +104,11 @@ int main(int argc, char** argv) {
     now += 250; events.push_back({ButtonId::kNext, ButtonGesture::kPress, now}); playlist_ui.tick(now); // a.m3u
     now += 250; events.push_back({ButtonId::kPlayPause, ButtonGesture::kPress, now}); playlist_ui.tick(now);
     CHECK(selected.find("02.mp3") != std::string::npos && player->playing());
+    CHECK(!playlist_ui.output_preference(OutputPreference::kBluetooth, now));
+    CHECK(playlist_ui.output_preference(OutputPreference::kWired, now));
+    CHECK(playlist_ui.resume_saved() && selected.find("02.mp3") != std::string::npos);
+    now += 250; events.push_back({ButtonId::kNext, ButtonGesture::kPress, now}); playlist_ui.tick(now);
+    CHECK(selected.find("01.wav") != std::string::npos);
     card = false;
     PlayerFrontend no_sd(sd, *player, sink, buttons, root.c_str()); no_sd.initialize();
     now = 200; no_sd.tick(now); CHECK(shows("NO SD"));

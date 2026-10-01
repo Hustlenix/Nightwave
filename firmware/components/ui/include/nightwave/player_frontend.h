@@ -28,12 +28,14 @@ class PlayerFrontend {
     bool resume_saved();
     bool seek_current(std::uint32_t position) { return play_queue(playing_index_, position); }
     void stopped();
+    bool output_preference(OutputPreference value, std::uint32_t now);
  private:
     struct Entry { std::array<char, 256> name{}; bool directory{false}; };
     bool scan();
     bool play(std::size_t index);
     bool play_queue(std::size_t index, std::uint32_t position = 0);
     bool open_playlist(std::size_t index);
+    OutputPath selected_output() const;
     void next(int direction, bool automatic = false);
     void parent();
     void event(const ButtonEvent&);

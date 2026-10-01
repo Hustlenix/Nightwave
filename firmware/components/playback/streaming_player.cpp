@@ -25,6 +25,9 @@ void worst(std::atomic<std::uint32_t>& value, std::int64_t elapsed) {
         std::max<std::int64_t>(0, elapsed), UINT32_MAX));
     if (bounded > value.load()) value.store(bounded);
 }
+void total(std::atomic<std::uint32_t>& value, std::uint64_t add) {
+    value.store(static_cast<std::uint32_t>(std::min<std::uint64_t>(UINT32_MAX, value.load() + add)));
+}
 }
 void StreamingPlayer::fail() { ++errors_; cancel_.store(true); }
 bool StreamingPlayer::start(const char* path, I2sAudioSink& sink,
@@ -36,6 +39,8 @@ bool StreamingPlayer::start(const char* path, I2sAudioSink& sink,
     rate_.store(0); paused_.store(false); cancel_.store(false);
     seek_ms_ = seek_ms; position_ms_.store(seek_ms);
     storage_stack_.store(0); decoder_stack_.store(0); audio_stack_.store(0);
+    sd_bytes_.store(0); sd_reads_.store(0); sd_total_us_.store(0); decode_calls_.store(0); decode_total_us_.store(0);
+    encoded_low_.store(UINT32_MAX); pcm_low_.store(UINT32_MAX);
     file_ = std::fopen(path, "rb");
     if (!file_) { ++errors_; return false; }
     auto reject = [this]() { std::fclose(file_); file_ = nullptr; ++errors_; return false; };
@@ -90,7 +95,9 @@ std::uint32_t StreamingPlayer::queue_depth_ms() const {
 StreamTelemetry StreamingPlayer::telemetry() const {
     return {static_cast<std::uint32_t>(encoded_.size()), queue_depth_ms(),
         underruns_.load(), errors_.load(), sd_us_.load(), decoder_us_.load(),
-        storage_stack_.load(), decoder_stack_.load(), audio_stack_.load()};
+        storage_stack_.load(), decoder_stack_.load(), audio_stack_.load(),
+        sd_bytes_.load(), sd_reads_.load(), sd_total_us_.load(), decode_calls_.load(), decode_total_us_.load(),
+        encoded_low_.load() == UINT32_MAX ? 0 : encoded_low_.load(), pcm_low_.load() == UINT32_MAX ? 0 : pcm_low_.load()};
 }
 void StreamingPlayer::storage_entry(void* ctx) {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY); static_cast<StreamingPlayer*>(ctx)->storage_task();
@@ -106,7 +113,9 @@ void StreamingPlayer::storage_task() {
         const auto wanted = static_cast<std::size_t>(std::min<std::uint64_t>(read_.size(), bytes_remaining_));
         const auto started = esp_timer_get_time();
         const auto got = std::fread(read_.data(), 1, wanted, file_);
-        worst(sd_us_, esp_timer_get_time() - started);
+        const auto elapsed = std::max<std::int64_t>(0, esp_timer_get_time() - started);
+        worst(sd_us_, elapsed); total(sd_total_us_, static_cast<std::uint64_t>(elapsed));
+        total(sd_bytes_, got); total(sd_reads_, 1);
         if (got != wanted) { fail(); break; }
         bytes_remaining_ -= got;
         for (std::size_t i = 0; i < got && !cancel_.load(); ++i) {
@@ -122,6 +131,7 @@ void StreamingPlayer::decoder_task() {
     std::size_t used = 0;
     std::uint64_t total_frames = 0, delivered = 0;
     while (!cancel_.load()) {
+        if (total_frames && !storage_done_.load()) encoded_low_.store(std::min(encoded_low_.load(), static_cast<std::uint32_t>(encoded_.size())));
         while (used < staging_.size() && encoded_.pop(staging_[used])) ++used;
         // Acquire done before checking ring: no producer writes can follow it.
         const bool done = storage_done_.load();
@@ -141,7 +151,8 @@ void StreamingPlayer::decoder_task() {
             consumed = used - used % wav_.block_align;
             if (consumed == 0 && eof) { if (used || !total_frames) fail(); break; }
         }
-        worst(decoder_us_, esp_timer_get_time() - started);
+        const auto elapsed = std::max<std::int64_t>(0, esp_timer_get_time() - started);
+        worst(decoder_us_, elapsed); total(decode_total_us_, static_cast<std::uint64_t>(elapsed)); total(decode_calls_, 1);
         if (consumed > used) { fail(); break; }
         if (block.frame_count) {
             if (!rate_.load()) rate_.store(block.format.sample_rate_hz);
@@ -210,6 +221,7 @@ void StreamingPlayer::audio_task() {
         }
         std::size_t count = 0;
         const bool done = decoder_done_.load();
+        if (!done) pcm_low_.store(std::min(pcm_low_.load(), static_cast<std::uint32_t>(pcm_.size())));
         for (; count < samples.size(); ++count) {
             if (!pcm_.pop(samples[count])) break;
             const auto level = gain.step(pause || changing ? 0 : percent_to_q15(volume_.load()));

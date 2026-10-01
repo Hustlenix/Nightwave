@@ -221,6 +221,10 @@ void execute_command(char* line) {
         std::printf("{\"type\":\"nightwave_stream\",\"schema\":1,\"position_ms\":%lu,\"pcm_ms\":%lu,\"encoded_bytes\":%lu,\"underruns\":%lu,\"errors\":%lu,\"sd_worst_us\":%lu,\"decode_worst_us\":%lu,\"bluetooth\":\"architecture_pending\",\"battery\":null}\n",
             static_cast<unsigned long>(g_player.position_ms()), static_cast<unsigned long>(t.pcm_ms), static_cast<unsigned long>(t.compressed_bytes),
             static_cast<unsigned long>(t.underruns), static_cast<unsigned long>(t.errors), static_cast<unsigned long>(t.sd_worst_us), static_cast<unsigned long>(t.decoder_worst_us));
+        std::printf("{\"type\":\"nightwave_performance\",\"schema\":1,\"sd_bytes\":%lu,\"sd_reads\":%lu,\"sd_total_us\":%lu,\"decode_calls\":%lu,\"decode_total_us\":%lu,\"encoded_low_bytes\":%lu,\"pcm_low_frames\":%lu,\"stack_min_bytes\":[%lu,%lu,%lu]}\n",
+            static_cast<unsigned long>(t.sd_bytes), static_cast<unsigned long>(t.sd_reads), static_cast<unsigned long>(t.sd_total_us),
+            static_cast<unsigned long>(t.decode_calls), static_cast<unsigned long>(t.decode_total_us), static_cast<unsigned long>(t.encoded_low_bytes),
+            static_cast<unsigned long>(t.pcm_low_frames), static_cast<unsigned long>(t.storage_stack_bytes), static_cast<unsigned long>(t.decoder_stack_bytes), static_cast<unsigned long>(t.audio_stack_bytes));
         ESP_LOGI(kTag, "STREAM compressed=%lu sd_worst_us=%lu decode_worst_us=%lu stack_min_bytes=%lu/%lu/%lu",
             static_cast<unsigned long>(t.compressed_bytes), static_cast<unsigned long>(t.sd_worst_us),
             static_cast<unsigned long>(t.decoder_worst_us), static_cast<unsigned long>(t.storage_stack_bytes),

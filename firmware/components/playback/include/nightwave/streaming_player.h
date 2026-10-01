@@ -13,6 +13,8 @@ struct StreamTelemetry {
     std::uint32_t compressed_bytes, pcm_ms, underruns, errors;
     std::uint32_t sd_worst_us, decoder_worst_us;
     std::uint32_t storage_stack_bytes, decoder_stack_bytes, audio_stack_bytes;
+    std::uint32_t sd_bytes, sd_reads, sd_total_us, decode_calls, decode_total_us;
+    std::uint32_t encoded_low_bytes, pcm_low_frames;
 };
 // Commands have one serialized owner. Worker-facing controls are atomic.
 // Object must outlive workers, including after a timed-out stop().
@@ -61,5 +63,7 @@ class StreamingPlayer {
     std::atomic<std::uint32_t> position_ms_{0};
     std::atomic<std::uint32_t> sd_us_{0}, decoder_us_{0};
     std::atomic<std::uint32_t> storage_stack_{0}, decoder_stack_{0}, audio_stack_{0};
+    std::atomic<std::uint32_t> sd_bytes_{0}, sd_reads_{0}, sd_total_us_{0}, decode_calls_{0}, decode_total_us_{0};
+    std::atomic<std::uint32_t> encoded_low_{UINT32_MAX}, pcm_low_{UINT32_MAX};
 };
 }  // namespace nightwave

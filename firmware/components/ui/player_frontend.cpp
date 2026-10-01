@@ -71,6 +71,9 @@ bool PlayerFrontend::scan() {
     return true;
 }
 void PlayerFrontend::track_started(const char* path) {
+    if (!auto_advance_ && path && path != queue_[0].data() && std::strlen(path) < queue_[0].size()) {
+        std::strcpy(queue_[0].data(), path); queue_count_ = 1; playing_index_ = 0;
+    }
     const auto* slash = path ? std::strrchr(path, '/') : nullptr;
     std::snprintf(title_.data(), title_.size(), "%.255s", slash ? slash + 1 : (path ? path : ""));
     read_metadata(path, metadata_);
@@ -92,6 +95,17 @@ void PlayerFrontend::stopped() {
     settings_.resume_position_ms = std::min<std::uint32_t>(1800000, player_.position_ms());
     dirty_ = true; changed_at_ = now_; auto_advance_ = false; was_running_ = false;
 }
+OutputPath PlayerFrontend::selected_output() const {
+    if (settings_.output == OutputPreference::kBluetooth) return OutputPath::kMuted;
+    if (settings_.output == OutputPreference::kSpeaker) return OutputPath::kSpeaker;
+    if (settings_.output == OutputPreference::kWired) return OutputPath::kLine;
+    return headphone_ ? OutputPath::kLine : OutputPath::kSpeaker;
+}
+bool PlayerFrontend::output_preference(OutputPreference value, std::uint32_t now) {
+    // No pretend BLE audio and no unexpected speaker fallback after BT loss.
+    if (value == OutputPreference::kBluetooth || static_cast<unsigned>(value) > 3) return false;
+    settings_.output = value; player_.set_output(selected_output()); dirty_ = true; changed_at_ = now; return true;
+}
 bool PlayerFrontend::resume_saved() {
     // A saved absolute path must remain under the selected SD root.
     const auto root_length = std::strlen(root_);
@@ -99,9 +113,21 @@ bool PlayerFrontend::resume_saved() {
     if (std::strncmp(settings_.resume_path.data(), root_, root_length) || settings_.resume_path[root_length] != '/') return false;
     std::array<char, 256> checked{};
     if (!local_media_path(root_, settings_.resume_path.data() + root_length + 1, root_, checked.data(), checked.size())) return false;
-    std::snprintf(queue_[0].data(), queue_[0].size(), "%s", checked.data()); queue_count_ = 1;
-    auto_advance_ = false;
-    return play_queue(0, settings_.resume_position_ms);
+    std::size_t index = 0; bool restored = false;
+    const auto* saved_list = settings_.playlist_path.data();
+    if (*saved_list && !std::strncmp(saved_list, root_, root_length) && saved_list[root_length] == '/' && !std::strstr(saved_list, "/../")) {
+        std::unique_ptr<Playlist> list(new (std::nothrow) Playlist);
+        if (list && list->load(saved_list, root_) == DocumentStatus::kOk) {
+            for (std::size_t i = 0; i < list->size(); ++i) if (!std::strcmp(list->path(i), checked.data())) { index = i; restored = true; break; }
+            if (restored) {
+                queue_count_ = list->size();
+                for (std::size_t i = 0; i < queue_count_; ++i) std::strcpy(queue_[i].data(), list->path(i));
+            }
+        }
+    }
+    if (!restored) { std::strcpy(queue_[0].data(), checked.data()); queue_count_ = 1; }
+    auto_advance_ = restored;
+    return play_queue(index, settings_.resume_position_ms);
 }
 void PlayerFrontend::volume(std::uint8_t value, std::uint32_t now) {
     settings_.volume_percent = std::min<std::uint8_t>(100, value);
@@ -142,7 +168,7 @@ bool PlayerFrontend::play_queue(std::size_t index, std::uint32_t position) {
     const auto* slash = std::strrchr(path, '/');
     std::snprintf(title_.data(), title_.size(), "%s", slash ? slash + 1 : path);
     if (!player_.stop()) { nav_.screen = PlayerScreen::kCorrupt; return false; }
-    if (!player_.start(path, audio_, headphone_ ? OutputPath::kLine : OutputPath::kSpeaker,
+    if (!player_.start(path, audio_, selected_output(),
                        settings_.volume_percent, position)) {
         nav_.screen = PlayerScreen::kCorrupt; return false;
     }
@@ -175,12 +201,13 @@ void PlayerFrontend::event(const ButtonEvent& e) {
         return;
     }
     if (nav_.screen == PlayerScreen::kSettings) {
-        if (e.button == ButtonId::kPrevious) menu_item_ = (menu_item_ + 2) % 3;
-        else if (e.button == ButtonId::kNext) menu_item_ = (menu_item_ + 1) % 3;
+        if (e.button == ButtonId::kPrevious) menu_item_ = (menu_item_ + 3) % 4;
+        else if (e.button == ButtonId::kNext) menu_item_ = (menu_item_ + 1) % 4;
         else if (e.button == ButtonId::kPlayPause) {
             if (menu_item_ == 0) mode(static_cast<PlaybackMode>((static_cast<unsigned>(policy_.mode) + 1) % 4), e.monotonic_ms);
             else if (menu_item_ == 1) sleep_timer(static_cast<SleepMode>((static_cast<unsigned>(sleep_.mode()) + 1) % 6), e.monotonic_ms);
-            else resume_saved();
+            else if (menu_item_ == 2) resume_saved();
+            else output_preference(static_cast<OutputPreference>((static_cast<unsigned>(settings_.output) + 1) % 3), e.monotonic_ms);
         }
         return;
     }
@@ -248,7 +275,9 @@ TextFrame PlayerFrontend::frame() const {
             std::snprintf(line.data(), line.size(), "%cMODE %s", menu_item_ == 0 ? '>' : ' ', modes[static_cast<unsigned>(policy_.mode)]); text.line(3, line.data());
             std::snprintf(line.data(), line.size(), "%cSLEEP %s", menu_item_ == 1 ? '>' : ' ', timers[static_cast<unsigned>(sleep_.mode())]); text.line(4, line.data());
             text.line(5, menu_item_ == 2 ? ">RESUME LAST TRACK" : " RESUME LAST TRACK");
-            text.line(6, "BT HW NOT SELECTED"); text.line(7, "PLAY: CHANGE/RESUME"); break;
+            static const char* outputs[] = {"AUTO", "SPEAKER", "WIRED", "BT UNAVAILABLE"};
+            std::snprintf(line.data(), line.size(), "%cOUTPUT %s", menu_item_ == 3 ? '>' : ' ', outputs[static_cast<unsigned>(settings_.output)]); text.line(6, line.data());
+            text.line(7, "BT HW NOT SELECTED"); break;
         }
         case PlayerScreen::kBrowser: {
             text.line(2, folder_.data());
@@ -278,7 +307,7 @@ void PlayerFrontend::tick(std::uint32_t now) {
     const bool detected = gpio_get_level(static_cast<gpio_num_t>(hardware::kHeadphoneDetect)) == 0;
     if (detected != detect_candidate_) { detect_candidate_ = detected; route_changed_ = now; }
     if (now - route_changed_ >= 50 && headphone_ != detected) {
-        headphone_ = detected; player_.set_output(headphone_ ? OutputPath::kLine : OutputPath::kSpeaker);
+        headphone_ = detected; player_.set_output(selected_output());
     }
     ButtonEvent e;
     while (input_.poll(e)) event(e);
