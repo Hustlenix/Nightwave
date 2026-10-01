@@ -103,7 +103,11 @@ external 10 kohm pull-ups on CMD and DAT0–3 are required even for one-bit use.
 Review: local decoupling/inrush, detect polarity, ESD, no 5 V contacts, removable
 card accessibility. Firmware does not currently provide automatic hotplug remount.
 
-## 7. OLED
+## 7. Display (older OLED reference only)
+
+Final-addendum gate: choose BD-15 before authoring this block. TFT candidates,
+logic/backlight/GPIO/memory/connector requirements are in display-selection.md.
+The OLED notes below are retained references, not a final selection or cutout.
 
 SH1106-compatible is not an exact purchasable module definition. Obtain the
 module maker's pinout, drawing, supply limits, address straps, controller and

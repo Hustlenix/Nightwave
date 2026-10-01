@@ -4,8 +4,12 @@ Nightwave uses ChatGPT/Codex for research synthesis, repository organization, do
 
 2026-10-01 funding preparation: Codex also implemented the MP3 framing/adapter,
 three-task WAV/MP3 streaming engine, OLED/five-button frontend, NVS volume
-persistence, host fakes/regression tests and calculated power model. These are
-AI-assisted software/research artifacts, not independently recorded builder
+persistence, host fakes/regression tests and calculated power model.
+AI-written LRC/metadata/playlist parsers, sample clock/seek, playback policies,
+versioned settings, JSON diagnostics and PSRAM frontend changes were also added
+under the final-master request. Candidate radio/display comparisons and expanded
+load scenarios are AI-assisted research/calculations, not builder choices or
+bench measurements. These are AI-assisted software/research artifacts, not independently recorded builder
 hours or original human-created electrical/mechanical source files. No final
 schematic, PCB, enclosure CAD or manufacturing archive was created in this run.
 

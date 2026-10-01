@@ -4,6 +4,10 @@
 routing, footprint or enclosure source has been authored/verified here. Builder
 must select dimensions/stackup, author files and return them for source review.
 
+Final-addendum gate: Bluetooth/display decisions must precede final layout/CAD.
+Use their exact module/panel/cable/antenna envelope, not the historical OLED
+window. Recalculate pack/charging/thermal space from expanded engineering budgets.
+
 ## Footprint verification register
 
 | Candidate | Source/package fact | Source-file verification still required |

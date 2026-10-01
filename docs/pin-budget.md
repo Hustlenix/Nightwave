@@ -2,6 +2,11 @@
 
 Basis: `ESP32-S3-WROOM-1-N16R8` / `ESP32-S3-DevKitC-1-N8R8`. This is a provisional logical map, not a wiring instruction.
 
+Final-master gate: BD-14 Bluetooth and BD-15 display may change this map and
+even the MCU family. Reconcile their combined SPI/UART/wake/reset/backlight and
+antenna/power needs before final schematic work. No new GPIO was silently
+assigned and the old OLED interface is not a TFT pin allocation.
+
 ## Reserved and dangerous GPIO
 
 - GPIO0, GPIO3, GPIO45, GPIO46: strapping; avoid for attached circuits that can alter boot levels.

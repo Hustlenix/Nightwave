@@ -26,6 +26,19 @@ AI-generated hardware files, and independent human sanity checking.
 
 ## Funding-stage checkpoint — 2026-10-01
 
+- FINAL-MASTER CHECKPOINT: 50df90c firmware/size reports passed (run 36882011549);
+  92c17ea quality passed (run 36882687260), 7/7 Release + 7/7 ASAN/leak suites.
+  Local WSL frontend/media ASAN suites passed too. Firmware unchanged after 50df90c.
+- Added bounded LRC/metadata/M3U, sample clock/WAV/MP3 seek, modes/resume/sleep,
+  checked NVS state, output preference, JSON diagnostics/parser. Lyrics/queue
+  use explicit S3 PSRAM; no physical alignment/playback success claimed.
+- Builder BD-14 Bluetooth and BD-15 display choices are the CURRENT gate before
+  final schematic tasks. Comparisons recommend conditional S3 + qualified BM83
+  AT and non-touch 1.69-inch TFT; neither is selected. Old MCU-first advice is
+  superseded. Full-card index, chosen adapters and fuel/power HAL remain open.
+- Expanded model: assumed TFT 60mA/speaker 0.25W needs 6.609Ah for 8h; old 6.6Ah
+  candidate models only 7.99h. No pack/charger/runtime is locked or measured.
+
 - RESUMED IN MENTOR/REVIEWER MODE: user reports direct Pixl clarification that
   AI tutoring/review is permitted with real builder engineering decisions and
   authoring. This is user-reported, not independently verified correspondence.

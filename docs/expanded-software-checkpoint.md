@@ -33,6 +33,13 @@ At 630e3ec device compilation passed; its new playlist-resume assertion failed
 with a noncanonical host fixture root. Canonicalised fixtures and isolated
 generated-playlist cleanup address that regression; rerun evidence is recorded
 only after execution. A targeted frontend test also passed locally in Ubuntu WSL.
+
+Latest validated source: 50df90c device build/size reports and 92c17ea Project
+quality, both successful. Seven Release + seven ASAN/leak suites passed. The
+targeted frontend/media suites passed ASAN/leak detection locally in WSL too.
+See software-validation.md for exact run links and limits; firmware source has
+not changed after 50df90c. Future documentation-only evidence commits do not
+change the built firmware.
 Initial 54ba552 tests caught corrupt-path display clipping; repaired in 35b7ab4.
 Do not hide a failed run or treat an unexecuted checklist as a pass.
 

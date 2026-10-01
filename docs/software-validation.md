@@ -109,3 +109,12 @@ expanded-scope features are documented in engineering-budgets.md. A passing
 build/sanitizer result does not establish physical sync, timing or production
 readiness. Performance counters saturate at UINT32_MAX; discard derived averages
 after saturation. Stack minima are meaningful only after workers report them.
+
+At `50df90c`, [ESP32-S3 build plus size/component reports](https://github.com/Hustlenix/Nightwave/actions/runs/36882011549)
+and [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36882011690)
+passed. All seven suites passed in Release and ASAN with leak detection,
+including canonical-root M3U resume, isolated test fixtures and heap UI assets.
+Targeted frontend and media suites also ran under ASAN/leak detection in Ubuntu
+WSL; both passed. At `92c17ea`, [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36882687260)
+passed again after diagnostic-parser array/saturation validation fixes. Firmware
+source is unchanged from 50df90c. Local project/calculation/parser self-tests pass.

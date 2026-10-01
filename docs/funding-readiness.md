@@ -25,6 +25,12 @@ Checked: 2026-10-01. **NOT READY.** This checklist records evidence, not intent.
 Software evidence: [device build at a2aa741](https://github.com/Hustlenix/Nightwave/actions/runs/36865138056),
 [six Release + AddressSanitizer suites at 6349cd0](https://github.com/Hustlenix/Nightwave/actions/runs/36865602237).
 
+Latest expanded-scope evidence: [50df90c device build/size report](https://github.com/Hustlenix/Nightwave/actions/runs/36882011549)
+and [92c17ea Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36882687260),
+7/7 Release and 7/7 AddressSanitizer/leak suites. Remaining library/BT/TFT/power
+software is listed in expanded-software-checkpoint.md; full production software
+completion is not asserted.
+
 ## Builder-authored continuation
 
 On 2026-10-01 the builder reported direct Pixl clarification permitting AI as

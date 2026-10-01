@@ -29,6 +29,12 @@ not enough: measure free/largest internal block, minimum heap, stacks and cache
 pressure while all tasks run. Preserve ≥64 KiB free internal headroom as an
 initial acceptance target, then justify it from measured worst allocations.
 
+Executed link-size report at 50df90c: DIRAM used 204,658 bytes of 341,760;
+link-time remainder 137,102 bytes; .bss 144,736 bytes; image 426,724 bytes.
+[Firmware build/size report](https://github.com/Hustlenix/Nightwave/actions/runs/36882011549).
+These are compiler/linker figures, **not runtime heap measurements**. Runtime
+decoder/stacks/filesystem/driver allocations still consume that headroom.
+
 Current priorities: audio 8, decode 6, storage 5, UI 3. CPU targets (not results):
 audio work <25% of a 256-frame deadline (5.33 ms at 48 kHz), decode worst compute
 <50% of represented frame time, combined audio/storage/decode <70% one-core

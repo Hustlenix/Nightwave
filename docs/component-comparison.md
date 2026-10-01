@@ -1,5 +1,19 @@
 # Component Comparison
 
+## 2026-10-01 expanded-scope candidates — NOT LOCKED
+
+| Function | Candidate | Cost/availability snapshot | Qualification blocker | Status |
+| --- | --- | --- | --- | --- |
+| Dedicated A2DP source alongside S3 | BM83 AT family; AA listing needs AT firmware, TA release-note variant is AT-preprogrammed | AA $13.18, 2,429 listed; exact source SKU quote pending | Actual AT image/tools, UART/rates, one-headphone test, power/antenna budget | BD-14 PENDING |
+| Main-MCU alternative | Original ESP32-WROVER-E-N8R8 | $5.88, 16,392 listed | S3-to-ESP32 pin/USB/PSRAM migration, SBC/IDF source integration | BD-14 PENDING |
+| Larger display | Adafruit 3787, 1.54-inch ST7789 | $17.50, 7 listed | SPI/glyph driver, actual current and mount/window | BD-15 PENDING |
+| Larger display | Waveshare non-touch 1.69-inch ST7789V2 | Indexed $9.31–$9.99, stock not verified | Exact drawing/connector/stock, offsets/current/driver | BD-15 PENDING |
+
+Links and engineering comparisons are in [Bluetooth architecture](bluetooth-architecture.md)
+and [display selection](display-selection.md). These are candidates, not added
+locked BOM rows. Old SELECT/price labels below are historical and must not be
+used for funding totals, procurement or proof of builder decisions.
+
 Checked: 2026-09-29. Prices are indicative one-off USD snapshots where an official/distributor page exposed a price; `recheck` means a purchase-time quote is required. None of these parts has been purchased.
 
 ## MCU module and development board

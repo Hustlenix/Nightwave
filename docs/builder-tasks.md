@@ -22,7 +22,47 @@ assistant re-reviews. Later add an independent human sanity check. For each
 review record source commit, files, issue severity, required correction and
 retest evidence. Do not mark ERC/DRC or fit passed unless actually executed.
 
-## BUILDER TASK — 1. ESP32-S3 module
+## BUILDER TASK — 0. Chosen Bluetooth transport (staged until BD-14)
+
+### Objective
+
+After the architecture choice, qualify an actual A2DP source path before locking its schematic.
+
+### What I need to create
+
+Builder-authored block for the selected module/MCU, control/provisioning access,
+power/reset and digital audio interface; or integrate Classic Bluetooth in the
+chosen main MCU block. Do not author both alternatives as if both were selected.
+
+### Datasheets I need
+
+Exact chosen module datasheet, source-firmware release notes/UART guide or
+Espressif Classic A2DP source API/example; links in bluetooth-architecture.md.
+
+### Engineering decisions I must make
+
+Exact source-capable SKU/firmware, clocks/rates, provision/recovery access,
+power-off/backfeed, GPIO allocation and antenna coexistence/keep-outs.
+
+### Constraints
+
+No sink-only/BLE substitution. Support the required sample rates via validated
+conversion if needed. No sudden speaker fallback on wireless disconnection.
+Never use a module's internal power output to feed arbitrary peripherals.
+
+### Checklist
+
+- [ ] Record BD-14 choice/reasons; verify real firmware/tool availability and source role.
+- [ ] Reconcile display/SD/audio/control GPIO and rail/peak-current budgets.
+- [ ] Return one-headphone digital/bench evidence under a separate safe human gate.
+- [ ] Keep provisioning and firmware licensing reproducible; no unqualified codec claims.
+
+### What files/screenshots to return
+
+Actual builder source block/reference annotations, firmware/SKU/tool versions,
+BD-14 entry, unresolved issues and real prototype logs when performed.
+
+## BUILDER TASK — 1. Chosen MCU module
 
 ### Objective
 
@@ -209,11 +249,11 @@ External CMD/DAT0–3 pull-ups even for one-bit; 3.3 V contacts.
 
 Editable block, actual socket drawing and BD-07 entry.
 
-## BUILDER TASK — 7. OLED
+## BUILDER TASK — 7. Builder-selected display
 
 ### Objective
 
-Choose a documented module that fits firmware and enclosure.
+Implement the BD-15 chosen display interface after its combined budget review.
 
 ### What I need to create
 
@@ -221,15 +261,16 @@ Exact module/connector/reset block and dimension reference.
 
 ### Datasheets I need
 
-Actual module manufacturer supply/pin/dimension drawing (§7).
+Actual chosen module supply/pin/dimension/controller drawing; display-selection.md.
 
 ### Engineering decisions I must make
 
-Exact MPN/controller, address, reset, voltage and mounting.
+Exact MPN/controller, SPI versus I2C, reset/backlight, voltage and mounting.
 
 ### Constraints
 
-Unverified module pin order or panel supply must not be guessed.
+Do not reuse the old OLED pin/window assumptions for TFT. Budget DMA/PSRAM,
+backlight current and SPI GPIO together with the BD-14 Bluetooth transport.
 
 ### Checklist
 
@@ -238,7 +279,7 @@ Unverified module pin order or panel supply must not be guessed.
 
 ### What files/screenshots to return
 
-Editable block, vendor drawing/URL, exact MPN and BD-07 entry.
+Editable block, vendor drawing/URL, exact MPN and BD-15 entry.
 
 ## BUILDER TASK — 8. Five buttons
 
