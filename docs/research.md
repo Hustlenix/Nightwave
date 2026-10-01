@@ -2,6 +2,11 @@
 
 Checked: 2026-09-29
 
+2026-10-01 update: historical research below is not the current component lock.
+Model-based battery/power work now proceeds before physical measurements under
+the funding request; see power-budget.md and power-assumptions.md for the larger
+candidate and unresolved charger/peak-load constraints.
+
 ## Research method
 
 Final-candidate facts were taken first from manufacturer product pages, datasheets, mechanical drawings, or official ESP-IDF documentation. Distributor pages were used only for availability and one-off price snapshots. Prices are USD, exclude tax/shipping/tariffs, and must be rechecked before purchasing.

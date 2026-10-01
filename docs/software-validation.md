@@ -70,5 +70,12 @@ Executed evidence at `13ed6be` (2026-10-01):
 
 At `a2aa741`, [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36865138075)
 ran all six executables successfully, including actual OLED/NVS adapters against
-mock APIs. A further AddressSanitizer pass is being added and is not claimed
-complete until its successful run is recorded.
+mock APIs; [firmware build](https://github.com/Hustlenix/Nightwave/actions/runs/36865138056)
+also passed.
+
+At `6349cd0`, [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36865602237)
+passed all six suites in Release and again with AddressSanitizer and leak
+detection (6/6 in each configuration). This includes the decoder's corrupt
+corpus and actual streaming/frontend/adapter sources. No sanitizer finding was
+reported by that run; this is not proof against every possible malformed file
+or target-only race.

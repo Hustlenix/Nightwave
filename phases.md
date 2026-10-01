@@ -10,9 +10,19 @@ remain unverified, not waived or fabricated. Read `docs/pixl-funding-readiness.m
 for current design-stage requirements and original builder-authorship limits.
 Complete digital work does not establish final hardware approval or runtime.
 
+Current digital checkpoint: WAV/MP3 three-task streaming and OLED/five-button
+product interaction with NVS volume are implemented and CI-tested. Six host
+suites pass in Release and AddressSanitizer. Physical Phase 4/5 acceptance is
+pending. Final power, complete BOM, schematic/PCB/CAD and manufacturing are
+NOT complete; the current builder-authorship gate is documented in
+`docs/funding-readiness.md`. Do not equate software completion with full phase
+or funding completion.
+
 ChatGPT Work owns the **digital engineering workflow** and continuously moves the repository forward.
 
 The human builder is primarily required at physical-world gates: buying parts, wiring, soldering, measuring, ordering fabrication, assembling, listening/testing, and recording evidence.
+Original hardware design authorship and independent sanity checking are also
+human requirements at the digital funding stage, not only after fabrication.
 
 This plan is deliberately ordered to reduce the chance of paying for a PCB before the audio architecture is proven.
 

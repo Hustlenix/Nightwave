@@ -37,6 +37,11 @@ AI-generated hardware files, and independent human sanity checking.
 - PCB revision: NONE. CAD revision: NONE. Manufacturing archive: NONE.
 - Human builder hardware provenance: pending. Independent sanity check: pending.
 - Project 1200 browser reached login gate; no fields edited or funding submitted.
+- Latest complete device build: a2aa741 / run 36865138056, success.
+- Latest expanded test evidence: 6349cd0 / run 36865602237, six suites passed in
+  Release and six passed with AddressSanitizer + leak detection. Firmware source
+  is unchanged since the successful device build. Worktree changes are committed
+  and pushed; no physical outputs or measurements have been inferred.
 
 ## Finalized product decisions
 

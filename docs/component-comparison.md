@@ -4,6 +4,11 @@ Checked: 2026-09-29. Prices are indicative one-off USD snapshots where an offici
 
 ## MCU module and development board
 
+2026-10-01 update: this table remains a historical price/comparison snapshot.
+The power model now identifies Adafruit 353 / 6600 mAh as a provisional candidate
+and a BQ25185 charge-timer conflict. See power-budget.md and power-assumptions.md;
+neither charger nor final capacity is locked by the older table below.
+
 | Candidate | MPN | Supply | Important Specs | Package | Power | Pros | Cons | Assembly Risk | Availability | Approx Cost | Source | Decision |
 |---|---|---|---|---|---|---|---|---|---|---:|---|---|
 | ESP32-S3 module, 16 MB/8 MB | ESP32-S3-WROOM-1-N16R8 | 3.0–3.6 V | dual-core LX7, 16 MB flash, 8 MB octal PSRAM, PCB antenna | 41-pad module | peaks require regulator margin | memory headroom; certified module; many GPIO | GPIO33–37 consumed by octal PSRAM; antenna keepout | Medium, castellated/LGA ground pad | Active; DigiKey showed 0 with incoming stock | 6.76 | [Espressif](https://www.espressif.com/en/products/modules/esp32/1000) | PROVISIONAL SELECT |

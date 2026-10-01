@@ -37,6 +37,6 @@ bytes from the ring. The implemented boundary is:
 - WAV playback reports no unexplained reset and its underrun behavior is understood;
 - the exact ESP32-S3 board/module and audio breakouts are confirmed by label/photo.
 
-Dependency pinning, license review and CBR/VBR/corrupt host fixtures may proceed
-now; the listed physical checks are required before claiming hardware success.
+Dependency pinning, notices and CBR/VBR/corrupt host fixtures are implemented and
+tested; the listed physical checks remain required before hardware success claims.
 
