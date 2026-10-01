@@ -79,3 +79,10 @@ detection (6/6 in each configuration). This includes the decoder's corrupt
 corpus and actual streaming/frontend/adapter sources. No sanitizer finding was
 reported by that run; this is not proof against every possible malformed file
 or target-only race.
+
+At `ea393ac`, [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36874323047)
+passed repository/BOM/wiring checks, the 17-task handoff structure check,
+engineering-calculation self-tests, and all six suites in both Release and
+AddressSanitizer with leak detection. This validates software and calculated
+screening examples, not schematic/footprint correctness or physical behavior.
+Device firmware source is unchanged from the previously successful device build.

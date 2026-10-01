@@ -28,6 +28,9 @@ AI-generated hardware files, and independent human sanity checking.
   and reasons pending until supplied. Do not inspect Hackatime secrets.
 - Mentor packet now covers 15 electrical subsystems and PCB/CAD constraints;
   docs/builder-tasks.md has 17 staged tasks, starting with the MCU block.
+- Mentor packet CI at ea393ac / run 36874323047 succeeded: project checks,
+  engineering-calculation tests, 6/6 Release and 6/6 AddressSanitizer/leak suites.
+  https://github.com/Hustlenix/Nightwave/actions/runs/36874323047
 - New tools/engineering_calculations.py screens recharge/source power,
   feedback divider and headphone gain. Local self-tests/project validator pass.
   No screening calculation is actual charging or hearing-safety validation.
