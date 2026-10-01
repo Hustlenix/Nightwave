@@ -36,6 +36,10 @@ file(GLOB helix_sources "${helix_source_SOURCE_DIR}/*.c" "${helix_source_SOURCE_
 add_library(nightwave_host_helix STATIC ${helix_sources})
 target_include_directories(nightwave_host_helix PUBLIC "${helix_source_SOURCE_DIR}/pub"
     PRIVATE "${helix_source_SOURCE_DIR}/real")
+if(NOT MSVC)
+    target_compile_options(nightwave_host_helix PRIVATE
+        -include "${CMAKE_CURRENT_LIST_DIR}/helix_host_math.h")
+endif()
 add_executable(nightwave_mp3_tests mp3_tests.cpp
     ../firmware/components/decoder/mp3_decoder.cpp)
 target_include_directories(nightwave_mp3_tests PRIVATE

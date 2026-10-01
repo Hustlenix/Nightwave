@@ -14,7 +14,7 @@
 #include "nightwave/diagnostics.h"
 #include "nightwave/hardware_config.h"
 #include "nightwave/storage.h"
-#include "nightwave/wav_player.h"
+#include "nightwave/streaming_player.h"
 
 namespace {
 
@@ -23,7 +23,7 @@ constexpr float kPi = 3.14159265358979323846F;
 
 nightwave::SdStorage g_storage;
 nightwave::I2sAudioSink g_audio;
-nightwave::WavPlayer g_player;
+nightwave::StreamingPlayer g_player;
 nightwave::ButtonMonitor g_buttons;
 
 static_assert(nightwave::hardware::pins_are_unique(),
@@ -48,7 +48,9 @@ void print_help() {
         "  sd                            mount + enumerate WAV/MP3\n"
         "  bench [absolute-path]         SD average/worst read report\n"
         "  tone <speaker|line> [hz]      2 s low-level diagnostic tone\n"
-        "  wav <speaker|line> <path>     buffered PCM WAV playback\n"
+        "  play <speaker|line> <path>    buffered WAV/MP3 playback\n"
+        "  pause | resume                pause/resume buffered playback\n"
+        "  volume <0..100>               ramped digital volume\n"
         "  stop                          stop playback and mute outputs\n"
         "  status                        queue/underrun/error counters\n"
         "  help                          show this text\n\n");
@@ -137,14 +139,22 @@ void execute_command(char* line) {
         const char* frequency = strtok_r(nullptr, " \r\n", &context);
         run_tone(output,
                  frequency == nullptr ? 440.0F : std::strtof(frequency, nullptr));
-    } else if (std::strcmp(command, "wav") == 0) {
+    } else if (std::strcmp(command, "wav") == 0 || std::strcmp(command, "play") == 0) {
         const auto output = parse_output(strtok_r(nullptr, " \r\n", &context));
         const char* path = strtok_r(nullptr, "\r\n", &context);
         while (path != nullptr && *path == ' ') ++path;
         if (output == nightwave::OutputPath::kMuted || path == nullptr ||
             !g_storage.mount() || !g_player.start(path, g_audio, output, 8)) {
-            ESP_LOGE(kTag, "usage: wav <speaker|line> </sdcard/file.wav>");
+            ESP_LOGE(kTag, "usage: play <speaker|line> </sdcard/file.wav|mp3>");
         }
+    } else if (std::strcmp(command, "pause") == 0) {
+        g_player.pause(true);
+    } else if (std::strcmp(command, "resume") == 0) {
+        g_player.pause(false);
+    } else if (std::strcmp(command, "volume") == 0) {
+        const char* value = strtok_r(nullptr, " \r\n", &context);
+        if (value) g_player.set_volume(static_cast<std::uint8_t>(
+            std::clamp(std::atoi(value), 0, 100)));
     } else if (std::strcmp(command, "stop") == 0) {
         if (!g_player.stop()) {
             ESP_LOGW(kTag, "stop still pending; retain hardware and retry status/stop");
@@ -161,6 +171,11 @@ void execute_command(char* line) {
                  static_cast<unsigned long>(status.storage_errors),
                  static_cast<unsigned long>(status.decode_errors),
                  static_cast<unsigned long>(status.minimum_free_heap_bytes));
+        const auto t = g_player.telemetry();
+        ESP_LOGI(kTag, "STREAM compressed=%lu sd_worst_us=%lu decode_worst_us=%lu stack_min_bytes=%lu/%lu/%lu",
+            static_cast<unsigned long>(t.compressed_bytes), static_cast<unsigned long>(t.sd_worst_us),
+            static_cast<unsigned long>(t.decoder_worst_us), static_cast<unsigned long>(t.storage_stack_bytes),
+            static_cast<unsigned long>(t.decoder_stack_bytes), static_cast<unsigned long>(t.audio_stack_bytes));
     } else {
         ESP_LOGW(kTag, "unknown command: %s", command);
         print_help();

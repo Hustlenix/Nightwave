@@ -1,7 +1,7 @@
 idf_component_register(
-    SRCS "wav_player.cpp"
+    SRCS "wav_player.cpp" "streaming_player.cpp"
     INCLUDE_DIRS "include"
-    REQUIRES app_state audio_pipeline audio_i2s decoder freertos
+    REQUIRES app_state audio_pipeline audio_i2s decoder freertos esp_timer
 )
 
 target_compile_features(${COMPONENT_LIB} PUBLIC cxx_std_17)

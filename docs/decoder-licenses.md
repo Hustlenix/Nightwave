@@ -8,7 +8,9 @@ not relicense the bundled Helix decoder. Its source carries RealNetworks
 RPSL/RCSL notices, reproduced unchanged in `licenses/helix/`.
 
 Nightwave's adapter is separate from, and does not modify, upstream decoder
-source. Builds fetch the upstream component/source; a source release must
+source. Host tests substitute equivalent C fixed-point primitives through a
+forced include; firmware uses the upstream Xtensa implementation unchanged.
+Builds fetch the upstream component/source; a source release must
 retain those notices and make the corresponding dependency source available.
 Do not describe the complete firmware as wholly MIT/Apache licensed. Review
 the upstream license conditions before redistributing binaries, changing
