@@ -44,10 +44,16 @@ bool load_settings(Settings& settings) {
     std::memcpy(candidate.playlist_path.data(), record.data() + 272, 256);
     std::memcpy(candidate.library_folder.data(), record.data() + 528, 256);
     if (!valid(candidate)) return false;
+    // Bluetooth audio is not implemented yet. Older/experimental NVS records
+    // may still contain that preference; migrate them to a usable route
+    // instead of booting into a permanently muted player.
+    if (candidate.output == OutputPreference::kBluetooth)
+        candidate.output = OutputPreference::kAutomatic;
     settings = candidate; return true;
 }
 bool save_settings(const Settings& settings) {
-    if (!valid(settings)) return false;
+    // Never persist an output route the current firmware cannot actually use.
+    if (!valid(settings) || settings.output == OutputPreference::kBluetooth) return false;
     nvs_handle_t handle;
     if (nvs_open("nightwave", NVS_READWRITE, &handle) != ESP_OK) return false;
     std::array<std::uint8_t, kRecordSize> record{};
