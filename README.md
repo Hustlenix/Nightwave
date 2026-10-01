@@ -10,6 +10,12 @@ Nightwave is an in-progress, standalone pocket music player for the Pixl “A Mu
 
 ## Why it exists
 
+Hardware design now proceeds in builder-authored mentor/reviewer mode. Start
+with [builder tasks](docs/builder-tasks.md), [subsystem requirements](docs/schematic-requirements.md)
+and [your decision log](docs/builder-decisions.md). AI research and review are
+disclosed; final schematic, routing and enclosure must be materially authored
+by the builder. The reported Pixl clarification does not mark missing work done.
+
 The product goal is to play the builder's own music offline without a phone,
 notifications, subscription or hidden playback module. The builder's personal
 motivation and genuine work journal must remain their own account; this README

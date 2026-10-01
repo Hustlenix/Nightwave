@@ -29,3 +29,5 @@ hardware/kicad/~*
 
 # Reproducible local test outputs
 .generated/
+__pycache__/
+*.pyc

@@ -94,10 +94,34 @@ def validate_required_files() -> None:
         "measurements/audio-prototype.csv",
         "measurements/current-draw.csv",
         "tools/generate_test_media.py",
+        "docs/builder-decisions.md",
+        "docs/builder-tasks.md",
+        "docs/schematic-requirements.md",
+        "docs/power-options.md",
+        "docs/layout-mechanical-requirements.md",
+        "docs/component-research-followup.md",
+        "tools/engineering_calculations.py",
     ]
     missing = [path for path in required if not (ROOT / path).is_file()]
     if missing:
         raise AssertionError(f"Missing required Phase 2 files: {missing}")
+
+
+def validate_builder_task_packet() -> None:
+    """Check handoff structure, not authorship or engineering correctness."""
+    packet = (ROOT / "docs/builder-tasks.md").read_text(encoding="utf-8")
+    tasks = re.split(r"^## BUILDER TASK .*?$", packet, flags=re.MULTILINE)[1:]
+    if len(tasks) < 17:
+        raise AssertionError("Missing electrical/PCB/CAD builder tasks")
+    headings = (
+        "Objective", "What I need to create", "Datasheets I need",
+        "Engineering decisions I must make", "Constraints", "Checklist",
+        "What files/screenshots to return",
+    )
+    for index, task in enumerate(tasks, 1):
+        for heading in headings:
+            if f"### {heading}\n" not in task:
+                raise AssertionError(f"Builder task {index}: missing {heading}")
 
 
 def main() -> None:
@@ -115,6 +139,9 @@ def main() -> None:
     )
     validate_wiring_matches_firmware()
     validate_required_files()
+    validate_builder_task_packet()
+    from engineering_calculations import self_test
+    self_test()
     print("Nightwave project checks passed")
 
 

@@ -74,6 +74,12 @@ Prototype breakouts may force different pins; any variant must live in one board
 
 ## Checks before schematic lock
 
+Mentor review: GPIO16 needs a real digital insertion detector, not a pull-up on
+SJ-3503-SMT-TR's audio switch contacts. GPIO18's prototype DAC mute role versus
+final headphone-amp enable requires an explicit circuit/sequencing decision.
+Candidate I2C charger/CC controller additions must include address, pull-up,
+powered-off and interrupt pin-budget checks before altering this map.
+
 - confirm all selected GPIO are actually bonded out on the exact module footprint;
 - confirm no development-board onboard device conflicts with the prototype map;
 - use external SD pull-ups required by the SD specification; internal pulls are not the final design;

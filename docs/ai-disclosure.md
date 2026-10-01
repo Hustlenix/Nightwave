@@ -11,4 +11,13 @@ schematic, PCB, enclosure CAD or manufacturing archive was created in this run.
 
 AI output is not physical evidence and is not human engineering time. No AI-generated measurement, runtime, progress photo, journal hour, reviewer feedback, or hardware success claim may be submitted.
 
+Builder-authored continuation (2026-10-01): the builder reports Pixl permits AI
+tutoring and second-pair-of-eyes review while the builder performs and owns
+schematic/PCB engineering decisions. Codex prepares reference research,
+calculations, requirements and review checklists, and reviews returned editable
+sources. It does not generate final electrical/mechanical designs wholesale or
+write personal decision reasons as if the builder made them. The decision log
+records proposals separately from genuine builder selections. No builder
+hardware authorship, Hackatime hours or reviewer approval is currently asserted.
+
 The builder is responsible for understanding and materially reviewing the electrical and mechanical design, choosing and purchasing parts, wiring and soldering, performing measurements, maintaining genuine build journals/photos, revising sources to match physical changes, and obtaining a second-person sanity check. PCB and CAD submission files must not be blindly submitted as fully AI-generated work.

@@ -3,6 +3,11 @@
 Status: NOT COMPLETE. A review checklist is not proof of original authorship.
 See `pixl-funding-readiness.md` for the current program rule.
 
+The builder reports Pixl clarified that AI tutoring/review is permitted with
+real builder engineering decisions/authorship. Work now uses builder-tasks.md
+and builder-decisions.md. Pending editable sources do not block independent
+research/software; they do prevent claiming executed source-level design checks.
+
 Provide original editable design sources and commit history as the work evolves.
 For each subsystem record the builder's decisions, source/datasheet, authored
 changes, reasoning, reviewer and unresolved issues. Do not invent dates or hours.

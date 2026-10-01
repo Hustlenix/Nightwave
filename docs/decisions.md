@@ -177,3 +177,17 @@ The larger model-based battery candidate does not itself lock final power:
 charger timer, input-current eligibility, NTC and peak-load compatibility must
 be resolved in the builder-owned electrical design. The prior component table
 is historical research, not a fabrication BOM.
+
+## ADR-009 — Builder-authored design with AI mentoring and review
+
+Date: 2026-10-01
+Status: user-directed workflow; hardware selections remain pending
+
+The builder reports direct Pixl clarification allowing AI as tutor/reviewer
+when the builder does the real schematic/PCB engineering and chooses the final
+design. Research, calculations, firmware and constraints continue independently.
+Codex must not generate the final schematic, routing or enclosure wholesale.
+Builder choices and personal reasons belong in builder-decisions.md, supplied
+by the builder, with actual editable sources returned for specific review.
+No automatic authorship, hours, ERC/DRC pass, independent review or funding
+readiness follows from this workflow clarification.

@@ -6,6 +6,14 @@ preliminary charger's low-current safety timer and peak-load allowance.
 See [power budget](power-budget.md) and [constraints](power-assumptions.md).
 This tree is provisional and is NOT a complete manufacturable power circuit.
 
+Mentor review update: [power-options.md](power-options.md) compares a switching
+charger without selecting it. Builder decides source policy and charger before
+this tree becomes authoritative. The native-USB service wording in the BOM
+conflicts with the power-only assumption below; resolve it in BD-01/02 rather
+than claiming that GPIO19/20 are already wired.
+MAX17048 VDD connects to protected battery positive and senses voltage; it is
+not powered from 3V3_MAIN. Only its logic pull-up rail is discussed below.
+
 ```text
 USB-C VBUS (5 V sink, power-only V1)
   |-- CC1 5.1 kΩ to GND

@@ -22,20 +22,27 @@ Checked: 2026-10-01. **NOT READY.** This checklist records evidence, not intent.
 Software evidence: [device build at a2aa741](https://github.com/Hustlenix/Nightwave/actions/runs/36865138056),
 [six Release + AddressSanitizer suites at 6349cd0](https://github.com/Hustlenix/Nightwave/actions/runs/36865602237).
 
-## Current genuine human gate
+## Builder-authored continuation
 
-The autonomous request cannot by itself establish original builder hardware
-authorship. Before producing a complete autonomous PCB/CAD submission under the
-builder's name, obtain builder-authored editable electrical/mechanical sources
-and material design decisions with provenance, or written program guidance on
-the permitted assistance boundary. This is distinct from waiting for physical
-tests. No review or authorship is automatically checked off.
+On 2026-10-01 the builder reported direct Pixl clarification permitting AI as
+a tutor/second pair of eyes when the builder does the actual schematic/board
+engineering and makes the final decisions. This is user-reported guidance,
+not independently verified correspondence. It enables mentoring now; it does
+not establish that human design work or hours have already occurred.
 
-After that input, resolve the power conflicts, finish/verify BOM and actual
-source designs, run ERC/DRC/interference checks, create manufacturing exports
-and renders, and obtain another person's feedback. Project-specific funding
-fields still require an authenticated session. There is no finished funding
-package to submit yet.
+Research, calculations, candidate-part/footprint checks, firmware, test work,
+PCB/CAD constraints and review preparation continue independently. Codex must
+not generate the final schematic, routing or enclosure wholesale. The builder
+authors those editable sources and records choices in builder-decisions.md.
+Start with [the MCU builder task](builder-tasks.md), using
+[subsystem requirements](schematic-requirements.md). Return the actual sources
+for specific review, then revise and re-review. PCB/CAD constraints are in
+[layout and mechanical requirements](layout-mechanical-requirements.md).
+
+Final component lock, source-level footprint verification, ERC/DRC, mechanical
+interference checks, exports and independent sanity review depend on those
+sources. An authenticated Project 1200 session is still needed to check its
+funding fields. There is no finished funding package to submit yet.
 
 Current priced BOM is only a preliminary core subtotal, not a funding/order total.
 The updated candidate subtotal is $55.97. Power calculations identify a larger

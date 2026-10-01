@@ -54,6 +54,8 @@ jobs:
           ffmpeg -nostdin -y -i .generated/test-media/02_left_right_stereo_44100.wav -ar 22050 -ac 1 -codec:a libmp3lame -b:a 64k .generated/test-media/test-mpeg2.mp3
       - name: Check conservative power arithmetic
         run: python3 tools/power_budget.py
+      - name: Check mentor engineering calculations
+        run: python3 tools/engineering_calculations.py
       - name: Configure portable firmware tests
         run: cmake -S tests -B build/host-tests -DCMAKE_BUILD_TYPE=Release
       - name: Build portable firmware tests

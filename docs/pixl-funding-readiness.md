@@ -25,6 +25,13 @@ AI disclosure and clicking approval on AI output cannot be assumed sufficient.
 Builder-created electrical/mechanical work and its provenance are still needed;
 obtain program guidance if the proposed assistance boundary is unclear.
 
+2026-10-01 continuation: the builder reports direct clarification from Pixl
+permitting AI tutor/second-pair-of-eyes assistance while the builder performs
+actual schematic/board engineering and makes final decisions. This is reported
+by the user, not independently verified correspondence. Follow the specific
+builder-authored workflow in builder-tasks.md; research and software continue
+while sources are pending. It does not waive source completeness or review.
+
 ## Required later for final build submission
 
 The hardware page additionally requires genuine build-progress journals/photos,

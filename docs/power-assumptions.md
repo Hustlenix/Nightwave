@@ -3,6 +3,11 @@
 Checked 2026-10-01. Model inputs: [power-budget.md](power-budget.md).
 This research is AI-assisted; it is not a builder-authored final circuit.
 
+Mentor continuation: see [power-options.md](power-options.md) for the researched
+BQ25628E switching alternative, minimum safety-time screening and source/load
+balance. It is not selected. Builder must resolve reset/watchdog/default-source
+behavior, cell sensing/NTC and shutdown before locking the power circuit.
+
 ## Datasheet facts checked
 
 - [BQ25185 Rev. B](https://www.ti.com/lit/ds/symlink/bq25185.pdf): standard

@@ -4,6 +4,15 @@
 
 ## Execution philosophy
 
+2026-10-01 builder-authored continuation: the builder reports direct Pixl
+clarification allowing AI tutoring/review with actual human engineering work.
+This supersedes any instruction below for Codex to author final schematic,
+PCB routing or enclosure wholesale. Builder owns those sources and decisions;
+Codex researches, calculates, explains, checks and reviews returned files.
+Independent software/research work does not wait for builder authoring.
+Follow docs/builder-tasks.md and record genuine choices in
+docs/builder-decisions.md. No human hours or review approvals are inferred.
+
 2026-10-01 funding-readiness override: digital Phase 4A/5 software and pre-funding
 design preparation may proceed without bench results. Physical exit criteria
 remain unverified, not waived or fabricated. Read `docs/pixl-funding-readiness.md`

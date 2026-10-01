@@ -19,6 +19,22 @@ AI-generated hardware files, and independent human sanity checking.
 
 ## Funding-stage checkpoint — 2026-10-01
 
+- RESUMED IN MENTOR/REVIEWER MODE: user reports direct Pixl clarification that
+  AI tutoring/review is permitted with real builder engineering decisions and
+  authoring. This is user-reported, not independently verified correspondence.
+  Research/software/checklists continue while editable human sources are pending.
+- Do not generate the final schematic, PCB routing or enclosure wholesale.
+  Use docs/builder-tasks.md and docs/builder-decisions.md; leave personal choices
+  and reasons pending until supplied. Do not inspect Hackatime secrets.
+- Mentor packet now covers 15 electrical subsystems and PCB/CAD constraints;
+  docs/builder-tasks.md has 17 staged tasks, starting with the MCU block.
+- New tools/engineering_calculations.py screens recharge/source power,
+  feedback divider and headphone gain. Local self-tests/project validator pass.
+  No screening calculation is actual charging or hearing-safety validation.
+- Exact MAX98360CEFB+T is 10-pin FC2QFN (CENL+T is 9-ball WLP); use corrected
+  manufacturer OUTP/OUTN pin map. MAX17048 VDD is battery sense. Jack audio
+  switches cannot be assumed an isolated digital detector. Builder choices open.
+
 - DIGITAL DESIGN: INCOMPLETE (software implemented; physical hardware sources absent).
 - PHYSICAL BUILD: NOT VERIFIED / no returned prototype measurements.
 - FUNDING READINESS: NOT READY; exact checklist in docs/funding-readiness.md.
