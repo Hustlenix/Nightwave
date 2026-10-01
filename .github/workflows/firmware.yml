@@ -16,6 +16,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: nightwave-firmware-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   esp-idf-build:
     runs-on: ubuntu-24.04
