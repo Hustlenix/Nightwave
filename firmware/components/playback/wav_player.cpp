@@ -189,7 +189,10 @@ void WavPlayer::audio_task() {
            ring_.size() < prefill_frames) {
         vTaskDelay(pdMS_TO_TICKS(2));
     }
-    if (!stop_requested_.load()) sink_->select_output(output_);
+    if (!stop_requested_.load() && !sink_->select_output(output_)) {
+        ++errors_;
+        stop_requested_.store(true);
+    }
 
     std::array<StereoFrame, kDmaFrames> output{};
     while (!stop_requested_.load() && (!source_done_.load() || !ring_.empty())) {
@@ -219,6 +222,12 @@ void WavPlayer::audio_task() {
             break;
         }
     }
+    if (!stop_requested_.load() && sink_->drain() != AudioSinkStatus::kAccepted) {
+        ++errors_;
+        ESP_LOGE(kTag, "EOF DMA drain failed");
+    }
+    // Mute immediately even if the producer is still returning from a read.
+    sink_->select_output(OutputPath::kMuted);
     // The audio worker owns I2S teardown. Do not advertise idle until the
     // producer has closed the file and stopped accessing the ring/config.
     while (!source_done_.load()) {

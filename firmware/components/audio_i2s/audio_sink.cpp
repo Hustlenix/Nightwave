@@ -6,13 +6,16 @@
 #include "driver/gpio.h"
 #include "driver/i2s_std.h"
 #include "esp_log.h"
-#include "freertos/FreeRTOS.h"
 
 #include "nightwave/hardware_config.h"
 
 namespace nightwave {
 namespace {
 constexpr char kTag[] = "audio_i2s";
+constexpr std::size_t kDmaBuffers = 8;
+constexpr std::size_t kDmaFrames = 256;
+// Keep the full DMA prefill off the task stack.
+constexpr std::array<std::int16_t, kDmaBuffers * kDmaFrames * 2> kSilence{};
 
 i2s_chan_handle_t as_channel(void* value) {
     return static_cast<i2s_chan_handle_t>(value);
@@ -40,14 +43,15 @@ bool I2sAudioSink::initialize_safe_outputs() {
 }
 
 AudioSinkStatus I2sAudioSink::configure(const AudioFormat& format) {
-    if (!format.supported()) return AudioSinkStatus::kFault;
+    if (!format.supported() || format.channel_count != 2) return AudioSinkStatus::kFault;
     stop();
     if (!initialize_safe_outputs()) return AudioSinkStatus::kFault;
 
     i2s_chan_config_t channel_config =
         I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);
-    channel_config.dma_desc_num = 8;
-    channel_config.dma_frame_num = 256;
+    channel_config.dma_desc_num = kDmaBuffers;
+    channel_config.dma_frame_num = kDmaFrames;
+    channel_config.auto_clear_after_cb = true;
     i2s_chan_handle_t tx = nullptr;
     if (i2s_new_channel(&channel_config, &tx, nullptr) != ESP_OK) {
         ESP_LOGE(kTag, "i2s_new_channel failed");
@@ -70,8 +74,11 @@ AudioSinkStatus I2sAudioSink::configure(const AudioFormat& format) {
     standard_config.gpio_cfg.invert_flags.bclk_inv = false;
     standard_config.gpio_cfg.invert_flags.ws_inv = false;
 
+    std::size_t bytes_loaded = 0;
     if (i2s_channel_init_std_mode(tx, &standard_config) != ESP_OK ||
-        i2s_channel_enable(tx) != ESP_OK) {
+        i2s_channel_preload_data(tx, kSilence.data(), sizeof(kSilence),
+                                 &bytes_loaded) != ESP_OK ||
+        bytes_loaded != sizeof(kSilence) || i2s_channel_enable(tx) != ESP_OK) {
         i2s_del_channel(tx);
         ESP_LOGE(kTag, "I2S standard-mode initialization failed");
         return AudioSinkStatus::kFault;
@@ -79,25 +86,22 @@ AudioSinkStatus I2sAudioSink::configure(const AudioFormat& format) {
     channel_ = tx;
     format_ = format;
 
-    std::array<std::int16_t, 512> silence{};
-    std::size_t bytes_written = 0;
-    i2s_channel_write(tx, silence.data(), sizeof(silence), &bytes_written,
-                      pdMS_TO_TICKS(100));
     ESP_LOGI(kTag, "I2S READY rate=%lu bits=16 channels=2 dma=8x256 output=muted",
              static_cast<unsigned long>(format.sample_rate_hz));
     return AudioSinkStatus::kAccepted;
 }
 
 AudioSinkStatus I2sAudioSink::write(const PcmBlock& block) {
-    if (channel_ == nullptr || block.interleaved_samples == nullptr) {
+    if (channel_ == nullptr) {
         return AudioSinkStatus::kNotReady;
     }
+    if (!valid_stereo_block(block, format_)) return AudioSinkStatus::kFault;
     const std::size_t byte_count =
         block.frame_count * 2U * sizeof(std::int16_t);
     std::size_t bytes_written = 0;
     const esp_err_t error = i2s_channel_write(
         as_channel(channel_), block.interleaved_samples, byte_count,
-        &bytes_written, pdMS_TO_TICKS(1000));
+        &bytes_written, 1000);  // ESP-IDF I2S takes milliseconds, not RTOS ticks.
     if (error == ESP_ERR_TIMEOUT) return AudioSinkStatus::kWouldBlock;
     return error == ESP_OK && bytes_written == byte_count
                ? AudioSinkStatus::kAccepted
@@ -105,6 +109,8 @@ AudioSinkStatus I2sAudioSink::write(const PcmBlock& block) {
 }
 
 bool I2sAudioSink::select_output(OutputPath output) {
+    if (output != OutputPath::kMuted && output != OutputPath::kSpeaker &&
+        output != OutputPath::kLine) return false;
     if (channel_ == nullptr && output != OutputPath::kMuted) return false;
     set_output_pins(false, false);
     output_ = OutputPath::kMuted;
@@ -119,6 +125,10 @@ bool I2sAudioSink::select_output(OutputPath output) {
                  ? "speaker"
                  : (output == OutputPath::kLine ? "line" : "muted"));
     return true;
+}
+
+AudioSinkStatus I2sAudioSink::drain() {
+    return write({kSilence.data(), kDmaBuffers * kDmaFrames, format_, 0});
 }
 
 void I2sAudioSink::stop() {

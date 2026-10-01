@@ -26,6 +26,18 @@ else()
 endif()
 
 enable_testing()
+add_executable(nightwave_audio_sink_tests audio_sink_tests.cpp
+    ../firmware/components/audio_i2s/audio_sink.cpp)
+target_include_directories(nightwave_audio_sink_tests PRIVATE
+    fakes ../firmware/components/audio_i2s/include
+    ../firmware/components/audio_pipeline/include
+    ../firmware/components/app_state/include)
+if(MSVC)
+    target_compile_options(nightwave_audio_sink_tests PRIVATE /W4 /WX)
+else()
+    target_compile_options(nightwave_audio_sink_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_audio_sink_tests COMMAND nightwave_audio_sink_tests)
 add_test(
     NAME nightwave_host_tests
     COMMAND nightwave_host_tests ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/02_left_right_stereo_44100.wav

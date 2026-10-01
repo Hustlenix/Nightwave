@@ -55,6 +55,11 @@ void print_help() {
 }
 
 void run_tone(nightwave::OutputPath output, float frequency_hz) {
+    if (!std::isfinite(frequency_hz) || frequency_hz < 20.0F ||
+        frequency_hz > 20000.0F) {
+        ESP_LOGE(kTag, "tone frequency must be finite and between 20 and 20000 Hz");
+        return;
+    }
     if (output == nightwave::OutputPath::kMuted || g_player.playing()) {
         ESP_LOGE(kTag, "tone requires speaker|line and idle playback");
         return;
@@ -105,7 +110,10 @@ void run_tone(nightwave::OutputPath output, float frequency_hz) {
     }
     pcm.fill(0);
     nightwave::PcmBlock silence{pcm.data(), kFrames, format, frame_index};
-    g_audio.write(silence);
+    if (g_audio.write(silence) != nightwave::AudioSinkStatus::kAccepted ||
+        g_audio.drain() != nightwave::AudioSinkStatus::kAccepted) {
+        ESP_LOGE(kTag, "tone silence/drain failed");
+    }
     g_audio.stop();
     ESP_LOGI(kTag, "TONE STOP output=muted");
 }

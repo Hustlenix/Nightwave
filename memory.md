@@ -194,6 +194,16 @@ No physical prototype, purchased final parts, measured runtime, finished schemat
 
 ### Phase 4 request audit, 2026-09-30
 
+Phase 3 repair follow-up, 2026-10-01: RIFF bounds/padding, full-width WAV format
+validation, duplicate chunks, and frame alignment are now checked. I2S preloads
+all DMA buffers with silence before enable, auto-clears sent buffers, validates
+stereo PCM blocks, and uses millisecond timeouts. Natural EOF flushes queued
+audio; cancellation mutes before waiting for producer cleanup. Tone frequency
+validation and output error reporting were added. New host parser/PCM regression
+tests and an actual-adapter fake-driver test cover these paths. Local project
+validation and whitespace checks passed; no local C++ toolchain is on PATH.
+Device behavior, MP3, and physical Phase 3 exit criteria are still unverified.
+
 The new Phase 4 request requires physical Phase 3 evidence before entry. Audit
 found no device logs, build photos, or audio measurement rows. Phase 4 has not
 started. MP3 remains unimplemented and awaits physical WAV evidence.

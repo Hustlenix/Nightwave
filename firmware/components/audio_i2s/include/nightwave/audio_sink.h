@@ -24,6 +24,8 @@ class I2sAudioSink final : public AudioSink {
     AudioSinkStatus write(const PcmBlock& block) override;
     void stop() override;
     bool select_output(OutputPath output);
+    // Flush queued audio at natural EOF by writing a full DMA span of zeros.
+    AudioSinkStatus drain();
     bool ready() const { return channel_ != nullptr; }
 
   private:

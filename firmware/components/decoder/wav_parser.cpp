@@ -2,7 +2,6 @@
 
 #include <array>
 #include <cstring>
-#include <limits>
 
 namespace nightwave {
 namespace {
@@ -50,10 +49,23 @@ WavParseResult parse_wav(WavReadCallback reader, void* context,
         return result;
     }
 
+    const std::uint64_t riff_end = 8ULL + le32(riff.data() + 4);
+    if (riff_end < riff.size()) {
+        result.status = WavParseStatus::kMalformedChunk;
+        return result;
+    }
+    if (riff_end > file_size) {
+        result.status = WavParseStatus::kTruncated;
+        return result;
+    }
     bool have_format = false;
     bool have_data = false;
     std::uint64_t offset = 12;
-    while (offset + 8 <= file_size) {
+    while (offset < riff_end) {
+        if (riff_end - offset < 8) {
+            result.status = WavParseStatus::kMalformedChunk;
+            return result;
+        }
         std::array<std::uint8_t, 8> header{};
         if (!read_exact(reader, context, offset, header.data(), header.size(),
                         file_size)) {
@@ -62,13 +74,14 @@ WavParseResult parse_wav(WavReadCallback reader, void* context,
         }
         const auto chunk_size = static_cast<std::uint64_t>(le32(header.data() + 4));
         const auto payload_offset = offset + 8;
-        if (payload_offset > file_size || chunk_size > file_size - payload_offset) {
+        const auto padded_size = chunk_size + (chunk_size & 1U);
+        if (padded_size > riff_end - payload_offset) {
             result.status = WavParseStatus::kMalformedChunk;
             return result;
         }
 
         if (id_is(header.data(), "fmt ")) {
-            if (chunk_size < 16) {
+            if (have_format || chunk_size < 16) {
                 result.status = WavParseStatus::kMalformedChunk;
                 return result;
             }
@@ -83,13 +96,18 @@ WavParseResult parse_wav(WavReadCallback reader, void* context,
                 result.status = WavParseStatus::kUnsupportedCodec;
                 return result;
             }
-            result.info.format.channel_count =
-                static_cast<std::uint8_t>(le16(format.data() + 2));
+            const auto channels = le16(format.data() + 2);
+            const auto bits = le16(format.data() + 14);
+            if ((channels != 1 && channels != 2) || bits != 16) {
+                result.status = WavParseStatus::kUnsupportedFormat;
+                return result;
+            }
+            result.info.format.channel_count = static_cast<std::uint8_t>(channels);
             result.info.format.sample_rate_hz = le32(format.data() + 4);
             result.info.byte_rate = le32(format.data() + 8);
             result.info.block_align = le16(format.data() + 12);
             result.info.format.bits_per_sample =
-                static_cast<std::uint8_t>(le16(format.data() + 14));
+                static_cast<std::uint8_t>(bits);
             if (!result.info.format.supported() ||
                 result.info.block_align !=
                     result.info.format.channel_count * sizeof(std::int16_t) ||
@@ -100,6 +118,10 @@ WavParseResult parse_wav(WavReadCallback reader, void* context,
             }
             have_format = true;
         } else if (id_is(header.data(), "data")) {
+            if (have_data) {
+                result.status = WavParseStatus::kMalformedChunk;
+                return result;
+            }
             result.info.data_offset = payload_offset;
             result.info.data_size = chunk_size;
             have_data = true;
@@ -107,16 +129,14 @@ WavParseResult parse_wav(WavReadCallback reader, void* context,
             ++result.info.unknown_chunk_count;
         }
 
-        if (have_format && have_data) {
-            result.status = WavParseStatus::kOk;
-            return result;
-        }
-        const auto padded_size = chunk_size + (chunk_size & 1U);
-        if (padded_size > std::numeric_limits<std::uint64_t>::max() - payload_offset) {
-            result.status = WavParseStatus::kMalformedChunk;
-            return result;
-        }
         offset = payload_offset + padded_size;
+    }
+
+    if (have_format && have_data) {
+        result.status = result.info.data_size % result.info.block_align == 0
+                            ? WavParseStatus::kOk
+                            : WavParseStatus::kMalformedChunk;
+        return result;
     }
 
     result.status = have_format ? WavParseStatus::kMissingData

@@ -102,3 +102,29 @@ Card removal recovery has not been implemented or tested.
 - whether each physical sound was silent/correct/wrong, with no inferred measurements;
 - exact wired headphone model and impedance before headphone testing.
 
+## Phase 3 software repairs, 2026-10-01
+
+- WAV parsing respects the declared RIFF extent, validates odd-chunk padding,
+  rejects duplicate fmt/data chunks, rejects incomplete PCM frames, and checks
+  full-width channel/bit-depth fields before narrowing. Data before fmt remains
+  supported; bytes outside the RIFF container are ignored.
+- I2S preloads all 8 x 256 stereo frames with zero PCM before enabling clocks.
+  Setup fails explicitly on driver errors or incomplete preload. DMA buffers
+  automatically clear after sending, preventing repeated stale PCM on starvation.
+- The stereo output adapter rejects null/empty/overflowing PCM blocks and
+  sample-rate/channel mismatches. Driver write timeouts use milliseconds, as
+  required by the ESP-IDF API, independently of the RTOS tick rate.
+- Natural WAV EOF flushes a complete DMA span of zeros before muting to avoid
+  discarding the queued tail. Cancel/error mutes before waiting for producer
+  cleanup. Tone generation rejects non-finite/out-of-range frequencies and
+  reports silence/drain failures.
+- Portable regression tests cover malformed WAV boundaries and PCM contracts.
+  A separate test executable compiles the actual I2S adapter against fake driver
+  calls, exercising startup order, failure cleanup, partial writes, timeout,
+  drain size, and mutually exclusive output enables. These mocks do not simulate
+  DMA timing, FreeRTOS scheduling, electrical behavior, or sound quality.
+
+Reference: [Espressif I2S API](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/i2s.html).
+Physical verification and MP3 integration remain outstanding. This repair is not
+a claim that Phase 3 has met its hardware exit criteria.
+

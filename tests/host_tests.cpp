@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <limits>
 #include <string>
 #include <vector>
 
@@ -90,12 +91,84 @@ void test_wav_parser() {
     auto truncated = bytes;
     truncated.pop_back();
     CHECK(nightwave::parse_wav(vector_reader, &truncated, truncated.size()).status ==
-          nightwave::WavParseStatus::kMalformedChunk);
+          nightwave::WavParseStatus::kTruncated);
 
     auto unsupported = make_wav(false);
     unsupported[34] = 24;
     CHECK(nightwave::parse_wav(vector_reader, &unsupported, unsupported.size()).status ==
           nightwave::WavParseStatus::kUnsupportedFormat);
+}
+
+void set_u32(std::vector<std::uint8_t>& bytes, std::size_t offset,
+             std::uint32_t value) {
+    for (unsigned i = 0; i < 4; ++i) bytes[offset + i] =
+        static_cast<std::uint8_t>(value >> (i * 8));
+}
+
+void test_wav_boundaries() {
+    using Status = nightwave::WavParseStatus;
+    auto parse = [](std::vector<std::uint8_t>& bytes) {
+        return nightwave::parse_wav(vector_reader, &bytes, bytes.size()).status;
+    };
+    auto bytes = make_wav(false);
+    set_u32(bytes, 4, 4);  // Valid-looking chunks outside the RIFF container.
+    CHECK(parse(bytes) == Status::kMissingFormat);
+    set_u32(bytes, 4, 3);
+    CHECK(parse(bytes) == Status::kMalformedChunk);
+    bytes = make_wav(false);
+    bytes[23] = 1;  // 258 channels must not narrow to stereo.
+    CHECK(parse(bytes) == Status::kUnsupportedFormat);
+    bytes = make_wav(false);
+    bytes[35] = 1;  // 272 bits must not narrow to 16.
+    CHECK(parse(bytes) == Status::kUnsupportedFormat);
+    bytes = make_wav(false);
+    set_u32(bytes, 40, 7);  // Includes pad byte, but incomplete PCM frame.
+    CHECK(parse(bytes) == Status::kMalformedChunk);
+    bytes = make_wav(false);
+    bytes.push_back(0);  // Partial chunk header inside RIFF.
+    set_u32(bytes, 4, static_cast<std::uint32_t>(bytes.size() - 8));
+    CHECK(parse(bytes) == Status::kMalformedChunk);
+    bytes = make_wav(false);
+    append_id(bytes, "data"); append_u32(bytes, 0);
+    set_u32(bytes, 4, static_cast<std::uint32_t>(bytes.size() - 8));
+    CHECK(parse(bytes) == Status::kMalformedChunk);
+    bytes = make_wav(false);
+    const std::vector<std::uint8_t> fmt(bytes.begin() + 12, bytes.begin() + 36);
+    bytes.insert(bytes.end(), fmt.begin(), fmt.end());
+    set_u32(bytes, 4, static_cast<std::uint32_t>(bytes.size() - 8));
+    CHECK(parse(bytes) == Status::kMalformedChunk);
+    bytes = make_wav(false);
+    std::rotate(bytes.begin() + 12, bytes.begin() + 36, bytes.end());
+    CHECK(parse(bytes) == Status::kOk);  // data before fmt is supported.
+    bytes = make_wav(false);
+    append_id(bytes, "JUNK"); append_u32(bytes, 1); bytes.push_back(7);
+    set_u32(bytes, 4, static_cast<std::uint32_t>(bytes.size() - 8));
+    CHECK(parse(bytes) == Status::kMalformedChunk);  // Missing odd pad byte.
+    bytes.push_back(0);
+    set_u32(bytes, 4, static_cast<std::uint32_t>(bytes.size() - 8));
+    CHECK(parse(bytes) == Status::kOk);
+    bytes.push_back(99);  // Bytes outside declared RIFF are not chunks.
+    CHECK(parse(bytes) == Status::kOk);
+}
+
+void test_pcm_contract() {
+    std::array<std::int16_t, 4> pcm{};
+    nightwave::AudioFormat sink{44100, 2, 16};
+    nightwave::PcmBlock block{pcm.data(), 2, sink, 0};
+    CHECK(nightwave::valid_stereo_block(block, sink));
+    block.frame_count = 0;
+    CHECK(!nightwave::valid_stereo_block(block, sink));
+    block.frame_count = std::numeric_limits<std::size_t>::max();
+    CHECK(!nightwave::valid_stereo_block(block, sink));
+    block.frame_count = 2;
+    block.format.channel_count = 1;
+    CHECK(!nightwave::valid_stereo_block(block, sink));
+    block.format.channel_count = 2;
+    block.format.sample_rate_hz = 48000;
+    CHECK(!nightwave::valid_stereo_block(block, sink));
+    block.format = sink;
+    block.interleaved_samples = nullptr;
+    CHECK(!nightwave::valid_stereo_block(block, sink));
 }
 
 void test_generated_fixture(const char* path) {
@@ -165,6 +238,8 @@ void test_playback_state() {
 
 int main(int argc, char** argv) {
     test_wav_parser();
+    test_wav_boundaries();
+    test_pcm_contract();
     test_ring_buffer();
     test_audio_math();
     test_button_debounce();
