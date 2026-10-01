@@ -394,19 +394,31 @@ const renderCinematicGeometry = (e, blast, labels, progress, copyOpacity) => {
     if (spark) spark.style.transform = 'rotate(' + angle + 'deg) translateX(' + (blast * distance).toFixed(1) + 'px)';
   });
 
+  const exitFade = 1 - cinSmooth((progress - .88) / .10);
+
   cinematicSection?.querySelectorAll('.component-callout').forEach((callout) => {
-    callout.style.opacity = labels.toFixed(3);
-    callout.style.transform = 'translateY(' + ((1 - labels) * 18).toFixed(1) + 'px)';
+    callout.style.opacity = (labels * exitFade).toFixed(3);
+    callout.style.transform = 'translateY(' + ((1 - labels) * 18 - (1 - exitFade) * 8).toFixed(1) + 'px)';
   });
   cinematicSection?.querySelectorAll('.part-tag').forEach((tag) => {
-    tag.style.opacity = (.12 + labels * .88).toFixed(3);
+    tag.style.opacity = ((.12 + labels * .88) * exitFade).toFixed(3);
   });
 
   const ribs = cinematicSection?.querySelector('.shell-ribs');
   if (ribs) ribs.style.opacity = (.05 + e * .35).toFixed(3);
 
   const meta = cinematicSection?.querySelector('.stage-meta');
-  if (meta) meta.style.opacity = (.62 + labels * .38).toFixed(3);
+  if (meta) meta.style.opacity = ((.62 + labels * .38) * exitFade).toFixed(3);
+
+  const phase = cinematicSection?.querySelector('.cinematic-phase');
+  if (phase) {
+    phase.style.opacity = exitFade.toFixed(3);
+    phase.style.transform = 'translateY(' + (-(1 - exitFade) * 12).toFixed(1) + 'px)';
+    phase.style.visibility = exitFade < .015 ? 'hidden' : 'visible';
+  }
+
+  const rail = cinematicSection?.querySelector('.phase-rail');
+  if (rail) rail.style.opacity = exitFade.toFixed(3);
 
   const cue = cinematicSection?.querySelector('.cinematic-scroll-cue');
   if (cue) cue.style.opacity = Math.max(0, 1 - progress * 2).toFixed(3);
