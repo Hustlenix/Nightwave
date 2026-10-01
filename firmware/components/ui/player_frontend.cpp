@@ -139,7 +139,8 @@ bool PlayerFrontend::play_queue(std::size_t index, std::uint32_t position) {
     if (index >= queue_count_) return false;
     playing_index_ = index;
     const auto* path = queue_[index].data();
-    std::snprintf(title_.data(), title_.size(), "%s", path);
+    const auto* slash = std::strrchr(path, '/');
+    std::snprintf(title_.data(), title_.size(), "%s", slash ? slash + 1 : path);
     if (!player_.stop()) { nav_.screen = PlayerScreen::kCorrupt; return false; }
     if (!player_.start(path, audio_, headphone_ ? OutputPath::kLine : OutputPath::kSpeaker,
                        settings_.volume_percent, position)) {
