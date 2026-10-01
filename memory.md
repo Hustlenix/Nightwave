@@ -203,6 +203,9 @@ validation and output error reporting were added. New host parser/PCM regression
 tests and an actual-adapter fake-driver test cover these paths. Local project
 validation and whitespace checks passed; no local C++ toolchain is on PATH.
 Device behavior, MP3, and physical Phase 3 exit criteria are still unverified.
+Repair commit `4e19872` passed Firmware CI `36851574808` and Project quality
+CI `36851574841`; both host-test executables passed (2/2). Build success and
+fake-driver tests are not physical playback evidence.
 
 The new Phase 4 request requires physical Phase 3 evidence before entry. Audit
 found no device logs, build photos, or audio measurement rows. Phase 4 has not

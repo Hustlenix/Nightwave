@@ -86,8 +86,8 @@ status
 
 The parser accepts RIFF/WAVE PCM, 16-bit mono/stereo, and 22.05/32/44.1/48 kHz; it skips bounded unknown chunks and rejects inconsistent/truncated files. Playback uses a storage task, a 16,384-frame PCM ring, an audio task, and I2S DMA. Any `AUDIO UNDERRUN` line is a test failure to investigate, not a message to hide.
 
-Use `stop` to request cancellation. Normal cleanup mutes and stops I2S after
-the producer closes its file. If `STOP PENDING` appears, cleanup has not finished;
+Use `stop` to request cancellation. Cleanup mutes before waiting for the producer,
+then stops I2S after the producer closes its file. If `STOP PENDING` appears, cleanup has not finished;
 the player retains live resources and refuses another track. Capture the log
 and retry `status`/`stop`; do not remove the card or start a new hardware test.
 Card removal recovery has not been implemented or tested.
@@ -103,6 +103,11 @@ Card removal recovery has not been implemented or tested.
 - exact wired headphone model and impedance before headphone testing.
 
 ## Phase 3 software repairs, 2026-10-01
+
+Repair commit `4e19872` passed the [ESP32-S3 build](https://github.com/Hustlenix/Nightwave/actions/runs/36851574808)
+and [project-quality checks](https://github.com/Hustlenix/Nightwave/actions/runs/36851574841),
+including both test executables (2/2). Use this repair or a later verified build
+for the bench procedure above.
 
 - WAV parsing respects the declared RIFF extent, validates odd-chunk padding,
   rejects duplicate fmt/data chunks, rejects incomplete PCM frames, and checks
