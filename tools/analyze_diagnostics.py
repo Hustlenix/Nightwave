@@ -22,11 +22,15 @@ def analyze(lines):
             continue
         if not isinstance(record, dict) or record.get("type") not in TYPES:
             continue
-        if record.get("schema") != 1:
+        if type(record.get("schema")) is not int or record.get("schema") != 1:
             raise ValueError(f"line {number}: unsupported schema")
         for key, value in record.items():
+            if key == "stack_min_bytes":
+                if not isinstance(value, list) or len(value) != 3 or any(type(v) is not int or v < 0 for v in value):
+                    raise ValueError(f"line {number}: invalid stack minima")
+                continue
             if key.endswith(("_bytes", "_us", "_ms", "_frames")) or key in {"errors", "underruns", "sd_reads", "decode_calls"}:
-                if value is not None and (type(value) is not int or value < 0):
+                if type(value) is not int or value < 0:
                     raise ValueError(f"line {number}: invalid {key}")
         records.append(record)
         if len(records) > 100000:
@@ -37,11 +41,12 @@ def analyze(lines):
         sd_time = r.get("sd_total_us", 0)
         calls = r.get("decode_calls", 0)
         reads = r.get("sd_reads", 0)
+        saturated = any(r.get(k) == 0xFFFFFFFF for k in ("sd_total_us", "sd_bytes", "decode_total_us"))
         summary["averages"].append({
-            "sd_average_us": sd_time / reads if reads else None,
-            "sd_bytes_per_second": r.get("sd_bytes", 0) * 1_000_000 / sd_time if sd_time else None,
-            "instrumented_decode_average_us": r.get("decode_total_us", 0) / calls if calls else None,
-            "counters_saturated": any(r.get(k) == 0xFFFFFFFF for k in ("sd_total_us", "sd_bytes", "decode_total_us")),
+            "sd_average_us": sd_time / reads if reads and not saturated else None,
+            "sd_bytes_per_second": r.get("sd_bytes", 0) * 1_000_000 / sd_time if sd_time and not saturated else None,
+            "instrumented_decode_average_us": r.get("decode_total_us", 0) / calls if calls and not saturated else None,
+            "counters_saturated": saturated,
         })
     return summary
 
@@ -49,10 +54,14 @@ def analyze(lines):
 def self_test():
     assert analyze(["not JSON"]) == {"records": 0, "physical_acceptance": "NOT_ESTABLISHED", "averages": []}
     sample = {"type": "nightwave_performance", "schema": 1, "sd_reads": 2,
-              "sd_bytes": 8192, "sd_total_us": 4000, "decode_calls": 2, "decode_total_us": 1000}
+              "sd_bytes": 8192, "sd_total_us": 4000, "decode_calls": 2, "decode_total_us": 1000,
+              "stack_min_bytes": [1024, 2048, 1024]}
     result = analyze([json.dumps(sample)])
     assert result["averages"][0]["sd_average_us"] == 2000
     assert result["averages"][0]["sd_bytes_per_second"] == 2048000
+    sample["sd_total_us"] = 0xFFFFFFFF
+    assert analyze([json.dumps(sample)])["averages"][0]["sd_average_us"] is None
+    sample["sd_total_us"] = 4000
     for invalid in (-1, True, "100"):
         sample["sd_reads"] = invalid
         try:
