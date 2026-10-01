@@ -22,6 +22,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: nightwave-project-quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-24.04
@@ -33,8 +37,10 @@ jobs:
         run: python3 tools/generate_test_media.py --output .generated/test-media
       - name: Encode original MP3 fixtures
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
           ffmpeg -nostdin -y -i .generated/test-media/02_left_right_stereo_44100.wav -codec:a libmp3lame -b:a 128k -metadata title=Nightwave-test .generated/test-media/test-cbr.mp3
           ffmpeg -nostdin -y -i .generated/test-media/02_left_right_stereo_44100.wav -ar 48000 -ac 1 -codec:a libmp3lame -q:a 4 .generated/test-media/test-vbr.mp3
           ffmpeg -nostdin -y -i .generated/test-media/02_left_right_stereo_44100.wav -ar 22050 -ac 1 -codec:a libmp3lame -b:a 64k .generated/test-media/test-mpeg2.mp3
