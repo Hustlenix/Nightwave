@@ -17,6 +17,27 @@ measurements or human authorship, or call an incomplete package funding-ready.
 Current Pixl rules require an original builder-owned hardware design, not fully
 AI-generated hardware files, and independent human sanity checking.
 
+## Funding-stage checkpoint — 2026-10-01
+
+- DIGITAL DESIGN: INCOMPLETE (software implemented; physical hardware sources absent).
+- PHYSICAL BUILD: NOT VERIFIED / no returned prototype measurements.
+- FUNDING READINESS: NOT READY; exact checklist in docs/funding-readiness.md.
+- Software now uses StorageTask -> 32 KiB encoded ring -> DecoderTask ->
+  16384-frame PCM ring -> AudioOutputTask. Helix wrapper pinned 1.0.3; upstream
+  RPSL/RCSL terms preserved. WAV/MP3, cancellation, pause/resume, gain ramps,
+  rate change between tracks, telemetry, OLED/browser/buttons and NVS volume
+  are present, with explicit limitations in docs/player-controls.md.
+- 88adbaa firmware + four host suites passed. Expanded corruption/frontend tests
+  passed at 13ed6be Project quality run 36864360149; firmware run 36864360208
+  passed too. No host result is a physical measurement.
+- 6600 mAh Adafruit product 353 is a provisional model candidate, not locked
+  hardware. Updated priced-core subtotal $55.97 is NOT a funding total.
+- Power review found BQ25185 Rev. B six-hour charge-timer conflict and candidate
+  peak-load/source-current/NTC issues; power design is not final.
+- PCB revision: NONE. CAD revision: NONE. Manufacturing archive: NONE.
+- Human builder hardware provenance: pending. Independent sanity check: pending.
+- Project 1200 browser reached login gate; no fields edited or funding submitted.
+
 ## Finalized product decisions
 
 - Offline only for playback.

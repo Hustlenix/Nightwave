@@ -52,7 +52,7 @@ With the same margins the model yields about **9.19 h** for 6600 mAh and **3.48 
 for 2500 mAh. Neither is achieved runtime. At 0.5 W speaker average, the required
 capacity rises to about 7.01 Ah; 6600 mAh would no longer meet this model.
 This sensitivity prevents locking capacity from an unspecified music/volume
-profile. The current BOM's 2500 mAh entry is a superseded sizing candidate,
+profile. The former BOM's 2500 mAh entry is a superseded sizing candidate,
 not the final runtime solution.
 
 At 3.2 V cell and simultaneous 785 mA 3.3 V peak plus 1 W speaker output,

@@ -76,6 +76,16 @@ if(NOT MSVC)
 endif()
 add_test(NAME nightwave_frontend_tests COMMAND nightwave_frontend_tests
     ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media)
+add_executable(nightwave_product_adapter_tests product_adapter_tests.cpp
+    ../firmware/components/ui/oled_display.cpp
+    ../firmware/components/settings/settings.cpp)
+target_include_directories(nightwave_product_adapter_tests PRIVATE fakes
+    ../firmware/components/ui/include ../firmware/components/settings/include
+    ../firmware/components/app_state/include)
+if(NOT MSVC)
+    target_compile_options(nightwave_product_adapter_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_product_adapter_tests COMMAND nightwave_product_adapter_tests)
 if(MSVC)
     target_compile_options(nightwave_mp3_tests PRIVATE /W4 /WX)
 else()

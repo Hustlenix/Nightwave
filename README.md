@@ -2,7 +2,18 @@
 
 Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It is intended to read a user's MP3 and PCM/WAV files directly from microSD, decode them on an ESP32-S3, and play them through either wired stereo headphones or a built-in speaker—without a phone, app, network, Bluetooth, or streaming service.
 
-> Status: Phase 0/1 and the Phase 2 digital package are complete. Phase 3 now has build-oriented board, button, SD, I2S tone, and buffered WAV firmware plus portable host tests. None of those hardware paths has been physically exercised yet. No physical runtime, working hardware, final PCB, enclosure, or tier is claimed.
+> Status (2026-10-01): WAV/MP3 three-task streaming, OLED/five-button interaction,
+> volume persistence and host regression tests are digitally implemented.
+> Firmware and host CI pass. **Funding package is NOT READY:** final power design,
+> complete BOM, builder-owned PCB/CAD, manufacturing files and human reviews are
+> missing. No physical playback, runtime, fit, final hardware or tier is claimed.
+
+## Why it exists
+
+The product goal is to play the builder's own music offline without a phone,
+notifications, subscription or hidden playback module. The builder's personal
+motivation and genuine work journal must remain their own account; this README
+does not invent a first-person build story.
 
 ## Architecture
 
@@ -36,12 +47,63 @@ The bench prototype uses an available MAX98357A breakout as a functional speaker
 - datasheet-backed provisional component comparison, BOM, pin budget, power tree, risk register, prototype plan, and decoder study;
 - ESP-IDF 6.1 C++ firmware with safe-muted boot, chip/reset/heap/PSRAM diagnostics, debounced five-button logging, 1-bit SDMMC mount/enumeration/benchmarking, I2S DMA output, and a low-level tone test;
 - robust host-tested WAV parsing for 16-bit mono/stereo PCM at 22.05/32/44.1/48 kHz, including unknown-chunk skipping and explicit errors;
-- two-task WAV streaming through a 16,384-frame SPSC PCM ring to the I2S output task with visible underrun telemetry;
+- three-task WAV/MP3 streaming through a 32 KiB encoded ring and 16,384-frame
+  SPSC PCM ring, pause/resume, cancellation, gain ramps and queue/error telemetry;
+- SH1106 OLED driver (SSD1306 option), file/folder browser, now-playing, five
+  buttons, headphone indicator, no-SD/error screens, sleep and diagnostics;
+- delayed NVS persistence for volume, without destructive automatic NVS erase;
 - portable tests for WAV parsing, generated fixtures, ring wrap/full behavior, stereo-to-mono arithmetic, volume scaling, button debounce, and playback state;
 - CI definitions for both ESP32-S3 firmware and portable host tests;
 - exact Phase 2 prototype BOM, pin-by-pin wiring table, voltage/current plan, deterministic test-media generator, and staged bring-up checklist.
 
-The firmware is digitally implemented but does **not** prove that a card mounts, a waveform reaches a physical module, a speaker/headphone produces correct audio, or the chosen buffer survives real card latency. OLED, settings/NVS, headphone-codec control, MP3 decoding, and removal recovery are not implemented yet.
+The firmware does **not** prove that a card mounts, a waveform reaches a physical
+module, a speaker/headphone produces correct audio, or buffering survives real
+card latency. OLED/controller wiring, jack detection and NVS behavior still need
+bench validation. Battery reads, power-latch shutdown and automatic SD hotplug
+reinitialization are not implemented. Retry/error handling is not a claim that
+removing a real card during playback has been tested.
+
+## Controls
+
+Previous/Next navigate the browser or change playing tracks. Play opens a folder
+or starts/toggles playback. Volume +/- changes gain. Hold Play for the browser,
+hold Previous for the parent folder, hold Volume + for diagnostics. First input
+after the 30 s display sleep wakes without changing playback.
+See [complete controls and limitations](docs/player-controls.md).
+
+## Audio architecture
+
+Helix decodes MP3 in software on ESP32-S3; WAV uses the validated PCM parser.
+Storage, decode and I2S have separate tasks. PCM is stereo 16-bit at supported
+22.05/32/44.1/48 kHz rates. ID3 skipping and resynchronization are bounded;
+unsupported or corrupt media produces a recoverable error. The Class-D path
+must select averaged-stereo mono in the reviewed final hardware; headphone
+output uses the separate stereo DAC/amp path. Neither path is physically proven.
+
+## Power architecture
+
+USB-C and a protected 1S pack feed a charger/power path; SYS powers the speaker
+and a buck-boost supplies 3.3 V. This direction is **provisional**, not a finished
+circuit. The [conservative energy model](docs/power-budget.md) identifies a
+6600 mAh candidate, but [charger timer, source-current and peak-load conflicts](docs/power-assumptions.md)
+must be resolved before locking hardware. Estimated runtime is not measured
+runtime, and charge-while-play safety is not verified.
+
+## PCB and enclosure
+
+There is no completed KiCad schematic/board, routed four-layer PCB, editable
+enclosure, full STEP assembly or manufacturing archive yet. No dummy CAD files,
+fake assembly photographs or render-only substitutes are presented as evidence.
+The board, battery, speaker, display, controls and ports must all have verified
+mounting and clearances in the builder-owned design before funding submission.
+
+## BOM
+
+[Preliminary BOM CSV](hardware/BOM.csv): captured-price core subtotal **$55.97**,
+not a finished BOM total or funding/order cost. Display, USB-C, passives, PCB,
+assembly, enclosure, shipping and taxes are excluded. Many stock/price records
+remain dated 2026-09-29; the new battery candidate was checked 2026-10-01.
+No parts have been ordered by this run.
 
 ## Build the firmware
 
@@ -55,7 +117,39 @@ idf.py build
 
 The development baseline is `ESP32-S3-DevKitC-1-N8R8`; the provisional final module is `ESP32-S3-WROOM-1-N16R8`. Pins and component choices remain provisional until prototype validation.
 
-The serial diagnostic console exposes `board`, `sd`, `bench`, `tone`, `wav`, `stop`, and `status`. Follow [Phase 3 firmware bring-up](docs/phase3-firmware-bringup.md) before issuing any command that enables a physical output.
+Use `idf.py -p PORT flash monitor` after building, with the documented DevKit
+only and verified wiring. The console adds `play`, `pause`, `resume`, and
+`volume` to the bench commands; `wav` remains an alias. Follow
+[Phase 3 firmware bring-up](docs/phase3-firmware-bringup.md) before enabling an
+output. Production flashing/power instructions depend on the unfinished PCB.
+
+## Load music and build the prototype
+
+Copy supported `.wav` or `.mp3` files to a FAT-formatted microSD, optionally in
+folders. Paths must be under 256 bytes; the browser displays at most 128 entries
+per folder. No streaming or network is used. Generated test tones are described
+in [test media](docs/test-tracks.md). Free-format/MPEG2.5 MP3, unsupported rates,
+24-bit WAV, seek, shuffle and full Unicode display are not implemented features.
+
+For the USB-powered human-assembled prototype, use the
+[prototype BOM](hardware/prototype-BOM.csv), [wiring](docs/prototype-wiring.md)
+and [bring-up checklist](docs/prototype-bringup.md). Do not connect a lithium
+pack or place a final-PCB order using this preliminary package.
+
+## Current validation and funding status
+
+[Software evidence](docs/software-validation.md) separates actual CI runs from
+host simulations and pending board measurements. The regression suite exercises
+1000 start/cancel/control transitions, corrupt media, fragmented MP3, WAV,
+concurrent ring transfers and real folder-navigation logic with fake devices.
+
+[Funding audit](docs/funding-readiness.md),
+[current official requirements](docs/pixl-funding-readiness.md),
+[builder design/provenance review](docs/human-design-review.md), and
+[independent sanity-check packet](docs/sanity-check.md) record the exact gaps.
+The in-app Project 1200 check reached a login gate; current project-specific
+Trial text and funding fields are not freshly verified. No funding request
+has been submitted.
 
 ## Engineering documents
 
@@ -90,3 +184,7 @@ AI assistance is being used for research synthesis, repository scaffolding, inte
 ## License
 
 Nightwave's original repository content is provided under the MIT License. Third-party libraries keep their own licenses and notices.
+The MP3 wrapper's Apache-2.0 license does not relicense the RealNetworks Helix
+decoder. Read [dependency provenance and terms](docs/decoder-licenses.md);
+notices are preserved in [licenses](licenses/). Original tone fixtures and the
+small text font are generated within this repository, not downloaded media.

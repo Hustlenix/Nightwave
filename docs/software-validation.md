@@ -39,6 +39,9 @@ stop timeout is not permission to delete live resources or start a new track.
   delayed setting writes, diagnostic view, sleep/wake and mount retry.
 - Actual I2S adapter with mocked ESP driver: configuration, preload, silence
   drain, write errors and output-enable behavior.
+- Actual OLED/NVS adapters with mocked APIs: SH1106 page/offset versus SSD1306
+  window addressing, render bytes, sleep/wake, bus errors/cleanup, volume
+  persistence, malformed stored values and open/set/commit/init failures.
 
 CI generates its own WAV tones and encodes MP3 with FFmpeg; no songs are fetched.
 Host Helix math substitutes equivalent C primitives; device builds use Xtensa
@@ -58,5 +61,12 @@ ctest --test-dir build/host-tests --output-on-failure
 
 CI is the executed C++/ESP-IDF evidence in this Windows run; no local C++
 compiler is on PATH. Execution records below must name a successful commit/run,
-not merely the presence of workflow files. Final expanded suites remain pending
-until their CI run completes.
+not merely the presence of workflow files.
+
+Executed evidence at `13ed6be` (2026-10-01):
+
+- [ESP32-S3 firmware build](https://github.com/Hustlenix/Nightwave/actions/runs/36864360208): success.
+- [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36864360149): five test executables, 5/5 passed.
+
+The additional OLED/NVS adapter suite is not claimed executed until the next
+successful CI record is appended.

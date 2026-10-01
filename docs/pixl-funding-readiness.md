@@ -48,7 +48,7 @@ The general Trial page does not confirm the exact Project 1200 requirements.
 
 ## Missing items
 
-MP3/runtime controls and OLED/settings software; a final complete costed BOM;
+A final complete costed BOM and consistent power subsystem;
 verified footprints; builder-owned schematic/PCB/CAD; ERC/DRC results; complete
 assembly and manufacturing exports; reviewer feedback; authenticated project
 status. No funding request is ready or submitted.
