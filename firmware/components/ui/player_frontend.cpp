@@ -37,7 +37,7 @@ bool PlayerFrontend::scan() {
     if (!sd_.mount()) return false;
     auto* directory = opendir(folder_.data());
     if (!directory) return false;
-    if (std::strcmp(folder_.data(), "/sdcard")) {
+    if (std::strcmp(folder_.data(), root_)) {
         std::strcpy(entries_[0].name.data(), ".."); entries_[0].directory = true; nav_.count = 1;
     }
     while (const auto* item = readdir(directory)) {
@@ -71,6 +71,7 @@ void PlayerFrontend::volume(std::uint8_t value, std::uint32_t now) {
 }
 bool PlayerFrontend::play(std::size_t index) {
     if (index >= nav_.count || entries_[index].directory) return false;
+    std::snprintf(title_.data(), title_.size(), "%s", entries_[index].name.data());
     if (!player_.stop()) { nav_.screen = PlayerScreen::kCorrupt; return false; }
     std::array<char, 512> path{};
     const int size = std::snprintf(path.data(), path.size(), "%s/%s", folder_.data(), entries_[index].name.data());
@@ -90,9 +91,9 @@ void PlayerFrontend::next(int direction) {
     }
 }
 void PlayerFrontend::parent() {
-    if (std::strcmp(folder_.data(), "/sdcard") == 0) return;
+    if (std::strcmp(folder_.data(), root_) == 0) return;
     auto* slash = std::strrchr(folder_.data(), '/');
-    if (slash && slash - folder_.data() >= 7) *slash = 0;
+    if (slash && static_cast<std::size_t>(slash - folder_.data()) >= std::strlen(root_)) *slash = 0;
     nav_.screen = scan() ? PlayerScreen::kBrowser : PlayerScreen::kNoSd;
 }
 void PlayerFrontend::event(const ButtonEvent& e) {

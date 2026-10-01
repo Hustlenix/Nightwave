@@ -61,6 +61,19 @@ endif()
 add_test(NAME nightwave_streaming_tests COMMAND nightwave_streaming_tests
     ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/02_left_right_stereo_44100.wav
     ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-cbr.mp3)
+add_executable(nightwave_frontend_tests frontend_tests.cpp
+    ../firmware/components/ui/player_frontend.cpp)
+target_include_directories(nightwave_frontend_tests PRIVATE fakes
+    ../firmware/components/playback/include ../firmware/components/decoder/include
+    ../firmware/components/audio_pipeline/include ../firmware/components/audio_i2s/include
+    ../firmware/components/app_state/include ../firmware/components/ui/include
+    ../firmware/components/storage/include ../firmware/components/settings/include
+    ../firmware/components/input/include)
+if(NOT MSVC)
+    target_compile_options(nightwave_frontend_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_frontend_tests COMMAND nightwave_frontend_tests
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media)
 if(MSVC)
     target_compile_options(nightwave_mp3_tests PRIVATE /W4 /WX)
 else()
@@ -68,7 +81,8 @@ else()
 endif()
 add_test(NAME nightwave_mp3_tests COMMAND nightwave_mp3_tests
     ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-cbr.mp3
-    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-vbr.mp3)
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-vbr.mp3
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-mpeg2.mp3)
 add_executable(nightwave_audio_sink_tests audio_sink_tests.cpp
     ../firmware/components/audio_i2s/audio_sink.cpp)
 target_include_directories(nightwave_audio_sink_tests PRIVATE

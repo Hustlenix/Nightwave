@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <cstdio>
 #include "nightwave/player_navigation.h"
 #include "nightwave/oled_display.h"
 #include "nightwave/streaming_player.h"
@@ -12,7 +13,10 @@ namespace nightwave {
 class PlayerFrontend {
  public:
     PlayerFrontend(SdStorage& sd, StreamingPlayer& player, I2sAudioSink& audio,
-                   ButtonMonitor& input) : sd_(sd), player_(player), audio_(audio), input_(input) {}
+                   ButtonMonitor& input, const char* root = "/sdcard")
+        : sd_(sd), player_(player), audio_(audio), input_(input), root_(root) {
+        std::snprintf(folder_.data(), folder_.size(), "%s", root_);
+    }
     void initialize();
     void tick(std::uint32_t now);
     void track_started(const char* path);
@@ -26,6 +30,7 @@ class PlayerFrontend {
     void event(const ButtonEvent&);
     TextFrame frame() const;
     SdStorage& sd_; StreamingPlayer& player_; I2sAudioSink& audio_; ButtonMonitor& input_;
+    const char* root_;
     OledDisplay oled_{};
     PlayerNavigation nav_{};
     Settings settings_{};

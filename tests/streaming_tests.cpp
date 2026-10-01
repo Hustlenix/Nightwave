@@ -132,6 +132,18 @@ int main(int argc, char** argv) {
     for (int i = 0; i < 1024; ++i) ramp.step(0);
     CHECK(ramp.value() == 0);
     PlayerNavigation nav; nav.populate(128);
+    std::array<unsigned, 65> ring_memory{};
+    PcmRingBuffer<unsigned> ring(ring_memory.data(), ring_memory.size());
+    std::thread producer([&] {
+        for (unsigned i = 0; i < 100000; ++i)
+            while (!ring.push(i)) std::this_thread::yield();
+    });
+    for (unsigned expected = 0; expected < 100000; ++expected) {
+        unsigned value;
+        while (!ring.pop(value)) std::this_thread::yield();
+        CHECK(value == expected);
+    }
+    producer.join(); CHECK(ring.empty());
     for (int i = 0; i < 1000; ++i) { nav.move(1); CHECK(nav.cursor < 128); nav.move(-1); CHECK(nav.cursor == 0); }
     nav.tick(30000); CHECK(nav.asleep); CHECK(!nav.interact(30001)); CHECK(nav.interact(30002));
     nav.last_input_ms = UINT32_MAX - 10; nav.tick(20); CHECK(!nav.asleep);

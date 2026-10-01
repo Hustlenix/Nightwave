@@ -1,6 +1,10 @@
 # Provisional Power Tree
 
-No battery capacity or charge current is locked.
+No battery capacity or charge current is locked. The 2026-10-01 conservative
+model identifies a 6600 mAh candidate, but the larger pack conflicts with the
+preliminary charger's low-current safety timer and peak-load allowance.
+See [power budget](power-budget.md) and [constraints](power-assumptions.md).
+This tree is provisional and is NOT a complete manufacturable power circuit.
 
 ```text
 USB-C VBUS (5 V sink, power-only V1)
@@ -48,10 +52,13 @@ BQ25185 charger + dynamic power path
 For a measured average load `I_avg` at the cell-equivalent voltage, choose usable capacity using:
 
 ```text
-C_required_mAh = I_avg_mA × target_hours / (regulator_efficiency × usable_capacity_fraction)
+C_required_mAh = I_cell_equivalent_mA × target_hours / usable_capacity_fraction
 ```
 
-Use measured efficiency/current across the discharge range, not one optimistic point. Apply cell aging, temperature, protection cutoff, and audio-volume margin. Validate the chosen pack with the declared speaker profile continuously; estimates never replace the runtime test.
+Cell-equivalent current already includes conversion losses; do not divide by
+regulator efficiency a second time. For rail-power estimates use the separate
+energy model in power-budget.md. Apply aging, temperature, protection cutoff,
+and load margins. Validate the pack with the declared speaker profile.
 
 ## Thermal constraint
 
