@@ -2,6 +2,11 @@
 
 Audit date: 2026-09-30.
 
+Superseded execution gate, 2026-10-01: the funding-readiness request allows
+digital development before physical validation. Historical missing-evidence
+results below still apply, but no longer block software implementation. See
+`pixl-funding-readiness.md`. No physical result has been supplied.
+
 ## Current result
 
 **Phase 4 has not started.** The Phase 4 request explicitly requires physical

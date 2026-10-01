@@ -10,7 +10,12 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
-Complete and validate the Phase 3 firmware foundation, then stop at the physical prototype gate. Do not order a final PCB, connect a lithium battery, fabricate measurements, or infer breakout pinouts.
+Complete the digital software/design preparation for Pixl funding under the
+2026-10-01 request. The old physical-before-digital gate is superseded; physical
+validation remains pending. Do not order hardware, connect lithium, invent
+measurements or human authorship, or call an incomplete package funding-ready.
+Current Pixl rules require an original builder-owned hardware design, not fully
+AI-generated hardware files, and independent human sanity checking.
 
 ## Finalized product decisions
 
@@ -231,7 +236,8 @@ HUMAN GATE for Phase 3 bench evidence:
 3. obtain the exact parts in `hardware/prototype-BOM.csv` or report substitutions before wiring; no purchase has been authorized by the repository work;
 4. return clear photos of both sides of every module, the DevKitC revision, microSD and headphone models, power-source/test-equipment details, and unavailable parts;
 5. only after wiring review, follow `docs/phase3-firmware-bringup.md` and `docs/prototype-bringup.md` without a lithium battery and return logs/measurements;
-6. do not begin MP3 integration until real WAV playback is stable and its SD/underrun evidence is understood.
+6. Physical WAV/MP3 evidence remains required for hardware validation, but does
+   not block digital MP3 integration under the funding-readiness override.
 
 ## Session-start instruction for ChatGPT Work
 

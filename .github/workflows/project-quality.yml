@@ -41,6 +41,12 @@ jobs:
         run: python3 tools/validate_project.py
       - name: Generate deterministic audio fixtures
         run: python3 tools/generate_test_media.py --output .generated/test-media
+      - name: Encode original MP3 fixtures
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -nostdin -y -i .generated/test-media/02_left_right_stereo_44100.wav -codec:a libmp3lame -b:a 128k -metadata title=Nightwave-test .generated/test-media/test-cbr.mp3
+          ffmpeg -nostdin -y -i .generated/test-media/02_left_right_stereo_44100.wav -ar 48000 -ac 1 -codec:a libmp3lame -q:a 4 .generated/test-media/test-vbr.mp3
       - name: Configure portable firmware tests
         run: cmake -S tests -B build/host-tests -DCMAKE_BUILD_TYPE=Release
       - name: Build portable firmware tests

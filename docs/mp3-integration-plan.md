@@ -1,12 +1,15 @@
 # MP3 integration plan
 
-Status: decoder selected and adapter contract prepared; integration is deliberately blocked until real WAV playback is stable.
+Status: decoder selected and adapter contract prepared. The 2026-10-01 funding
+request authorizes digital integration before physical WAV tests. Bench evidence
+remains pending and must not be inferred from CI or software decoding tests.
 
 ## Selected decoder
 
 `chmorgan/esp-libhelix-mp3` 1.0.3 remains the provisional selection. It provides an ESP-IDF-oriented Apache-2.0 wrapper around the integer Helix decoder. Nightwave will own the file, buffers, bounded resynchronization, task scheduling, volume/mixing, I2S, and errors.
 
-The dependency is not yet added to the firmware manifest. Adding it now would imply that the MP3 path is ready before the required hardware WAV gate has passed.
+The dependency is not yet added to the firmware manifest. Pinning/integration
+must be tested independently; it does not establish hardware playback readiness.
 
 ## Adapter boundary
 
@@ -21,7 +24,7 @@ The future adapter will implement `AudioDecoder` and consume a byte-ring view. I
 7. expose bytes consumed, frames decoded, failures, resync bytes, and decode timing;
 8. terminate cleanly on EOF, truncated data, unsupported free-format streams, or stop.
 
-## Gate to begin integration
+## Physical verification still required
 
 - one supported WAV fixture plays through the selected physical output;
 - left/right identity is correct where applicable;
@@ -29,5 +32,6 @@ The future adapter will implement `AudioDecoder` and consume a byte-ring view. I
 - WAV playback reports no unexplained reset and its underrun behavior is understood;
 - the exact ESP32-S3 board/module and audio breakouts are confirmed by label/photo.
 
-Only after that gate should the component registry dependency be pinned, its license notices committed, and CBR/VBR/corrupt fixtures exercised.
+Dependency pinning, license review and CBR/VBR/corrupt host fixtures may proceed
+now; the listed physical checks are required before claiming hardware success.
 

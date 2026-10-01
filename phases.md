@@ -4,6 +4,12 @@
 
 ## Execution philosophy
 
+2026-10-01 funding-readiness override: digital Phase 4A/5 software and pre-funding
+design preparation may proceed without bench results. Physical exit criteria
+remain unverified, not waived or fabricated. Read `docs/pixl-funding-readiness.md`
+for current design-stage requirements and original builder-authorship limits.
+Complete digital work does not establish final hardware approval or runtime.
+
 ChatGPT Work owns the **digital engineering workflow** and continuously moves the repository forward.
 
 The human builder is primarily required at physical-world gates: buying parts, wiring, soldering, measuring, ordering fabrication, assembling, listening/testing, and recording evidence.
