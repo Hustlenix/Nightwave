@@ -28,6 +28,7 @@ thread_local FakeTask* current = nullptr;
 std::vector<std::unique_ptr<FakeTask>> tasks;
 int create_count = 0, fail_create = 0, failures = 0;
 std::atomic<bool> fault{false}, muted{true};
+std::atomic<bool> hold_write{false}, write_held{false};
 std::atomic<unsigned> writes{0};
 #define CHECK(value) do { if (!(value)) { ++failures; std::cerr << __LINE__ << ": " << #value << '\n'; } } while(false)
 void join_all() { for (auto& t : tasks) if (t->thread.joinable()) t->thread.join(); tasks.clear(); }
@@ -81,6 +82,11 @@ AudioSinkStatus I2sAudioSink::configure(const AudioFormat& format) {
 }
 AudioSinkStatus I2sAudioSink::write(const PcmBlock& block) {
     if (fault || !channel_ || !valid_stereo_block(block, format_)) return AudioSinkStatus::kFault;
+    if (hold_write) {
+        write_held = true;
+        while (hold_write) std::this_thread::sleep_for(std::chrono::microseconds(100));
+        write_held = false;
+    }
     ++writes; std::this_thread::sleep_for(std::chrono::microseconds(100));
     return AudioSinkStatus::kAccepted;
 }
@@ -121,6 +127,13 @@ int main(int argc, char** argv) {
     player->pause(false); CHECK(await([] { return !muted; }));
     fault = true; CHECK(await([&] { return !player->playing(); }));
     join_all(); CHECK(player->errors() > 0 && muted); fault = false;
+    hold_write = true;
+    CHECK(player->start(argv[1], sink, OutputPath::kLine, 8));
+    CHECK(await([] { return write_held.load(); }));
+    CHECK(!player->stop()); CHECK(player->playing());
+    CHECK(!player->start(argv[2], sink, OutputPath::kLine, 8));
+    hold_write = false; CHECK(await([&] { return !player->playing(); }));
+    join_all(); CHECK(muted);
     for (int i = 1; i <= 2; ++i) {
         CHECK(player->start(argv[i], sink, OutputPath::kLine, 8));
         CHECK(await([&] { return !player->playing(); }));

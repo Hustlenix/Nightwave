@@ -177,6 +177,7 @@ void StreamingPlayer::audio_task() {
     OutputPath selected = OutputPath::kMuted;
     bool held = false;
     while (!cancel_.load()) {
+        if (decoder_done_.load() && pcm_.empty()) break;
         const bool pause = paused_.load();
         if (pause && gain.value() == 0) {
             if (!held) {

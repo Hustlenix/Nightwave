@@ -62,13 +62,15 @@ add_test(NAME nightwave_streaming_tests COMMAND nightwave_streaming_tests
     ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/02_left_right_stereo_44100.wav
     ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-cbr.mp3)
 add_executable(nightwave_frontend_tests frontend_tests.cpp
-    ../firmware/components/ui/player_frontend.cpp)
+    ../firmware/components/ui/player_frontend.cpp
+    ../firmware/components/decoder/mp3_decoder.cpp)
 target_include_directories(nightwave_frontend_tests PRIVATE fakes
     ../firmware/components/playback/include ../firmware/components/decoder/include
     ../firmware/components/audio_pipeline/include ../firmware/components/audio_i2s/include
     ../firmware/components/app_state/include ../firmware/components/ui/include
     ../firmware/components/storage/include ../firmware/components/settings/include
     ../firmware/components/input/include)
+target_link_libraries(nightwave_frontend_tests PRIVATE nightwave_host_helix)
 if(NOT MSVC)
     target_compile_options(nightwave_frontend_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()

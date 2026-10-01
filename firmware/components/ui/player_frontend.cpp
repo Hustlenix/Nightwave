@@ -62,7 +62,7 @@ bool PlayerFrontend::scan() {
 }
 void PlayerFrontend::track_started(const char* path) {
     const auto* slash = path ? std::strrchr(path, '/') : nullptr;
-    std::snprintf(title_.data(), title_.size(), "%s", slash ? slash + 1 : (path ? path : ""));
+    std::snprintf(title_.data(), title_.size(), "%.255s", slash ? slash + 1 : (path ? path : ""));
     nav_.screen = PlayerScreen::kNowPlaying; was_running_ = true;
 }
 void PlayerFrontend::volume(std::uint8_t value, std::uint32_t now) {
@@ -72,6 +72,7 @@ void PlayerFrontend::volume(std::uint8_t value, std::uint32_t now) {
 bool PlayerFrontend::play(std::size_t index) {
     if (index >= nav_.count || entries_[index].directory) return false;
     std::snprintf(title_.data(), title_.size(), "%s", entries_[index].name.data());
+    playing_index_ = index; // Next must advance past an attempted corrupt file.
     if (!player_.stop()) { nav_.screen = PlayerScreen::kCorrupt; return false; }
     std::array<char, 512> path{};
     const int size = std::snprintf(path.data(), path.size(), "%s/%s", folder_.data(), entries_[index].name.data());
@@ -80,7 +81,7 @@ bool PlayerFrontend::play(std::size_t index) {
                        settings_.volume_percent)) {
         nav_.screen = PlayerScreen::kCorrupt; return false;
     }
-    playing_index_ = index; track_started(path.data()); return true;
+    track_started(path.data()); return true;
 }
 void PlayerFrontend::next(int direction) {
     if (!nav_.count) return;
