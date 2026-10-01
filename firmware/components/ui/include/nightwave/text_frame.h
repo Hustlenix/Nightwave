@@ -9,7 +9,8 @@ struct TextFrame {
     void line(std::size_t row, const char* text) {
         if (row >= rows.size()) return;
         rows[row].fill(0);
-        if (text) std::strncpy(rows[row].data(), text, rows[row].size() - 1);
+        if (text) for (std::size_t i = 0; i < rows[row].size() - 1 && text[i]; ++i)
+            rows[row][i] = text[i];
     }
 };
 // Original small 5x5 letterforms. Lowercase displays uppercase, other UTF-8

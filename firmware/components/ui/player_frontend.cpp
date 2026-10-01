@@ -22,7 +22,7 @@ void PlayerFrontend::initialize() {
     if (nvs_ready_) load_settings(settings_);
     if (!nvs_ready_) ESP_LOGW("ui", "NVS unavailable; settings are volatile, partition not erased");
     oled_ready_ = oled_.initialize();
-    if (!oled_ready_) ESP_LOGW("ui", "OLED unavailable (provisional SSD1306 128x64 @0x3c)");
+    if (!oled_ready_) ESP_LOGW("ui", "OLED unavailable (provisional SH1106 128x64 @0x3c)");
     TextFrame boot; boot.line(2, "NIGHTWAVE"); boot.line(4, "STARTING PLAYER");
     if (oled_ready_) oled_.show(boot);
     gpio_config_t detect{};
