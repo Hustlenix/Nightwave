@@ -133,3 +133,9 @@ in run 36962394436: GCC inlining reported possible snprintf truncation in the
 cache-path helper. The join was replaced by checked lengths/memcpy; warning
 policy was not weakened. Sanitizer success alone does not replace Release or
 device compilation. Record the repaired run's results only after execution.
+
+At 3ce6014 (run 36962585890), optimized compilation passed; 7/8 Release suites
+passed. The new catalog location assertion used CTest's `tests/../` fixture path
+instead of its canonical root. The fixture lookup now uses the canonical root,
+matching the saved-path contract. ASAN was skipped by that failed run; it is
+not recorded as a pass. Targeted WSL tests with canonical arguments had passed.

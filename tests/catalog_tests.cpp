@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
     CHECK(!std::strcmp(catalog.page().rows[15].metadata.artist.data(), key(14).c_str()));
     CHECK(catalog.query(CatalogView::kSongs, CatalogFilter::kArtist, key(2).c_str())); finish_query(catalog);
     CHECK(catalog.page().count == 7 && catalog.page().matches == 7);
-    CHECK(catalog.locate_song(CatalogFilter::kArtist, key(2).c_str(), (fixture / "song-2.mp3").generic_string().c_str())); finish_query(catalog);
+    CHECK(catalog.locate_song(CatalogFilter::kArtist, key(2).c_str(), (fs::path(root) / "song-2.mp3").generic_string().c_str())); finish_query(catalog);
     CHECK(catalog.page().count == 1 && catalog.page().matches == 7 && catalog.located_ordinal() < 7);
     CHECK(catalog.locate_song(CatalogFilter::kNone, "", "/missing.mp3")); finish_query(catalog);
     CHECK(!catalog.page().count && catalog.located_ordinal() == UINT32_MAX && catalog.page().matches == 262);
