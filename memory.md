@@ -10,6 +10,16 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-02 Trial-completion continuation implements sampled runtime diagnostics
+and boot-lifetime accepted-media/fault counters. The current power/audio adapters
+remain unqualified, so the recorder cannot establish physical battery runtime.
+docs/trial-acceptance.md maps all Trial requirements and the full ten-system scope;
+uploaded animation remains a proposal. Firmware/tests must be validated for this
+new checkpoint before describing it as a successful software build.
+Local strict C++17 runtime regression executable and the existing project
+validator pass. A simulated eight-hour timeline is explicitly synthetic, not
+an elapsed device test. Full firmware/host CI for the published source is required.
+
 2026-10-02 shipping continuation adds tools/check_shipping_readiness.py and
 synthetic regression tests. Development validation remains separate from
 funding inventory: pending costs/core subtotals and empty CAD/PCB directories

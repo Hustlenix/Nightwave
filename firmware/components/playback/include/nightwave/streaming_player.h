@@ -27,6 +27,13 @@ class StreamingPlayer {
     bool stop();
     bool playing() const { return running_.load(); }
     bool paused() const { return paused_.load(); }
+    OutputPath requested_output() const { return output_.load(); }
+    std::uint8_t requested_volume() const { return volume_.load(); }
+    std::uint32_t playback_rate_hz() const { return rate_.load(); }
+    // Boot-lifetime modulo-32-bit counters: track changes/seeks do not reset them.
+    std::uint32_t media_frames_accepted() const { return media_frames_accepted_.load(); }
+    std::uint32_t lifetime_errors() const { return lifetime_errors_.load(); }
+    std::uint32_t lifetime_underruns() const { return lifetime_underruns_.load(); }
     // Media frames accepted by I2S, excluding underrun silence. DMA lead is
     // bounded by the sink queue; this is not an acoustic measurement.
     std::uint32_t position_ms() const { return position_ms_.load(); }
@@ -46,6 +53,7 @@ class StreamingPlayer {
     void decoder_task();
     void audio_task();
     void fail();
+    void mark_error() { ++errors_; ++lifetime_errors_; }
     std::array<std::uint8_t, 32769> encoded_storage_{};
     std::array<StereoFrame, 16385> pcm_storage_{};
     std::array<std::uint8_t, 4096> read_{};
@@ -66,6 +74,7 @@ class StreamingPlayer {
     std::atomic<std::uint8_t> volume_{8};
     std::atomic<OutputPath> output_{OutputPath::kMuted};
     std::atomic<std::uint32_t> rate_{0}, underruns_{0}, errors_{0};
+    std::atomic<std::uint32_t> media_frames_accepted_{0}, lifetime_errors_{0}, lifetime_underruns_{0};
     std::atomic<std::uint32_t> position_ms_{0};
     std::atomic<std::uint32_t> sd_us_{0}, decoder_us_{0};
     std::atomic<std::uint32_t> storage_stack_{0}, decoder_stack_{0}, audio_stack_{0};

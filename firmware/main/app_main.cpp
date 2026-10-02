@@ -22,6 +22,7 @@
 #include "nightwave/bluetooth_source.h"
 #include "nightwave/power_hal.h"
 #include "nightwave/bm83_at_codec.h"
+#include "nightwave/runtime_recorder.h"
 #include "esp_heap_caps.h"
 
 namespace {
@@ -38,11 +39,44 @@ SemaphoreHandle_t g_commands = nullptr;
 nightwave::UnavailableBluetooth g_bluetooth_backend;
 nightwave::BluetoothSource g_bluetooth(g_bluetooth_backend);
 nightwave::UnavailablePower g_power;
+nightwave::RuntimeRecorder g_runtime;
+std::uint64_t g_runtime_sampled_ms = 0, g_runtime_reported_ms = 0;
+
+nightwave::RuntimeObservation runtime_observation() {
+    nightwave::RuntimeObservation o;
+    o.monotonic_ms = static_cast<std::uint64_t>(esp_timer_get_time() / 1000);
+    o.media_frames = g_player.media_frames_accepted();
+    o.errors = g_player.lifetime_errors(); o.underruns = g_player.lifetime_underruns();
+    o.sample_rate_hz = g_player.playback_rate_hz();
+    o.playing = g_player.playing(); o.paused = g_player.paused();
+    const auto route = g_player.requested_output();
+    o.route = route == nightwave::OutputPath::kSpeaker ? nightwave::RuntimeRoute::kSpeaker :
+        route == nightwave::OutputPath::kLine ? nightwave::RuntimeRoute::kWired : nightwave::RuntimeRoute::kMuted;
+    o.volume = g_player.requested_volume();
+    o.power = g_power.sample(static_cast<std::uint32_t>(o.monotonic_ms));
+    // UnavailablePower and the untested bench route cannot certify a battery run.
+    return o;
+}
+void print_runtime() {
+    std::array<char, 768> json{};
+    if (nightwave::format_runtime_report(g_runtime.summary(), json.data(), json.size())) std::puts(json.data());
+}
+void runtime_tick() {
+    if (!g_runtime.summary().active) return;
+    const auto now = static_cast<std::uint64_t>(esp_timer_get_time() / 1000);
+    if (now < g_runtime_sampled_ms || now - g_runtime_sampled_ms >= 1000) {
+        g_runtime.observe(runtime_observation()); g_runtime_sampled_ms = now;
+    }
+    if (!g_runtime.summary().active || now - g_runtime_reported_ms >= 60000) {
+        print_runtime(); g_runtime_reported_ms = now;
+    }
+}
 
 void ui_task(void*) {
     while (true) {
         if (xSemaphoreTake(g_commands, pdMS_TO_TICKS(10)) == pdTRUE) {
             g_frontend.tick(static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
+            runtime_tick();
             xSemaphoreGive(g_commands);
         }
         vTaskDelay(pdMS_TO_TICKS(25));
@@ -82,6 +116,7 @@ void print_help() {
         "  last                          explicit saved-track resume\n"
         "  selftest                      JSON software/hardware availability\n"
         "  engineering                   bounded JSON library/seek/memory telemetry\n"
+        "  runtime <start|stop|status>    sampled runtime log; never physical certification\n"
         "  help                          show this text\n\n");
 }
 
@@ -211,6 +246,22 @@ void execute_command(char* line) {
             const char* names[] = {"off", "15", "30", "45", "60", "end"};
             for (unsigned i = 0; i < 6; ++i) if (!std::strcmp(value, names[i])) g_frontend.sleep_timer(static_cast<nightwave::SleepMode>(i), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
         }
+    } else if (std::strcmp(command, "runtime") == 0) {
+        const char* action = strtok_r(nullptr, " \r\n", &context);
+        if (action && std::strcmp(action, "start") == 0) {
+            const auto observation = runtime_observation();
+            if (!g_runtime.begin(observation)) {
+                ESP_LOGW(kTag, "runtime start requires active, nonzero-volume playback and no active recorder");
+            } else {
+                g_runtime_sampled_ms = g_runtime_reported_ms = observation.monotonic_ms;
+                print_runtime();
+            }
+        } else if (action && std::strcmp(action, "stop") == 0) {
+            g_runtime.stop(runtime_observation()); print_runtime();
+        } else if (action && std::strcmp(action, "status") == 0) {
+            g_runtime.observe(runtime_observation()); print_runtime();
+            g_runtime_sampled_ms = static_cast<std::uint64_t>(esp_timer_get_time() / 1000);
+        } else ESP_LOGW(kTag, "usage: runtime <start|stop|status>");
     } else if (std::strcmp(command, "selftest") == 0) {
         std::printf("{\"type\":\"nightwave_selftest\",\"schema\":1,\"gpio_map_unique\":%s,\"storage_mounted\":%s,\"bluetooth\":\"BM83SM1-00TA_backend_unqualified\",\"battery\":\"unmeasured\",\"acoustic_output\":\"unverified\",\"physical_pass\":false}\n",
             nightwave::hardware::pins_are_unique() ? "true" : "false", g_storage.mount() ? "true" : "false");

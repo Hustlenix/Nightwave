@@ -30,7 +30,7 @@ void total(std::atomic<std::uint32_t>& value, std::uint64_t add) {
     value.store(static_cast<std::uint32_t>(std::min<std::uint64_t>(UINT32_MAX, value.load() + add)));
 }
 }
-void StreamingPlayer::fail() { ++errors_; cancel_.store(true); }
+void StreamingPlayer::fail() { mark_error(); cancel_.store(true); }
 bool StreamingPlayer::start(const char* path, I2sAudioSink& sink,
                             OutputPath output, std::uint8_t volume, std::uint32_t seek_ms, const char* index_root) {
     if (running_.load() || !path || output == OutputPath::kMuted || seek_ms > 1800000) return false;
@@ -44,8 +44,8 @@ bool StreamingPlayer::start(const char* path, I2sAudioSink& sink,
     sd_bytes_.store(0); sd_reads_.store(0); sd_total_us_.store(0); decode_calls_.store(0); decode_total_us_.store(0);
     encoded_low_.store(UINT32_MAX); pcm_low_.store(UINT32_MAX);
     file_ = std::fopen(path, "rb");
-    if (!file_) { ++errors_; return false; }
-    auto reject = [this]() { std::fclose(file_); file_ = nullptr; ++errors_; return false; };
+    if (!file_) { mark_error(); return false; }
+    auto reject = [this]() { std::fclose(file_); file_ = nullptr; mark_error(); return false; };
     if (std::fseek(file_, 0, SEEK_END) != 0) return reject();
     const long length = std::ftell(file_);
     if (length <= 0) return reject();
@@ -250,13 +250,14 @@ void StreamingPlayer::audio_task() {
         const auto media_frames = count;
         if (!count) {
             if (done && pcm_.empty()) break;
-            ++underruns_; samples.fill({}); count = samples.size();
+            ++underruns_; ++lifetime_underruns_; samples.fill({}); count = samples.size();
             // Advance fade while filling an underrun with silence.
             for (std::size_t i = 0; i < count; ++i) gain.step(pause ? 0 : percent_to_q15(volume_.load()));
         }
         const PcmBlock block{reinterpret_cast<const std::int16_t*>(samples.data()), count, format, 0};
         if (sink_->write(block) != AudioSinkStatus::kAccepted) { fail(); break; }
         accepted_frames += media_frames;
+        media_frames_accepted_.fetch_add(static_cast<std::uint32_t>(media_frames), std::memory_order_relaxed);
         position_ms_.store(static_cast<std::uint32_t>(std::min<std::uint64_t>(UINT32_MAX,
             position_base + accepted_frames * 1000ULL / format.sample_rate_hz)));
     }

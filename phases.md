@@ -38,6 +38,11 @@ idle-built SD catalog, whole-card songs/artists/albums pages and indexed queues,
 plus bounded PSRAM group lookups and checked ordinal-hint resume. See
 docs/software-validation.md for separate execution evidence. SD/fallback latency
 and other limitations remain in docs/library-index.md.
+Runtime observation now adds explicit start/stop/status and minute JSON logs,
+boot-lifetime accepted-media/fault counters, missed-sample/clock/paused/stalled
+handling and permanent human-review status. It prepares Phase 16 evidence;
+it does not complete that physical phase. See docs/runtime-test.md and
+docs/trial-acceptance.md for the full retained systems and requirement mapping.
 Physical Phase 4/5 acceptance is
 pending. Final power, complete BOM, schematic/PCB/CAD and manufacturing are
 NOT complete; the current builder-authorship gate is documented in

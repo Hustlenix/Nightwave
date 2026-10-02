@@ -93,6 +93,10 @@ removing a real card during playback has been tested.
 
 ## Controls
 
+The [Trial acceptance matrix](docs/trial-acceptance.md) maps every requirement to
+source and missing physical proof. The [runtime recorder](docs/runtime-test.md)
+logs sampled elapsed/playback windows and faults; it cannot certify battery life.
+
 Previous/Next navigate the browser or change playing tracks. Play opens a folder
 or starts/toggles playback. Volume +/- changes gain. Hold Play for the browser,
 hold Previous for the parent folder, hold Volume + for diagnostics, hold Next

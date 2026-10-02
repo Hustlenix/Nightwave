@@ -26,6 +26,15 @@ else()
 endif()
 
 enable_testing()
+add_executable(nightwave_runtime_tests runtime_tests.cpp ../firmware/components/diagnostics/runtime_recorder.cpp)
+target_include_directories(nightwave_runtime_tests PRIVATE
+    ../firmware/components/diagnostics/include ../firmware/components/power/include)
+if(MSVC)
+    target_compile_options(nightwave_runtime_tests PRIVATE /W4 /WX)
+else()
+    target_compile_options(nightwave_runtime_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_runtime_tests COMMAND nightwave_runtime_tests)
 add_executable(nightwave_hal_tests hal_tests.cpp ../firmware/components/diagnostics/engineering_report.cpp)
 target_include_directories(nightwave_hal_tests PRIVATE fakes
     ../firmware/components/bluetooth/include ../firmware/components/power/include ../firmware/components/diagnostics/include

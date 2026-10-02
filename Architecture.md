@@ -25,6 +25,13 @@ See docs/library-index.md for memory budgets, wire format and resume checks.
 
 ## 1. Architecture objective
 
+Runtime diagnostics now run from the serialized UI/console owner, using
+boot-lifetime accepted-media and fault counters from the audio engine. Reports
+distinguish wall time, sampled playback and qualified battery observations;
+current unavailable power/untested audio keeps battery proof unestablished.
+No logging, allocation or filesystem work is added to the audio worker. See
+docs/runtime-test.md for sampling, counter-wrap, gap and physical-evidence limits.
+
 Nightwave is not an ESP32 remote control for a self-contained MP3 module. The ESP32-S3 owns the storage, decode, buffering, playback state, UI, and power policy.
 
 Current product output branches (only one active route):

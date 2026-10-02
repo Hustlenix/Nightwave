@@ -4,6 +4,11 @@
 
 ## Current product scope — 2026-10-02
 
+The Trial acceptance matrix in docs/trial-acceptance.md tracks the entire product
+and required physical evidence. Runtime recording is implemented as sampled
+software diagnostics, with qualification flags and permanent human-review status;
+see docs/runtime-test.md. No bench run or measured runtime is implied.
+
 Required: local MP3/WAV, speaker, wired stereo jack, Bluetooth headphones/speakers,
 synced sidecar LRC, metadata, songs/folders/artists/albums/playlists, playback modes,
 persisted resume/settings, sleep timer, readable builder-selected display,

@@ -116,12 +116,15 @@ int main(int argc, char** argv) {
     if (argc != 4) return EXIT_FAILURE;
     auto player = std::make_unique<StreamingPlayer>();
     I2sAudioSink sink;
+    CHECK(player->media_frames_accepted() == 0 && player->lifetime_errors() == 0);
     CHECK(!player->start("missing-file", sink, OutputPath::kLine, 8));
+    CHECK(player->lifetime_errors() == 1);
     for (int failed = 1; failed <= 3; ++failed) {
         create_count = 0; fail_create = failed;
         CHECK(!player->start(argv[1], sink, OutputPath::kLine, 8));
         CHECK(!player->playing() && muted); join_all();
     }
+    CHECK(player->lifetime_errors() == 4);
     fail_create = 0;
     for (int i = 0; i < 1000; ++i) {
         CHECK(player->start(argv[1 + i % 2], sink, OutputPath::kLine, 8));
@@ -137,12 +140,16 @@ int main(int argc, char** argv) {
     CHECK(await([] { return muted.load(); }));
     const auto paused_writes = writes.load();
     const auto paused_position = player->position_ms();
+    const auto paused_media = player->media_frames_accepted();
     std::this_thread::sleep_for(std::chrono::milliseconds(5));
     CHECK(writes == paused_writes);
     CHECK(player->position_ms() == paused_position);
+    CHECK(player->media_frames_accepted() == paused_media);
     player->pause(false); CHECK(await([] { return !muted; }));
     fault = true; CHECK(await([&] { return !player->playing(); }));
     join_all(); CHECK(player->errors() > 0 && muted); fault = false;
+    const auto historical_errors = player->lifetime_errors();
+    CHECK(historical_errors > 4);
     hold_write = true;
     CHECK(player->start(argv[1], sink, OutputPath::kLine, 8));
     CHECK(await([] { return write_held.load(); }));
@@ -151,10 +158,13 @@ int main(int argc, char** argv) {
     hold_write = false; CHECK(await([&] { return !player->playing(); }));
     join_all(); CHECK(muted);
     for (int i = 1; i <= 2; ++i) {
+        const auto previous_media = player->media_frames_accepted();
         CHECK(player->start(argv[i], sink, OutputPath::kLine, 8));
         CHECK(await([&] { return !player->playing(); }));
         join_all(); CHECK(player->errors() == 0 && muted);
         CHECK(player->position_ms() > 0);
+        CHECK(player->media_frames_accepted() != previous_media);
+        CHECK(player->lifetime_errors() == historical_errors);
         CHECK(player->start(argv[i], sink, OutputPath::kLine, 8, 1000));
         CHECK(player->position_ms() >= 1000); // Workers may already have accepted a block.
         CHECK(await([&] { return !player->playing(); }));
