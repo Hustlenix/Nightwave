@@ -37,8 +37,14 @@ bool regular_or_missing(const char* path) {
 }
 LibraryCatalog::~LibraryCatalog() { close_build(); if (reader_) std::fclose(reader_); }
 bool LibraryCatalog::cache_path(const char* suffix, char* out, std::size_t capacity) const {
-    const int bytes = std::snprintf(out, capacity, "%s/.nightwave/%s", root_.data(), suffix);
-    return bytes > 0 && static_cast<std::size_t>(bytes) < capacity;
+    constexpr char prefix[] = "/.nightwave/";
+    const auto root_size = std::strlen(root_.data()), suffix_size = std::strlen(suffix);
+    if (root_size >= capacity || sizeof(prefix) > capacity - root_size ||
+        suffix_size >= capacity - root_size - (sizeof(prefix) - 1)) return false;
+    std::memcpy(out, root_.data(), root_size);
+    std::memcpy(out + root_size, prefix, sizeof(prefix) - 1);
+    std::memcpy(out + root_size + sizeof(prefix) - 1, suffix, suffix_size + 1);
+    return true;
 }
 bool LibraryCatalog::open(const char* root) {
     close_build(); if (reader_) { std::fclose(reader_); reader_ = nullptr; }

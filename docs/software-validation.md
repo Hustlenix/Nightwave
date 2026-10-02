@@ -127,3 +127,9 @@ resume, backup fallback, corrupt checksums/paths, limits and 1,000 query/cancel
 cycles. Repository validator and diff whitespace checks also passed. A new
 device build and full eight-suite Release/ASAN CI run are required; their actual
 results will be recorded below after execution. No physical acceptance inferred.
+
+The initial merged checkpoint adbb92e failed its optimized Release compilation
+in run 36962394436: GCC inlining reported possible snprintf truncation in the
+cache-path helper. The join was replaced by checked lengths/memcpy; warning
+policy was not weakened. Sanitizer success alone does not replace Release or
+device compilation. Record the repaired run's results only after execution.
