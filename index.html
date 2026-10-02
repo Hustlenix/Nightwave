@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="NIGHTWAVE — a T4 pocket music player built around a real embedded audio pipeline: SDMMC, software decoding, FreeRTOS buffering, DSP, I2S/DMA, custom audio and power hardware." />
+  <meta name="description" content="NIGHTWAVE — a T4 standalone music player with local MP3/WAV playback, synced lyrics, physical controls, speaker, wired headphones, Bluetooth audio, custom power hardware and a 4-layer PCB direction." />
   <title>NIGHTWAVE — T4 Pocket Music Player</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -41,13 +41,13 @@
         <div class="cinematic-grid" aria-hidden="true"></div>
 
         <div class="cinematic-copy" data-cinematic-copy>
-          <p class="eyebrow">POCKET AUDIO / EMBEDDED SYSTEMS / REV. 0</p>
+          <p class="eyebrow">POCKET AUDIO / EMBEDDED SYSTEMS / REV. 1</p>
           <h1>NO CLOUD.<br>NO PHONE.<br><span>JUST MUSIC.</span></h1>
-          <p class="hero-deck">A pocket music player that reads, decodes, buffers and outputs your music itself. No streaming stack. No companion app. No DFPlayer doing the hard part off-screen.</p>
+          <p class="hero-deck">A standalone pocket player that owns the music path itself: local files, software decode, buffering, synced lyrics, physical controls and three output routes. No streaming service. No companion phone. No DFPlayer hiding the hard part.</p>
           <div class="hero-meta" aria-label="Project targets">
-            <span><b>12H+</b> design runtime</span>
-            <span><b>ESP32-S3</b> audio engine</span>
-            <span><b>2-LAYER</b> mixed-signal PCB target</span>
+            <span><b>FULL-NIGHT</b> runtime target</span>
+            <span><b>ESP32-S3*</b> current compute baseline</span>
+            <span><b>4-LAYER*</b> PCB direction</span>
           </div>
         </div>
 
@@ -80,7 +80,7 @@
             </div>
 
             <div class="exploded-part battery-module" data-part="battery">
-              <div class="battery-print"><b>3.7V</b><span>LI-ION</span><small>FULL-NIGHT POWER TARGET</small></div>
+              <div class="battery-print"><b>3.7V</b><span>LI-ION</span><small>CAPACITY TBD · LARGER PACK LIKELY</small></div>
               <span class="part-tag">BATTERY</span>
             </div>
 
@@ -91,7 +91,7 @@
 
             <div class="exploded-part main-pcb" data-part="pcb">
               <div class="pcb-traces"></div>
-              <div class="pcb-chip chip-mcu"><small>MCU</small><b>ESP32-S3</b></div>
+              <div class="pcb-chip chip-mcu"><small>MCU / BASELINE</small><b>ESP32-S3*</b></div>
               <div class="pcb-chip chip-dac"><small>AUDIO</small><b>DAC / AMP</b></div>
               <div class="pcb-chip chip-pmic"><small>POWER</small><b>PMIC</b></div>
               <div class="pcb-slot">microSD</div>
@@ -100,11 +100,16 @@
 
             <div class="exploded-part display-module" data-part="display">
               <div class="display-glass">
-                <div class="mini-status"><span>SD / 047</span><span>64%</span></div>
-                <strong>MIDNIGHT<br>PROTOCOL</strong>
+                <div class="mini-status"><span>BT · BAT 82%</span><span>VOL 64%</span></div>
+                <strong>LYRICS<br>+ METADATA</strong>
                 <div class="mini-progress"><i></i></div>
               </div>
-              <span class="part-tag">DISPLAY</span>
+              <span class="part-tag">LARGER DISPLAY*</span>
+            </div>
+
+            <div class="exploded-part bluetooth-module" data-part="bluetooth">
+              <div class="bt-board"><small>AUDIO LINK</small><b>BT*</b><i></i></div>
+              <span class="part-tag">BLUETOOTH AUDIO*</span>
             </div>
 
             <div class="exploded-part control-plate" data-part="controls">
@@ -136,12 +141,13 @@
               <span class="part-tag">FRONT SHELL</span>
             </div>
 
-            <div class="component-callout callout-display"><em>01</em><i></i><span><b>DISPLAY</b>Track state, library and system feedback.</span></div>
-            <div class="component-callout callout-pcb"><em>02</em><i></i><span><b>ESP32-S3 CORE</b>Filesystem, decoding, buffers, DSP and UI.</span></div>
-            <div class="component-callout callout-battery"><em>03</em><i></i><span><b>POWER SYSTEM</b>Rechargeable cell, charge path and fuel data.</span></div>
+            <div class="component-callout callout-display"><em>01</em><i></i><span><b>LARGER DISPLAY*</b>Lyrics, metadata, menus, battery state and engineering diagnostics.</span></div>
+            <div class="component-callout callout-pcb"><em>02</em><i></i><span><b>COMPUTE BASELINE*</b>ESP32-S3 currently owns filesystem, decode, buffers, DSP and UI.</span></div>
+            <div class="component-callout callout-battery"><em>03</em><i></i><span><b>POWER SYSTEM*</b>Larger pack likely; charger and regulator must be re-qualified.</span></div>
             <div class="component-callout callout-speaker"><em>04</em><i></i><span><b>SPEAKER PATH</b>Dedicated class-D output for built-in audio.</span></div>
-            <div class="component-callout callout-controls"><em>05</em><i></i><span><b>PHYSICAL INPUT</b>Playback and volume without a phone.</span></div>
-            <div class="component-callout callout-storage"><em>06</em><i></i><span><b>LOCAL STORAGE</b>Your files live on removable microSD.</span></div>
+            <div class="component-callout callout-controls"><em>05</em><i></i><span><b>PHYSICAL INPUT</b>Five-button control remains the current direction.</span></div>
+            <div class="component-callout callout-storage"><em>06</em><i></i><span><b>LOCAL STORAGE</b>Music, .lrc lyrics, playlists and metadata live on microSD.</span></div>
+            <div class="component-callout callout-bluetooth"><em>07</em><i></i><span><b>BLUETOOTH AUDIO*</b>New major subsystem; dedicated hardware or platform change still undecided.</span></div>
           </div>
 
           <div class="cinematic-phase">
@@ -161,7 +167,7 @@
         <strong>NOW FOLLOW THE SIGNAL.</strong>
       </div>
       <div class="handoff-path" aria-hidden="true">
-        <i></i><b>SD</b><i></i><b>PCM</b><i></i><b>I²S</b><i></i><b>AIR</b>
+        <i></i><b>SD</b><i></i><b>PCM</b><i></i><b>ROUTE</b><i></i><b>3× OUT</b>
       </div>
     </section>
 
@@ -170,8 +176,8 @@
       <div class="statement-grid reveal">
         <h2>A music player should be able to play music <em>without asking another computer to do it.</em></h2>
         <div class="statement-copy">
-          <p>NIGHTWAVE is a standalone hardware experiment: load your own audio files onto a microSD card, plug in headphones or use the built-in speaker, and control playback using physical inputs.</p>
-          <p>The T4 version deliberately removes the easiest shortcut. Instead of sending “play track 5” to a decoder module, the ESP32-S3 owns the filesystem, decoding, buffering, scheduling, DSP and audio transport.</p>
+          <p>NIGHTWAVE is a standalone hardware experiment: load music, synced <code>.lrc</code> lyrics and playlists onto microSD, then listen through the built-in speaker, wired headphones or the planned Bluetooth-audio path.</p>
+          <p>The T4 direction still removes the easiest shortcut. The device owns filesystem access, software MP3/WAV decode, PCM buffering, scheduling, DSP and output routing. ESP32-S3 remains the current baseline, but Bluetooth audio may force a dedicated subsystem or a platform change.</p>
         </div>
       </div>
     </section>
@@ -203,9 +209,9 @@
         <article class="active">
           <p class="compare-label">NIGHTWAVE / TARGET</p>
           <div class="mini-pipeline">
-            <span>SDMMC</span><b>→</b><span>DECODE</span><b>→</b><span>PCM</span><b>→</b><span>I²S</span>
+            <span>SDMMC</span><b>→</b><span>DECODE</span><b>→</b><span>PCM</span><b>→</b><span>ROUTE</span>
           </div>
-          <p>The firmware owns the whole playback path. That creates the real engineering work: latency, DMA, ring buffers, task synchronization, audio quality and failure recovery.</p>
+          <p>The firmware owns the playback path, then routes decoded audio across speaker, wired and Bluetooth outputs. That adds output switching, mute policy, headphone detection, Bluetooth pairing/state and more failure modes on top of latency, DMA and buffering.</p>
         </article>
       </div>
     </section>
@@ -216,12 +222,12 @@
         <h2>FROM FILE<br>TO AIR.</h2>
       </div>
       <div class="pipeline" data-pipeline>
-        <article class="pipe-step reveal"><span>01</span><h3>microSD</h3><p>Direct file access over SDMMC / FATFS.</p></article>
-        <article class="pipe-step reveal"><span>02</span><h3>Decoder</h3><p>Compressed MP3/WAV data becomes PCM samples.</p></article>
-        <article class="pipe-step reveal"><span>03</span><h3>Buffering</h3><p>FreeRTOS queues and ring buffers absorb SD latency.</p></article>
-        <article class="pipe-step reveal"><span>04</span><h3>DSP</h3><p>Digital volume, EQ, limiter and smooth ramps.</p></article>
-        <article class="pipe-step reveal"><span>05</span><h3>I²S + DMA</h3><p>Deterministic streaming without blocking the UI.</p></article>
-        <article class="pipe-step reveal"><span>06</span><h3>Output</h3><p>Stereo DAC/headphone amp plus class-D speaker path.</p></article>
+        <article class="pipe-step reveal"><span>01</span><h3>microSD</h3><p>Music, .lrc lyrics, playlists and metadata/cache over the local filesystem.</p></article>
+        <article class="pipe-step reveal"><span>02</span><h3>Decode</h3><p>Software MP3/WAV decoding produces PCM inside the device.</p></article>
+        <article class="pipe-step reveal"><span>03</span><h3>Buffer</h3><p>FreeRTOS queues and ring buffers absorb SD and UI latency.</p></article>
+        <article class="pipe-step reveal"><span>04</span><h3>DSP</h3><p>Volume, EQ, limiter, ramps and playback policy operate on PCM.</p></article>
+        <article class="pipe-step reveal"><span>05</span><h3>Route</h3><p>Output policy chooses speaker, wired headphones or Bluetooth audio.</p></article>
+        <article class="pipe-step reveal"><span>06</span><h3>Output</h3><p>I²S/DMA feeds local audio hardware while Bluetooth uses the selected BT-audio architecture.</p></article>
       </div>
     </section>
 
@@ -230,27 +236,29 @@
       <div class="chapter-number">02</div>
       <div class="chapter-copy">
         <span>SYSTEM</span>
-        <strong>SIX<br>SUBSYSTEMS.<br>ONE DEVICE.</strong>
-        <p>Storage, compute, audio, input, display and power have to behave like one product.</p>
+        <strong>TEN+<br>SUBSYSTEMS.<br>ONE DEVICE.</strong>
+        <p>Storage, decode, routing, speaker, wired audio, Bluetooth, display, input, power and diagnostics now have to behave like one product.</p>
       </div>
       <div class="chapter-orbit" aria-hidden="true"><b></b><b></b><b></b></div>
     </section>
 
     <section class="architecture dark-section cine-section" id="hardware" data-cine-section="architecture">
       <div class="section-head reveal">
-        <p class="section-index">04 / ARCHITECTURE</p>
-        <h2>SIX SYSTEMS.<br>ONE DEVICE.</h2>
+        <p class="section-index">04 / ARCHITECTURE · REV.1</p>
+        <h2>TEN+ SYSTEMS.<br>ONE DEVICE.</h2>
       </div>
-      <div class="system-map reveal" data-system-map role="img" aria-label="Architecture map for NIGHTWAVE music player">
-        <div class="sys sys-storage"><small>STORAGE</small><strong>microSD</strong><span>SDMMC / FATFS</span></div>
-        <div class="sys sys-core"><small>COMPUTE</small><strong>ESP32-S3</strong><span>decoder · FreeRTOS · UI · DSP</span></div>
-        <div class="sys sys-dac"><small>HEADPHONES</small><strong>STEREO DAC</strong><span>I²S → analog → amp</span></div>
-        <div class="sys sys-speaker"><small>SPEAKER</small><strong>CLASS-D</strong><span>I²S mono path</span></div>
-        <div class="sys sys-ui"><small>INTERFACE</small><strong>DISPLAY + INPUT</strong><span>OLED/TFT · encoder · buttons</span></div>
-        <div class="sys sys-power"><small>POWER</small><strong>1S Li-Ion</strong><span>charge · power path · fuel gauge</span></div>
-        <svg viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M216 118 H410"/><path d="M590 195 H780"/><path d="M590 252 H780"/><path d="M500 340 V432"/><path d="M410 270 H220"/>
-        </svg>
+      <p class="architecture-note reveal"><b>ARCHITECTURE UNDER REVISION.</b> Bluetooth audio, final display, final battery and charger/regulator values must be locked before the builder-authored schematic begins.</p>
+      <div class="system-map system-map-v2 reveal" data-system-map role="img" aria-label="Revised architecture map for NIGHTWAVE music player">
+        <div class="sys status-core"><small>01 / STORAGE</small><strong>microSD</strong><span>music · .lrc · playlists · metadata/cache</span><em>CORE</em></div>
+        <div class="sys status-provisional"><small>02 / COMPUTE</small><strong>ESP32-S3*</strong><span>current baseline · platform not absolutely locked</span><em>PROVISIONAL</em></div>
+        <div class="sys status-core"><small>03 / AUDIO ENGINE</small><strong>PCM ENGINE</strong><span>MP3/WAV decode · buffers · DSP · scheduling</span><em>CORE</em></div>
+        <div class="sys status-core"><small>04 / ROUTING</small><strong>3-WAY ROUTER</strong><span>speaker · wired · Bluetooth switching/mute policy</span><em>NEW CORE</em></div>
+        <div class="sys status-decision"><small>05 / WIRELESS</small><strong>BT AUDIO*</strong><span>dedicated subsystem or platform change</span><em>DECISION GATE</em></div>
+        <div class="sys status-core"><small>06 / WIRED</small><strong>DAC + HP AMP</strong><span>3.5 mm · stereo · headphone detect</span><em>CORE</em></div>
+        <div class="sys status-core"><small>07 / SPEAKER</small><strong>CLASS-D</strong><span>built-in mono output path</span><em>CORE</em></div>
+        <div class="sys status-decision"><small>08 / DISPLAY</small><strong>LARGER SCREEN*</strong><span>lyrics · menus · battery · diagnostics</span><em>DECISION GATE</em></div>
+        <div class="sys status-decision"><small>09 / POWER</small><strong>LARGER 1S PACK*</strong><span>capacity · charger · regulator values under revision</span><em>DECISION GATE</em></div>
+        <div class="sys status-provisional"><small>10 / PCB + RF</small><strong>4-LAYER*</strong><span>mixed-signal layout · RF keepout · more test points</span><em>DIRECTION</em></div>
       </div>
     </section>
 
@@ -262,8 +270,8 @@
           <h3>Real-time audio that survives the ugly cases.</h3>
           <p>SD latency spikes, decoder stalls, pause/resume, seek, track changes and UI work all compete for time. The firmware must keep the audio path fed without clicks or underruns.</p>
         </article>
-        <article class="proof-metric reveal"><strong>&lt; 1</strong><span>audible glitch target during normal playback</span></article>
-        <article class="proof-metric reveal"><strong>12H+</strong><span>runtime design target before measured validation</span></article>
+        <article class="proof-metric reveal"><strong>3×</strong><span>speaker · wired · Bluetooth output routes that must switch cleanly</span></article>
+        <article class="proof-metric reveal"><strong>TBD</strong><span>final battery capacity until Bluetooth + display architecture is locked</span></article>
         <article class="proof-feature reveal">
           <p class="status planned">VALIDATION REQUIRED</p>
           <h3>Battery life is measured, not advertised.</h3>
@@ -278,26 +286,34 @@
         <h2>THE BOARD IS<br>THE PRODUCT.</h2>
       </div>
       <div class="bom-grid reveal">
-        <div><span>MCU</span><strong>ESP32-S3</strong><p>Owns playback pipeline and system control.</p></div>
-        <div><span>STORAGE</span><strong>microSD</strong><p>Direct filesystem access; no cloud dependency.</p></div>
-        <div><span>HEADPHONE PATH</span><strong>I²S DAC + AMP</strong><p>Stereo output with proper analog stage.</p></div>
-        <div><span>SPEAKER PATH</span><strong>Digital class-D</strong><p>Independent built-in speaker output.</p></div>
-        <div><span>POWER</span><strong>1S Li-Ion system</strong><p>Charging, power-path management and fuel gauge.</p></div>
-        <div><span>PCB</span><strong>2-layer mixed-signal</strong><p>Audio routing, return paths, power integrity and testability matter.</p></div>
+        <div><span>COMPUTE / PROVISIONAL</span><strong>ESP32-S3*</strong><p>Current baseline for filesystem, decode, buffers, DSP and UI; Bluetooth may change the platform decision.</p></div>
+        <div><span>STORAGE / CORE</span><strong>microSD</strong><p>MP3/WAV, .lrc lyrics, playlists and richer library metadata/cache.</p></div>
+        <div><span>DISPLAY / DECISION</span><strong>Larger screen*</strong><p>Lyrics, metadata, menus, battery state and engineering diagnostics; interface may move to SPI.</p></div>
+        <div><span>BLUETOOTH / NEW</span><strong>BT audio*</strong><p>Major unresolved subsystem for wireless headphones and speakers.</p></div>
+        <div><span>HEADPHONE PATH / CORE</span><strong>I²S DAC + AMP</strong><p>Stereo 3.5 mm output with headphone detect for automatic routing.</p></div>
+        <div><span>SPEAKER PATH / CORE</span><strong>Digital class-D</strong><p>Independent built-in speaker output retained.</p></div>
+        <div><span>BATTERY / DECISION</span><strong>Larger 1S pack*</strong><p>The old ~2500 mAh assumption is obsolete; capacity and physical size are being reworked.</p></div>
+        <div><span>POWER / RECHECK</span><strong>Charge + path + gauge</strong><p>USB-C, power path and fuel gauge remain; charger/regulator values must be re-qualified.</p></div>
+        <div><span>PCB + MECHANICAL</span><strong>4-layer direction*</strong><p>More routing, RF keepout, test points and a larger armored enclosure around screen, battery and antenna constraints.</p></div>
       </div>
     </section>
 
     <section class="interface-section cine-section cine-interface" data-cine-section="interface">
       <div class="interface-copy reveal">
         <p class="section-index">07 / INTERACTION</p>
-        <h2>PHYSICAL<br>BY DEFAULT.</h2>
-        <p>The interface is intentionally tangible. Core playback should never require a phone or touchscreen maze. Buttons and an encoder stay usable in the dark, in a pocket, or without looking.</p>
+        <h2>PHYSICAL.<br>INFORMATIVE.<br>LOCAL.</h2>
+        <p>Five physical buttons remain the current control direction, while the display grows into a real product UI: synced lyrics, metadata, playlists, Bluetooth pairing/state, battery information, settings and engineering diagnostics.</p>
       </div>
       <div class="ui-demo reveal" data-ui-demo aria-label="Interactive concept display UI">
-        <div class="ui-chrome"><span>NOW PLAYING</span><span data-ui-volume>VOL 64</span></div>
-        <div class="album-mark" data-album-mark>NS</div>
+        <div class="ui-chrome"><span data-ui-route>BT AUDIO · NOW PLAYING</span><span><span data-ui-battery>BAT 82%</span> · <span data-ui-volume>VOL 64</span></span></div>
+        <div class="lyrics-screen">
+          <small>SYNCED .LRC</small>
+          <p class="lyric-line dim" data-ui-lyric-prev>Signal wakes the room</p>
+          <p class="lyric-line active" data-ui-lyric>We move with the night</p>
+          <p class="lyric-line dim" data-ui-lyric-next>No phone in the loop</p>
+        </div>
         <h3 data-ui-track>MIDNIGHT PROTOCOL</h3>
-        <p><span data-ui-number>TRACK 047</span> / LOCAL STORAGE</p>
+        <p><span data-ui-artist>NIGHTWAVE DEMO</span> / <span data-ui-number>TRACK 047</span></p>
         <div class="ui-progress"><i data-ui-progress></i></div>
         <div class="ui-time"><span data-ui-elapsed>02:18</span><span data-ui-duration>04:00</span></div>
         <div class="ui-actions">
@@ -325,15 +341,17 @@
         <h2>DESIGN.<br>PROVE.<br>THEN FABRICATE.</h2>
       </div>
       <div class="build-list">
-        <div class="build-row reveal"><span>01</span><strong>Architecture + datasheets</strong><em>IN PROGRESS</em></div>
-        <div class="build-row reveal"><span>02</span><strong>Power budget + BOM</strong><em>PLANNED</em></div>
-        <div class="build-row reveal"><span>03</span><strong>Breadboard subsystem bring-up</strong><em>PHYSICAL GATE</em></div>
-        <div class="build-row reveal"><span>04</span><strong>Firmware audio engine</strong><em>PLANNED</em></div>
-        <div class="build-row reveal"><span>05</span><strong>KiCad schematic + review</strong><em>PLANNED</em></div>
-        <div class="build-row reveal"><span>06</span><strong>PCB layout + DRC</strong><em>PLANNED</em></div>
-        <div class="build-row reveal"><span>07</span><strong>Enclosure + speaker cavity</strong><em>PLANNED</em></div>
-        <div class="build-row reveal"><span>08</span><strong>Fabrication + staged bring-up</strong><em>PHYSICAL GATE</em></div>
-        <div class="build-row reveal"><span>09</span><strong>Measured overnight runtime</strong><em>SHIP GATE</em></div>
+        <div class="build-row reveal"><span>01</span><strong>Lock Bluetooth-audio architecture</strong><em>DECISION GATE</em></div>
+        <div class="build-row reveal"><span>02</span><strong>Select final display + interface</strong><em>DECISION GATE</em></div>
+        <div class="build-row reveal"><span>03</span><strong>Lock battery, charger + regulator budget</strong><em>DECISION GATE</em></div>
+        <div class="build-row reveal"><span>04</span><strong>Freeze integrated architecture + BOM</strong><em>IN PROGRESS</em></div>
+        <div class="build-row reveal"><span>05</span><strong>Bring up SD, local audio, display + Bluetooth subsystems</strong><em>PHYSICAL GATE</em></div>
+        <div class="build-row reveal"><span>06</span><strong>Firmware: routing, lyrics, UI + diagnostics</strong><em>SOFTWARE GATE</em></div>
+        <div class="build-row reveal"><span>07</span><strong>Builder-authored KiCad schematic + review</strong><em>AFTER LOCK</em></div>
+        <div class="build-row reveal"><span>08</span><strong>4-layer PCB layout: RF + audio + power</strong><em>PLANNED</em></div>
+        <div class="build-row reveal"><span>09</span><strong>Armored enclosure CAD around screen, battery + antenna</strong><em>PLANNED</em></div>
+        <div class="build-row reveal"><span>10</span><strong>Fabrication + staged bring-up</strong><em>PHYSICAL GATE</em></div>
+        <div class="build-row reveal"><span>11</span><strong>Validate all outputs + measured full-night runtime</strong><em>SHIP GATE</em></div>
       </div>
     </section>
 
@@ -367,8 +385,8 @@
 
     <section class="finale dark-section cine-section cine-finale" data-cine-section="finale">
       <p class="eyebrow reveal">THE SHIP CONDITION</p>
-      <h2 class="reveal">PUT A SONG ON THE CARD.<br>PRESS PLAY.<br><span>HEAR IT.</span></h2>
-      <p class="finale-copy reveal">Everything before that is design work. That moment is proof.</p>
+      <h2 class="reveal">PUT MUSIC ON THE CARD.<br>CHOOSE AN OUTPUT.<br><span>HEAR IT.</span></h2>
+      <p class="finale-copy reveal">Local playback, lyrics, routing and battery claims only count after the physical device proves them.</p>
       <div class="finale-actions reveal">
         <a href="https://github.com/Hustlenix/Nightwave" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a>
         <a href="#top">BACK TO TOP ↑</a>
@@ -378,7 +396,7 @@
 
   <footer>
     <span>NIGHTWAVE / T4 HARDWARE PROJECT</span>
-    <span>CONCEPT SITE · REV.0</span>
+    <span>CONCEPT SITE · REV.1 · ARCHITECTURE IN REVISION</span>
   </footer>
 
   <script src="./app.js"></script>
