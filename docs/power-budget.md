@@ -1,4 +1,4 @@
-# Power budget — calculated, not measured
+# Historical power budget — not current product authority
 
 Checked 2026-10-01. This is a conservative design-input model, not a completed
 power circuit, a measured runtime claim, or authorization to connect lithium.
@@ -9,7 +9,12 @@ See [expanded scenarios](engineering-budgets.md): assumed TFT load changes the
 6.6 Ah speaker profile to 7.99 h with margins; louder audio/BT scanning is worse.
 Neither pack size nor charger is locked. Measure and optimise before enlarging.
 
-## Estimated normal speaker-playback profile
+BM83SM1-00TA is now selected; BD-15 is still pending. Recalculate all three
+output routes, display/backlight, idle, peaks, losses, 8-hour capacity, charge
+time and source permission after BD-15. The pack below is a historical candidate
+removed from the active BOM, not a battery lock. All values remain estimates.
+
+## Historical estimated OLED speaker-playback profile
 
 | 3.3 V consumer | Estimated average mA | Estimated concurrent peak mA |
 | --- | ---: | ---: |

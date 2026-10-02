@@ -1,5 +1,15 @@
 # Provisional Power Tree
 
+Current product: ESP32-S3 + selected BM83SM1-00TA, BD-15 readable TFT pending.
+The tree below documents the old local-output/OLED prototype, not a final
+three-output circuit. Add a separately qualified BM83 supply within its 3.2–4.2 V
+operating range with switched-off/backfeed analysis; do not attach it to an
+unbounded SYS rail or power peripherals from SYS_PWR. Disable/isolate its
+internal charger when using the product's external protected-pack charger.
+Current full power/capacity/charging calculations wait for BD-15; no pack is locked.
+The selected S3 retains native USB service access. Its actual USB circuit,
+source-current permission and ESD must be builder-authored and reviewed.
+
 No battery capacity or charge current is locked. The 2026-10-01 conservative
 model identifies a 6600 mAh candidate, but the larger pack conflicts with the
 preliminary charger's low-current safety timer and peak-load allowance.
@@ -9,13 +19,13 @@ This tree is provisional and is NOT a complete manufacturable power circuit.
 Mentor review update: [power-options.md](power-options.md) compares a switching
 charger without selecting it. Builder decides source policy and charger before
 this tree becomes authoritative. The native-USB service wording in the BOM
-conflicts with the power-only assumption below; resolve it in BD-01/02 rather
+supersedes the historical power-only assumption below; resolve circuitry in BD-01/02 rather
 than claiming that GPIO19/20 are already wired.
 MAX17048 VDD connects to protected battery positive and senses voltage; it is
 not powered from 3V3_MAIN. Only its logic pull-up rail is discussed below.
 
 ```text
-USB-C VBUS (5 V sink, power-only V1)
+USB-C VBUS (historical 5 V sink, power-only prototype)
   |-- CC1 5.1 kΩ to GND
   |-- CC2 5.1 kΩ to GND
   |-- connector shield/chassis strategy (review)
@@ -44,7 +54,7 @@ BQ25185 charger + dynamic power path
 
 ## Design answers
 
-- **USB-C input:** V1 is a 5 V sink. Both CC pins receive separate 5.1 kΩ Rd resistors. D+/D− are left unconnected unless native USB is deliberately added later. Add ESD/TVS selected for the actual pins and keep the receptacle mechanically staked.
+- **USB-C input:** current product requires a reviewed 5 V sink and native USB service path. The old power-only prototype does not satisfy that requirement. Separate CC sink termination/current permission, data ESD, both connector orientations and mechanical stakes must be reviewed.
 - **Charger/power path:** BQ25185 is provisional, configured for a standard 4.2 V cell and a charge current no greater than the cell's rating. System load receives priority while the remainder charges the battery.
 - **Battery/protection:** use a protected 1S pack with keyed connector and documented polarity. On-cell protection does not replace charger safety or NTC validation.
 - **Speaker supply:** provisionally use SYS so the Class-D path can benefit from adapter/system voltage; validate power versus 8 Ω, low-cell behavior, and absolute limits. Do not route the bridge outputs to ground.

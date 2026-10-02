@@ -137,7 +137,7 @@ SD card replacement MUST be practical.
 
 ## 9. Display typography
 
-Monochrome OLED style:
+Readable display typography (BD-15 final screen pending; OLED sketches are bench-only):
 - one readable bitmap font family or at most two sizes;
 - high contrast;
 - no decorative tiny fonts;
@@ -241,7 +241,7 @@ Where possible show one actionable response.
 
 ## 13. Motion
 
-OLED animation must be restrained:
+Display animation must be restrained:
 - short transitions;
 - no continuous decorative animation during playback;
 - avoid wasting CPU/power;
@@ -342,7 +342,7 @@ Avoid:
 - exposed dev boards in final device;
 - permanently dangling jumper wires;
 - hot glue as core mechanical structure;
-- unreadable OLED text;
+- unreadable display or lyric text;
 - buttons with unclear behavior;
 - fake album art;
 - unnecessary RGB;

@@ -28,7 +28,8 @@ def main():
             pass
         else:
             raise AssertionError("invalid model accepted")
-    print("CALCULATED model only; physical validation pending")
+    print("HISTORICAL OLED/sensitivity model only; NOT current product authority")
+    print("BM83 selected; BD-15 pending. Recalculate current routes/charging after BD-15; battery unlocked.")
     print(f"Cell-equivalent power: {power:.4f} W; capacity requirement: {required:.3f} Ah")
     for capacity in (2.5, 6.6):
         runtime = capacity * 3.7 * 0.8 * 0.8 / (power * 1.2)

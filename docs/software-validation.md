@@ -171,3 +171,18 @@ explicit PSRAM on target, host heap in tests), not internal static storage.
 These operation counts are not measured SD/UI/acoustic latency. A new full
 eight-suite Release/ASAN run and ESP32-S3 build are required for this source;
 record their actual results below, not the older checkpoint's success.
+
+Validated/pushed v2 library checkpoint df301661256671e3db892fd3cd6450fb65588c4f:
+
+- [ESP32-S3 build](https://github.com/Hustlenix/Nightwave/actions/runs/36994661327): success.
+- [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36994661341): success; 8/8 Release and 8/8 ASAN/leak.
+- Link DIRAM 204882/341760, .bss 144960, image 445484 bytes. Not runtime heap.
+- Concurrent website-only origin commits were preserved by merge, not overwritten.
+
+Next digital continuation adds idle MP3 frame-duration/seek caches, real-Helix
+indexed-seek equivalence checks, injected display frames, bounded Bluetooth
+source control, unknown-safe power interfaces and engineering JSON. Targeted
+local index Release/ASAN-leak and real-streaming Release tests passed. The
+15-second indexed seek matches decode-from-start PCM hash/sample count and uses
+fewer decode calls/SD bytes. This is synthetic host output, not physical latency.
+Full new-source CI/device results must be recorded separately after execution.

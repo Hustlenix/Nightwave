@@ -7,6 +7,7 @@
 #include <memory>
 #include "nightwave/media_documents.h"
 #include "nightwave/catalog_lookup.h"
+#include "nightwave/mp3_seek_index.h"
 namespace nightwave {
 struct CatalogRecord {
     std::array<char, 256> path{};
@@ -62,6 +63,7 @@ class LibraryCatalog {
     static LookupPtr allocate_lookup();
     void finish_walk();
     void fast_query_step();
+    bool append_record(const CatalogRecord&);
     void close_build();
     void fail_build();
     void publish();
@@ -79,6 +81,9 @@ class LibraryCatalog {
     std::uint32_t header_bytes_{32}, query_end_{0}, locate_hint_{UINT32_MAX}, query_reads_{0};
     unsigned build_phase_{0};
     LookupPtr lookup_{}, build_lookup_{};
+    Mp3SeekIndex seek_index_{};
+    CatalogRecord pending_record_{};
+    bool seek_pending_{false};
     bool limited_{false}, new_limited_{false}, failed_{false}, querying_{false}, backwards_{false}, first_only_{false}, locating_{false};
     bool accelerate_{true}, query_fast_{false}, hint_checked_{false};
     CatalogView view_{CatalogView::kSongs};

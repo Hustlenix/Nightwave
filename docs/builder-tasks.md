@@ -1,11 +1,14 @@
 # Builder tasks and source-review handoff
 
 2026-10-01 final-addendum override: **do not start final schematic/PCB/CAD tasks
-until Bluetooth architecture (BD-14) and display (BD-15) choices are recorded**.
+until Bluetooth architecture (BD-14) and display (BD-15) choices are recorded,
+the current software checkpoint is pushed/verified, selections propagated, and
+the updated power model, BOM and GPIO budget are complete**.
 Read bluetooth-architecture.md and display-selection.md. The existing S3 pin
 table and OLED envelope are provisional and cannot be treated as final.
 
-After those decisions, start with task 1 (MCU); remaining tasks are assignments,
+BD-14 is selected: S3 + BM83SM1-00TA. BD-15 is still open. Only after all the
+entry checks above, start with task 1 (MCU); remaining tasks are assignments,
 not a demand to complete the whole device before review. Return one subsystem
 at a time. AI keeps independent research/test/documentation work moving, but
 never claims your decisions/hours or authors final design files wholesale.
@@ -22,7 +25,7 @@ assistant re-reviews. Later add an independent human sanity check. For each
 review record source commit, files, issue severity, required correction and
 retest evidence. Do not mark ERC/DRC or fit passed unless actually executed.
 
-## BUILDER TASK — 0. Chosen Bluetooth transport (staged until BD-14)
+## Bluetooth qualification checklist — not the first schematic builder task
 
 ### Objective
 
@@ -66,8 +69,8 @@ BD-14 entry, unresolved issues and real prototype logs when performed.
 
 ### Objective
 
-After BD-14/BD-15, create the chosen MCU sheet. Do not assume the S3 is locked
-if the builder chose a platform change. Reconcile the combined GPIO/power budget.
+After every entry gate above, create the retained ESP32-S3 MCU sheet. Reconcile
+the combined BM83/TFT/SD/audio GPIO and updated power budget first.
 
 ### What I need to create
 
@@ -590,5 +593,4 @@ No final enclosure around guessed OLED/jack/speaker dimensions; no compressed ba
 ### What files/screenshots to return
 
 Editable native CAD, electronics-inclusive STEP, sections/dimension/tolerance table, interference report and BD-13 entry.
-
 

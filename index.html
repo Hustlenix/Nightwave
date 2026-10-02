@@ -177,7 +177,7 @@
         <h2>A music player should be able to play music <em>without asking another computer to do it.</em></h2>
         <div class="statement-copy">
           <p>NIGHTWAVE is a standalone hardware experiment: load music, synced <code>.lrc</code> lyrics and playlists onto microSD, then listen through the built-in speaker, wired headphones or the planned Bluetooth-audio path.</p>
-          <p>The T4 direction still removes the easiest shortcut. The device owns filesystem access, software MP3/WAV decode, PCM buffering, scheduling, DSP and output routing. ESP32-S3 remains the current baseline, but Bluetooth audio may force a dedicated subsystem or a platform change.</p>
+          <p>The T4 direction still removes the easiest shortcut. The device owns filesystem access, software MP3/WAV decode, PCM buffering, scheduling, DSP and output routing. The builder selected ESP32-S3 plus a BM83SM1-00TA A2DP-source module; that wireless backend still needs qualification.</p>
         </div>
       </div>
     </section>
@@ -247,7 +247,7 @@
         <p class="section-index">04 / ARCHITECTURE · REV.1</p>
         <h2>TEN+ SYSTEMS.<br>ONE DEVICE.</h2>
       </div>
-      <p class="architecture-note reveal"><b>ARCHITECTURE UNDER REVISION.</b> Bluetooth audio, final display, final battery and charger/regulator values must be locked before the builder-authored schematic begins.</p>
+      <p class="architecture-note reveal"><b>PRE-SCHEMATIC DECISION GATE.</b> ESP32-S3 plus BM83SM1-00TA is selected. The readable display remains a builder choice; updated power, battery, GPIO and BOM reviews must precede the builder-authored schematic.</p>
       <div class="system-map system-map-v2 reveal" data-system-map role="img" aria-label="Revised architecture map for NIGHTWAVE music player">
         <div class="sys status-core"><small>01 / STORAGE</small><strong>microSD</strong><span>music · .lrc · playlists · metadata/cache</span><em>CORE</em></div>
         <div class="sys status-provisional"><small>02 / COMPUTE</small><strong>ESP32-S3*</strong><span>current baseline · platform not absolutely locked</span><em>PROVISIONAL</em></div>
@@ -286,7 +286,7 @@
         <h2>THE BOARD IS<br>THE PRODUCT.</h2>
       </div>
       <div class="bom-grid reveal">
-        <div><span>COMPUTE / PROVISIONAL</span><strong>ESP32-S3*</strong><p>Current baseline for filesystem, decode, buffers, DSP and UI; Bluetooth may change the platform decision.</p></div>
+        <div><span>COMPUTE / SELECTED</span><strong>ESP32-S3</strong><p>Retained for filesystem, decode, buffers, DSP and UI; selected BM83SM1-00TA offloads Bluetooth source audio, pending qualification.</p></div>
         <div><span>STORAGE / CORE</span><strong>microSD</strong><p>MP3/WAV, .lrc lyrics, playlists and richer library metadata/cache.</p></div>
         <div><span>DISPLAY / DECISION</span><strong>Larger screen*</strong><p>Lyrics, metadata, menus, battery state and engineering diagnostics; interface may move to SPI.</p></div>
         <div><span>BLUETOOTH / NEW</span><strong>BT audio*</strong><p>Major unresolved subsystem for wireless headphones and speakers.</p></div>
@@ -341,7 +341,7 @@
         <h2>DESIGN.<br>PROVE.<br>THEN FABRICATE.</h2>
       </div>
       <div class="build-list">
-        <div class="build-row reveal"><span>01</span><strong>Lock Bluetooth-audio architecture</strong><em>DECISION GATE</em></div>
+        <div class="build-row reveal"><span>01</span><strong>ESP32-S3 + BM83SM1-00TA architecture</strong><em>BUILDER SELECTED</em></div>
         <div class="build-row reveal"><span>02</span><strong>Select final display + interface</strong><em>DECISION GATE</em></div>
         <div class="build-row reveal"><span>03</span><strong>Lock battery, charger + regulator budget</strong><em>DECISION GATE</em></div>
         <div class="build-row reveal"><span>04</span><strong>Freeze integrated architecture + BOM</strong><em>IN PROGRESS</em></div>

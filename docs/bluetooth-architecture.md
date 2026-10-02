@@ -1,102 +1,67 @@
-# Bluetooth architecture — builder decision required
+# BD-14 Bluetooth architecture
 
-Research checked 2026-10-01. No radio/MCU replacement is selected and no Bluetooth
-audio is implemented or bench-proven. This gate precedes final schematic work.
+Checked 2026-10-02. **Builder selected A in chat: retain S3 + BM83SM1-00TA.**
+The comparison is preserved for traceability. Selection is not transmitter-tool,
+interoperability, power or physical validation. Personal reasons were not supplied.
 
-Nightwave must be an **A2DP SOURCE** transmitting decoded local music to ordinary
-headphones/speakers. A receiver/sink module, BLE control link, or an advertising
-demo does not meet that requirement. ESP32-S3 has LE, not Classic Bluetooth;
-the current S3 cannot supply A2DP in software. [Espressif support matrix](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/bt-architecture/overview.html).
+| Item | A — S3 + BM83 (selected) | B — replace main MCU | C — S3 + ESP32 coprocessor |
+| --- | --- | --- | --- |
+| Exact hardware | Existing ESP32-S3-WROOM-1-N16R8 plus Microchip **BM83SM1-00TA** AT-preprogrammed module | **ESP32-WROVER-E-N8R8**, 8 MB flash/8 MB PSRAM | Existing S3 plus **ESP32-WROVER-E-N8R8** |
+| Profiles/source | AT v1.0: A2DP 1.3 **source**; Tx AVRCP/HFP AG **not supported** | Classic BT 4.2; source A2DP and AVRCP via selected/tested stack | Same Classic source capabilities, second custom firmware |
+| S3 interface | PCM I2S + UART host control, MFB/P0_0 wake and provision/reset access | None: platform replacement. Native S3 USB lost; UART service needed | I2S receive or framed SPI PCM + UART/control; clock/queue protocol required |
+| Firmware work | Medium/high: bounded AT protocol/events, provision tools, disconnect/mute, rate handling | High: port GPIO/SD/I2S/USB/PSRAM plus SBC/source queues and resource profiling | Highest: two images, transport/clock bridge plus SBC, recovery and updates |
+| Audio | AT SBC encode **44.1/48 kHz**, I2S/Aux input. No AAC/AVRCP Tx promise | PCM16 decode -> SBC at qualified 44.1/48 rates; pin encoder/API version | Same, plus bridge framing/clock-domain handling |
+| Power | Exact AT-source average unknown. **50 mA at 3.7 V is an estimate**, not a module rating; qualification must replace it | Whole MCU + concurrent decode/SBC/radio unknown; Wi-Fi datasheet current is not BT playback current | Additional MCU/radio load; no credible measured advantage over A |
+| Module price/stock | **$12.20; 30** listed; standard lead 17 weeks | **$5.88; 16,392** listed; 8-week standard lead | Extra **$5.88** module, same snapshot; additional support circuitry |
+| Area | BM83 **32x15x2.5 mm**, 480 mm² added before pads/keep-out/support | **18x31.4x3.3 mm**, 565.2 mm² main module before keep-out | Adds 565.2 mm² plus bridge/passives to S3 area |
+| RF | Integrated antenna; two antenna locations, vendor keep-outs and disabled unused S3 radio | One PCB antenna; follow module land/placement guidance | Two antennas; separation/coexistence qualification |
+| Latency | No universal vendor guarantee; endpoint + SBC/buffers dominate | Same, plus configured source queues | Same, plus bridge queues |
+| Main risks | AT tool/package access, 22.05/32 conversion, headphone interop, supply/backfeed, Tx has no AVRCP | Platform migration, no native USB, scarce internal RAM, decode/SBC/display contention | Highest firmware/scheduling/clock risk and two-system failure handling |
 
-## CURRENT OPTION — A: retain S3, add BM83 with Audio Transceiver firmware
+Prices are USD quantity-one seller snapshots, not quotes; exclude carrier,
+programmer, passives, delivery, import tax and assembly. Availability can change.
+[BM83 seller](https://www.digikey.com/en/products/detail/microchip-technology/BM83SM1-00TA/12807564),
+[WROVER seller](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-WROVER-E-N8R8/11613126).
 
-- ALTERNATIVE: B, replace the main MCU with original ESP32-WROVER-E-N8R8;
-  or C, retain S3 plus an original ESP32 audio coprocessor.
-- BENEFITS: keeps the tested S3 storage/Helix/I2S pipeline and native USB;
-  dedicated module handles radio/SBC rather than taking the main MCU's CPU/RAM.
-- DRAWBACKS: additional supply/control/antenna area, firmware provisioning and
-  UART protocol. It is not a plug-in replacement for the current DAC.
-- COST: BM83SM1-00AA research listing $13.18 USD, 2,429 listed in stock; module
-  only, excludes carrier/programmer/passives/shipping. That SKU is **not proven
-  factory-configured as a transmitter**. Exact AT variant/firmware remains open.
-  [DigiKey snapshot](https://www.digikey.com/en/products/detail/microchip-technology/BM83SM1-00AA/10444954).
-- POWER: allocate a provisional 50 mA cell-side radio allowance, not a verified
-  AT-source consumption figure. Datasheet A2DP figures around 12 mA are under
-  different codec/role conditions and must not be substituted for our use case.
-- COMPLEXITY: medium/high; AT host control, module update access, I2S clock/rate
-  matching, shutdown/backfeed and error recovery need qualification.
-- T4 VALUE: builder still owns filesystem/decode/buffers/clock/UI/power. Radio
-  offload alone neither guarantees nor invalidates a tier.
-- RISK: AT firmware/tools acquisition and headphone interoperability are open.
-- RECOMMENDATION: preferred **family direction** for preserving completed S3 work,
-  conditional on qualifying the exact AT firmware and a one-headphone demo.
-  This is an assistant recommendation, not the builder's selection.
+Recommendation was A to preserve the validated S3 pipeline. The builder has now
+chosen it; do not switch to B/C or generic BM83SM1-00AA without a new choice.
+S3's BLE does **not** supply Classic A2DP or LE Audio.
+[Espressif audio support](https://docs.espressif.com/projects/esp-adf/en/latest/solution-center/bluetooth-audio.html).
 
-Microchip's AT v1.0 release notes explicitly identify A2DP source, I2S/Aux input,
-SBC encoding at 44.1/48 kHz, host discovery filtering and reconnection. They
-identify BM83SM1-00TA as AT-preprogrammed. That release's transmitter does **not**
-support AVRCP and lists dual-link/TWS interruptions. Use one sink, no simultaneous
-BLE session; do not promise remote headset transport controls or AAC transmission
-from generic receiver codec advertising. Latest usable firmware/package and its
-licence/access have not been established. [AT release notes](https://ww1.microchip.com/downloads/aemDocuments/documents/WSG/ProductDocuments/ReleaseNotes/BM83_AT_v1.0_Release_Notes.pdf).
+## Selected-path qualification and constraints
 
-The module is 32 × 15 × 2.5 mm with an integrated antenna and documented modular
-approvals; finished-product compliance is not automatically conferred. Preserve
-vendor keep-outs and separate two antennas if S3 is retained. UART host control,
-I2S input, reset/wake/provisioning and proper rail limits require exact-reference
-tracing. SYS_PWR is internal, not a supply for Nightwave peripherals. Do not
-parallel its charger with the chosen Nightwave power path. [BM83 datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/BM83-Bluetooth-Stereo-Audio-Module-Data-Sheet-DS70005402D.pdf).
+AT v1.0 identifies UART CommandSet 2.07, ConfigTool 1.2.25, isUpdate 297 and
+SPKCommandSet 202.253 under IS2083 Turnkey 1.1.0/AT v1.0. Actual usable package,
+access/licence and exact command/event mapping remain unverified. Do not invent
+UART opcodes. Release notes identify dual-link/TWS and BLE coexistence problems
+and FreeBuds 3 incompatibility. Start with one receiver and no concurrent BLE.
+[Microchip AT release notes](https://ww1.microchip.com/downloads/aemDocuments/documents/WSG/ProductDocuments/ReleaseNotes/BM83_AT_v1.0_Release_Notes.pdf).
 
-## ALTERNATIVE — B: original ESP32-WROVER-E-N8R8 main MCU
+BM83 supply/IO limits, MFB/P0_0 wake direction, I2S master/slave clocks and
+provisioning access must be traced to the exact module drawing. SYS_PWR is
+internal, not a peripheral supply. Disable/isolate the module charger; never
+parallel it with Nightwave's charger. Preserve antenna keep-out and modular
+approval constraints; module certification is not final-product compliance.
+[BM83 datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/BM83-Bluetooth-Stereo-Audio-Module-Data-Sheet-DS70005402D.pdf).
 
-- BENEFITS: one main module/antenna, native Classic A2DP source and 8 MB PSRAM.
-- DRAWBACKS: existing S3 GPIO, USB service and octal-PSRAM configuration must be
-  replaced; no native S3-style USB. Requires UART bridge/service design.
-- COST: module $5.88 USD, 16,392 listed in stock; not a complete board price.
-  [DigiKey snapshot](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-WROVER-E-N8R8/11613126).
-- POWER: main-MCU radio/CPU load must be profiled; no defensible comparison to
-  current S3 decode-only current exists yet. Budget simultaneous MP3 decode/SBC.
-- COMPLEXITY: high migration/testing burden; GPIO restrictions, SDMMC, I2S,
-  SRAM/IRAM, display DMA and radio contention all change.
-- T4 VALUE: more in-house audio transport work, but tier still reviewer-assigned.
-- RISK: squeezed internal memory and additional SBC/resampling work.
-- RECOMMENDATION: choose only if lower hardware cost/single-module simplicity
-  outweighs migration risk and the builder accepts the platform change.
+22.05/32 kHz tracks need a validated converter for this route; current HAL
+explicitly rejects them rather than misclocking. Local outputs retain those
+rates. Allocate an initial **100–300 ms test window**, not promised latency;
+measure drift/reconnect/endpoint delay and lyric correction. No automatic loud
+speaker fallback after radio loss. Unsupported adapter remains unavailable.
 
-ESP-IDF 6.1 documents source connect/send APIs and an official source example.
-Its send API accepts **encoded** audio buffers, with MTU/ownership/queue rules.
-Do not paste an older PCM callback example into 6.1 and assume it works. Pin and
-test the chosen IDF/example/encoder combination first. Sink delay reports can
-inform latency compensation, but are not acoustic ground truth.
-[ESP-IDF A2DP source API](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/esp_a2dp.html).
+Portable `BluetoothSource` bounds discovery to eight devices, checks event
+epochs, requires explicit choice, times out discovery/connect/start, propagates
+PCM backpressure and requests stop on loss. Callbacks must queue fixed events;
+backend connect cancels discovery. It is not a working BM83 UART/radio adapter.
+`Bm83Uart` adds fixed 256-byte framing/checksum and fragmented-input timeout
+tests from the manufacturer protocol example. It implements no guessed AT
+discovery/source command semantics.
+[Microchip host UART guide, sections 5.2–5.3](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/UserGuides/BM83_Host_MCU_Firmware_Development_Guide_DS50002896A.pdf).
+Do not claim pairing, transmission or runtime before actual qualification.
 
-## ALTERNATIVE — C: S3 plus original ESP32 coprocessor
-
-BENEFITS: preserves S3 and uses vendor-supported A2DP APIs. DRAWBACKS: two custom
-firmware images, I2S-receive/clock bridge, queue/framing/UART protocol and two
-antennas. COST: above $5.88 module-only plus support circuitry. POWER: second
-MCU/radio must be measured; allocate a larger allowance than BM83 until proven.
-COMPLEXITY/RISK: highest two-system integration load. T4 VALUE: genuine work,
-not a reason to accept excessive complexity. RECOMMENDATION: fallback if BM83
-AT package cannot be qualified and retaining S3 is essential.
-
-## Integration contract after choice (not implemented radio behavior)
-
-Discovery -> bounded device list -> explicit selection -> pair/connect -> start
-stream -> disconnect/error -> pause/mute. Never blast the speaker on BT loss.
-Persist preferred device identity only after a successful choice. Bound UART
-frames/timeouts and connection retries; callbacks enqueue events, never read SD
-or allocate a lyric document. Outputs are mutually exclusive.
-
-A needs 44.1/48 kHz conversion for current 22.05/32 kHz support, validated
-anti-alias filtering, clocks, buffering and acceptance-based media clock. Use
-measured/reported BT latency with a user correction; declare unsynchronised
-lyrics until calibrated. Allocate 100–300 ms as an **initial test window**, not
-a vendor guarantee. Measure latency, drift and reconnect across actual receivers.
-
-## Stop/decision gate
-
-Builder must choose A, B or C and state actual reasons in BD-14. No final MCU,
-GPIO, Bluetooth BOM, power or antenna layout lock before that choice. Then
-qualify firmware/source role, tool availability, clocks/rates and costs before
-schematic approval. No purchase, PCB order or vendor message is authorised here.
+Alternative ESP32 implementation must pin and test its IDF/SBC combination:
+current IDF source send APIs take encoded buffers with MTU/ownership rules,
+not an older PCM callback copied blindly.
+[ESP-IDF A2DP source API](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/esp_a2dp.html),
+[WROVER dimensions/RF guidance](https://documentation.espressif.com/esp32-wrover-e_esp32-wrover-ie_datasheet_en.html).

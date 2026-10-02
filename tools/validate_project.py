@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import re
 from decimal import Decimal
 from pathlib import Path
@@ -108,10 +109,33 @@ def validate_required_files() -> None:
         "docs/expanded-bench-gate.md",
         "docs/library-index.md",
         "tools/analyze_diagnostics.py",
+        "hardware/product-config.json",
+        "docs/mp3-seek-index.md",
     ]
     missing = [path for path in required if not (ROOT / path).is_file()]
     if missing:
         raise AssertionError(f"Missing required Phase 2 files: {missing}")
+
+
+def validate_current_bom() -> None:
+    rows = read_csv("hardware/BOM.csv")
+    required = ("Package", "Datasheet_URL", "Footprint_Information", "Power_Role", "Interface_Role", "Decision_Status")
+    for row in rows:
+        for field in required:
+            if not row.get(field):
+                raise AssertionError(f"BOM {row['Manufacturer_Part_Number']}: missing {field}")
+    parts = {row["Manufacturer_Part_Number"] for row in rows}
+    if "SP12864-13" in parts or "353" in parts or "BM83SM1-00AA" in parts:
+        raise AssertionError("Obsolete final core hardware remains in current BOM")
+    config = json.loads((ROOT / "hardware/product-config.json").read_text(encoding="utf-8"))
+    if config["bluetooth"]["mpn"] not in parts or config["bluetooth"]["role"] != "A2DP_source":
+        raise AssertionError("Selected Bluetooth source missing from BOM")
+    if config["display"]["status"] == "pending_builder_selection" and "PENDING_DISPLAY_BD15" not in parts:
+        raise AssertionError("Missing explicit pending display BOM row")
+    unresolved_display = config["display"]["status"] != "builder_selected"
+    unresolved_power = config["battery"]["status"] != "reviewed_power_model"
+    if (unresolved_display or unresolved_power) and (config["battery"]["locked"] or config["schematic_entry_ready"]):
+        raise AssertionError("Current pending display/power review cannot lock battery or start schematic")
 
 
 def validate_builder_task_packet() -> None:
@@ -145,6 +169,7 @@ def main() -> None:
         "Extended_Price_USD",
     )
     validate_wiring_matches_firmware()
+    validate_current_bom()
     validate_required_files()
     validate_builder_task_packet()
     from engineering_calculations import self_test

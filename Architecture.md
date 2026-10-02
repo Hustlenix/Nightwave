@@ -7,8 +7,9 @@
 Local software decoding remains mandatory. New scope includes synced .lrc,
 metadata/M3U, playback modes/resume/sleep and Bluetooth audio output. S3 remains
 the working target, not an A2DP-capable chip. Choose docs/bluetooth-architecture.md
-and docs/display-selection.md before final schematic work. No MCU/radio/display
-change has been silently selected. docs/engineering-budgets.md distinguishes
+and docs/display-selection.md before final schematic work. On 2026-10-02 the
+builder selected S3 plus BM83SM1-00TA (BD-14); BD-15 remains pending.
+docs/engineering-budgets.md distinguishes
 implemented software from remaining library performance, HAL/power and transport
 work. Older two-output/OLED references below are historical provisional design.
 
@@ -26,7 +27,23 @@ See docs/library-index.md for memory budgets, wire format and resume checks.
 
 Nightwave is not an ESP32 remote control for a self-contained MP3 module. The ESP32-S3 owns the storage, decode, buffering, playback state, UI, and power policy.
 
-Core pipeline:
+Current product output branches (only one active route):
+
+```text
+microSD -> reader -> encoded ring -> Helix/WAV -> PCM ring -> route/gain policy
+  +-> I2S -> MAX98360C -> speaker                         [local candidate]
+  +-> I2S -> PCM5102A -> TPA6132A2 -> stereo jack        [local candidate]
+  +-> rate-qualified I2S -> BM83SM1-00TA -> A2DP sink    [builder-selected; backend pending]
+```
+
+BM83 does SBC/radio transport only; S3 retains filesystem/software decoding.
+AT Tx supports 44.1/48 kHz. Existing 22.05/32 kHz local playback remains valid,
+but Bluetooth at those rates requires a tested converter or explicit rejection.
+No implicit rate change, AVRCP Tx support or speaker fallback on BT loss.
+Source-mode control and full-text display/power HAL boundaries are portable;
+hardware adapters, final GPIO, power rails and acoustic timing remain unqualified.
+
+Historical two-local-output bench pipeline (not the complete product architecture):
 
 ```text
 microSD
@@ -435,8 +452,8 @@ Buttons:
 
 ## 14. Display hardware
 
-Default:
-- small monochrome OLED over I²C or SPI.
+Final product: readable SPI display selected in BD-15 (pending). The small
+monochrome OLED is a legacy bench adapter, not a final default.
 
 Selection criteria:
 - low current;
@@ -445,7 +462,8 @@ Selection criteria:
 - easy mechanical integration;
 - availability.
 
-If I²C, bus capacitance/pull-ups must be checked.
+SPI DMA tiles and backlight power need bounded budgets. I2C remains available
+for the fuel gauge/control devices; check capacitance and pull-ups separately.
 
 ## 15. Power architecture
 
@@ -465,8 +483,9 @@ USB-C 5V
                └─ fuel gauge → I²C → ESP32-S3
 
 VSYS
-  ├─ 3.3 V regulator → ESP32/DAC/OLED/logic
-  └─ speaker amp supply or validated derived rail
+  ├─ qualified regulator → ESP32/DAC/readable display/logic
+  ├─ speaker amp supply or validated derived rail
+  └─ BM83 qualified rail + shutdown/backfeed isolation
 ```
 
 Candidate charger:
@@ -585,7 +604,7 @@ ESP32-S3 dev board
 + I²S DAC breakout
 + headphone amp breakout
 + I²S speaker amp breakout
-+ OLED
++ legacy bench OLED (final BD-15 screen is separate)
 + buttons
 + bench/USB power
 ```
@@ -714,7 +733,9 @@ The following are architecture-level invariants after Phase 2:
 - software decode;
 - ring-buffered PCM pipeline;
 - DMA-driven I²S;
-- separate headphone and speaker signal chains;
+- separate headphone, speaker and Bluetooth source output paths;
+- BM83SM1-00TA with source-capable AT firmware (builder-selected BD-14);
+- larger readable display selected through BD-15, not locked to OLED;
 - rechargeable 1-cell battery;
 - fuel gauge;
 - custom PCB;

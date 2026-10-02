@@ -8,6 +8,13 @@ Final-addendum gate: Bluetooth/display decisions must precede final layout/CAD.
 Use their exact module/panel/cable/antenna envelope, not the historical OLED
 window. Recalculate pack/charging/thermal space from expanded engineering budgets.
 
+BD-14 now retains S3 and selects BM83SM1-00TA: reserve its 32 x 15 x 2.5 mm
+module envelope plus manufacturer land pattern, antenna exclusion and UART/
+reset/provisioning access. Both RF modules need their own reviewed antenna
+space, kept away from pack/speaker/metal and each other; nominal body area is
+not the RF envelope. BD-15 and the recalculated pack remain pending. The old
+OLED cutout and 6600 mAh pack dimensions below are historical examples only.
+
 ## Footprint verification register
 
 | Candidate | Source/package fact | Source-file verification still required |
@@ -23,7 +30,8 @@ window. Recalculate pack/charging/thermal space from expanded engineering budget
 | USB4105-GF-A | GCT series page: 3.31 mm profile, 7.35 mm body length | Exact suffix/stake length/locating pegs drawing; board edge/mating envelope |
 | Molex 104031-0811 | Manufacturer part page located | Actual sales drawing/pin table/detect switch/card insertion envelope |
 | SJ-3503-SMT-TR | Indexed maker drawing identifies sleeve/tip/ring and two audio switches; full PDF returns 403 | Full drawing/pad map and physical continuity; no isolated digital detect assumed |
-| OLED module, switches, speaker/battery connectors | Exact choices not locked | Maker drawings, hole/pad numbering, cable/actuation/clearance envelopes |
+| BM83SM1-00TA | Selected 50-pad module, 32 x 15 x 2.5 mm | Exact land pattern, second antenna keep-out, test/provision access, assembly height |
+| BD-15 readable display, switches, speaker/battery connectors | Exact choices not locked | Maker drawings, hole/pad numbering, cable/actuation/clearance envelopes |
 
 Source links and electrical roles: [schematic requirements](schematic-requirements.md).
 Body dimensions are not pad dimensions and a 3D model does not prove a footprint.
@@ -93,7 +101,7 @@ active-area datum, button axes and mounting-hole coordinates. Record mm and
 orientation. Builder chooses board outline from actual component/service
 envelopes, not a generic pocket-size rectangle.
 
-The provisional pack is about 69x54x18 mm and 155 g; see
+The historical, unselected 6600 mAh pack example is about 69x54x18 mm and 155 g; see
 [supplier page](https://www.adafruit.com/product/353). Allow cable, connector,
 retention and inspection space. Do not compress/pierce cells, use sharp bosses
 against wraps or place a hot charger against the pack. Do not assume that an
@@ -103,7 +111,7 @@ lists diameter 28 mm, height 5.2 mm, weight 7.8 g and 750 Hz nominal resonance.
 Full PDF access returned 403; wire/retention/tolerance drawing remains pending.
 The base suffix has wire leads without connector; A and B specify different
 mating housings. Do not budget a pre-attached connector for the base suffix.
-OLED glass dimensions/mount holes remain pending exact module selection.
+BD-15 glass, cable, connector and mount-hole dimensions remain pending selection.
 
 Proposed fit starting points, NOT manufacturing guarantees: 0.3–0.5 mm clearance
 per side for rigid printed sliding fits, 0.5 mm electrical part-to-wall reserve,
@@ -122,7 +130,7 @@ Do not call an overlap-free ideal STEP assembly a tolerance analysis.
   board. Choose screw/insert drawing, engagement and boss wall thickness before
   holes. Keep screws away from battery, traces and antenna keepout.
 - Pack: removable cradle/strap or rated retention method with strain relief.
-  Account for 155 g inertial loads, no conductive abrasion and NTC contact.
+  Account for the selected pack's mass/inertial loads, no conductive abrasion and NTC contact.
 - Speaker: secured flange/holder, gasket if appropriate, clear cone travel,
   isolated front/back paths. Choose acoustic cavity/grille based on actual
   speaker data and listening; no fabricated tuning or sound-pressure result.

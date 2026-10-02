@@ -2,7 +2,7 @@
 
 # Nightwave — Offline Music Player (T4 Target)
 
-## 2026-10-01 scope freeze override
+## Current product scope — 2026-10-02
 
 Required: local MP3/WAV, speaker, wired stereo jack, Bluetooth headphones/speakers,
 synced sidecar LRC, metadata, songs/folders/artists/albums/playlists, playback modes,
@@ -12,10 +12,12 @@ output option, not a phone/cloud playback dependency. See engineering-budgets.md
 for honest implementation gaps. Builder selects Bluetooth/display before final
 schematic and materially authors schematic, PCB layout/routing and enclosure.
 No physical result, funding eligibility or T4 award is inferred.
+BD-14 is builder-selected: retain ESP32-S3 plus BM83SM1-00TA A2DP source.
+BD-15 remains pending. The old OLED and battery sizing are not final hardware.
 
 ## 1. Product definition
 
-**Nightwave** is a standalone, battery-powered physical music player that plays a user's own audio files from removable storage through built-in speakers or wired headphones, with no phone, app, network connection, or streaming dependency.
+**Nightwave** is a standalone, rechargeable music player that plays the user's own microSD files through its speaker, wired headphones or Bluetooth headphones/speakers. It has synchronized sidecar LRC lyrics, a readable display and songs/artist/album/folder/playlist browsing. A phone, cloud account or streaming service is not required.
 
 This project is intentionally designed beyond a module-carrier music player. The technical target is an embedded audio system with direct filesystem access, software audio decoding, DMA-driven I²S playback, custom power and audio electronics, a custom PCB, editable enclosure CAD, and measured runtime/performance evidence.
 
@@ -105,7 +107,6 @@ When I clone the repository, I can understand the electronics, firmware, enclosu
 Nightwave V1 MUST NOT include:
 
 - Wi-Fi streaming;
-- Bluetooth audio;
 - Spotify/YouTube/online services;
 - companion phone application;
 - cloud accounts;
@@ -113,11 +114,10 @@ Nightwave V1 MUST NOT include:
 - internet radio;
 - microphone/voice assistant;
 - DRM playback;
-- wireless headphones;
 - an operating system unrelated to playback needs;
 - features added only to inflate scope without increasing engineering depth.
 
-FLAC, album art, search, and advanced playlists are post-core features unless the core pipeline is already stable.
+FLAC, album art, text search and advanced playlists are post-core features. Artist/album filtering and local M3U playlists are current scope. Bluetooth A2DP source output is a required product feature, not a non-goal.
 
 ## 9. Product controls
 
@@ -134,7 +134,7 @@ A rotary encoder MAY be added for navigation/volume but MUST NOT remove the requ
 
 ## 10. Display and interaction
 
-A compact OLED is the default UI.
+A larger, readable SPI display will be selected in BD-15. The 128x64 OLED is only a USB-powered bench adapter, not the final product screen. Final driver, glyph/readability and power acceptance follow the selected SKU.
 
 Required screens:
 

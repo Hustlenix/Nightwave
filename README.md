@@ -1,6 +1,6 @@
 # Nightwave
 
-Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It reads user-owned MP3 and PCM/WAV files directly from microSD, with software decoding, physical controls, wired stereo headphones and a built-in speaker. The 2026-10-01 scope adds Bluetooth headphone/speaker output and synced LRC lyrics; neither a phone nor a streaming service is required. Bluetooth hardware/transport is not selected or implemented yet.
+Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It reads user-owned MP3 and PCM/WAV files directly from microSD, with software decoding, physical controls, wired stereo headphones, a speaker, synchronized LRC and Bluetooth output. No phone or streaming service is required. On 2026-10-02 the builder selected ESP32-S3 plus BM83SM1-00TA; its AT-source backend remains unqualified. Final display BD-15 and battery sizing remain pending.
 
 > Status (2026-10-01): WAV/MP3 three-task streaming, OLED/five-button interaction,
 > lyrics/metadata/M3U, modes, bounded seek/resume, sleep timer and versioned
@@ -16,8 +16,9 @@ Nightwave is an in-progress, standalone pocket music player for the Pixl “A Mu
 ## Why it exists
 
 Hardware design proceeds in builder-authored mentor/reviewer mode. **Before
-final schematic tasks**, choose [Bluetooth architecture](docs/bluetooth-architecture.md)
-and [display](docs/display-selection.md). Then use
+final schematic tasks**, review the selected [Bluetooth architecture](docs/bluetooth-architecture.md)
+and choose [display BD-15](docs/display-selection.md). Combined GPIO/power/BOM
+must then be updated before the first schematic task. Then use
 [builder tasks](docs/builder-tasks.md), [subsystem requirements](docs/schematic-requirements.md)
 and [your decision log](docs/builder-decisions.md). AI research and review are
 disclosed; final schematic, routing and enclosure must be materially authored
@@ -49,7 +50,7 @@ StorageTask -> compressed ring buffer -> DecoderTask -> PCM ring buffer
                                3.5 mm stereo jack
 ```
 
-The ESP32 owns file enumeration, storage reads, MP3/WAV decoding, buffering, playback state, I2S output, buttons, UI, settings, diagnostics, and power policy. Nightwave does not use DFPlayer or another module that hides the storage/decode/playback pipeline.
+The ESP32 owns file enumeration, storage reads, MP3/WAV decoding, buffering, playback state, I2S output, buttons, UI, settings, diagnostics, and power policy. Nightwave does not use DFPlayer or another module that hides the storage/decode/playback pipeline. The diagram above is the historical two-local-output bench path. The product adds a mutually exclusive rate-qualified I2S branch to BM83SM1-00TA for A2DP source output. That adapter is not yet physically qualified.
 
 The bench prototype uses an available MAX98357A breakout as a functional speaker-path proxy; the provisional final-board selection is MAX98360C.
 
@@ -69,10 +70,14 @@ The bench prototype uses an available MAX98357A breakout as a functional speaker
   collection/filter queues, bounded artist/album lookup and checked ordinal-hint
   filter/folder resume; low-memory/over-cap caches use a slower fallback;
 - normal/shuffle/repeat-all/repeat-track; accepted-sample lyric clock; WAV direct
-  seek and MP3 decode-discard resume capped at 30 minutes;
+  seek and idle-built sparse MP3 seek checkpoints with decoder preroll, safe
+  decode-from-start fallback and a 30-minute resume/seek cap;
 - versioned checked NVS volume/mode/output/resume/playlist/folder persistence,
   explicit saved-track resume and 15/30/45/60-minute/end-track sleep timers;
-- JSON boot/stream/performance/self-test records, with unmeasured hardware marked;
+- JSON boot/stream/performance/self-test/engineering records, with unmeasured hardware marked;
+- injected display frame interface carrying full bounded metadata/LRC strings;
+  tested Bluetooth source-state/timeout/backpressure boundary and unknown-safe
+  power HAL, without pretending unqualified adapters are operational;
 - portable tests for WAV parsing, generated fixtures, ring wrap/full behavior, stereo-to-mono arithmetic, volume scaling, button debounce, and playback state;
 - CI definitions for both ESP32-S3 firmware and portable host tests;
 - exact Phase 2 prototype BOM, pin-by-pin wiring table, voltage/current plan, deterministic test-media generator, and staged bring-up checklist.

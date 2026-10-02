@@ -4,7 +4,7 @@
 
 ## Project summary
 
-Nightwave is a standalone offline physical music player for the Pixl music-player Trial. It plays the user's own files from microSD through a built-in speaker or 3.5 mm stereo headphones, with physical controls and a rechargeable battery.
+Nightwave is a standalone offline physical music player for the Pixl music-player Trial. Current scope is microSD MP3/WAV, speaker, wired stereo and Bluetooth output, synchronized LRC, rich library, readable display, physical controls and rechargeable battery.
 
 The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
@@ -15,9 +15,34 @@ Bluetooth A2DP SOURCE and readable display must be chosen by builder before
 final schematic tasks. Do not silently switch MCU or preserve old OLED. Current
 software adds bounded lyrics/metadata/M3U, modes, seek/resume, sleep and checked
 settings. The 2026-10-02 continuation implements an SD-backed paged catalog and
-bounded PSRAM lookup; fallback/SD-latency acceptance, chosen BT/TFT and reviewed
-power/HAL remain open.
+bounded PSRAM lookup, MP3 duration/sparse seek, engineering reports and portable
+BT/power/display interfaces. Real SD-latency acceptance, BM83 source adapter,
+BD-15 TFT driver and reviewed physical power hardware remain open.
 See docs/engineering-budgets.md for exact limits and current evidence ledger.
+
+2026-10-02 builder reply selected BD-14: keep ESP32-S3 plus BM83SM1-00TA.
+This is the builder's actual selection, not proof of AT provisioning/interop.
+Personal decision reasons were not supplied and are not invented. BD-15 is
+pending. Battery, combined pin map and schematic-entry gate remain unlocked.
+The v2 library checkpoint was pushed as df301661256671e3db892fd3cd6450fb65588c4f:
+Firmware 36994661327 and quality 36994661341 succeeded, 8/8 Release plus 8/8
+ASAN/leak. Link DIRAM 204882/341760, .bss 144960, image 445484 bytes.
+These are link figures, not board measurements. Older checkpoint notes below
+are dated history, not the current hardware choice or software evidence.
+
+Follow-on source checkpoint: bounded <=12 KiB MP3 frame scanner, <=8500-byte
+identity/checksum cache, 128-frame checkpoint spacing and preceding-group
+decoder preroll; malformed/stale/over-cap cache uses slow fallback. Real Helix
+15-second indexed seek on original 30-second media matches fallback PCM hash/
+sample count with fewer decode calls/SD bytes. Local optimized Release seek,
+streaming and HAL tests passed; seek/frontend ASAN/leak passed. Full Release,
+ASAN/leak and device CI for this new source is recorded only after execution.
+HAL includes 8-device BT state/epoch/timeouts/backpressure, 256-byte BM83 framing
+(not AT source commands), unknown-safe power and borrowed full-text display
+frames. Console numbers/lines and engineering JSON are bounded. Old OLED/353
+pack are removed from active product BOM; prototype BOM remains historical.
+Selected BM83, pending TFT/pack/GPIO strategy and critical BOM engineering fields
+are explicit in hardware/product-config.json and hardware/BOM.csv.
 
 Complete the digital software/design preparation for Pixl funding under the
 2026-10-01 request. The old physical-before-digital gate is superseded; physical
@@ -42,8 +67,8 @@ AI-generated hardware files, and independent human sanity checking.
   path/tag checked and stale hint searches. Legacy v1 is preserved/readable;
   footer/allocation/group-cap failure falls back to slow scans without dropping
   tracks. Host 10000-file tests are metadata-only, not physical audio proof.
-  New code needs its own CI evidence; old 14b10c0 build is not its validation.
-  Bluetooth/display choices are still PENDING. No final builder files created.
+  Source df30166 now has its own successful CI evidence above.
+  BD-14 is selected as recorded above; BD-15 remains pending. No final builder files created.
 
 - FINAL-MASTER CHECKPOINT: 50df90c firmware/size reports passed (run 36882011549);
   92c17ea quality passed (run 36882687260), 7/7 Release + 7/7 ASAN/leak suites.
@@ -51,11 +76,10 @@ AI-generated hardware files, and independent human sanity checking.
 - Added bounded LRC/metadata/M3U, sample clock/WAV/MP3 seek, modes/resume/sleep,
   checked NVS state, output preference, JSON diagnostics/parser. Lyrics/queue
   use explicit S3 PSRAM; no physical alignment/playback success claimed.
-- Builder BD-14 Bluetooth and BD-15 display choices are the CURRENT gate before
-  final schematic tasks. Comparisons recommend conditional S3 + qualified BM83
-  AT and non-touch 1.69-inch TFT; neither is selected. Old MCU-first advice is
-  superseded. Full-card index is implemented with explicit lookup/fallback limits;
-  chosen adapters, MP3 duration/fast seek and fuel/power HAL remain open.
+- Historical 2026-10-01 gate: BD-14 and BD-15 were both pending then. BD-14 is
+  now selected; BD-15 remains the current choice gate. Old MCU-first advice is
+  superseded. Full-card index has explicit lookup/fallback limits. New duration,
+  sparse seek and HAL work requires separately recorded checkpoint evidence.
 - Expanded model: assumed TFT 60mA/speaker 0.25W needs 6.609Ah for 8h; old 6.6Ah
   candidate models only 7.99h. No pack/charger/runtime is locked or measured.
 
@@ -111,7 +135,7 @@ AI-generated hardware files, and independent human sanity checking.
 - Built-in speaker.
 - 3.5 mm wired stereo headphone output.
 - Rechargeable 1-cell lithium battery.
-- OLED-class display.
+- Larger readable display (BD-15 pending); old OLED is bench-only.
 - >=8 h measured "full-night" speaker playback acceptance requirement.
 - Custom PCB.
 - Editable custom enclosure CAD + STEP.
@@ -238,7 +262,7 @@ media/
 
 Compact intentional consumer device:
 - understated retro-digital;
-- high-contrast OLED;
+- high-contrast readable lyric display;
 - dedicated tactile controls;
 - solid screwed enclosure;
 - useful custom silkscreen;
@@ -247,7 +271,7 @@ Compact intentional consumer device:
 
 ## Non-goals
 
-- Bluetooth.
+- Phone/cloud dependency (Bluetooth A2DP source output is current scope).
 - Wi-Fi streaming.
 - companion app.
 - cloud accounts.
@@ -297,9 +321,11 @@ Repair commit `4e19872` passed Firmware CI `36851574808` and Project quality
 CI `36851574841`; both host-test executables passed (2/2). Build success and
 fake-driver tests are not physical playback evidence.
 
-The new Phase 4 request requires physical Phase 3 evidence before entry. Audit
+Historical gate, superseded by the later digital-continuation request: the
+earlier Phase 4 request required physical Phase 3 evidence before entry. Audit
 found no device logs, build photos, or audio measurement rows. Phase 4 has not
-started. MP3 remains unimplemented and awaits physical WAV evidence.
+started then. MP3 was not implemented at that historical checkpoint; it is
+implemented and digitally tested now. Physical WAV/MP3 proof remains pending.
 
 Independent Phase 3 preflight repairs move the 4 KiB read buffer off its 4 KiB
 task stack, gate task startup until both workers exist, cancel the producer on

@@ -14,6 +14,7 @@ idf_component_register(
         power
         settings
         diagnostics
+        bluetooth
 )
 
 target_compile_features(${COMPONENT_LIB} PUBLIC cxx_std_17)

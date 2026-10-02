@@ -15,19 +15,22 @@ struct StreamTelemetry {
     std::uint32_t storage_stack_bytes, decoder_stack_bytes, audio_stack_bytes;
     std::uint32_t sd_bytes, sd_reads, sd_total_us, decode_calls, decode_total_us;
     std::uint32_t encoded_low_bytes, pcm_low_frames;
+    std::uint32_t duration_ms, seek_base_samples, route_changes;
+    bool indexed_seek;
 };
 // Commands have one serialized owner. Worker-facing controls are atomic.
 // Object must outlive workers, including after a timed-out stop().
 class StreamingPlayer {
  public:
     bool start(const char* path, I2sAudioSink& sink, OutputPath output,
-               std::uint8_t volume, std::uint32_t seek_ms = 0);
+               std::uint8_t volume, std::uint32_t seek_ms = 0, const char* index_root = "/sdcard");
     bool stop();
     bool playing() const { return running_.load(); }
     bool paused() const { return paused_.load(); }
     // Media frames accepted by I2S, excluding underrun silence. DMA lead is
     // bounded by the sink queue; this is not an acoustic measurement.
     std::uint32_t position_ms() const { return position_ms_.load(); }
+    std::uint32_t duration_ms() const { return duration_ms_.load(); }
     void pause(bool value) { paused_.store(value); }
     void set_volume(std::uint8_t value) { volume_.store(value > 100 ? 100 : value); }
     void set_output(OutputPath value) { output_.store(value); }
@@ -53,6 +56,9 @@ class StreamingPlayer {
     WavInfo wav_{};
     std::uint64_t bytes_remaining_{0};
     std::uint32_t seek_ms_{0};
+    std::uint32_t decode_base_samples_{0};
+    std::atomic<std::uint32_t> duration_ms_{0}, route_changes_{0};
+    std::atomic<bool> indexed_seek_{false};
     std::FILE* file_{nullptr};
     I2sAudioSink* sink_{nullptr};
     std::atomic<bool> running_{false}, cancel_{false}, paused_{false};

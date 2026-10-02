@@ -1,5 +1,9 @@
 # Power options for the builder's decision
 
+Current scope (2026-10-02): selected BM83SM1-00TA and pending BD-15 require a
+new load model. Charger/pack examples below remain comparisons only; no pack,
+charge current or final power circuit is selected by the Bluetooth decision.
+
 2026-10-01. No substitute is selected or ordered. Source/model research is
 independent of builder authoring. Final values and thermal validation remain
 pending. Run `rtk python tools/engineering_calculations.py` for reproducible

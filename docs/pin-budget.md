@@ -2,8 +2,8 @@
 
 Basis: `ESP32-S3-WROOM-1-N16R8` / `ESP32-S3-DevKitC-1-N8R8`. This is a provisional logical map, not a wiring instruction.
 
-Final-master gate: BD-14 Bluetooth and BD-15 display may change this map and
-even the MCU family. Reconcile their combined SPI/UART/wake/reset/backlight and
+BD-14 is selected: retain ESP32-S3 and add BM83SM1-00TA. BD-15 remains open.
+Reconcile their combined SPI/UART/wake/reset/backlight and
 antenna/power needs before final schematic work. No new GPIO was silently
 assigned and the old OLED interface is not a TFT pin allocation.
 
@@ -43,7 +43,7 @@ Source: [ESP32-S3 GPIO documentation](https://docs.espressif.com/projects/esp-id
 
 Prototype breakouts may force different pins; any variant must live in one board configuration and preserve the reserved list. The exact Phase 2 wiring package keeps this map except that SparkFun BOB-00544 has no mechanical card-detect switch, so GPIO14 is deliberately unwired. ESP32-S3-DevKitC-1 v1.1 also uses GPIO38 for its onboard RGB LED, so the final-board `POWER_HOLD` assignment is not used on the development board.
 
-## Final Board Provisional Pin Map
+## Historical OLED/two-local-output board map — not the current product allocation
 
 | Signal | Peripheral | GPIO | Direction | Boot Risk | Shared | Reason | Status |
 |---|---|---:|---|---|---|---|---|
@@ -78,6 +78,23 @@ Prototype breakouts may force different pins; any variant must live in one board
 | SPARE_4 | GPIO | 48 | I/O | No | No | test/future | RESERVED |
 
 ## Checks before schematic lock
+
+Current additions are not assigned by the historical table. The TFT needs SPI
+clock/data, CS, DC, reset and PWM backlight (six GPIO with independent reset).
+BM83 needs UART TX/RX plus reviewed MFB wake, P0_0 provisioning/boot and RST_N
+control/service access. Its I2S input may share the existing three audio signals
+only after clock-direction, rate, powered-off backfeed and three-load fanout
+review; confirm whether the selected AT configuration requires an extra MCLK.
+Do not treat sharing as a tested interface.
+
+The four historical free pins (41/42/47/48) cannot cover these additions even
+when GPIO40 is reused for TFT reset. Resolve a GPIO expander/button strategy,
+reviewed reset sharing or service-only controls before publishing a final map.
+I2C GPIO8/9 remain useful for the gauge/possible expander, not the final TFT.
+USB, UART bring-up, straps and octal-PSRAM reservations are not spare pins.
+`PENDING_GPIO_STRATEGY` in the BOM tracks this unresolved circuit decision.
+Final firmware pin assignments must follow the builder-reviewed map; none are
+silently selected here.
 
 Mentor review: GPIO16 needs a real digital insertion detector, not a pull-up on
 SJ-3503-SMT-TR's audio switch contacts. GPIO18's prototype DAC mute role versus

@@ -22,6 +22,15 @@ bool shows(const char* value) {
     for (const auto& line : displayed.rows) if (std::strstr(line.data(), value)) return true;
     return false;
 }
+struct FakeDisplay final : nightwave::DisplaySink {
+    std::string lyric, title; bool asleep{false}, fail{false};
+    bool begin() override { return true; }
+    nightwave::DisplayCapabilities capabilities() const override { return {240, 280, true, false, true}; }
+    bool present(const nightwave::DisplayFrame& frame) override {
+        displayed = frame.fallback; lyric = frame.lyric_current; title = frame.title; return !fail;
+    }
+    bool sleep(bool value) override { asleep = value; return !fail; }
+};
 }
 esp_err_t gpio_config(const gpio_config_t*) { return ESP_OK; }
 int gpio_get_level(gpio_num_t) { return headphone ? 0 : 1; }
@@ -43,7 +52,7 @@ bool save_settings(const Settings& value) { persisted = value; saved_volume = va
 bool OledDisplay::initialize(OledController controller) { controller_ = controller; return true; }
 bool OledDisplay::show(const TextFrame& value) { displayed = value; return true; }
 bool OledDisplay::sleep(bool) { return true; }
-bool StreamingPlayer::start(const char* path, I2sAudioSink&, OutputPath output, std::uint8_t volume, std::uint32_t seek_ms) {
+bool StreamingPlayer::start(const char* path, I2sAudioSink&, OutputPath output, std::uint8_t volume, std::uint32_t seek_ms, const char*) {
     selected = path; set_volume(volume); output_.store(output); paused_.store(false);
     position_ms_.store(seek_ms);
     const bool ok = !std::strstr(path, "corrupt");
@@ -66,11 +75,12 @@ int main(int argc, char** argv) {
         std::ofstream file(root_path / name); file << "simulated media";
     }
     std::ofstream(root_path / "sub" / "nested.wav") << "simulated media";
-    std::ofstream(root_path / "01.lrc") << "[00:00]original lyric test\n[00:01]second test line\n";
+    std::ofstream(root_path / "01.lrc") << "[00:00]original lyric test with more than twenty two characters\n[00:01]second test line\n";
     const auto root = fs::weakly_canonical(root_path).string(); // SD roots are canonical; CTest uses tests/../ paths.
     SdStorage sd; I2sAudioSink sink; ButtonMonitor buttons;
     auto player = std::make_unique<StreamingPlayer>();
-    PlayerFrontend ui(sd, *player, sink, buttons, root.c_str());
+    FakeDisplay display;
+    PlayerFrontend ui(sd, *player, sink, buttons, root.c_str(), &display);
     ui.initialize(); CHECK(shows("STARTING"));
     std::uint32_t now = 200;
     ui.tick(now); CHECK(shows("PLAY: OPEN/PLAY")); CHECK(shows("/ sub"));
@@ -82,6 +92,7 @@ int main(int argc, char** argv) {
     press(ButtonId::kNext); press(ButtonId::kPlayPause);
     CHECK(selected.find("01.wav") != std::string::npos && player->playing()); CHECK(shows("PLAYING"));
     press(ButtonId::kNext, ButtonGesture::kLongPress); CHECK(shows("original lyric test"));
+    CHECK(display.lyric == "original lyric test with more than twenty two characters");
     press(ButtonId::kPlayPause); CHECK(player->paused() && shows("PAUSED"));
     press(ButtonId::kPlayPause); CHECK(!player->paused());
     press(ButtonId::kNext); CHECK(selected.find("02.mp3") != std::string::npos);
@@ -98,7 +109,7 @@ int main(int argc, char** argv) {
     const auto before_wake = selected;
     press(ButtonId::kNext); CHECK(selected == before_wake); // Wake only.
     press(ButtonId::kNext); CHECK(selected != before_wake);
-    press(ButtonId::kVolumeDown, ButtonGesture::kLongPress); CHECK(shows("BT HW NOT SELECTED"));
+    press(ButtonId::kVolumeDown, ButtonGesture::kLongPress); CHECK(shows("BT BACKEND NOT READY"));
     press(ButtonId::kPlayPause); CHECK(shows("SHUFFLE"));
     press(ButtonId::kNext); press(ButtonId::kPlayPause); CHECK(shows("15 MIN"));
     now += 900000; ui.tick(now); now += 250; ui.tick(now); CHECK(!player->playing());

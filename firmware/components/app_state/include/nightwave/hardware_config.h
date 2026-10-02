@@ -5,6 +5,13 @@
 #include <cstdint>
 
 namespace nightwave::hardware {
+enum class BluetoothArchitecture { kPending, kBm83At };
+// Builder selected BD-14 on 2026-10-02. Selection is not adapter/bench proof.
+inline constexpr auto kBluetoothArchitecture = BluetoothArchitecture::kBm83At;
+inline constexpr bool kBluetoothBackendQualified = false;
+inline constexpr bool kFinalDisplaySelected = false;
+inline constexpr bool kBatteryLocked = false;
+// Existing constants below are the legacy USB-powered bench map only.
 
 inline constexpr std::int8_t kSdClk = 12;
 inline constexpr std::int8_t kSdCmd = 11;

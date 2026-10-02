@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "updated": "2026-10-02",
+  "main_mcu": "ESP32-S3-WROOM-1-N16R8",
+  "bluetooth": {
+    "decision": "BD-14",
+    "status": "builder_selected",
+    "mpn": "BM83SM1-00TA",
+    "role": "A2DP_source",
+    "firmware": "AT_source_package_to_qualify",
+    "pcm_rates_hz": [44100, 48000],
+    "backend_qualified": false,
+    "pins": "pending_combined_map"
+  },
+  "display": {
+    "decision": "BD-15",
+    "status": "pending_builder_selection",
+    "candidate_skus": ["Waveshare_24382", "Adafruit_3787"],
+    "pins": "pending_combined_map"
+  },
+  "battery": {"status": "pending_updated_power_model", "locked": false},
+  "schematic_entry_ready": false,
+  "physical_validation": false
+}

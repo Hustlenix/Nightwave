@@ -1,5 +1,17 @@
 # Schematic mentoring and review requirements
 
+Entry gate: BM83SM1-00TA is builder-selected (BD-14); BD-15 remains pending.
+Do not start Builder Task 1 until the current software checkpoint is pushed and
+verified, BD-15 is recorded, selections propagated, and the new power/BOM/pin
+budget is complete. The legacy OLED footprint and two-output map are not final.
+
+Selected Bluetooth block must reserve the exact 50-pad BM83 land pattern,
+qualified 3.2–4.2 V rail, UART, MFB, provisioning/boot, reset and reviewed I2S
+clock/rate interface. Disable its internal charger with the external product
+charger; evaluate powered-off audio/control backfeed. Preserve AT firmware
+provision/recovery access and both module antenna keep-outs. Public framing
+support is not qualification of source commands, firmware access or a headset.
+
 Checked 2026-10-01. This is a requirements/reference packet, not a complete
 netlist or final schematic. The builder chooses parts/values and draws the
 actual KiCad sheets. Numbers below are reference values or calculated examples,

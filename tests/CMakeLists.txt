@@ -26,6 +26,15 @@ else()
 endif()
 
 enable_testing()
+add_executable(nightwave_hal_tests hal_tests.cpp ../firmware/components/diagnostics/engineering_report.cpp)
+target_include_directories(nightwave_hal_tests PRIVATE fakes
+    ../firmware/components/bluetooth/include ../firmware/components/power/include ../firmware/components/diagnostics/include
+    ../firmware/components/playback/include ../firmware/components/decoder/include ../firmware/components/audio_pipeline/include
+    ../firmware/components/audio_i2s/include ../firmware/components/app_state/include)
+if(NOT MSVC)
+    target_compile_options(nightwave_hal_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_hal_tests COMMAND nightwave_hal_tests)
 find_package(Threads REQUIRED)
 include(FetchContent)
 # Same decoder revision bundled by esp-libhelix-mp3 1.0.3. Keep upstream notices.
@@ -49,7 +58,7 @@ target_link_libraries(nightwave_mp3_tests PRIVATE nightwave_host_helix)
 add_executable(nightwave_streaming_tests streaming_tests.cpp
     ../firmware/components/playback/streaming_player.cpp
     ../firmware/components/decoder/mp3_decoder.cpp
-    ../firmware/components/decoder/wav_parser.cpp)
+    ../firmware/components/decoder/wav_parser.cpp ../firmware/components/decoder/mp3_seek_index.cpp)
 target_include_directories(nightwave_streaming_tests PRIVATE fakes
     ../firmware/components/playback/include ../firmware/components/decoder/include
     ../firmware/components/audio_pipeline/include ../firmware/components/audio_i2s/include
@@ -60,11 +69,20 @@ if(NOT MSVC)
 endif()
 add_test(NAME nightwave_streaming_tests COMMAND nightwave_streaming_tests
     ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/02_left_right_stereo_44100.wav
-    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-cbr.mp3)
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-cbr.mp3
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-seek.mp3)
+add_executable(nightwave_seek_index_tests seek_index_tests.cpp
+    ../firmware/components/decoder/mp3_seek_index.cpp)
+target_include_directories(nightwave_seek_index_tests PRIVATE ../firmware/components/decoder/include)
+if(NOT MSVC)
+    target_compile_options(nightwave_seek_index_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_seek_index_tests COMMAND nightwave_seek_index_tests
+    ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/test-seek.mp3)
 add_executable(nightwave_frontend_tests frontend_tests.cpp
     ../firmware/components/ui/player_frontend.cpp
     ../firmware/components/library/media_documents.cpp
-    ../firmware/components/library/library_catalog.cpp)
+    ../firmware/components/library/library_catalog.cpp ../firmware/components/decoder/mp3_seek_index.cpp)
 target_sources(nightwave_frontend_tests PRIVATE ../firmware/components/library/catalog_lookup.cpp)
 target_include_directories(nightwave_frontend_tests PRIVATE fakes
     ../firmware/components/playback/include ../firmware/components/decoder/include
@@ -88,16 +106,16 @@ if(NOT MSVC)
     target_compile_options(nightwave_product_adapter_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
 add_test(NAME nightwave_product_adapter_tests COMMAND nightwave_product_adapter_tests)
-add_executable(nightwave_media_tests media_tests.cpp ../firmware/components/library/media_documents.cpp)
-target_include_directories(nightwave_media_tests PRIVATE ../firmware/components/library/include)
+add_executable(nightwave_media_tests media_tests.cpp ../firmware/components/library/media_documents.cpp ../firmware/components/decoder/mp3_seek_index.cpp)
+target_include_directories(nightwave_media_tests PRIVATE ../firmware/components/library/include ../firmware/components/decoder/include)
 if(NOT MSVC)
     target_compile_options(nightwave_media_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
 add_test(NAME nightwave_media_tests COMMAND nightwave_media_tests ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media)
 add_executable(nightwave_catalog_tests catalog_tests.cpp
     ../firmware/components/library/media_documents.cpp ../firmware/components/library/library_catalog.cpp
-    ../firmware/components/library/catalog_lookup.cpp)
-target_include_directories(nightwave_catalog_tests PRIVATE ../firmware/components/library/include)
+    ../firmware/components/library/catalog_lookup.cpp ../firmware/components/decoder/mp3_seek_index.cpp)
+target_include_directories(nightwave_catalog_tests PRIVATE ../firmware/components/library/include ../firmware/components/decoder/include)
 if(NOT MSVC)
     target_compile_options(nightwave_catalog_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()

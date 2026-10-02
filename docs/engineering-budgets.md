@@ -1,7 +1,7 @@
 # Expanded-scope engineering budgets
 
 2026-10-01. Planning limits/calculated scenarios, not device measurements.
-Bluetooth/display choices are open. Reject a final design that violates these
+BM83SM1-00TA is selected; the display choice is open. Reject a final design that violates these
 budgets; do not use a larger battery to conceal uncontrolled load.
 
 ## Memory / scheduling
@@ -19,7 +19,8 @@ budgets; do not use a larger battery to conceal uncontrolled load.
 | Full-card index/cache | 16 metadata records ≈8 KiB + bounded controls in PSRAM | SD-backed 10,000-track catalog; no full-library RAM vector |
 | Artist/album lookup | 227,488 bytes per generation; 454,976-byte active + staging peak | Explicit PSRAM; 1,024 keys per field; slow fallback on allocation/cap failure |
 | Settings | 788-byte versioned record + bounded strings | Commit after quiet interval/checkpoint, no per-frame flash writes |
-| BT | Dedicated module allowance or measured ESP32 stack/SBC envelope | Architecture-dependent; do not assume S3 BLE supplies A2DP |
+| BT | Selected BM83 source offload; bounded 8-device control model/UART framing | AT firmware/commands/PCM transport still require qualification; S3 BLE is not A2DP |
+| MP3 seek scanner | At most 12 KiB, 1,024 sparse points | Inside PSRAM UiAssets catalog; scans only while player is stopped |
 
 S3's nominal 512 KiB SRAM is not all application heap. Initial new-feature static
 allocations exceeded 200 KiB; lyrics/queue were moved to an explicit ~73 KiB
@@ -65,9 +66,10 @@ physical playback. Do not use an independent wall-clock timer.
 SD worst read target <20 ms per 4 KiB; alarm >50 ms. Decoder timing currently
 covers instrumented decode/framing calls, not every WAV copy/wait; label it
 accordingly. PCM low-water/underruns distinguish starvation from output errors.
-MP3 seek/resume decodes/discards from start to preserve reservoir, capped at
-30 minutes and cancellable. It may be slow; a seek index is still required for
-fast long-track resume. WAV seeks directly on frame alignment.
+MP3 seek uses a checked sparse frame index with at least 128 frames of late-seek
+reservoir/synthesis preroll. Missing/stale/invalid indexes retain cancellable
+decode/discard from start (30-minute UI seek cap). See mp3-seek-index.md for
+identity, memory, cache and supported-rate limits. WAV seeks on frame alignment.
 
 ## Storage / bounded documents
 
@@ -95,7 +97,9 @@ millisecond bounds. Runtime filesystem/heap/underrun evidence remains required.
 
 ## Power / eight-hour requirement
 
-Run `tools/power_budget.py`. Preserve 85% regulator/80% amp efficiency, 80%
+The following table and `tools/power_budget.py` are historical sensitivity
+examples, NOT the selected BM83/product power budget. Recalculate after BD-15.
+Historical assumptions: 85% regulator/80% amp efficiency, 80%
 usable capacity, 80% aging and 20% load margin. TFT scenarios replace the old
 5 mA display with an assumed 60/100 mA, not a measured panel current. BT 50 mA
 cell-side is an allowance. Do not add it to 3.3 V load and count conversion twice.
@@ -122,7 +126,9 @@ charge-while-play testing before reviewed power hardware and bench gate.
 Implemented: bounded lyric/metadata/M3U loaders, accepted-sample clock, modes,
 sleep fade/stop/display sleep, versioned resume/settings, provisional OLED
 views, machine-readable diagnostics and SD-backed paged library with bounded v2
-group lookup. Pending: chosen
-BT transport, TFT UI, fallback/SD-contention latency acceptance, MP3 duration/fast seek, fully separated hardware HAL,
+group lookup, bounded MP3 duration/index/preroll seek, display interface, BT
+control/UART framing, power interface and bounded engineering JSON. Pending:
+BM83 AT source commands/provisioning/PCM transport and rate conversion, BD-15
+TFT driver/rendering, fallback/SD-contention latency acceptance, real power adapters,
 fuel gauge/charging/low-battery policy and physical timing/power acceptance.
 This is an honest software checkpoint, not a completed production/funding build.

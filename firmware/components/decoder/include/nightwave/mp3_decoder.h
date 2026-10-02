@@ -15,9 +15,12 @@ class Mp3Decoder final : public AudioDecoder {
     void reset() override;
     bool ready() const { return handle_ != nullptr; }
     std::size_t recovery_bytes() const { return framer_.recovery_bytes(); }
+    std::uint32_t frame_samples() const { return frame_samples_; }
+    std::uint32_t frame_rate() const { return frame_rate_; }
  private:
     void* handle_{nullptr};
     Mp3Framer framer_;
+    std::uint32_t frame_samples_{0}, frame_rate_{0};
     std::array<std::int16_t, 2304> decoded_{};
     std::array<std::int16_t, 2304> stereo_{};
 };

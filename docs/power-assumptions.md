@@ -1,5 +1,11 @@
 # Power design constraints and unresolved decisions
 
+2026-10-02 scope: BM83SM1-00TA is selected and BD-15 remains pending. The old
+OLED/6600 mAh examples are historical screening, not the current product power
+model or an approved battery. Rebuild route/idle/peak/charge/source budgets after
+the display decision. Power HAL readings are explicitly unknown without a real
+adapter; host low-voltage thresholds are fixtures, not approved cell policy.
+
 Checked 2026-10-01. Model inputs: [power-budget.md](power-budget.md).
 This research is AI-assisted; it is not a builder-authored final circuit.
 

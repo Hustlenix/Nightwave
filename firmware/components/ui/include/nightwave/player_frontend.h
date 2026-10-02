@@ -17,8 +17,8 @@ namespace nightwave {
 class PlayerFrontend {
  public:
     PlayerFrontend(SdStorage& sd, StreamingPlayer& player, I2sAudioSink& audio,
-                   ButtonMonitor& input, const char* root = "/sdcard")
-        : sd_(sd), player_(player), audio_(audio), input_(input), root_(root) {
+                   ButtonMonitor& input, const char* root = "/sdcard", DisplaySink* display = nullptr)
+        : sd_(sd), player_(player), audio_(audio), input_(input), root_(root), display_(display ? display : &oled_) {
         std::snprintf(folder_.data(), folder_.size(), "%s", root_);
     }
     void initialize();
@@ -33,8 +33,10 @@ class PlayerFrontend {
     bool output_preference(OutputPreference value, std::uint32_t now);
     std::size_t queue_size() const { return assets_ ? (catalog_queue_ ? catalog_queue_count_ : queue_count_) : 0; }
     std::uint32_t catalog_scanned() const { return assets_ ? assets_->catalog.scanned() : 0; }
+    std::uint32_t catalog_tracks() const { return assets_ ? assets_->catalog.size() : 0; }
     bool catalog_building() const { return assets_ && assets_->catalog.building(); }
     bool catalog_fast_lookup() const { return assets_ && assets_->catalog.fast_lookup_ready(); }
+    std::uint32_t catalog_query_reads() const { return assets_ ? assets_->catalog.query_reads() : 0; }
  private:
     struct Entry { std::array<char, 256> name{}; bool directory{false}; };
     struct UiAssets {
@@ -57,9 +59,11 @@ class PlayerFrontend {
     void parent();
     void event(const ButtonEvent&);
     TextFrame frame() const;
+    DisplayFrame display_frame() const;
     SdStorage& sd_; StreamingPlayer& player_; I2sAudioSink& audio_; ButtonMonitor& input_;
     const char* root_;
     OledDisplay oled_{};
+    DisplaySink* display_; // Injected adapter must outlive the frontend.
     PlayerNavigation nav_{};
     Settings settings_{};
     PlaybackPolicy policy_{};

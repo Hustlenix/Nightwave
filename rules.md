@@ -15,7 +15,7 @@ These rules govern ChatGPT Work, coding agents, and human implementation.
 
 - The device MUST be a standalone offline music player.
 - The device MUST play user-supplied local audio files.
-- The device MUST NOT depend on a phone, app, Wi-Fi, Bluetooth, streaming service, or cloud account for playback.
+- The device MUST NOT depend on a phone, app, Wi-Fi, streaming service or cloud account for playback. Bluetooth is a required optional output route; speaker and wired playback remain usable without a Bluetooth receiver.
 - The final submitted hardware MUST use the custom PCB and custom enclosure.
 - A T4 rating MUST be treated as an objective, never as a guaranteed outcome.
 

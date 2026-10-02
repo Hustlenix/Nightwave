@@ -18,6 +18,10 @@
 #include "nightwave/storage.h"
 #include "nightwave/streaming_player.h"
 #include "nightwave/player_frontend.h"
+#include "nightwave/engineering_report.h"
+#include "nightwave/bluetooth_source.h"
+#include "nightwave/power_hal.h"
+#include "esp_heap_caps.h"
 
 namespace {
 
@@ -30,6 +34,9 @@ nightwave::StreamingPlayer g_player;
 nightwave::ButtonMonitor g_buttons;
 nightwave::PlayerFrontend g_frontend(g_storage, g_player, g_audio, g_buttons);
 SemaphoreHandle_t g_commands = nullptr;
+nightwave::UnavailableBluetooth g_bluetooth_backend;
+nightwave::BluetoothSource g_bluetooth(g_bluetooth_backend);
+nightwave::UnavailablePower g_power;
 
 void ui_task(void*) {
     while (true) {
@@ -70,9 +77,10 @@ void print_help() {
         "  status                        queue/underrun/error counters\n"
         "  mode <normal|shuffle|all|track> playback sequence mode\n"
         "  sleep <off|15|30|45|60|end>    ramp/stop/display sleep timer\n"
-        "  seek <milliseconds>           WAV seek / bounded MP3 decode-discard\n"
+        "  seek <milliseconds>           WAV seek / indexed MP3 with safe fallback\n"
         "  last                          explicit saved-track resume\n"
         "  selftest                      JSON software/hardware availability\n"
+        "  engineering                   bounded JSON library/seek/memory telemetry\n"
         "  help                          show this text\n\n");
 }
 
@@ -176,8 +184,9 @@ void execute_command(char* line) {
         g_player.pause(false);
     } else if (std::strcmp(command, "volume") == 0) {
         const char* value = strtok_r(nullptr, " \r\n", &context);
-        if (value) g_frontend.volume(static_cast<std::uint8_t>(
-            std::clamp(std::atoi(value), 0, 100)), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
+        std::uint32_t volume = 0;
+        if (nightwave::parse_unsigned(value, 100, volume)) g_frontend.volume(static_cast<std::uint8_t>(volume), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
+        else ESP_LOGW(kTag, "volume requires an integer 0..100");
     } else if (std::strcmp(command, "stop") == 0) {
         g_frontend.stopped();
         if (!g_player.stop()) {
@@ -187,9 +196,8 @@ void execute_command(char* line) {
         if (!g_storage.mount() || !g_frontend.resume_saved()) ESP_LOGW(kTag, "saved-track resume unavailable/invalid");
     } else if (std::strcmp(command, "seek") == 0) {
         const char* value = strtok_r(nullptr, " \r\n", &context);
-        char* end = nullptr;
-        const unsigned long position = value ? std::strtoul(value, &end, 10) : 1800001;
-        if (!value || end == value || *end || position > 1800000 || !g_frontend.seek_current(static_cast<std::uint32_t>(position))) ESP_LOGW(kTag, "seek requires 0..1800000 ms and an active queue track");
+        std::uint32_t position = 0;
+        if (!nightwave::parse_unsigned(value, 1800000, position) || !g_frontend.seek_current(position)) ESP_LOGW(kTag, "seek requires 0..1800000 ms and an active queue track");
     } else if (std::strcmp(command, "mode") == 0) {
         const char* value = strtok_r(nullptr, " \r\n", &context);
         if (value) {
@@ -203,8 +211,18 @@ void execute_command(char* line) {
             for (unsigned i = 0; i < 6; ++i) if (!std::strcmp(value, names[i])) g_frontend.sleep_timer(static_cast<nightwave::SleepMode>(i), static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
         }
     } else if (std::strcmp(command, "selftest") == 0) {
-        std::printf("{\"type\":\"nightwave_selftest\",\"schema\":1,\"gpio_map_unique\":%s,\"storage_mounted\":%s,\"bluetooth\":\"architecture_pending\",\"battery\":\"unmeasured\",\"acoustic_output\":\"unverified\",\"physical_pass\":false}\n",
+        std::printf("{\"type\":\"nightwave_selftest\",\"schema\":1,\"gpio_map_unique\":%s,\"storage_mounted\":%s,\"bluetooth\":\"BM83SM1-00TA_backend_unqualified\",\"battery\":\"unmeasured\",\"acoustic_output\":\"unverified\",\"physical_pass\":false}\n",
             nightwave::hardware::pins_are_unique() ? "true" : "false", g_storage.mount() ? "true" : "false");
+    } else if (std::strcmp(command, "engineering") == 0) {
+        nightwave::EngineeringReport report;
+        report.stream = g_player.telemetry(); report.position_ms = g_player.position_ms();
+        report.catalog_tracks = g_frontend.catalog_tracks(); report.query_reads = g_frontend.catalog_query_reads();
+        report.catalog_building = g_frontend.catalog_building(); report.catalog_fast = g_frontend.catalog_fast_lookup();
+        report.heap_free = heap_caps_get_free_size(MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+        report.heap_min = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+        report.psram_free = heap_caps_get_free_size(MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+        std::array<char, 1024> json{};
+        if (nightwave::format_engineering_report(report, json.data(), json.size())) std::puts(json.data());
     } else if (std::strcmp(command, "status") == 0) {
         const auto status = nightwave::capture_diagnostics(
             g_player.underruns(), g_storage.errors(), g_player.errors(),
@@ -218,7 +236,7 @@ void execute_command(char* line) {
                  static_cast<unsigned long>(status.decode_errors),
                  static_cast<unsigned long>(status.minimum_free_heap_bytes));
         const auto t = g_player.telemetry();
-        std::printf("{\"type\":\"nightwave_stream\",\"schema\":1,\"position_ms\":%lu,\"pcm_ms\":%lu,\"encoded_bytes\":%lu,\"underruns\":%lu,\"errors\":%lu,\"sd_worst_us\":%lu,\"decode_worst_us\":%lu,\"bluetooth\":\"architecture_pending\",\"battery\":null}\n",
+        std::printf("{\"type\":\"nightwave_stream\",\"schema\":1,\"position_ms\":%lu,\"pcm_ms\":%lu,\"encoded_bytes\":%lu,\"underruns\":%lu,\"errors\":%lu,\"sd_worst_us\":%lu,\"decode_worst_us\":%lu,\"bluetooth\":\"BM83_backend_unqualified\",\"battery\":null}\n",
             static_cast<unsigned long>(g_player.position_ms()), static_cast<unsigned long>(t.pcm_ms), static_cast<unsigned long>(t.compressed_bytes),
             static_cast<unsigned long>(t.underruns), static_cast<unsigned long>(t.errors), static_cast<unsigned long>(t.sd_worst_us), static_cast<unsigned long>(t.decoder_worst_us));
         std::printf("{\"type\":\"nightwave_performance\",\"schema\":1,\"sd_bytes\":%lu,\"sd_reads\":%lu,\"sd_total_us\":%lu,\"decode_calls\":%lu,\"decode_total_us\":%lu,\"encoded_low_bytes\":%lu,\"pcm_low_frames\":%lu,\"stack_min_bytes\":[%lu,%lu,%lu]}\n",
@@ -254,10 +272,14 @@ extern "C" void app_main() {
         ESP_LOGE(kTag, "UI task unavailable; console remains active");
 
     std::array<char, 256> line{};
+    bool discard_line = false;
     while (true) {
         std::printf("nightwave> ");
         std::fflush(stdout);
         if (std::fgets(line.data(), line.size(), stdin) != nullptr) {
+            const bool terminated = std::strchr(line.data(), '\n') != nullptr;
+            if (discard_line) { discard_line = !terminated; continue; }
+            if (!terminated) { discard_line = true; ESP_LOGW(kTag, "overlong/incomplete command discarded"); continue; }
             xSemaphoreTake(g_commands, portMAX_DELAY);
             execute_command(line.data());
             xSemaphoreGive(g_commands);

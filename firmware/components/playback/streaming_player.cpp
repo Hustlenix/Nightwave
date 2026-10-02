@@ -8,6 +8,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "nightwave/gain_ramp.h"
+#include "nightwave/mp3_seek_index.h"
 
 namespace nightwave {
 namespace {
@@ -31,13 +32,14 @@ void total(std::atomic<std::uint32_t>& value, std::uint64_t add) {
 }
 void StreamingPlayer::fail() { ++errors_; cancel_.store(true); }
 bool StreamingPlayer::start(const char* path, I2sAudioSink& sink,
-                            OutputPath output, std::uint8_t volume, std::uint32_t seek_ms) {
+                            OutputPath output, std::uint8_t volume, std::uint32_t seek_ms, const char* index_root) {
     if (running_.load() || !path || output == OutputPath::kMuted || seek_ms > 1800000) return false;
     // All workers from the previous session have published completion.
     mp3_.reset();
     errors_.store(0); underruns_.store(0); sd_us_.store(0); decoder_us_.store(0);
     rate_.store(0); paused_.store(false); cancel_.store(false);
     seek_ms_ = seek_ms; position_ms_.store(seek_ms);
+    decode_base_samples_ = 0; indexed_seek_.store(false); duration_ms_.store(0); route_changes_.store(0);
     storage_stack_.store(0); decoder_stack_.store(0); audio_stack_.store(0);
     sd_bytes_.store(0); sd_reads_.store(0); sd_total_us_.store(0); decode_calls_.store(0); decode_total_us_.store(0);
     encoded_low_.store(UINT32_MAX); pcm_low_.store(UINT32_MAX);
@@ -55,6 +57,7 @@ bool StreamingPlayer::start(const char* path, I2sAudioSink& sink,
         if (parsed.status != WavParseStatus::kOk || parsed.info.data_size == 0) return reject();
         wav_ = parsed.info;
         rate_.store(wav_.format.sample_rate_hz);
+        duration_ms_.store(static_cast<std::uint32_t>(std::min<std::uint64_t>(UINT32_MAX, wav_.data_size * 1000ULL / wav_.byte_rate)));
         const auto frames = seek_ms * std::uint64_t(wav_.format.sample_rate_hz) / 1000;
         const auto skip = frames * wav_.block_align;
         if (skip >= wav_.data_size) return reject();
@@ -66,7 +69,13 @@ bool StreamingPlayer::start(const char* path, I2sAudioSink& sink,
         mp3_.reset(new (std::nothrow) Mp3Decoder);
         if (!mp3_ || !mp3_->ready()) return reject();
         bytes_remaining_ = static_cast<std::uint64_t>(length);
-        std::rewind(file_);
+        if (std::uint64_t(length) <= UINT32_MAX) duration_ms_.store(Mp3SeekIndex::probe_duration(file_, static_cast<std::uint32_t>(length)));
+        Mp3SeekPoint point{};
+        if (Mp3SeekIndex::cached_seek(path, index_root, seek_ms, point)) {
+            if (point.offset >= std::uint64_t(length) || std::fseek(file_, static_cast<long>(point.offset), SEEK_SET)) return reject();
+            decode_base_samples_ = point.samples; rate_.store(point.rate); bytes_remaining_ -= point.offset;
+            indexed_seek_.store(seek_ms != 0); duration_ms_.store(point.duration_ms);
+        } else std::rewind(file_); // Missing/stale/bad cache: reservoir-safe slow fallback.
     }
     encoded_.reset(); pcm_.reset(); sink_ = &sink;
     output_.store(output); set_volume(volume);
@@ -97,7 +106,8 @@ StreamTelemetry StreamingPlayer::telemetry() const {
         underruns_.load(), errors_.load(), sd_us_.load(), decoder_us_.load(),
         storage_stack_.load(), decoder_stack_.load(), audio_stack_.load(),
         sd_bytes_.load(), sd_reads_.load(), sd_total_us_.load(), decode_calls_.load(), decode_total_us_.load(),
-        encoded_low_.load() == UINT32_MAX ? 0 : encoded_low_.load(), pcm_low_.load() == UINT32_MAX ? 0 : pcm_low_.load()};
+        encoded_low_.load() == UINT32_MAX ? 0 : encoded_low_.load(), pcm_low_.load() == UINT32_MAX ? 0 : pcm_low_.load(),
+        duration_ms_.load(), decode_base_samples_, route_changes_.load(), indexed_seek_.load()};
 }
 void StreamingPlayer::storage_entry(void* ctx) {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY); static_cast<StreamingPlayer*>(ctx)->storage_task();
@@ -130,6 +140,7 @@ void StreamingPlayer::storage_task() {
 void StreamingPlayer::decoder_task() {
     std::size_t used = 0;
     std::uint64_t total_frames = 0, delivered = 0;
+    std::uint64_t timeline = decode_base_samples_;
     while (!cancel_.load()) {
         if (total_frames && !storage_done_.load()) encoded_low_.store(std::min(encoded_low_.load(), static_cast<std::uint32_t>(encoded_.size())));
         while (used < staging_.size() && encoded_.pop(staging_[used])) ++used;
@@ -139,8 +150,14 @@ void StreamingPlayer::decoder_task() {
         std::size_t consumed = 0;
         PcmBlock block{};
         const auto started = esp_timer_get_time();
+        const auto frame_start = timeline;
         if (mp3_) {
             const auto result = mp3_->decode({staging_.data(), used}, eof);
+            if (mp3_->frame_samples()) {
+                if (!rate_.load()) rate_.store(mp3_->frame_rate());
+                if (mp3_->frame_rate() != rate_.load()) { fail(); break; }
+                timeline += mp3_->frame_samples();
+            }
             consumed = result.bytes_consumed;
             if (result.status == DecodeStatus::kFrameReady) block = result.pcm;
             else if (result.status == DecodeStatus::kEndOfStream) {
@@ -159,9 +176,10 @@ void StreamingPlayer::decoder_task() {
             if (block.format.sample_rate_hz != rate_.load()) { fail(); break; }
             for (std::size_t i = 0; i < block.frame_count && !cancel_.load(); ++i) {
                 ++total_frames;
-                // Decode from the beginning to preserve the MP3 bit reservoir.
-                // Bounded to 30 minutes; cancel checked every frame/sample.
-                if (total_frames <= seek_ms_ * std::uint64_t(rate_.load()) / 1000) continue;
+                // Cached seeks decode >=128 frames of preroll for the reservoir
+                // and synthesis history; missing caches decode from the start.
+                // Timeline includes skipped warmup frames, not only decoded PCM.
+                if (frame_start + i + 1 <= seek_ms_ * std::uint64_t(rate_.load()) / 1000) continue;
                 const StereoFrame frame{block.interleaved_samples[i * 2], block.interleaved_samples[i * 2 + 1]};
                 while (!cancel_.load() && !pcm_.push(frame)) vTaskDelay(pdMS_TO_TICKS(1));
                 ++delivered;
@@ -218,6 +236,7 @@ void StreamingPlayer::audio_task() {
             if (selected != OutputPath::kMuted && sink_->drain() != AudioSinkStatus::kAccepted) { fail(); break; }
             if (!sink_->select_output(requested)) { fail(); break; }
             selected = requested; gain.reset();
+            total(route_changes_, 1);
         }
         std::size_t count = 0;
         const bool done = decoder_done_.load();

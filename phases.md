@@ -11,6 +11,11 @@ docs/engineering-budgets.md. The new scope includes lyrics, metadata/library,
 modes/resume/sleep and Bluetooth output; old exclusions are superseded.
 The provisional OLED and S3 pin map are not a final hardware lock.
 
+2026-10-02: BD-14 is selected by the builder: S3 plus BM83SM1-00TA. BD-15 remains
+pending. Before Builder Task 1: propagate both actual choices, recalculate the
+full product power model, update critical BOM/pins and push verified software.
+An old checklist below never authorizes skipping these prerequisites.
+
 2026-10-01 builder-authored continuation: the builder reports direct Pixl
 clarification allowing AI tutoring/review with actual human engineering work.
 This supersedes any instruction below for Codex to author final schematic,
@@ -164,7 +169,7 @@ Prototype should represent:
 - I²S DAC;
 - headphone path;
 - I²S speaker amp;
-- OLED;
+- legacy USB-powered bench OLED (not the final readable screen);
 - five buttons.
 
 Battery/charger is not required for first audio proof.

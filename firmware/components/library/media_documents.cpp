@@ -1,4 +1,5 @@
 #include "nightwave/media_documents.h"
+#include "nightwave/mp3_seek_index.h"
 #include <algorithm>
 #include <array>
 #include <climits>
@@ -209,6 +210,9 @@ DocumentStatus read_metadata(const char* path, TrackMetadata& metadata) {
     auto finish = [file](DocumentStatus result) { std::fclose(file); return result; };
     if (std::fseek(file, 0, SEEK_END)) return finish(DocumentStatus::kIoError);
     const auto end = std::ftell(file); if (end < 10) return finish(DocumentStatus::kMalformed);
+    const auto* extension = std::strrchr(path, '.');
+    if (extension && !strcasecmp(extension, ".mp3") && std::uint64_t(end) <= UINT32_MAX)
+        metadata.duration_ms = Mp3SeekIndex::probe_duration(file, static_cast<std::uint32_t>(end));
     std::rewind(file); std::array<unsigned char, 12> header{};
     if (std::fread(header.data(), 1, 10, file) != 10) return finish(DocumentStatus::kIoError);
     if (!std::memcmp(header.data(), "ID3", 3)) {

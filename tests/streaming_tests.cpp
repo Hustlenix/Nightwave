@@ -2,6 +2,8 @@
 #include <chrono>
 #include <condition_variable>
 #include <cstdlib>
+#include <cstring>
+#include <filesystem>
 #include <functional>
 #include <iostream>
 #include <memory>
@@ -14,6 +16,7 @@
 #include "nightwave/player_navigation.h"
 #include "nightwave/playback_state_machine.h"
 #include "nightwave/text_frame.h"
+#include "nightwave/mp3_seek_index.h"
 
 // Real StreamingPlayer and real decoder, simulated RTOS scheduling/I2S only.
 // These counters/timings are NOT board measurements or DMA verification.
@@ -30,6 +33,8 @@ int create_count = 0, fail_create = 0, failures = 0;
 std::atomic<bool> fault{false}, muted{true};
 std::atomic<bool> hold_write{false}, write_held{false};
 std::atomic<unsigned> writes{0};
+bool capture_pcm = false; // Main changes this only with all audio threads joined.
+std::uint64_t pcm_hash = 1469598103934665603ULL, pcm_samples = 0;
 #define CHECK(value) do { if (!(value)) { ++failures; std::cerr << __LINE__ << ": " << #value << '\n'; } } while(false)
 void join_all() { for (auto& t : tasks) if (t->thread.joinable()) t->thread.join(); tasks.clear(); }
 bool await(const std::function<bool()>& predicate) {
@@ -87,6 +92,14 @@ AudioSinkStatus I2sAudioSink::write(const PcmBlock& block) {
         while (hold_write) std::this_thread::sleep_for(std::chrono::microseconds(100));
         write_held = false;
     }
+    if (capture_pcm) {
+        for (std::size_t i = 0; i < block.frame_count * 2; ++i) {
+            const auto sample = static_cast<std::uint16_t>(block.interleaved_samples[i]);
+            pcm_hash = (pcm_hash ^ (sample & 255u)) * 1099511628211ULL;
+            pcm_hash = (pcm_hash ^ (sample >> 8)) * 1099511628211ULL;
+            ++pcm_samples;
+        }
+    }
     ++writes; std::this_thread::sleep_for(std::chrono::microseconds(100));
     return AudioSinkStatus::kAccepted;
 }
@@ -100,7 +113,7 @@ AudioSinkStatus I2sAudioSink::drain() {
 }
 int main(int argc, char** argv) {
     using namespace nightwave;
-    if (argc != 3) return EXIT_FAILURE;
+    if (argc != 4) return EXIT_FAILURE;
     auto player = std::make_unique<StreamingPlayer>();
     I2sAudioSink sink;
     CHECK(!player->start("missing-file", sink, OutputPath::kLine, 8));
@@ -148,6 +161,29 @@ int main(int argc, char** argv) {
         join_all(); CHECK(player->errors() == 0 && player->position_ms() > 1000);
     }
     CHECK(!player->start(argv[1], sink, OutputPath::kLine, 8, 1800001));
+    std::array<char, 40> temporary{}; std::strcpy(temporary.data(), "/tmp/nightwave-stream-XXXXXX");
+    const auto* created = mkdtemp(temporary.data()); if (!created) return EXIT_FAILURE;
+    const std::filesystem::path root(created), media = root / "seek.mp3";
+    std::filesystem::create_directory(root / ".nightwave");
+    std::filesystem::copy_file(argv[3], media);
+    auto index = std::make_unique<Mp3SeekIndex>(); CHECK(index->begin(media.c_str()));
+    while (index->status() == SeekIndexStatus::kBuilding) index->step(8);
+    CHECK(index->ready());
+    capture_pcm = true;
+    CHECK(player->start(media.c_str(), sink, OutputPath::kLine, 8, 15000, root.c_str()));
+    CHECK(await([&] { return !player->playing(); })); join_all();
+    CHECK(player->errors() == 0 && !player->telemetry().indexed_seek);
+    const auto reference_hash = pcm_hash, reference_samples = pcm_samples;
+    const auto reference = player->telemetry();
+    CHECK(index->save(root.c_str())); pcm_hash = 1469598103934665603ULL; pcm_samples = 0;
+    CHECK(player->start(media.c_str(), sink, OutputPath::kLine, 8, 15000, root.c_str()));
+    CHECK(await([&] { return !player->playing(); })); join_all();
+    const auto indexed = player->telemetry();
+    CHECK(player->errors() == 0 && indexed.indexed_seek && indexed.seek_base_samples > 0);
+    CHECK(indexed.duration_ms >= 30000 && indexed.duration_ms < 30200);
+    CHECK(pcm_hash == reference_hash && pcm_samples == reference_samples && pcm_samples > 0);
+    CHECK(indexed.decode_calls < reference.decode_calls && indexed.sd_bytes < reference.sd_bytes);
+    capture_pcm = false; std::filesystem::remove_all(root);
     GainRamp ramp;
     for (int i = 0; i < 1024; ++i) ramp.step(32767);
     CHECK(ramp.value() == 32767);

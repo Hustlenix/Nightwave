@@ -63,10 +63,10 @@ void PlayerFrontend::initialize() {
     policy_.mode = settings_.shuffle ? PlaybackMode::kShuffle : settings_.repeat_mode == RepeatMode::kTrack ?
         PlaybackMode::kRepeatTrack : settings_.repeat_mode == RepeatMode::kAll ? PlaybackMode::kRepeatAll : PlaybackMode::kNormal;
     if (!nvs_ready_) ESP_LOGW("ui", "NVS unavailable; settings are volatile, partition not erased");
-    oled_ready_ = oled_.initialize();
-    if (!oled_ready_) ESP_LOGW("ui", "OLED unavailable (provisional SH1106 128x64 @0x3c)");
+    oled_ready_ = display_->begin();
+    if (!oled_ready_) ESP_LOGW("ui", "Display adapter unavailable; controls remain active");
     TextFrame boot; boot.line(2, "NIGHTWAVE"); boot.line(4, "STARTING PLAYER");
-    if (oled_ready_) oled_.show(boot);
+    if (oled_ready_) { DisplayFrame view; view.fallback = boot; display_->present(view); }
     gpio_config_t detect{};
     detect.pin_bit_mask = 1ULL << hardware::kHeadphoneDetect;
     detect.mode = GPIO_MODE_INPUT; detect.pull_up_en = GPIO_PULLUP_ENABLE;
@@ -114,6 +114,7 @@ void PlayerFrontend::track_started(const char* path) {
     const auto* slash = path ? std::strrchr(path, '/') : nullptr;
     std::snprintf(title_.data(), title_.size(), "%.255s", slash ? slash + 1 : (path ? path : ""));
     read_metadata(path, metadata_);
+    if (!metadata_.duration_ms) metadata_.duration_ms = player_.duration_ms();
     lyric_status_ = assets_ ? assets_->lyrics.load(path) : DocumentStatus::kLimit;
     if (metadata_.title[0]) std::snprintf(title_.data(), title_.size(), "%s", metadata_.title.data());
     std::snprintf(settings_.resume_path.data(), settings_.resume_path.size(), "%s", path ? path : "");
@@ -255,7 +256,7 @@ bool PlayerFrontend::start_path(const char* path, std::uint32_t position) {
     std::snprintf(title_.data(), title_.size(), "%s", slash ? slash + 1 : path);
     if (!player_.stop()) { nav_.screen = PlayerScreen::kCorrupt; return false; }
     if (!player_.start(path, audio_, selected_output(),
-                       settings_.volume_percent, position)) {
+                       settings_.volume_percent, position, root_)) {
         nav_.screen = PlayerScreen::kCorrupt; return false;
     }
     track_started(path); return true;
@@ -426,6 +427,17 @@ void PlayerFrontend::event(const ButtonEvent& e) {
         else { nav_.screen = scan() ? PlayerScreen::kBrowser : PlayerScreen::kNoSd; }
     }
 }
+DisplayFrame PlayerFrontend::display_frame() const {
+    DisplayFrame view; view.fallback = frame();
+    view.title = title_.data(); view.artist = metadata_.artist.data(); view.album = metadata_.album.data();
+    view.elapsed_ms = player_.position_ms(); view.duration_ms = metadata_.duration_ms;
+    view.playing = player_.playing(); view.paused = player_.paused(); view.lyrics_view = nav_.screen == PlayerScreen::kLyrics;
+    const auto* current = assets_ ? assets_->lyrics.current(view.elapsed_ms) : nullptr;
+    const auto* next = assets_ ? assets_->lyrics.next(view.elapsed_ms) : nullptr;
+    if (current) view.lyric_current = current->text.data();
+    if (next) view.lyric_next = next->text.data();
+    return view;
+}
 TextFrame PlayerFrontend::frame() const {
     TextFrame text; std::array<char, 64> line{};
     text.line(0, "NIGHTWAVE");
@@ -467,7 +479,7 @@ TextFrame PlayerFrontend::frame() const {
                 text.line(4, menu_item_ == 5 ? ">REBUILD INDEX" : " REBUILD INDEX");
                 text.line(6, player_.playing() ? "REBUILD: STOP FIRST" : "REBUILD: IDLE ONLY");
             }
-            text.line(7, "BT HW NOT SELECTED"); break;
+            text.line(7, "BT BACKEND NOT READY"); break;
         }
         case PlayerScreen::kLibrary: {
             static const char* views[] = {"SONGS", "ARTISTS", "ALBUMS", "FOLDERS / PLAYLISTS"};
@@ -587,12 +599,12 @@ void PlayerFrontend::tick(std::uint32_t now) {
     }
     nav_.tick(now);
     if (oled_ready_ && display_asleep_ != nav_.asleep) {
-        if (!oled_.sleep(nav_.asleep)) oled_ready_ = false;
+        if (!display_->sleep(nav_.asleep)) oled_ready_ = false;
         display_asleep_ = nav_.asleep;
     }
     if (oled_ready_ && !nav_.asleep && now - last_render_ >= 200) {
         last_render_ = now;
-        if (!oled_.show(frame())) { oled_ready_ = false; ESP_LOGW("ui", "OLED write failed; controls remain active"); }
+        if (!display_->present(display_frame())) { oled_ready_ = false; ESP_LOGW("ui", "Display write failed; controls remain active"); }
     }
 }
 }  // namespace nightwave

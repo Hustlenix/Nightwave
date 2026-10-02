@@ -120,6 +120,7 @@ void LibraryCatalog::close_build() {
     if (directories_) { std::fclose(directories_); directories_ = nullptr; }
     if (writer_) { std::fclose(writer_); writer_ = nullptr; }
     build_lookup_.reset(); build_phase_ = 0;
+    seek_index_.cancel(); seek_pending_ = false;
 }
 void LibraryCatalog::fail_build() { failed_ = true; close_build(); }
 bool LibraryCatalog::rebuild() {
@@ -147,6 +148,18 @@ bool LibraryCatalog::rebuild() {
 void LibraryCatalog::pump_build(unsigned budget) {
     budget = std::min(budget, 8u);
     while (writer_ && budget--) {
+        if (seek_pending_) {
+            seek_index_.step(1);
+            if (seek_index_.status() != SeekIndexStatus::kBuilding) {
+                if (seek_index_.ready()) {
+                    pending_record_.metadata.duration_ms = seek_index_.duration_ms();
+                    seek_index_.save(root_.data()); // Optional cache failure never drops a track.
+                }
+                seek_pending_ = false;
+                if (!append_record(pending_record_)) return;
+            }
+            continue;
+        }
         if (build_phase_ == 1) { if (build_lookup_->seal_step()) build_phase_ = 2; continue; }
         if (build_phase_ == 2) {
             if (!build_lookup_->write_step(writer_)) { fail_build(); return; }
@@ -186,16 +199,23 @@ void LibraryCatalog::pump_build(unsigned budget) {
         // Invalid/empty audio remains browsable with a filename fallback. The
         // decoder, not an index or metadata tag, determines actual playability.
         read_metadata(record.path.data(), record.metadata);
-        if (build_lookup_ && !build_lookup_->add(record.metadata, static_cast<std::uint16_t>(new_count_))) build_lookup_.reset();
-        std::array<unsigned char, kRecord> bytes{};
-        std::memcpy(bytes.data(), record.path.data(), 256);
-        std::memcpy(bytes.data() + 256, record.metadata.title.data(), 96);
-        std::memcpy(bytes.data() + 352, record.metadata.artist.data(), 64);
-        std::memcpy(bytes.data() + 416, record.metadata.album.data(), 64);
-        put(bytes.data() + 480, record.metadata.duration_ms); put(bytes.data() + 484, hash(bytes.data(), 484));
-        if (std::fwrite(bytes.data(), 1, bytes.size(), writer_) != bytes.size()) { fail_build(); return; }
-        ++new_count_;
+        const auto* extension = std::strrchr(record.path.data(), '.');
+        if (extension && !strcasecmp(extension, ".mp3")) {
+            Mp3SeekPoint cached{};
+            if (Mp3SeekIndex::cached_seek(record.path.data(), root_.data(), 0, cached)) record.metadata.duration_ms = cached.duration_ms;
+            else if (seek_index_.begin(record.path.data())) { pending_record_ = record; seek_pending_ = true; continue; }
+        }
+        if (!append_record(record)) return;
     }
+}
+bool LibraryCatalog::append_record(const CatalogRecord& record) {
+    if (build_lookup_ && !build_lookup_->add(record.metadata, static_cast<std::uint16_t>(new_count_))) build_lookup_.reset();
+    std::array<unsigned char, kRecord> bytes{};
+    std::memcpy(bytes.data(), record.path.data(), 256); std::memcpy(bytes.data() + 256, record.metadata.title.data(), 96);
+    std::memcpy(bytes.data() + 352, record.metadata.artist.data(), 64); std::memcpy(bytes.data() + 416, record.metadata.album.data(), 64);
+    put(bytes.data() + 480, record.metadata.duration_ms); put(bytes.data() + 484, hash(bytes.data(), 484));
+    if (std::fwrite(bytes.data(), 1, bytes.size(), writer_) != bytes.size()) { fail_build(); return false; }
+    ++new_count_; return true;
 }
 void LibraryCatalog::finish_walk() {
     if (directory_) { closedir(directory_); directory_ = nullptr; }

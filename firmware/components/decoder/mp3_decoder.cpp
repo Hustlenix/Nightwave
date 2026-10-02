@@ -10,6 +10,7 @@ void Mp3Decoder::reset() {
     framer_.reset();
 }
 DecodeResult Mp3Decoder::decode(EncodedBytes input, bool eof) {
+    frame_samples_ = frame_rate_ = 0;
     if (!handle_) return {DecodeStatus::kInternalError};
     const auto scan = framer_.scan(input.data, input.size, eof);
     switch (scan.status) {
@@ -20,6 +21,8 @@ DecodeResult Mp3Decoder::decode(EncodedBytes input, bool eof) {
         case Mp3ScanStatus::kSkip: return {DecodeStatus::kNeedInput, scan.bytes};
         case Mp3ScanStatus::kFrame: break;
     }
+    frame_samples_ = ((input.data[1] >> 3) & 3) == 3 ? 1152u : 576u;
+    frame_rate_ = scan.rate;
     auto* cursor = const_cast<unsigned char*>(input.data);
     int remaining = static_cast<int>(scan.bytes);
     const int error = MP3Decode(handle_, &cursor, &remaining, decoded_.data(), 0);
