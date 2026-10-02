@@ -15,6 +15,12 @@ schematic, PCB, enclosure CAD or manufacturing archive was created in this run.
 
 AI output is not physical evidence and is not human engineering time. No AI-generated measurement, runtime, progress photo, journal hour, reviewer feedback, or hardware success claim may be submitted.
 
+2026-10-02 software continuation: Codex authored the bounded SD-backed catalog,
+incremental traversal/query state machines, library UI/queue/resume integration,
+cache-integrity logic, synthetic tests and accompanying documentation. No
+builder radio/display choice, electrical/CAD authorship, physical timing or
+independent hardware approval follows from this software work.
+
 Builder-authored continuation (2026-10-01): the builder reports Pixl permits AI
 tutoring and second-pair-of-eyes review while the builder performs and owns
 schematic/PCB engineering decisions. Codex prepares reference research,

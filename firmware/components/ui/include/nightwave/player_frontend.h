@@ -10,6 +10,7 @@
 #include "nightwave/button_monitor.h"
 #include "nightwave/media_documents.h"
 #include "nightwave/playback_policy.h"
+#include "nightwave/library_catalog.h"
 namespace nightwave {
 // Main/UiTask call these methods under one command mutex. I2S remains owned by
 // AudioOutputTask; this class only changes atomic controls or waits for stop.
@@ -30,10 +31,13 @@ class PlayerFrontend {
     bool seek_current(std::uint32_t position) { return play_queue(playing_index_, position); }
     void stopped();
     bool output_preference(OutputPreference value, std::uint32_t now);
-    std::size_t queue_size() const { return assets_ ? queue_count_ : 0; }
+    std::size_t queue_size() const { return assets_ ? (catalog_queue_ ? catalog_queue_count_ : queue_count_) : 0; }
+    std::uint32_t catalog_scanned() const { return assets_ ? assets_->catalog.scanned() : 0; }
+    bool catalog_building() const { return assets_ && assets_->catalog.building(); }
  private:
     struct Entry { std::array<char, 256> name{}; bool directory{false}; };
     struct UiAssets {
+        LibraryCatalog catalog{};
         Lyrics lyrics{};
         std::array<std::array<char, 256>, 128> queue{};
     };
@@ -42,6 +46,10 @@ class PlayerFrontend {
     bool play(std::size_t index);
     bool play_queue(std::size_t index, std::uint32_t position = 0);
     bool open_playlist(std::size_t index);
+    bool start_path(const char* path, std::uint32_t position = 0);
+    void catalog_query(bool last_cursor = false);
+    void catalog_event(const ButtonEvent&);
+    void catalog_selected();
     OutputPath selected_output() const;
     void next(int direction, bool automatic = false);
     void parent();
@@ -65,8 +73,14 @@ class PlayerFrontend {
     std::uint32_t last_render_{0}, changed_at_{0}, route_changed_{0};
     std::uint32_t last_checkpoint_{0}, sleep_fade_at_{0};
     std::uint32_t now_{0};
+    CatalogView catalog_view_{CatalogView::kSongs};
+    CatalogFilter catalog_filter_{CatalogFilter::kNone}, queue_filter_{CatalogFilter::kNone};
+    std::array<char, 64> catalog_filter_text_{}, catalog_anchor_{}, queue_filter_text_{};
+    std::uint32_t catalog_offset_{0}, catalog_queue_count_{0}, pending_index_{0}, pending_position_{0};
     bool oled_ready_{false}, dirty_{false}, nvs_ready_{false}, was_running_{false};
     bool headphone_{false}, detect_candidate_{false}, truncated_{false}, display_asleep_{false};
     bool auto_advance_{false}, sleep_fading_{false};
+    bool catalog_started_{false}, catalog_queue_{false}, catalog_play_pending_{false}, catalog_resume_pending_{false};
+    bool catalog_last_cursor_{false}, catalog_backwards_{false}, catalog_page_waiting_{false};
 };
 }  // namespace nightwave

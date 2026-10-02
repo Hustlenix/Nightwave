@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <cstdint>
 namespace nightwave {
-enum class PlayerScreen { kBoot, kBrowser, kNowPlaying, kNoSd, kCorrupt, kDiagnostics, kLyrics, kSettings };
+enum class PlayerScreen { kBoot, kBrowser, kNowPlaying, kNoSd, kCorrupt, kDiagnostics, kLyrics, kSettings, kLibrary, kCatalog };
 class PlayerNavigation {
  public:
     PlayerScreen screen{PlayerScreen::kBoot};

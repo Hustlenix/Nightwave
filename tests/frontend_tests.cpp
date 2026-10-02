@@ -122,6 +122,60 @@ int main(int argc, char** argv) {
     card = true; now += 250;
     events.push_back({ButtonId::kPlayPause, ButtonGesture::kPress, now}); no_sd.tick(now);
     CHECK(shows("PLAY: OPEN/PLAY"));
+    // Real catalog + UI integration, beyond the old 128-entry browser limit.
+    const auto indexed_path = fs::path(argv[1]) / "frontend-indexed-fixture";
+    fs::create_directories(indexed_path);
+    for (unsigned i = 0; i < 260; ++i) {
+        char name[32]; std::snprintf(name, sizeof(name), "original-%03u.mp3", i);
+        std::ofstream(indexed_path / name) << "original fake decoder fixture";
+    }
+    const auto indexed_root = fs::weakly_canonical(indexed_path).generic_string();
+    player->stop();
+    PlayerFrontend indexed_ui(sd, *player, sink, buttons, indexed_root.c_str()); indexed_ui.initialize();
+    now = 0;
+    const auto idle_ticks = [&](unsigned count) { for (unsigned i = 0; i < count; ++i) { now += 25; indexed_ui.tick(now); } };
+    const auto catalog_press = [&](ButtonId button, ButtonGesture gesture = ButtonGesture::kPress) {
+        now += 250; events.push_back({button, gesture, now}); indexed_ui.tick(now);
+    };
+    idle_ticks(400); CHECK(shows("LIBRARY LIMIT"));
+    catalog_press(ButtonId::kVolumeDown, ButtonGesture::kLongPress);
+    for (unsigned i = 0; i < 4; ++i) catalog_press(ButtonId::kNext);
+    CHECK(shows(">LIBRARY"));
+    catalog_press(ButtonId::kNext); CHECK(shows(">REBUILD INDEX"));
+    catalog_press(ButtonId::kPlayPause); CHECK(shows(">SONGS"));
+    catalog_press(ButtonId::kPlayPause); idle_ticks(12);
+    CHECK(shows("HOLD PREV: UP"));
+    // Browse a second page then come back; these presses do not play tracks.
+    for (unsigned i = 0; i < 16; ++i) catalog_press(ButtonId::kNext);
+    idle_ticks(12); catalog_press(ButtonId::kPrevious); idle_ticks(12);
+    catalog_press(ButtonId::kPlayPause);
+    CHECK(player->playing() && indexed_ui.queue_size() == 260);
+    const auto paused_scan = indexed_ui.catalog_scanned(); idle_ticks(80);
+    CHECK(indexed_ui.catalog_building() && indexed_ui.catalog_scanned() == paused_scan);
+    const auto indexed_first = selected;
+    for (unsigned i = 0; i < 20; ++i) catalog_press(ButtonId::kNext);
+    CHECK(selected != indexed_first && indexed_ui.queue_size() == 260);
+    CHECK(indexed_ui.seek_current(1234)); idle_ticks(12); CHECK(player->position_ms() == 1234);
+    indexed_ui.mode(PlaybackMode::kRepeatTrack, now);
+    const auto repeating = selected; player->stop(); idle_ticks(12);
+    CHECK(player->playing() && selected == repeating);
+    // Re-enter the library while playing: new index writes remain paused, but
+    // bounded reads of the sealed generation still permit group navigation.
+    catalog_press(ButtonId::kVolumeDown, ButtonGesture::kLongPress);
+    catalog_press(ButtonId::kPrevious); // Move back from rebuild to LIBRARY.
+    catalog_press(ButtonId::kPlayPause); // Retained LIBRARY settings row.
+    CHECK(shows("INDEX PAUSED"));
+    catalog_press(ButtonId::kNext); catalog_press(ButtonId::kPlayPause); idle_ticks(80);
+    CHECK(shows("UNKNOWN"));
+    catalog_press(ButtonId::kPlayPause); idle_ticks(80); catalog_press(ButtonId::kPlayPause);
+    CHECK(player->playing() && indexed_ui.queue_size() == 260);
+    const auto filtered_first = selected; catalog_press(ButtonId::kNext); idle_ticks(80);
+    CHECK(selected != filtered_first && player->playing());
+    CHECK(indexed_ui.resume_saved()); idle_ticks(80);
+    CHECK(indexed_ui.queue_size() == 260 && player->playing());
+    const auto resumed = selected; catalog_press(ButtonId::kNext); idle_ticks(80);
+    CHECK(selected != resumed && indexed_ui.queue_size() == 260);
+    catalog_press(ButtonId::kPrevious, ButtonGesture::kLongPress); // Parent from now-playing returns folder browser.
     if (failures) return EXIT_FAILURE;
-    std::cout << "Frontend tests passed: real folder scan, five buttons, corrupt recovery, route indicator, settings debounce, diagnostics, sleep/wake, no-SD retry\n";
+    std::cout << "Frontend tests passed: folder/M3U controls, recovery, settings, sleep, 260-track catalog paging/queue/seek/repeat/group playback\n";
 }

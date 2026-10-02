@@ -27,8 +27,12 @@ for current design-stage requirements and original builder-authorship limits.
 Complete digital work does not establish final hardware approval or runtime.
 
 Current digital checkpoint: WAV/MP3 three-task streaming and OLED/five-button
-product interaction with NVS volume are implemented and CI-tested. Six host
-suites pass in Release and AddressSanitizer. Physical Phase 4/5 acceptance is
+product interaction, LRC/metadata/M3U/modes/resume/sleep and checked NVS are
+implemented with recorded CI evidence. The 2026-10-02 continuation adds an
+idle-built SD catalog, whole-card songs/artists/albums pages and indexed queues;
+see docs/software-validation.md for its separate execution evidence. Filtered
+index performance and other limitations remain in docs/library-index.md.
+Physical Phase 4/5 acceptance is
 pending. Final power, complete BOM, schematic/PCB/CAD and manufacturing are
 NOT complete; the current builder-authorship gate is documented in
 `docs/funding-readiness.md`. Do not equate software completion with full phase

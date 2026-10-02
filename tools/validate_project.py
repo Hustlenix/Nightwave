@@ -106,6 +106,7 @@ def validate_required_files() -> None:
         "docs/engineering-budgets.md",
         "docs/expanded-software-checkpoint.md",
         "docs/expanded-bench-gate.md",
+        "docs/library-index.md",
         "tools/analyze_diagnostics.py",
     ]
     missing = [path for path in required if not (ROOT / path).is_file()]

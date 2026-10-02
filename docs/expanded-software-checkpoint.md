@@ -9,9 +9,9 @@ AI-authored, no orders were placed and no human hours/results were invented.
 | Direct microSD MP3/WAV | Existing real three-task engine retained | Real SD/decoder/output latency and hot-remove recovery |
 | Lyrics | Bounded LRC loader and current/next OLED view; sample clock | Acoustic alignment, wrapping/Unicode on chosen display |
 | Metadata | ID3v2.3/v2.4/v1 and WAV INFO; PCM duration | MP3 duration/index, unsupported tag variants |
-| Library | File/folder and M3U/M3U8; separate bounded play queue | Whole-card songs/artists/albums, incremental/paged index |
+| Library | Idle-built SD catalog, whole-card songs/artists/albums, 16-row pages; folder/M3U | Fast filtered query/index metadata reuse; real card/latency acceptance |
 | Modes | Normal/shuffle/repeat-all/repeat-track; EOF advance | Long on-board mixed-media stress |
-| Resume | Checked versioned NVS; explicit resume; M3U context | Fast MP3 seek, complete browser/folder context restoration |
+| Resume | Checked NVS; explicit M3U, canonical folder and cached indexed-filter context | Fast MP3 seek, browser cursor, missing-cache context reconstruction |
 | Sleep | Off/15/30/45/60/end-track; pause ramp, stop, display sleep | Measured low power / physical master shutdown |
 | Outputs | Speaker/wired/auto preference, faded switch | Chosen Bluetooth transport; actual jack circuit |
 | Battery | Unknown/unmeasured displayed honestly | Gauge/bus HAL, charging/fault/low-battery shutdown after power choice |
@@ -29,6 +29,8 @@ cycles. Original fixtures are generated locally/in CI, never copyrighted songs
 or lyrics. Host scheduling/drivers are simulated, not hardware measurements.
 
 Later source changes require their own successful run; see software-validation.md.
+The 2026-10-02 catalog continuation is described in library-index.md; its source
+requires a new device/host run before reusing the older validation claims below.
 At 630e3ec device compilation passed; its new playlist-resume assertion failed
 with a noncanonical host fixture root. Canonicalised fixtures and isolated
 generated-playlist cleanup address that regression; rerun evidence is recorded
@@ -52,7 +54,7 @@ The assistant's conditional recommendations are S3 + qualified BM83 AT and
 non-touch 1.69-inch TFT; exact firmware/SKU and drawings still need qualification.
 
 After choices: reconcile GPIO/SRAM/PSRAM/power and implement selected adapters,
-full-card index/UI and fuel/power HAL. Finish/prioritise remaining software; then
+fast filtered index/UI and fuel/power HAL. Finish/prioritise remaining software; then
 builder authors one subsystem at a time using builder-tasks.md. Reviews identify
 specific issues, builder fixes and returns sources; independent human review
 and actual manufacturing exports remain hard funding blockers.

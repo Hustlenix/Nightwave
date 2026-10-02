@@ -118,3 +118,12 @@ Targeted frontend and media suites also ran under ASAN/leak detection in Ubuntu
 WSL; both passed. At `92c17ea`, [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36882687260)
 passed again after diagnostic-parser array/saturation validation fixes. Firmware
 source is unchanged from 50df90c. Local project/calculation/parser self-tests pass.
+
+2026-10-02 catalog continuation: targeted actual catalog + frontend sources
+compiled in Ubuntu WSL with g++17, -Wall/-Wextra/-Wpedantic/-Werror and ASAN/leak
+detection, and both executed successfully. Coverage includes 262-track catalog
+and 260-track UI fixtures, paging, groups, full queues, repeat/seek, context
+resume, backup fallback, corrupt checksums/paths, limits and 1,000 query/cancel
+cycles. Repository validator and diff whitespace checks also passed. A new
+device build and full eight-suite Release/ASAN CI run are required; their actual
+results will be recorded below after execution. No physical acceptance inferred.

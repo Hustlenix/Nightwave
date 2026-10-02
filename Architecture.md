@@ -9,8 +9,15 @@ metadata/M3U, playback modes/resume/sleep and Bluetooth audio output. S3 remains
 the working target, not an A2DP-capable chip. Choose docs/bluetooth-architecture.md
 and docs/display-selection.md before final schematic work. No MCU/radio/display
 change has been silently selected. docs/engineering-budgets.md distinguishes
-implemented software from remaining full-card library, HAL/power and transport
+implemented software from remaining library performance, HAL/power and transport
 work. Older two-output/OLED references below are historical provisional design.
+
+2026-10-02: `library` now includes LibraryCatalog, with fixed-size SD records,
+bounded directory work queue, idle incremental build, per-record integrity/path
+checks and PSRAM 16-row pages. PlayerFrontend supplies songs/artist/album views,
+full collection/filter playback and cached context resume. No indexing/metadata
+work runs on the real-time audio workers. Queries are UI-sliced; their SD
+contention/large filtered latency are still acceptance gaps. See docs/library-index.md.
 
 ## 1. Architecture objective
 

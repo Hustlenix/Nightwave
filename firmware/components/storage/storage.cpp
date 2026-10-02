@@ -45,7 +45,9 @@ bool SdStorage::mount() {
 
     esp_vfs_fat_sdmmc_mount_config_t config{};
     config.format_if_mount_failed = false;
-    config.max_files = 6;
+    // Catalog reader + idle builder/dir queue + one directory + playback and
+    // sidecar/settings UI access. Traversal never holds a directory stack open.
+    config.max_files = 8;
     config.allocation_unit_size = 16 * 1024;
 
     sdmmc_card_t* mounted_card = nullptr;

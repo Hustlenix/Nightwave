@@ -21,6 +21,12 @@ In Settings, Previous/Next selects a row and Play cycles normal/shuffle/repeat-a
 repeat-track, sleep off/15/30/45/60/end-track, explicitly resumes saved music, or
 cycles auto/speaker/wired output. Bluetooth is unavailable until architecture
 selection; selecting unavailable BT via API is refused without speaker fallback.
+Two additional settings rows open LIBRARY and rebuild its SD-backed index
+(stop playback first). Library has Songs, Artists, Albums and Folders/Playlists.
+Previous/Next crosses 16-row catalog pages; Hold Previous goes up. Group Play
+opens its songs, and song Play starts the full collection/filter queue. See
+[catalog limits and timing](library-index.md); filtered queries are incremental,
+not yet production-fast on a 10,000-track card.
 
 Short actions occur on debounced release; holding suppresses the short action.
 When the screen sleeps after 30 s, the first gesture only wakes it. No-SD/mount
@@ -31,8 +37,9 @@ starting another file; a timed-out stop refuses restart and retains resources.
 The browser lists directories before supported files, skips hidden entries and
 unsupported extensions, and limits a folder to 128 entries and paths below
 256 bytes. It explicitly displays a limit warning. Navigation is per-folder;
-there is no whole-card recursive index or artist/album library yet. A scan
-examines at most 512 directory entries. Normal EOF stops at the last queued
+the separate catalog recursively indexes up to 10,000 tracks with explicit
+depth/entry/directory bounds. A folder scan examines at most 512 directory entries.
+Normal EOF stops at the last queued
 track; repeat/shuffle modes change automatic advancement. Playlist entries form
 an independent play queue that browser refreshes do not overwrite. ID3/WAV INFO
 provide title/artist/album when supported, otherwise filename fallback. WAV
@@ -49,7 +56,10 @@ Volume/mode/output, last path/position and playlist/folder strings persist in a
 versioned length/checksum-validated NVS record after 2 s without change. Playback
 checkpoints position once per minute; button pause and explicit stop also save.
 Boot never auto-plays. Resume explicitly restores saved M3U context if available,
-otherwise resumes the single track. Full folder/browser restoration remains open.
+otherwise reconstructs a canonical folder queue when possible, or restores
+indexed collection/artist/album context incrementally from a valid cache.
+Missing/unusable context falls back to the single saved track. Browser cursor
+restoration and fast MP3 seeking remain open.
 Default 8% is intentionally
 low, not a guaranteed acoustic-safe level. NVS errors leave settings volatile;
 firmware does not erase the partition silently. Legacy volume-only storage is

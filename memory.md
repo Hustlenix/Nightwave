@@ -14,7 +14,8 @@ Latest 2026-10-01 final master/addendum supersedes older two-output scope.
 Bluetooth A2DP SOURCE and readable display must be chosen by builder before
 final schematic tasks. Do not silently switch MCU or preserve old OLED. Current
 software adds bounded lyrics/metadata/M3U, modes, seek/resume, sleep and checked
-settings. Full-card library, chosen BT/TFT and reviewed power/HAL remain open.
+settings. The 2026-10-02 continuation implements an SD-backed paged catalog;
+filtered large-library performance, chosen BT/TFT and reviewed power/HAL remain open.
 See docs/engineering-budgets.md for exact limits and current evidence ledger.
 
 Complete the digital software/design preparation for Pixl funding under the
@@ -25,6 +26,13 @@ Current Pixl rules require an original builder-owned hardware design, not fully
 AI-generated hardware files, and independent human sanity checking.
 
 ## Funding-stage checkpoint — 2026-10-01
+
+- 2026-10-02 continuation: idle-sliced LibraryCatalog with 10,000-track cap,
+  songs/artists/albums pages, full indexed/filter playback, backup cache fallback,
+  root/checksum validation and folder/indexed-filter resume. Source validation
+  evidence is recorded only after execution in docs/software-validation.md.
+  Filtered 10,000-record scans remain slow; no physical acceptance is implied.
+  Bluetooth/display choices are still PENDING. No final builder files created.
 
 - FINAL-MASTER CHECKPOINT: 50df90c firmware/size reports passed (run 36882011549);
   92c17ea quality passed (run 36882687260), 7/7 Release + 7/7 ASAN/leak suites.
