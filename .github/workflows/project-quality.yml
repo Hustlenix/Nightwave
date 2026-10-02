@@ -35,6 +35,8 @@ jobs:
       - uses: actions/checkout@v7
       - name: Validate BOMs and wiring consistency
         run: python3 tools/validate_project.py
+      - name: Test shipping artifact inventory and incomplete-cost handling
+        run: python3 -m unittest discover -s tests -p 'test_shipping_readiness.py'
       - name: Generate deterministic audio fixtures
         run: python3 tools/generate_test_media.py --output .generated/test-media
       - name: Encode original MP3 fixtures

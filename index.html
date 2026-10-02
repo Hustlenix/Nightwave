@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="NIGHTWAVE — a T4 standalone music player with local MP3/WAV playback, synced lyrics, physical controls, speaker, wired headphones, Bluetooth audio, custom power hardware and a 4-layer PCB direction." />
-  <title>NIGHTWAVE — T4 Pocket Music Player</title>
+  <meta name="description" content="NIGHTWAVE — an offline pocket music-player project targeting Pixl T4. Explore the concept UI, ESP32-S3 firmware and selected BM83 source module. Hardware design and physical validation remain in progress." />
+  <title>NIGHTWAVE — Pocket Music Player Concept</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -14,7 +14,7 @@
   <div class="pointer-glow" aria-hidden="true"></div>
 
   <header class="site-header" data-header>
-    <a class="wordmark" href="#top" aria-label="NIGHTWAVE home">NIGHTWAVE<span>/T4</span></a>
+    <a class="wordmark" href="#top" aria-label="NIGHTWAVE home">NIGHTWAVE<span>/CONCEPT</span></a>
     <nav class="nav" data-nav aria-label="Primary">
       <a href="#system">System</a>
       <a href="#hardware">Hardware</a>
@@ -41,7 +41,7 @@
         <div class="cinematic-grid" aria-hidden="true"></div>
 
         <div class="cinematic-copy" data-cinematic-copy>
-          <p class="eyebrow">POCKET AUDIO / EMBEDDED SYSTEMS / REV. 1</p>
+          <p class="eyebrow">POCKET AUDIO / T4 TARGET / NOT BUILT</p>
           <h1>NO CLOUD.<br>NO PHONE.<br><span>JUST MUSIC.</span></h1>
           <p class="hero-deck">A standalone pocket player that owns the music path itself: local files, software decode, buffering, synced lyrics, physical controls and three output routes. No streaming service. No companion phone. No DFPlayer hiding the hard part.</p>
           <div class="hero-meta" aria-label="Project targets">
@@ -147,7 +147,7 @@
             <div class="component-callout callout-speaker"><em>04</em><i></i><span><b>SPEAKER PATH</b>Dedicated class-D output for built-in audio.</span></div>
             <div class="component-callout callout-controls"><em>05</em><i></i><span><b>PHYSICAL INPUT</b>Five-button control remains the current direction.</span></div>
             <div class="component-callout callout-storage"><em>06</em><i></i><span><b>LOCAL STORAGE</b>Music, .lrc lyrics, playlists and metadata live on microSD.</span></div>
-            <div class="component-callout callout-bluetooth"><em>07</em><i></i><span><b>BLUETOOTH AUDIO*</b>New major subsystem; dedicated hardware or platform change still undecided.</span></div>
+            <div class="component-callout callout-bluetooth"><em>07</em><i></i><span><b>BLUETOOTH AUDIO*</b>BM83SM1-00TA source module selected; AT firmware and audio transport need qualification.</span></div>
           </div>
 
           <div class="cinematic-phase">
@@ -250,10 +250,10 @@
       <p class="architecture-note reveal"><b>PRE-SCHEMATIC DECISION GATE.</b> ESP32-S3 plus BM83SM1-00TA is selected. The readable display remains a builder choice; updated power, battery, GPIO and BOM reviews must precede the builder-authored schematic.</p>
       <div class="system-map system-map-v2 reveal" data-system-map role="img" aria-label="Revised architecture map for NIGHTWAVE music player">
         <div class="sys status-core"><small>01 / STORAGE</small><strong>microSD</strong><span>music · .lrc · playlists · metadata/cache</span><em>CORE</em></div>
-        <div class="sys status-provisional"><small>02 / COMPUTE</small><strong>ESP32-S3*</strong><span>current baseline · platform not absolutely locked</span><em>PROVISIONAL</em></div>
+        <div class="sys status-core"><small>02 / COMPUTE</small><strong>ESP32-S3*</strong><span>retained by BD-14 · combined pin map pending</span><em>BUILDER SELECTED</em></div>
         <div class="sys status-core"><small>03 / AUDIO ENGINE</small><strong>PCM ENGINE</strong><span>MP3/WAV decode · buffers · DSP · scheduling</span><em>CORE</em></div>
         <div class="sys status-core"><small>04 / ROUTING</small><strong>3-WAY ROUTER</strong><span>speaker · wired · Bluetooth switching/mute policy</span><em>NEW CORE</em></div>
-        <div class="sys status-decision"><small>05 / WIRELESS</small><strong>BT AUDIO*</strong><span>dedicated subsystem or platform change</span><em>DECISION GATE</em></div>
+        <div class="sys status-decision"><small>05 / WIRELESS</small><strong>BM83 SOURCE*</strong><span>module selected · AT package and transport unqualified</span><em>PHYSICAL GATE</em></div>
         <div class="sys status-core"><small>06 / WIRED</small><strong>DAC + HP AMP</strong><span>3.5 mm · stereo · headphone detect</span><em>CORE</em></div>
         <div class="sys status-core"><small>07 / SPEAKER</small><strong>CLASS-D</strong><span>built-in mono output path</span><em>CORE</em></div>
         <div class="sys status-decision"><small>08 / DISPLAY</small><strong>LARGER SCREEN*</strong><span>lyrics · menus · battery · diagnostics</span><em>DECISION GATE</em></div>
@@ -271,7 +271,7 @@
           <p>SD latency spikes, decoder stalls, pause/resume, seek, track changes and UI work all compete for time. The firmware must keep the audio path fed without clicks or underruns.</p>
         </article>
         <article class="proof-metric reveal"><strong>3×</strong><span>speaker · wired · Bluetooth output routes that must switch cleanly</span></article>
-        <article class="proof-metric reveal"><strong>TBD</strong><span>final battery capacity until Bluetooth + display architecture is locked</span></article>
+        <article class="proof-metric reveal"><strong>TBD</strong><span>final battery capacity until display selection and updated power model are locked</span></article>
         <article class="proof-feature reveal">
           <p class="status planned">VALIDATION REQUIRED</p>
           <h3>Battery life is measured, not advertised.</h3>
@@ -288,8 +288,8 @@
       <div class="bom-grid reveal">
         <div><span>COMPUTE / SELECTED</span><strong>ESP32-S3</strong><p>Retained for filesystem, decode, buffers, DSP and UI; selected BM83SM1-00TA offloads Bluetooth source audio, pending qualification.</p></div>
         <div><span>STORAGE / CORE</span><strong>microSD</strong><p>MP3/WAV, .lrc lyrics, playlists and richer library metadata/cache.</p></div>
-        <div><span>DISPLAY / DECISION</span><strong>Larger screen*</strong><p>Lyrics, metadata, menus, battery state and engineering diagnostics; interface may move to SPI.</p></div>
-        <div><span>BLUETOOTH / NEW</span><strong>BT audio*</strong><p>Major unresolved subsystem for wireless headphones and speakers.</p></div>
+        <div><span>DISPLAY / DECISION</span><strong>Readable SPI TFT*</strong><p>Waveshare 24382 or Adafruit 3787; final builder selection, pin map and driver remain pending.</p></div>
+        <div><span>BLUETOOTH / SELECTED</span><strong>BM83SM1-00TA*</strong><p>Selected A2DP-source module for wireless headphones and speakers; AT provisioning and physical interoperability remain untested.</p></div>
         <div><span>HEADPHONE PATH / CORE</span><strong>I²S DAC + AMP</strong><p>Stereo 3.5 mm output with headphone detect for automatic routing.</p></div>
         <div><span>SPEAKER PATH / CORE</span><strong>Digital class-D</strong><p>Independent built-in speaker output retained.</p></div>
         <div><span>BATTERY / DECISION</span><strong>Larger 1S pack*</strong><p>The old ~2500 mAh assumption is obsolete; capacity and physical size are being reworked.</p></div>
@@ -359,14 +359,14 @@
       <div class="experiment-grid reveal">
         <div>
           <p class="section-index">09 / THE EXPERIMENT</p>
-          <h2>CAN AN AI DRIVE A REAL HARDWARE BUILD?</h2>
+          <h2>DIGITAL HELP.<br>HUMAN BUILD.</h2>
         </div>
         <div class="experiment-copy">
-          <p>ChatGPT Work is being used as a digital engineering partner: research, calculations, firmware, schematic review, PCB planning, CAD support, test procedures and documentation.</p>
-          <p>The physical world stays non-negotiable. Parts must be ordered, solder joints made, voltages measured, audio listened to, runtime tested and the final device demonstrated by a human.</p>
+          <p>AI assists with research, calculations, firmware, software tests, design review and project documentation. This website is an interactive concept with simulated track, battery and volume values.</p>
+          <p>The builder must author the final schematic, PCB, enclosure and personal journals. Assembly, measured voltages, listening tests, runtime evidence and the final device demonstration still require real human work.</p>
           <div class="boundary">
-            <span>AI</span><b>research · code · analysis · design assistance</b>
-            <span>HUMAN</span><b>purchase · assembly · measurement · validation</b>
+            <span>AI</span><b>research · code · tests · review · disclosure</b>
+            <span>HUMAN</span><b>design · journals · assembly · measurement</b>
           </div>
         </div>
       </div>
@@ -395,8 +395,8 @@
   </main>
 
   <footer>
-    <span>NIGHTWAVE / T4 HARDWARE PROJECT</span>
-    <span>CONCEPT SITE · REV.1 · ARCHITECTURE IN REVISION</span>
+    <span>NIGHTWAVE / T4 TARGET · TIER UNASSESSED</span>
+    <span>AI-ASSISTED CONCEPT · HARDWARE NOT BUILT</span>
   </footer>
 
   <script src="./app.js"></script>

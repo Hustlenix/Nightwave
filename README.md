@@ -190,6 +190,10 @@ full-night battery with the achieved runtime stated. Design funding and finished
 build evidence are separate stages; see [the current project audit](docs/project-1200-audit.md).
 No funding request has been submitted.
 
+Run the [shipping artifact inventory](docs/shipping-audit.md) to expose unresolved
+costs and missing design sources. A passing development validator or green form
+checkbox does not establish a complete funding design or T4 eligibility.
+
 ## Engineering documents
 
 - [Pixl requirements](docs/pixl-requirements.md)

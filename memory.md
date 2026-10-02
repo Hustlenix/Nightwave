@@ -10,6 +10,18 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-02 shipping continuation adds tools/check_shipping_readiness.py and
+synthetic regression tests. Development validation remains separate from
+funding inventory: pending costs/core subtotals and empty CAD/PCB directories
+cannot establish readiness. Even a complete inventory requires human review;
+physical acceptance and tier remain unestablished. The new animation idea is
+not implemented or counted as completed work. Journals remain builder-authored.
+Local verification: nine synthetic inventory tests and the existing project
+consistency validator pass. The current inventory remains BLOCKED: 18 components,
+11 priced rows, USD43.67 captured subtotal, no final total and no design sources.
+Concept-site text now reflects selected BM83, pending display/power hardware,
+simulated UI values and T4 target rather than an awarded tier.
+
 2026-10-02 authenticated Project 1200 cleanup: repository/status/AI notes were
 audited against actual source. Three original journal claims totalled 23.4h,
 but the supplied builder discussion attributed hour values to text length;
