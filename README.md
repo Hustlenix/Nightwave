@@ -163,7 +163,9 @@ Copy supported `.wav` or `.mp3` files to a FAT-formatted microSD, optionally in
 folders. Paths must be under 256 bytes; the browser displays at most 128 entries
 per folder. No streaming or network is used. Generated test tones are described
 in [test media](docs/test-tracks.md). Free-format/MPEG2.5 MP3, unsupported rates,
-24-bit WAV, seek, shuffle and full Unicode display are not implemented features.
+24-bit WAV and full Unicode display are not implemented features. Bounded WAV
+and MP3 seek and shuffle are implemented; their limits and fallback behavior are
+documented in [player controls](docs/player-controls.md) and [software evidence](docs/software-validation.md).
 
 For the USB-powered human-assembled prototype, use the
 [prototype BOM](hardware/prototype-BOM.csv), [wiring](docs/prototype-wiring.md)
@@ -181,9 +183,12 @@ concurrent ring transfers and real folder-navigation logic with fake devices.
 [current official requirements](docs/pixl-funding-readiness.md),
 [builder design/provenance review](docs/human-design-review.md), and
 [independent sanity-check packet](docs/sanity-check.md) record the exact gaps.
-The in-app Project 1200 check reached a login gate; current project-specific
-Trial text and funding fields are not freshly verified. No funding request
-has been submitted.
+Project 1200 was inspected in the authenticated builder session on 2026-10-02.
+It is a hardware funding draft, with finished-build status unchecked. The Trial
+requires local files, real speakers, physical playback/volume controls and a
+full-night battery with the achieved runtime stated. Design funding and finished
+build evidence are separate stages; see [the current project audit](docs/project-1200-audit.md).
+No funding request has been submitted.
 
 ## Engineering documents
 

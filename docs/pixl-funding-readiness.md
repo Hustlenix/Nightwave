@@ -1,6 +1,6 @@
 # Pixl design/funding requirements
 
-Checked: 2026-10-01 (Asia/Calcutta). This is a design-stage audit, not approval.
+Checked: 2026-10-02 (Asia/Calcutta). This is a design-stage audit, not approval.
 
 Official sources:
 
@@ -45,20 +45,21 @@ Public repo verified through GitHub: https://github.com/Hustlenix/Nightwave.
 Existing firmware builds and host tests are software evidence only. No physical
 playback, runtime, battery/current, thermal or fit results have been returned.
 
-Project URL: https://pixl.hackclub.com/project/1200. The public web reader could
-not access its contents. A read-only in-app browser check reached the project
-page, which displayed a Hack Club login gate. No login or submission was made.
-Project-specific Trial text, account
-linkage and design-submission fields therefore remain to be verified in the
-builder session; earlier repository records are historical, not a fresh check.
-The general Trial page does not confirm the exact Project 1200 requirements.
+Project URL: https://pixl.hackclub.com/project/1200. The authenticated Chrome
+builder session was inspected on 2026-10-02. It is a hardware funding draft with
+finished-built-hardware unchecked. Its Trial requires local files, real speakers,
+physical playback/volume controls and a full-night battery with actual runtime
+stated. The form requires a repo/demo/thumbnail plus BOM CSV, shipping-inclusive
+cart images and funding amount. It permits a working link during funding and
+requires video for finished hardware. See `project-1200-audit.md` for the separate
+funding/build gates and journal-hour correction. No funding submission was made.
 
 ## Missing items
 
 A final complete costed BOM and consistent power subsystem;
 verified footprints; builder-owned schematic/PCB/CAD; ERC/DRC results; complete
-assembly and manufacturing exports; reviewer feedback; authenticated project
-status. No funding request is ready or submitted.
+assembly and manufacturing exports; reviewer feedback; complete funding-form
+attachments and costs. No funding request is ready or submitted.
 
 ## Execution override
 

@@ -1,6 +1,6 @@
 # Funding readiness
 
-Checked: 2026-10-01. **NOT READY.** This checklist records evidence, not intent.
+Checked: 2026-10-02. **NOT READY.** This checklist records evidence, not intent.
 
 - [x] Public GitHub repository and organized firmware/docs
 - [x] Firmware source and passing baseline firmware/host CI
@@ -8,7 +8,8 @@ Checked: 2026-10-01. **NOT READY.** This checklist records evidence, not intent.
 - [x] WAV/MP3 three-task source, OLED/five-button browser, volume persistence;
   firmware and host CI (see software-validation.md for limits)
 - [ ] Final BOM with every part linked, priced and totalled
-- [ ] Builder Bluetooth architecture choice and verified A2DP SOURCE solution
+- [x] Builder Bluetooth architecture choice: ESP32-S3 plus BM83SM1-00TA
+- [ ] Qualified BM83 A2DP SOURCE transport and rate handling
 - [ ] Builder display choice and updated GPIO/memory/power/mechanical budgets
 - [ ] Remaining expanded-scope software and declared performance acceptance
 - [ ] Builder-authored schematic and PCB sources
@@ -20,7 +21,18 @@ Checked: 2026-10-01. **NOT READY.** This checklist records evidence, not intent.
 - [ ] Funding-quality README with all artifacts and complete build instructions
 - [ ] Builder's original hardware-design provenance and understanding
 - [ ] Independent sanity-check feedback addressed
-- [ ] Project 1200 current Trial/linkage and funding fields checked in session
+- [x] Project 1200 current Trial/linkage and funding fields checked in session
+- [ ] Complete funding-form attachments and shipping-inclusive costs
+
+See [Project 1200 audit](project-1200-audit.md) for the authenticated 2026-10-02
+form check, journal-hour issue and the separate design funding/final build gates.
+The original journal prose needs the builder's own correction; no new journal
+sessions or personal time are inferred from software checkpoints.
+
+Current software evidence is in [software-validation.md](software-validation.md):
+firmware at ee2f4fc and diagnostics at 3316ff5, with recorded 10-suite Release
+and ASAN/leak results. The entries below are historical checkpoint evidence;
+their old MP3 duration/seek gap is superseded by the current evidence ledger.
 
 Software evidence: [device build at a2aa741](https://github.com/Hustlenix/Nightwave/actions/runs/36865138056),
 [six Release + AddressSanitizer suites at 6349cd0](https://github.com/Hustlenix/Nightwave/actions/runs/36865602237).

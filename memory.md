@@ -10,6 +10,16 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-02 authenticated Project 1200 cleanup: repository/status/AI notes were
+audited against actual source. Three original journal claims totalled 23.4h,
+but the supplied builder discussion attributed hour values to text length;
+no reliable replacement personal durations were supplied. Journal prose stays
+builder-authored; AI does not add retrospective sessions or infer human time.
+See docs/project-1200-audit.md for current form requirements and separate funding
+versus final-build gates. Display BD-15 and builder schematic/PCB/CAD remain
+pending. The README seek/shuffle contradiction and old login-gate notes are
+corrected. No physical success or funding submission is claimed.
+
 Latest 2026-10-01 final master/addendum supersedes older two-output scope.
 Bluetooth A2DP SOURCE and readable display must be chosen by builder before
 final schematic tasks. Do not silently switch MCU or preserve old OLED. Current

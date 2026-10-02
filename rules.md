@@ -28,6 +28,10 @@ These rules govern ChatGPT Work, coding agents, and human implementation.
 - The builder MUST materially author/review the design and disclose AI use accurately.
 - Before Pixl design submission, a second human MUST sanity-check the design.
 - If Pixl rules conflict with this package, current Pixl rules win.
+- Pixl journals are written by the builder from genuine sessions, not generated
+  or humanized by AI. Record actual eligible personal time; character count and
+  agent execution/waiting time are not evidence of builder work. Do not duplicate
+  time already tracked by Hackatime or Lapse.
 
 ## 3. Source-of-truth order
 
