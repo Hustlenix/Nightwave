@@ -21,7 +21,8 @@ bool identity(std::FILE* f, std::uint32_t& length, std::uint64_t& modified, std:
     length = static_cast<std::uint32_t>(s.st_size); modified = static_cast<std::uint64_t>(s.st_mtime);
     std::array<unsigned char, 512> b{}; fingerprint = 2166136261u;
     // Size/mtime plus first/last-window freshness, not hostile-edit authentication.
-    for (const auto at : {0u, length > b.size() ? length - static_cast<std::uint32_t>(b.size()) : 0u}) {
+    const std::array<std::uint32_t, 2> windows{0, length > b.size() ? length - static_cast<std::uint32_t>(b.size()) : 0};
+    for (const auto at : windows) {
         const auto n = std::min<std::size_t>(b.size(), length - at);
         if (std::fseek(f, static_cast<long>(at), SEEK_SET) || std::fread(b.data(), 1, n, f) != n) return false;
         fingerprint = hash(fingerprint, b.data(), n);

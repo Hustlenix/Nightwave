@@ -111,8 +111,9 @@ output uses the separate stereo DAC/amp path. Neither path is physically proven.
 
 USB-C and a protected 1S pack feed a charger/power path; SYS powers the speaker
 and a buck-boost supplies 3.3 V. This direction is **provisional**, not a finished
-circuit. The [conservative energy model](docs/power-budget.md) identifies a
-6600 mAh candidate, but [charger timer, source-current and peak-load conflicts](docs/power-assumptions.md)
+circuit. The [historical OLED energy model](docs/power-budget.md) used an
+unselected 6600 mAh example; current BM83/display route, idle, peak and charging
+budgets must be recalculated after BD-15. [Charger timer, source-current and peak-load conflicts](docs/power-assumptions.md)
 must be resolved before locking hardware. Estimated runtime is not measured
 runtime, and charge-while-play safety is not verified.
 
@@ -126,10 +127,14 @@ mounting and clearances in the builder-owned design before funding submission.
 
 ## BOM
 
-[Preliminary BOM CSV](hardware/BOM.csv): captured-price core subtotal **$55.97**,
-not a finished BOM total or funding/order cost. Display, USB-C, passives, PCB,
-assembly, enclosure, shipping and taxes are excluded. Many stock/price records
-remain dated 2026-09-29; the new battery candidate was checked 2026-10-01.
+[Preliminary BOM CSV](hardware/BOM.csv): captured-price core subtotal **$43.67**,
+including selected BM83 but excluding the pending display and battery. This is
+not a finished BOM total or funding/order cost. USB-C, support parts, PCB,
+assembly, enclosure, delivery and taxes also remain excluded/pending. Critical
+rows now include package, datasheet, source, footprint and electrical roles;
+pending rows are explicit, not approved substitutes. The spreadsheet review
+preserved the CSV and checked its selected/pending fields. Older prices remain
+dated snapshots; Bluetooth/display comparisons were checked 2026-10-02.
 No parts have been ordered by this run.
 
 ## Build the firmware

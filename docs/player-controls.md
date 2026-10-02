@@ -43,7 +43,8 @@ Normal EOF stops at the last queued
 track; repeat/shuffle modes change automatic advancement. Playlist entries form
 an independent play queue that browser refreshes do not overwrite. ID3/WAV INFO
 provide title/artist/album when supported, otherwise filename fallback. WAV
-duration is computed; MP3 duration remains unknown. The ASCII OLED renderer
+duration is computed; MP3 uses checked Xing/Info counts or an idle frame scan,
+otherwise remains unknown. The ASCII OLED bench renderer
 uppercases lowercase and substitutes unsupported characters; source paths are
 not modified by display truncation.
 
@@ -59,7 +60,8 @@ Boot never auto-plays. Resume explicitly restores saved M3U context if available
 otherwise reconstructs a canonical folder queue when possible, or restores
 indexed collection/artist/album context incrementally from a valid cache.
 Missing/unusable context falls back to the single saved track. Browser cursor
-restoration and fast MP3 seeking remain open.
+restoration remains open. MP3 uses a checked sparse cache with decoder preroll
+when available; missing/stale/corrupt caches fall back safely to the slower path.
 Default 8% is intentionally
 low, not a guaranteed acoustic-safe level. NVS errors leave settings volatile;
 firmware does not erase the partition silently. Legacy volume-only storage is
@@ -74,7 +76,8 @@ screen; it does not yet shut down a physical power latch.
 
 Battery displays `BAT ?` / `BATTERY UNMEASURED`; there is no fabricated SOC,
 fuel-gauge readout, charge indicator, power-latch or low-battery shutdown claim.
-The existing power-state interface is reserved for the reviewed final circuit.
+The timestamped power HAL refuses invalid/stale readings and defaults unknown;
+real gauge/charger/shutdown adapters await the reviewed final circuit.
 
 Boot, browser, now-playing, no-SD, corrupt/error, route indicator, volume,
 display sleep and diagnostics are present. Diagnostics show encoded/PCM depth,
@@ -86,9 +89,10 @@ values require hardware; host fake values are not measurements.
 `board`, `sd`, `bench [path]`, `tone speaker|line [Hz]`,
 `play speaker|line /sdcard/file.wav|mp3` (`wav` alias), `pause`, `resume`,
 `volume 0..100`, `stop`, `status`, `mode normal|shuffle|all|track`,
-`sleep off|15|30|45|60|end`, `seek 0..1800000`, `last`, `selftest`, `help`.
-WAV seek is direct; MP3 seeks by cancellable decode/discard from track start,
-capped at 30 minutes. No fast-seek index is claimed. Boot/status/selftest emit
+`sleep off|15|30|45|60|end`, `seek 0..1800000`, `last`, `selftest`, `engineering`, `help`.
+WAV seek is direct; MP3 uses a checked idle-built frame index and decoder preroll,
+with cancellable decode/discard fallback, capped at 30 minutes. See mp3-seek-index.md.
+Console numbers reject overflow/junk and overlong lines are discarded. Boot/status/selftest emit
 schema-1 JSON records; tools/analyze_diagnostics.py analyses real captured logs
 without inferring physical acceptance from a software self-test.
 

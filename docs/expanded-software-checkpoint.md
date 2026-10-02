@@ -1,5 +1,10 @@
 # Final-master execution checkpoint
 
+2026-10-02 current continuation: BM83SM1-00TA selected, BD-15 pending. The
+following historical ledger is superseded for MP3 duration/sparse seek, portable
+BT/power/display interfaces and engineering JSON by mp3-seek-index.md and
+software-interfaces.md. Actual current-revision CI is in software-validation.md.
+
 2026-10-01. This document is a completion ledger, not a claim that everything
 is finished. Existing history is preserved. No final hardware source was
 AI-authored, no orders were placed and no human hours/results were invented.
@@ -56,14 +61,16 @@ No physical SD, acoustic, battery or hardware-authorship result follows from CI.
 
 ## Actual next human gate
 
-Choose BD-14 Bluetooth architecture and BD-15 display using their comparison
-documents. Do not create final schematic/PCB/CAD until both are chosen. Code
+BD-14 is selected: retain S3 + BM83SM1-00TA. Choose BD-15 using its comparison
+document. Do not create final schematic/PCB/CAD until both are chosen, current
+software is pushed/verified, and new power/BOM/GPIO propagation is complete. Code
 for a chosen radio/display cannot be represented as completed before a choice.
 The assistant's conditional recommendations are S3 + qualified BM83 AT and
 non-touch 1.69-inch TFT; exact firmware/SKU and drawings still need qualification.
 
-After choices: reconcile GPIO/SRAM/PSRAM/power and implement selected adapters,
-selected display UI, MP3 duration/fast seek and fuel/power HAL. Finish/prioritise remaining software; then
+After BD-15: reconcile GPIO/SRAM/PSRAM/power and implement exact selected
+adapters/display UI. MP3 duration/seek and portable HAL contracts are implemented;
+vendor firmware access, rate conversion and physical power adapters remain open. Then
 builder authors one subsystem at a time using builder-tasks.md. Reviews identify
 specific issues, builder fixes and returns sources; independent human review
 and actual manufacturing exports remain hard funding blockers.
