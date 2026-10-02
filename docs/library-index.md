@@ -1,8 +1,8 @@
 # Incremental library catalog
 
 2026-10-02. Implemented source and host fixtures; hardware timing, card-loss,
-power-cut and large-card acceptance remain unverified. Bluetooth/display are
-still builder choices, not selected by this software change.
+power-cut and large-card acceptance remain unverified. BD-14 now selects S3 +
+BM83SM1-00TA; BD-15 remains a builder choice. Neither is selected by library code.
 
 ## Behavior
 
@@ -18,6 +18,10 @@ retain traversal order. No promise of locale collation/title sorting is made.
 A valid cached header can load without rescanning the whole card. The UI then
 builds a replacement generation in small idle slices, also on an explicit
 rebuild. Existing cache remains readable while the replacement is incomplete.
+The new rebuild also probes/scans supported MP3s while idle and populates
+separate checked duration/seek caches; existing catalogs are not erased to
+force an upgrade. Index capacity/parse/write failures keep the track with an
+unknown/quick-estimate duration and slow seek fallback. See mp3-seek-index.md.
 Metadata parsing and index writes pause even when music is *paused* (the audio
 workers still own resources). Never run a full-card scan on an audio task.
 

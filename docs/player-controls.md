@@ -1,4 +1,4 @@
-# OLED + five-button interaction
+# Display interface + five-button interaction (OLED bench adapter)
 
 Implemented digitally; no screen/button on a board has been physically verified.
 Default driver targets the provisional SH1106 128x64 display at I2C 0x3c, with
@@ -19,14 +19,15 @@ verification items. External I2C pull-ups to 3.3 V are required.
 
 In Settings, Previous/Next selects a row and Play cycles normal/shuffle/repeat-all/
 repeat-track, sleep off/15/30/45/60/end-track, explicitly resumes saved music, or
-cycles auto/speaker/wired output. Bluetooth is unavailable until architecture
-selection; selecting unavailable BT via API is refused without speaker fallback.
+cycles auto/speaker/wired output. BM83 is selected but its live backend is
+unqualified; unavailable BT via API is refused without speaker fallback.
 Two additional settings rows open LIBRARY and rebuild its SD-backed index
 (stop playback first). Library has Songs, Artists, Albums and Folders/Playlists.
 Previous/Next crosses 16-row catalog pages; Hold Previous goes up. Group Play
 opens its songs, and song Play starts the full collection/filter queue. See
-[catalog limits and timing](library-index.md); filtered queries are incremental,
-not yet production-fast on a 10,000-track card.
+[catalog limits and timing](library-index.md); accelerated group pages read no
+catalog records and filtered pages at most 16, with a slow low-memory/cap fallback.
+These are checked operation counts, not measured 10,000-track SD-card latency.
 
 Short actions occur on debounced release; holding suppresses the short action.
 When the screen sleeps after 30 s, the first gesture only wakes it. No-SD/mount

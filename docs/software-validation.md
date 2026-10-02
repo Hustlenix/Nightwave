@@ -202,3 +202,19 @@ Validated/pushed digital source `8c7015e6aac9ec7024e46e5aa58eeba0afa8604b`:
 
 Subsequent manufacturer-defined AT codec source requires its own run below;
 neither wire-format tests nor this build proves wireless transmission.
+
+Final firmware source `ee2f4fcf73614d2327ecfeccc653c36a05663846` is pushed:
+
+- [ESP32-S3 firmware](https://github.com/Hustlenix/Nightwave/actions/runs/37003131904): success.
+- [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/37003131911): success; 10/10 Release and 10/10 ASAN/leak, validator/arithmetic passed.
+- Includes the manufacturer-defined fixed AT command/status codec and 1000
+  repeated valid/invalid status cycles, without enabling the radio backend.
+- All large-library, settings reload/stale resume, corruption/capacity/migration,
+  MP3 seek and display/BT/power/report tests ran in those suites. Indexed real-
+  decoder PCM comparison is a generated-host fixture, not an acoustic result.
+
+Later diagnostics-reader/documentation updates leave firmware/C++ tests identical
+to ee2f4fc; their own project-quality run is recorded after execution. The reader
+now validates engineering counters/flags/null battery fields, rejects overflow/
+excessive nesting, and keeps physical acceptance NOT_ESTABLISHED even if a
+captured record falsely says physical_pass=true.

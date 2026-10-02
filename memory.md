@@ -54,6 +54,15 @@ reviewed packet codec added next. Factory TA2.07 compatibility, actual AT image,
 tool/licence/provisioning, connect/EIR/ACK and PCM rate conversion remain open.
 Do not substitute newer 00TB or count packet gating as AVDTP START/SUSPEND.
 
+Final firmware source ee2f4fc was pushed and validated: firmware37003131904
+success, quality37003131911 success (10 Release +10 ASAN/leak suites, project
+validator/arithmetic). Includes documented fixed AT codec/status bounds and
+1000 cycles, not a live radio backend. Subsequent diagnostics-reader/docs-only
+checkpoint preserves this firmware/C++ source; reader accepts checked engineering
+reports without treating any record as physical acceptance. BD-15 remains
+pending, so current full power/charging/pack/GPIO review and Builder Task1 are
+not complete or authorized to start. No final schematic authored.
+
 Complete the digital software/design preparation for Pixl funding under the
 2026-10-01 request. The old physical-before-digital gate is superseded; physical
 validation remains pending. Do not order hardware, connect lithium, invent

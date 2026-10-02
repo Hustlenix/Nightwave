@@ -4,7 +4,9 @@ import argparse
 import json
 from pathlib import Path
 
-TYPES = {"nightwave_boot", "nightwave_stream", "nightwave_performance", "nightwave_selftest"}
+TYPES = {"nightwave_boot", "nightwave_stream", "nightwave_performance", "nightwave_selftest", "nightwave_engineering"}
+COUNTERS = {"errors", "underruns", "sd_reads", "decode_calls", "route_changes", "catalog_tracks", "query_reads"}
+FLAGS = {"indexed_seek", "catalog_building", "catalog_fast", "bluetooth_backend_ready", "physical_pass"}
 
 
 def analyze(lines):
@@ -20,6 +22,8 @@ def analyze(lines):
             record = json.loads(line[opening:])
         except json.JSONDecodeError:
             continue
+        except RecursionError as exc:
+            raise ValueError(f"line {number}: excessive JSON nesting") from exc
         if not isinstance(record, dict) or record.get("type") not in TYPES:
             continue
         if type(record.get("schema")) is not int or record.get("schema") != 1:
@@ -29,14 +33,23 @@ def analyze(lines):
                 if not isinstance(value, list) or len(value) != 3 or any(type(v) is not int or v < 0 for v in value):
                     raise ValueError(f"line {number}: invalid stack minima")
                 continue
-            if key.endswith(("_bytes", "_us", "_ms", "_frames")) or key in {"errors", "underruns", "sd_reads", "decode_calls"}:
-                if type(value) is not int or value < 0:
+            if key in FLAGS and type(value) is not bool:
+                raise ValueError(f"line {number}: invalid {key}")
+            if key in {"battery_mv", "battery_percent"}:
+                maximum = 65535 if key == "battery_mv" else 100
+                if value is not None and (type(value) is not int or not 0 <= value <= maximum):
+                    raise ValueError(f"line {number}: invalid {key}")
+            if key.endswith(("_bytes", "_us", "_ms", "_frames", "_samples")) or key in COUNTERS:
+                if type(value) is not int or not 0 <= value <= 0xFFFFFFFF:
                     raise ValueError(f"line {number}: invalid {key}")
         records.append(record)
         if len(records) > 100000:
             raise ValueError("record limit exceeded")
     performance = [r for r in records if r["type"] == "nightwave_performance"]
     summary = {"records": len(records), "physical_acceptance": "NOT_ESTABLISHED", "averages": []}
+    engineering = [r for r in records if r["type"] == "nightwave_engineering"]
+    if engineering:
+        summary["latest_engineering"] = engineering[-1]
     for r in performance:
         sd_time = r.get("sd_total_us", 0)
         calls = r.get("decode_calls", 0)
@@ -70,6 +83,24 @@ def self_test():
             pass
         else:
             raise AssertionError("invalid numeric counter accepted")
+    snapshot = {"type": "nightwave_engineering", "schema": 1, "indexed_seek": True,
+                "catalog_tracks": 10000, "query_reads": 16, "seek_base_samples": 100,
+                "heap_free_bytes": 65536, "battery_mv": None, "battery_percent": None,
+                "bluetooth_backend_ready": False, "physical_pass": False}
+    result = analyze([json.dumps(snapshot)])
+    assert result["records"] == 1 and result["latest_engineering"] == snapshot
+    assert result["physical_acceptance"] == "NOT_ESTABLISHED"
+    for key, invalid in (("query_reads", True), ("heap_free_bytes", 0x100000000),
+                         ("indexed_seek", 1), ("battery_percent", 101), ("battery_mv", "unknown")):
+        bad = dict(snapshot, **{key: invalid})
+        try:
+            analyze([json.dumps(bad)])
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"invalid engineering field accepted: {key}")
+    snapshot["physical_pass"] = True
+    assert analyze([json.dumps(snapshot)])["physical_acceptance"] == "NOT_ESTABLISHED"
 
 
 def main():

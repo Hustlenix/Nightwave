@@ -53,6 +53,9 @@ values are JSON null; backend readiness and physical_pass stay false. Formatting
 refuses insufficient capacity instead of publishing truncated JSON. Console
 unsigned parsing rejects overflow/sign/junk; overlong lines are discarded, not
 executed in fragments. None of these software checks is runtime/power evidence.
+`analyze_diagnostics.py` accepts checked engineering records and exposes the
+latest snapshot; unknown battery remains null. Counter/flag/voltage/SOC bounds
+are validated, and even a claimed physical_pass cannot establish acceptance.
 
 CI runs all ten host suites in Release and ASAN with leak detection, the project
 validator, engineering arithmetic and the ESP32-S3 firmware build separately.
