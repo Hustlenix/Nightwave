@@ -127,10 +127,38 @@ if (pipeline && pipeSteps.length && !reducedMotion && !pipeline.closest('.cine-s
 }
 
 const tracks = [
-  { number: 47, title: 'MIDNIGHT PROTOCOL', duration: 240, mark: 'NS' },
-  { number: 48, title: 'SIGNAL AFTER DARK', duration: 213, mark: 'SA' },
-  { number: 49, title: 'NO NETWORK', duration: 268, mark: 'NN' },
-  { number: 50, title: 'LOCAL FREQUENCY', duration: 225, mark: 'LF' }
+  {
+    number: 47,
+    title: 'MIDNIGHT PROTOCOL',
+    artist: 'NIGHTWAVE DEMO',
+    duration: 240,
+    route: 'BT AUDIO',
+    lyrics: ['Signal wakes the room', 'We move with the night', 'No phone in the loop']
+  },
+  {
+    number: 48,
+    title: 'SIGNAL AFTER DARK',
+    artist: 'LOCAL LIBRARY',
+    duration: 213,
+    route: 'WIRED HP',
+    lyrics: ['Static falls away', 'Every beat stays local', 'Wires carry the night']
+  },
+  {
+    number: 49,
+    title: 'NO NETWORK',
+    artist: 'LOCAL LIBRARY',
+    duration: 268,
+    route: 'SPEAKER',
+    lyrics: ['No tower in sight', 'The file becomes the sound', 'Still the music runs']
+  },
+  {
+    number: 50,
+    title: 'LOCAL FREQUENCY',
+    artist: 'NIGHTWAVE DEMO',
+    duration: 225,
+    route: 'BT AUDIO',
+    lyrics: ['Read it from the card', 'Decode it in the dark', 'Route it where I choose']
+  }
 ];
 let trackIndex = 0;
 let elapsed = 138;
@@ -152,7 +180,12 @@ const refs = {
   uiProgress: document.querySelector('[data-ui-progress]'),
   uiElapsed: document.querySelector('[data-ui-elapsed]'),
   uiDuration: document.querySelector('[data-ui-duration]'),
-  album: document.querySelector('[data-album-mark]'),
+  uiArtist: document.querySelector('[data-ui-artist]'),
+  uiRoute: document.querySelector('[data-ui-route]'),
+  uiBattery: document.querySelector('[data-ui-battery]'),
+  uiLyricPrev: document.querySelector('[data-ui-lyric-prev]'),
+  uiLyric: document.querySelector('[data-ui-lyric]'),
+  uiLyricNext: document.querySelector('[data-ui-lyric-next]'),
   uiDemo: document.querySelector('[data-ui-demo]')
 };
 
@@ -183,7 +216,12 @@ const renderPlayer = () => {
   if (refs.uiProgress) refs.uiProgress.style.width = (ratio * 100) + '%';
   if (refs.uiElapsed) refs.uiElapsed.textContent = formatTime(elapsed);
   if (refs.uiDuration) refs.uiDuration.textContent = formatTime(track.duration);
-  if (refs.album) refs.album.textContent = track.mark;
+  if (refs.uiArtist) refs.uiArtist.textContent = track.artist;
+  if (refs.uiRoute) refs.uiRoute.textContent = track.route + ' · NOW PLAYING';
+  if (refs.uiBattery) refs.uiBattery.textContent = 'BAT 82%';
+  if (refs.uiLyricPrev) refs.uiLyricPrev.textContent = track.lyrics[0];
+  if (refs.uiLyric) refs.uiLyric.textContent = track.lyrics[1];
+  if (refs.uiLyricNext) refs.uiLyricNext.textContent = track.lyrics[2];
   refs.uiDemo?.classList.toggle('playing', playing);
 
   document.querySelectorAll('[data-action="play"]').forEach((button) => {
@@ -339,6 +377,7 @@ const renderCinematicGeometry = (e, blast, labels, progress, copyOpacity) => {
     pcb: tx(0, 0, -28, 18, 45, 0, 4, -2),
     battery: tx(0, 0, 186, -5, -28, 0, 0, 7),
     speaker: tx(0, 172, 215, 90, 95, 0, 0, 13),
+    bluetooth: tx(0, 0, 170, -155, 120, 0, 0, 9),
     storage: tx(0, 0, 245, -205, 145, 0, 0, 16),
     jack: tx(0, 0, -246, 35, 105, 0, 0, -18)
   };
