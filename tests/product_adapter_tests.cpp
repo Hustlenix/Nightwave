@@ -12,6 +12,15 @@ int nvs_error = 0, closes = 0, commits = 0;
 std::uint8_t stored = 8;
 std::vector<std::uint8_t> stored_blob;
 std::vector<std::vector<std::uint8_t>> packets;
+std::uint32_t blob_checksum(const std::vector<std::uint8_t>& bytes) {
+    std::uint32_t value = 2166136261U;
+    for (std::size_t i = 0; i < 784; ++i) value = (value ^ bytes[i]) * 16777619U;
+    return value;
+}
+void write_blob_checksum() {
+    const auto value = blob_checksum(stored_blob);
+    for (unsigned i = 0; i < 4; ++i) stored_blob[784 + i] = static_cast<std::uint8_t>(value >> (i * 8));
+}
 #define CHECK(value) do { if (!(value)) { ++failures; std::cerr << __LINE__ << ": " << #value << '\n'; } } while(false)
 }
 esp_err_t i2c_new_master_bus(const i2c_master_bus_config_t* config, i2c_master_bus_handle_t* bus) {
@@ -92,6 +101,21 @@ int main() {
     CHECK(save_settings(value)); Settings restored; CHECK(load_settings(restored));
     CHECK(restored.repeat_mode == RepeatMode::kAll && restored.shuffle && restored.output == OutputPreference::kWired);
     CHECK(restored.resume_position_ms == 123456 && !std::strcmp(restored.resume_path.data(), value.resume_path.data()));
+
+    // A legacy record may contain the not-yet-supported Bluetooth preference.
+    // Loading it must keep the rest of the state and migrate output to AUTO.
+    const auto supported_blob = stored_blob;
+    stored_blob[11] = static_cast<std::uint8_t>(OutputPreference::kBluetooth);
+    write_blob_checksum();
+    Settings migrated;
+    CHECK(load_settings(migrated));
+    CHECK(migrated.output == OutputPreference::kAutomatic);
+    CHECK(migrated.volume_percent == value.volume_percent);
+    value.output = OutputPreference::kBluetooth;
+    CHECK(!save_settings(value));
+    value.output = OutputPreference::kWired;
+    stored_blob = supported_blob;
+
     stored_blob[25] ^= 1; CHECK(!load_settings(restored)); stored_blob.clear();
     stored = 255; value.volume_percent = 8; CHECK(!load_settings(value)); CHECK(value.volume_percent == 8);
     for (int error = 1; error <= 5; ++error) {

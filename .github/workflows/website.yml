@@ -1,0 +1,65 @@
+name: Website quality
+
+on:
+  push:
+    paths:
+      - "index.html"
+      - "styles.css"
+      - "app.js"
+      - ".github/workflows/website.yml"
+  pull_request:
+    paths:
+      - "index.html"
+      - "styles.css"
+      - "app.js"
+      - ".github/workflows/website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check JavaScript syntax
+        run: node --check app.js
+
+      - name: Check static site structure
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          css = Path("styles.css").read_text(encoding="utf-8")
+
+          ids = re.findall(r'\sid="([^"]+)"', html)
+          duplicates = sorted({value for value in ids if ids.count(value) > 1})
+          if duplicates:
+              raise SystemExit(f"duplicate HTML ids: {duplicates}")
+
+          anchors = re.findall(r'href="#([^"]+)"', html)
+          missing = sorted({value for value in anchors if value not in ids})
+          if missing:
+              raise SystemExit(f"broken internal anchors: {missing}")
+
+          for asset in ("./styles.css", "./app.js"):
+              if asset not in html:
+                  raise SystemExit(f"missing asset reference: {asset}")
+
+          balance = 0
+          for char in css:
+              if char == "{":
+                  balance += 1
+              elif char == "}":
+                  balance -= 1
+              if balance < 0:
+                  raise SystemExit("CSS closes a block before it opens")
+          if balance:
+              raise SystemExit(f"unbalanced CSS braces: {balance}")
+
+          print("Nightwave website structure checks passed")
+          PY
