@@ -21,6 +21,7 @@
 #include "nightwave/engineering_report.h"
 #include "nightwave/bluetooth_source.h"
 #include "nightwave/power_hal.h"
+#include "nightwave/bm83_at_codec.h"
 #include "esp_heap_caps.h"
 
 namespace {

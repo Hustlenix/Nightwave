@@ -44,6 +44,16 @@ pack are removed from active product BOM; prototype BOM remains historical.
 Selected BM83, pending TFT/pack/GPIO strategy and critical BOM engineering fields
 are explicit in hardware/product-config.json and hardware/BOM.csv.
 
+Digital source 8c7015e has full successful CI: device 37002164509, quality
+37002164501; 10/10 Release + 10/10 ASAN/leak, validator/arithmetic pass. Link
+DIRAM 205394/341760, remainder136366, .bss145456, image453300 bytes. No runtime
+heap/physical measurements. Preceding b28228c device failure was a uint32_t
+initializer-list portability mismatch, repaired without weakening checks.
+Public Microchip Turnkey1.2.0 command-set2.08 includes AT commands/status;
+reviewed packet codec added next. Factory TA2.07 compatibility, actual AT image,
+tool/licence/provisioning, connect/EIR/ACK and PCM rate conversion remain open.
+Do not substitute newer 00TB or count packet gating as AVDTP START/SUSPEND.
+
 Complete the digital software/design preparation for Pixl funding under the
 2026-10-01 request. The old physical-before-digital gate is superseded; physical
 validation remains pending. Do not order hardware, connect lithium, invent

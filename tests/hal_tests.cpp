@@ -3,6 +3,7 @@
 #include <iostream>
 #include "nightwave/bluetooth_source.h"
 #include "nightwave/bm83_uart.h"
+#include "nightwave/bm83_at_codec.h"
 #include "nightwave/power_hal.h"
 #include "nightwave/engineering_report.h"
 namespace {
@@ -35,6 +36,29 @@ int main() {
     uart.push(0xaa, 0, packet); CHECK(uart.push(0, 101, packet) == Bm83Parse::kWaiting && packet.size == 0);
     for (unsigned i = 0; i < 10000; ++i) CHECK(uart.push(0x55, i + 200, packet) == Bm83Parse::kWaiting);
     CHECK(!Bm83Uart::encode(body.data(), body.size(), wire.data(), 5));
+    CHECK(Bm83AtCodec::discover(packet) && packet.size == 7 && packet.body[2] == 10 && packet.body[4] == 1);
+    CHECK(!Bm83AtCodec::discover(packet, 0) && packet.size == 0);
+    CHECK(!Bm83AtCodec::discover(packet, 49) && !Bm83AtCodec::discover(packet, 10, 9));
+    Bm83AtCodec::select_tx(packet); CHECK(packet.size == 3 && packet.body[1] == 3 && packet.body[2] == 0);
+    Bm83AtCodec::select_i2s(packet); CHECK(packet.body[1] == 2 && packet.body[2] == 1);
+    CHECK(Bm83AtCodec::select_rate(packet, 44100) && packet.body[2] == 1);
+    CHECK(Bm83AtCodec::select_rate(packet, 48000) && packet.body[2] == 0);
+    CHECK(!Bm83AtCodec::select_rate(packet, 32000) && packet.size == 0);
+    Bm83AtCodec::block_packets(packet, true); CHECK(packet.body[1] == 8 && packet.body[2] == 1);
+    Bm83AtCodec::cancel_discovery(packet); CHECK(packet.size == 2 && packet.body[1] == 1);
+    CHECK(!Bm83AtCodec::query(packet, static_cast<Bm83AtQuery>(255)) && packet.size == 0);
+    CHECK(Bm83AtCodec::query(packet, Bm83AtQuery::kRate) && packet.size == 2 && packet.body[1] == 7);
+    Bm83AtReport report_at; report_at.value = 99;
+    for (unsigned cycle = 0; cycle < 1000; ++cycle) {
+        for (unsigned sub = 1; sub <= 4; ++sub) {
+            packet.body[0] = 0x5a; packet.body[1] = static_cast<std::uint8_t>(sub); packet.body[2] = 0; packet.size = 3;
+            CHECK(Bm83AtCodec::report(packet, report_at) && report_at.value == 0);
+            packet.body[2] = 255; CHECK(!Bm83AtCodec::report(packet, report_at) && report_at.value == 0);
+            packet.size = 2; CHECK(!Bm83AtCodec::report(packet, report_at));
+        }
+    }
+    packet.body[0] = 0x5a; packet.body[1] = 0; packet.body[2] = 0; packet.size = 3;
+    CHECK(!Bm83AtCodec::report(packet, report_at)); // Discovery EIR layout is not guessed.
     UnavailableBluetooth unavailable; BluetoothSource absent(unavailable);
     CHECK(absent.state() == BtState::kUnavailable && !absent.discover(0));
     FakeBt backend; BluetoothSource source(backend);

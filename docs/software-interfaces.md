@@ -19,10 +19,12 @@ speaker fallback. Current 22.05/32 kHz blocks are explicitly rejected for BM83
 until a converter is implemented and qualified; local routes still accept them.
 
 `Bm83Uart` covers only documented packet framing/checksum, a 256-byte body cap
-and incomplete-packet timeout. Exact AT source command/event semantics and ACK/
-retry/wake policy require the actual selected firmware package. The generic
-manufacturer MSPK guide is not authorization to guess AT commands. Firmware
-package/tool access and licensing are unresolved, not a physical-hardware excuse.
+and incomplete-packet timeout. `Bm83AtCodec` covers documented fixed commands/
+status reports in public command-set v2.08. Exact TA-version compatibility,
+connect/discovery payloads, ACK/retry/wake policy and provisioning require further
+qualification. The generic MSPK guide alone is not an AT command specification.
+Actual AT image/tool execution/licensing remain unresolved; public documentation
+access is now established, not treated as a physical-hardware dependency.
 The production default remains unavailable and cannot claim pairing/transmission.
 
 ## Power

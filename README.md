@@ -2,14 +2,16 @@
 
 Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It reads user-owned MP3 and PCM/WAV files directly from microSD, with software decoding, physical controls, wired stereo headphones, a speaker, synchronized LRC and Bluetooth output. No phone or streaming service is required. On 2026-10-02 the builder selected ESP32-S3 plus BM83SM1-00TA; its AT-source backend remains unqualified. Final display BD-15 and battery sizing remain pending.
 
-> Status (2026-10-01): WAV/MP3 three-task streaming, OLED/five-button interaction,
+> Status (2026-10-02): WAV/MP3 three-task streaming, bench OLED/five-button interaction,
 > lyrics/metadata/M3U, modes, bounded seek/resume, sleep timer and versioned
 > persistence are implemented for the provisional hardware. The 2026-10-02
 > continuation adds an idle-built SD catalog, paged songs/artists/albums and
-> bounded PSRAM lookups for filtered browsing/track changes;
+> bounded PSRAM lookups for filtered browsing/track changes, MP3 duration/sparse
+> seek, full-text display interface, BT/power contracts and engineering telemetry;
 > [catalog limits](docs/library-index.md) remain explicit. See the
 > [expanded-scope checkpoint](docs/engineering-budgets.md) for remaining software.
-> Firmware and host CI pass. **Funding package is NOT READY:** final power design,
+> Executed [firmware/host CI evidence](docs/software-validation.md) is revision-specific.
+> **Funding package is NOT READY:** final power design,
 > complete BOM, builder-owned PCB/CAD, manufacturing files and human reviews are
 > missing. No physical playback, runtime, fit, final hardware or tier is claimed.
 

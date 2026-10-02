@@ -186,3 +186,19 @@ local index Release/ASAN-leak and real-streaming Release tests passed. The
 15-second indexed seek matches decode-from-start PCM hash/sample count and uses
 fewer decode calls/SD bytes. This is synthetic host output, not physical latency.
 Full new-source CI/device results must be recorded separately after execution.
+
+Validated/pushed digital source `8c7015e6aac9ec7024e46e5aa58eeba0afa8604b`:
+
+- [ESP32-S3 build/size](https://github.com/Hustlenix/Nightwave/actions/runs/37002164509): success.
+- [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/37002164501): success, 10/10 Release plus 10/10 ASAN/leak suites; validator/arithmetic passed.
+- MP3 index/streaming, display injection and BT/power/engineering HAL coverage
+  are included, not inferred from the earlier eight-suite run.
+- Link DIRAM 205394/341760, remaining 136366; .bss 145456; image 453300 bytes.
+  These are link figures, not runtime free heap, stack/PSRAM or physical proof.
+- Original b28228c host tests passed; its [device run](https://github.com/Hustlenix/Nightwave/actions/runs/37001601554)
+  failed on initializer-list unsigned-int versus target uint32_t type deduction.
+  A fixed-width array repaired it; warnings were not disabled. Website quality
+  passed at b28228c. Failed build is retained, not counted as a pass.
+
+Subsequent manufacturer-defined AT codec source requires its own run below;
+neither wire-format tests nor this build proves wireless transmission.
