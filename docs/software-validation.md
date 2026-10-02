@@ -154,6 +154,20 @@ Validated checkpoint `14b10c02e433cf87f54a9f238603f0969b49ef90`:
   via merge adbb92e, not overwritten. The original adbb92e device run was
   superseded/cancelled; it is not counted as successful validation.
 
-Later documentation-only ledger changes leave firmware/test source identical
+The subsequent c05ba8d documentation-only ledger left firmware/test source identical
 to this validated checkpoint. The full product is still not funding-ready;
-library-index.md records filtered-query performance and physical acceptance gaps.
+library-index.md records lookup/fallback performance and physical acceptance gaps.
+
+2026-10-02 v2 lookup continuation: targeted WSL catalog tests passed with
+optimized -O3/_FORTIFY_SOURCE=3 and -Wall/-Wextra/-Wpedantic/-Werror, and again
+with AddressSanitizer/leak detection. The catalog builds actual 10,000-file
+metadata-only fixtures, checks zero-read group pages, ≤16-read filtered pages,
+one-read selection/correct resume hints, stale hints, malformed footers,
+1,024/1,025-group boundaries, legacy migration and 1,000 query/cancel cycles.
+The expanded frontend suite passed ASAN/leak detection with actual catalog/UI
+sources and fake audio/devices, including cold/legacy/malformed resume without
+boot autoplay. Lookup allocation is 227,488 bytes per generation (bounded
+explicit PSRAM on target, host heap in tests), not internal static storage.
+These operation counts are not measured SD/UI/acoustic latency. A new full
+eight-suite Release/ASAN run and ESP32-S3 build are required for this source;
+record their actual results below, not the older checkpoint's success.

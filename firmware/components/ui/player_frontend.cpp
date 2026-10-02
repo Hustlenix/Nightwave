@@ -22,6 +22,25 @@ bool playlist(const char* name) {
     const auto* dot = std::strrchr(name, '.');
     return dot && (!strcasecmp(dot, ".m3u") || !strcasecmp(dot, ".m3u8"));
 }
+bool catalog_context(const char* value, CatalogFilter& filter, char* text, std::uint32_t& hint) {
+    const bool version2 = !std::strncmp(value, "@catalog2:", 10);
+    if (!version2 && std::strncmp(value, "@catalog:", 9)) return false;
+    const auto* at = value + (version2 ? 10 : 9);
+    if (*at < '0' || *at > '2' || at[1] != ':') return false;
+    filter = static_cast<CatalogFilter>(*at - '0'); at += 2; hint = UINT32_MAX;
+    if (version2) {
+        if (*at < '0' || *at > '9') return false;
+        std::uint32_t ordinal = 0; unsigned digits = 0;
+        while (*at >= '0' && *at <= '9') {
+            if (++digits > 4) return false;
+            ordinal = ordinal * 10 + static_cast<unsigned>(*at++ - '0');
+        }
+        if (*at++ != ':') return false;
+        hint = ordinal;
+    }
+    if (std::strlen(at) >= 64) return false;
+    std::strcpy(text, at); return true;
+}
 }
 void PlayerFrontend::AssetsDeleter::operator()(UiAssets* p) const {
     if (!p) return;
@@ -99,6 +118,7 @@ void PlayerFrontend::track_started(const char* path) {
     if (metadata_.title[0]) std::snprintf(title_.data(), title_.size(), "%s", metadata_.title.data());
     std::snprintf(settings_.resume_path.data(), settings_.resume_path.size(), "%s", path ? path : "");
     settings_.resume_position_ms = player_.position_ms();
+    if (catalog_queue_) save_catalog_context();
     dirty_ = true; changed_at_ = now_;
     nav_.screen = PlayerScreen::kNowPlaying; was_running_ = true;
 }
@@ -176,10 +196,8 @@ bool PlayerFrontend::resume_saved() {
     }
     auto_advance_ = restored;
     const bool started = play_queue(index, settings_.resume_position_ms);
-    if (started && !restored && !std::strncmp(saved_folder, "@catalog:", 9) && saved_folder[9] >= '0' && saved_folder[9] <= '2' && saved_folder[10] == ':' && std::strlen(saved_folder + 11) < 64) {
-        queue_filter_ = static_cast<CatalogFilter>(saved_folder[9] - '0');
-        std::strcpy(queue_filter_text_.data(), saved_folder + 11);
-        catalog_resume_pending_ = assets_->catalog.locate_song(queue_filter_, queue_filter_text_.data(), checked.data());
+    if (started && !restored && catalog_context(saved_folder, queue_filter_, queue_filter_text_.data(), resume_hint_)) {
+        catalog_resume_pending_ = assets_->catalog.locate_song(queue_filter_, queue_filter_text_.data(), checked.data(), resume_hint_);
     }
     return started;
 }
@@ -288,8 +306,12 @@ void PlayerFrontend::catalog_selected() {
     catalog_queue_ = auto_advance_ = true; catalog_play_pending_ = false;
     std::strcpy(assets_->queue[0].data(), row.path.data()); queue_count_ = 1;
     settings_.playlist_path[0] = 0;
-    std::snprintf(settings_.library_folder.data(), settings_.library_folder.size(), "@catalog:%u:%s", static_cast<unsigned>(queue_filter_), queue_filter_text_.data());
+    save_catalog_context();
     start_path(assets_->queue[0].data());
+}
+void PlayerFrontend::save_catalog_context() {
+    std::snprintf(settings_.library_folder.data(), settings_.library_folder.size(), "@catalog2:%u:%lu:%s", static_cast<unsigned>(queue_filter_),
+        static_cast<unsigned long>(playing_index_), queue_filter_text_.data());
 }
 void PlayerFrontend::catalog_event(const ButtonEvent& e) {
     if (!assets_ || assets_->catalog.querying() || catalog_play_pending_) return;
@@ -452,7 +474,7 @@ TextFrame PlayerFrontend::frame() const {
             for (std::size_t i = 0; i < 4; ++i) { std::snprintf(line.data(), line.size(), "%c%s", i == nav_.cursor ? '>' : ' ', views[i]); text.line(3 + i, line.data()); }
             if (assets_) {
                 const auto& catalog = assets_->catalog;
-                text.line(7, catalog.failed() ? "INDEX I/O ERROR" : catalog.building() ? (player_.playing() ? "INDEX PAUSED: PLAYING" : "INDEXING WHILE IDLE") : catalog.limited() ? "PARTIAL INDEX / LIMIT" : "PLAY: OPEN LIBRARY");
+                text.line(7, catalog.failed() ? "INDEX I/O ERROR" : catalog.building() ? (player_.playing() ? "INDEX PAUSED: PLAYING" : "INDEXING WHILE IDLE") : catalog.limited() ? "PARTIAL INDEX / LIMIT" : catalog.lookup_loading() ? "LOOKUP WARMING" : !catalog.fast_lookup_ready() ? "SLOW LOOKUP / FALLBACK" : "PLAY: OPEN LIBRARY");
             }
             break;
         }
@@ -475,7 +497,7 @@ TextFrame PlayerFrontend::frame() const {
                     std::snprintf(line.data(), line.size(), "%c%.20s", start + i == nav_.cursor ? '>' : ' ', *label ? label : "(UNKNOWN)"); text.line(3 + i, line.data());
                 }
             }
-            text.line(7, catalog.limited() ? "PARTIAL INDEX / LIMIT" : "HOLD PREV: UP"); break;
+            text.line(7, catalog.limited() ? "PARTIAL INDEX / LIMIT" : catalog.lookup_loading() ? "LOOKUP WARMING" : catalog.ready() && !catalog.fast_lookup_ready() ? "SLOW LOOKUP / FALLBACK" : "HOLD PREV: UP"); break;
         }
         case PlayerScreen::kBrowser: {
             text.line(2, folder_.data());
@@ -522,6 +544,13 @@ void PlayerFrontend::tick(std::uint32_t now) {
     if (assets_ && sd_.mounted()) {
         auto& catalog = assets_->catalog;
         if (!catalog_started_) { catalog.open(root_); catalog_started_ = true; catalog.rebuild(); }
+        const bool was_fast = catalog.fast_lookup_ready();
+        catalog.pump_lookup(4);
+        if (!was_fast && catalog.fast_lookup_ready()) {
+            if (catalog_play_pending_) catalog.seek_song(queue_filter_, queue_filter_text_.data(), pending_index_);
+            else if (catalog_resume_pending_) catalog.locate_song(queue_filter_, queue_filter_text_.data(), settings_.resume_path.data(), resume_hint_);
+            else if (nav_.screen == PlayerScreen::kCatalog) catalog_query();
+        }
         const bool was_building = catalog.building();
         if (!player_.playing() && !catalog_queue_ && !catalog.querying()) catalog.pump_build(2);
         if (nav_.screen == PlayerScreen::kCatalog && !catalog_play_pending_ &&
@@ -532,6 +561,7 @@ void PlayerFrontend::tick(std::uint32_t now) {
             const auto& page = catalog.page();
             if (page.complete && !page.error && page.count && catalog.located_ordinal() < page.matches) {
                 catalog_queue_ = true; catalog_queue_count_ = page.matches; playing_index_ = catalog.located_ordinal();
+                save_catalog_context(); dirty_ = true; changed_at_ = now;
                 auto_advance_ = player_.playing();
             }
         } else if (catalog_play_pending_ && !catalog.querying()) {

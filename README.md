@@ -5,7 +5,8 @@ Nightwave is an in-progress, standalone pocket music player for the Pixl “A Mu
 > Status (2026-10-01): WAV/MP3 three-task streaming, OLED/five-button interaction,
 > lyrics/metadata/M3U, modes, bounded seek/resume, sleep timer and versioned
 > persistence are implemented for the provisional hardware. The 2026-10-02
-> continuation adds an idle-built SD catalog and paged songs/artists/albums;
+> continuation adds an idle-built SD catalog, paged songs/artists/albums and
+> bounded PSRAM lookups for filtered browsing/track changes;
 > [catalog limits](docs/library-index.md) remain explicit. See the
 > [expanded-scope checkpoint](docs/engineering-budgets.md) for remaining software.
 > Firmware and host CI pass. **Funding package is NOT READY:** final power design,
@@ -65,7 +66,8 @@ The bench prototype uses an available MAX98357A breakout as a functional speaker
   buttons, headphone indicator, no-SD/error screens, sleep and diagnostics;
 - bounded LRC, ID3v2.3/v2.4/ID3v1/WAV INFO metadata and local M3U/M3U8 loading;
 - SD-backed incremental catalog, 16-row songs/artists/albums views, full indexed
-  collection/filter queues and cached filter/folder resume; see documented limits;
+  collection/filter queues, bounded artist/album lookup and checked ordinal-hint
+  filter/folder resume; low-memory/over-cap caches use a slower fallback;
 - normal/shuffle/repeat-all/repeat-track; accepted-sample lyric clock; WAV direct
   seek and MP3 decode-discard resume capped at 30 minutes;
 - versioned checked NVS volume/mode/output/resume/playlist/folder persistence,

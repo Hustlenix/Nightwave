@@ -12,6 +12,8 @@ int failures = 0;
 bool card = true, headphone = false;
 std::uint8_t saved_volume = 8;
 unsigned saves = 0;
+nightwave::Settings persisted{};
+bool restore_full_settings = false;
 std::string selected;
 nightwave::TextFrame displayed;
 std::deque<nightwave::ButtonEvent> events;
@@ -36,8 +38,8 @@ bool ButtonMonitor::poll(ButtonEvent& event) {
     event = events.front(); events.pop_front(); return true;
 }
 bool initialize_settings() { return true; }
-bool load_settings(Settings& value) { value.volume_percent = saved_volume; return true; }
-bool save_settings(const Settings& value) { saved_volume = value.volume_percent; ++saves; return true; }
+bool load_settings(Settings& value) { if (restore_full_settings) value = persisted; else value.volume_percent = saved_volume; return true; }
+bool save_settings(const Settings& value) { persisted = value; saved_volume = value.volume_percent; ++saves; return true; }
 bool OledDisplay::initialize(OledController controller) { controller_ = controller; return true; }
 bool OledDisplay::show(const TextFrame& value) { displayed = value; return true; }
 bool OledDisplay::sleep(bool) { return true; }
@@ -138,6 +140,7 @@ int main(int argc, char** argv) {
         now += 250; events.push_back({button, gesture, now}); indexed_ui.tick(now);
     };
     idle_ticks(400); CHECK(shows("LIBRARY LIMIT"));
+    CHECK(indexed_ui.catalog_fast_lookup());
     catalog_press(ButtonId::kVolumeDown, ButtonGesture::kLongPress);
     for (unsigned i = 0; i < 4; ++i) catalog_press(ButtonId::kNext);
     CHECK(shows(">LIBRARY"));
@@ -175,7 +178,41 @@ int main(int argc, char** argv) {
     CHECK(indexed_ui.queue_size() == 260 && player->playing());
     const auto resumed = selected; catalog_press(ButtonId::kNext); idle_ticks(80);
     CHECK(selected != resumed && indexed_ui.queue_size() == 260);
+    idle_ticks(100); // Flush the actual new catalog context through the fake NVS.
+    CHECK(!std::strncmp(persisted.library_folder.data(), "@catalog2:1:", 12));
+    CHECK(!std::strcmp(persisted.resume_path.data(), selected.c_str()));
+    const auto checkpoint = persisted;
+    const auto checkpoint_path = selected;
+    restore_full_settings = true;
+    player->stop();
+    PlayerFrontend cold(sd, *player, sink, buttons, indexed_root.c_str()); cold.initialize();
+    CHECK(!player->playing()); // Loading settings/cache is never boot autoplay.
+    cold.tick(200); CHECK(cold.catalog_fast_lookup());
+    CHECK(cold.resume_saved() && selected == checkpoint_path);
+    cold.tick(225); CHECK(cold.queue_size() == 260 && player->playing());
+    events.push_back({ButtonId::kNext, ButtonGesture::kPress, 450}); cold.tick(450);
+    cold.tick(475); CHECK(selected != checkpoint_path && cold.queue_size() == 260);
+    // Legacy saved context still restores by checked path, without an ordinal.
+    persisted = checkpoint;
+    std::snprintf(persisted.library_folder.data(), persisted.library_folder.size(), "@catalog:1:(UNKNOWN)");
+    player->stop();
+    PlayerFrontend legacy_resume(sd, *player, sink, buttons, indexed_root.c_str()); legacy_resume.initialize();
+    CHECK(!player->playing()); legacy_resume.tick(200);
+    CHECK(legacy_resume.resume_saved());
+    for (unsigned i = 0; i < 100; ++i) legacy_resume.tick(225 + i * 25);
+    CHECK(legacy_resume.queue_size() == 260 && selected == checkpoint_path);
+    // Reject malformed/oversized hints safely; the canonical saved track can
+    // still play explicitly as a one-track queue, not an unchecked catalog jump.
+    for (const auto* context : {"@catalog2:1:10000:(UNKNOWN)", "@catalog2:1:-1:(UNKNOWN)", "@catalog2:3:1:(UNKNOWN)", "@catalog2:1:1"}) {
+        persisted = checkpoint;
+        std::snprintf(persisted.library_folder.data(), persisted.library_folder.size(), "%s", context);
+        player->stop();
+        PlayerFrontend invalid_resume(sd, *player, sink, buttons, indexed_root.c_str()); invalid_resume.initialize();
+        CHECK(!player->playing()); invalid_resume.tick(200);
+        CHECK(invalid_resume.resume_saved()); invalid_resume.tick(225);
+        CHECK(invalid_resume.queue_size() == 1 && selected == checkpoint_path);
+    }
     catalog_press(ButtonId::kPrevious, ButtonGesture::kLongPress); // Parent from now-playing returns folder browser.
     if (failures) return EXIT_FAILURE;
-    std::cout << "Frontend tests passed: folder/M3U controls, recovery, settings, sleep, 260-track catalog paging/queue/seek/repeat/group playback\n";
+    std::cout << "Frontend tests passed: folder/M3U controls, recovery, settings, sleep, 260-track fast catalog paging/queue/seek/repeat/group playback, cold/legacy/malformed resume without boot autoplay\n";
 }

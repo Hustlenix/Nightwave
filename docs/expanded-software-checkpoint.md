@@ -9,9 +9,9 @@ AI-authored, no orders were placed and no human hours/results were invented.
 | Direct microSD MP3/WAV | Existing real three-task engine retained | Real SD/decoder/output latency and hot-remove recovery |
 | Lyrics | Bounded LRC loader and current/next OLED view; sample clock | Acoustic alignment, wrapping/Unicode on chosen display |
 | Metadata | ID3v2.3/v2.4/v1 and WAV INFO; PCM duration | MP3 duration/index, unsupported tag variants |
-| Library | Idle-built SD catalog, whole-card songs/artists/albums, 16-row pages; folder/M3U | Fast filtered query/index metadata reuse; real card/latency acceptance |
+| Library | Idle-built SD catalog, 16-row pages, PSRAM artist/album lookup and direct filtered track access; folder/M3U | Metadata reuse; slow fallback/SD contention and real card latency acceptance |
 | Modes | Normal/shuffle/repeat-all/repeat-track; EOF advance | Long on-board mixed-media stress |
-| Resume | Checked NVS; explicit M3U, canonical folder and cached indexed-filter context | Fast MP3 seek, browser cursor, missing-cache context reconstruction |
+| Resume | Checked NVS; explicit M3U/folder/index context; checked ordinal hint, legacy/stale fallback | Fast MP3 seek, browser cursor, missing-cache context reconstruction |
 | Sleep | Off/15/30/45/60/end-track; pause ramp, stop, display sleep | Measured low power / physical master shutdown |
 | Outputs | Speaker/wired/auto preference, faded switch | Chosen Bluetooth transport; actual jack circuit |
 | Battery | Unknown/unmeasured displayed honestly | Gauge/bus HAL, charging/fault/low-battery shutdown after power choice |
@@ -49,7 +49,9 @@ Current 2026-10-02 checkpoint: 14b10c0 [device build/size](https://github.com/Hu
 and [8/8 Release + 8/8 ASAN/leak suites](https://github.com/Hustlenix/Nightwave/actions/runs/36962788677)
 passed. This supersedes the older firmware-source/evidence paragraph above.
 The catalog and real frontend integrate >128-track fixtures, full indexed/filter
-queues and resume; filtered 10,000-record queries still require performance work.
+queues and resume. Later v2 lookup source has separate evidence in
+software-validation.md; old slow scans remain a declared fallback, not the
+normal accelerated group/filter path.
 No physical SD, acoustic, battery or hardware-authorship result follows from CI.
 
 ## Actual next human gate
@@ -61,7 +63,7 @@ The assistant's conditional recommendations are S3 + qualified BM83 AT and
 non-touch 1.69-inch TFT; exact firmware/SKU and drawings still need qualification.
 
 After choices: reconcile GPIO/SRAM/PSRAM/power and implement selected adapters,
-fast filtered index/UI and fuel/power HAL. Finish/prioritise remaining software; then
+selected display UI, MP3 duration/fast seek and fuel/power HAL. Finish/prioritise remaining software; then
 builder authors one subsystem at a time using builder-tasks.md. Reviews identify
 specific issues, builder fixes and returns sources; independent human review
 and actual manufacturing exports remain hard funding blockers.

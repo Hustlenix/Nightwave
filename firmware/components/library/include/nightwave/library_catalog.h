@@ -4,10 +4,10 @@
 #include <cstdint>
 #include <cstdio>
 #include <dirent.h>
+#include <memory>
 #include "nightwave/media_documents.h"
+#include "nightwave/catalog_lookup.h"
 namespace nightwave {
-enum class CatalogView { kSongs, kArtists, kAlbums };
-enum class CatalogFilter { kNone, kArtist, kAlbum };
 struct CatalogRecord {
     std::array<char, 256> path{};
     TrackMetadata metadata{};
@@ -26,7 +26,7 @@ class LibraryCatalog {
  public:
     static constexpr std::uint32_t kMaxTracks = 10000, kMaxDirectories = 4096,
         kMaxEntries = 100000;
-    LibraryCatalog() = default;
+    explicit LibraryCatalog(bool accelerate = true) : accelerate_(accelerate) {}
     ~LibraryCatalog();
     LibraryCatalog(const LibraryCatalog&) = delete;
     LibraryCatalog& operator=(const LibraryCatalog&) = delete;
@@ -39,11 +39,15 @@ class LibraryCatalog {
     bool failed() const { return failed_; }
     std::uint32_t size() const { return count_; }
     std::uint32_t scanned() const { return walked_; }
+    bool fast_lookup_ready() const { return reader_ && lookup_ && lookup_->ready(); }
+    bool lookup_loading() const { return lookup_ && !lookup_->ready() && !lookup_->failed(); }
+    void pump_lookup(unsigned chunks = 4); // At most four 1024-byte reads.
+    std::uint32_t query_reads() const { return query_reads_; }
     bool query(CatalogView, CatalogFilter = CatalogFilter::kNone,
                const char* filter = "", std::uint32_t offset = 0,
                const char* group_anchor = "", bool backwards = false);
     bool seek_song(CatalogFilter filter, const char* text, std::uint32_t ordinal);
-    bool locate_song(CatalogFilter filter, const char* text, const char* path);
+    bool locate_song(CatalogFilter filter, const char* text, const char* path, std::uint32_t hint = UINT32_MAX);
     std::uint32_t located_ordinal() const { return located_ordinal_; }
     void pump_query(unsigned budget = 4);
     void cancel_query() { querying_ = false; }
@@ -51,7 +55,13 @@ class LibraryCatalog {
     const CatalogPage& page() const { return page_; }
  private:
     bool read(std::uint32_t, CatalogRecord&);
-    bool load(const char* suffix = "catalog-v1.bin");
+    bool load(const char* suffix = "catalog-v2.bin", bool allocate_lookup = true);
+    bool load_available();
+    struct LookupDeleter { void operator()(CatalogLookup*) const; };
+    using LookupPtr = std::unique_ptr<CatalogLookup, LookupDeleter>;
+    static LookupPtr allocate_lookup();
+    void finish_walk();
+    void fast_query_step();
     void close_build();
     void fail_build();
     void publish();
@@ -66,7 +76,11 @@ class LibraryCatalog {
     std::uint8_t depth_{0};
     std::array<char, 256> locate_path_{};
     std::uint32_t located_ordinal_{UINT32_MAX};
+    std::uint32_t header_bytes_{32}, query_end_{0}, locate_hint_{UINT32_MAX}, query_reads_{0};
+    unsigned build_phase_{0};
+    LookupPtr lookup_{}, build_lookup_{};
     bool limited_{false}, new_limited_{false}, failed_{false}, querying_{false}, backwards_{false}, first_only_{false}, locating_{false};
+    bool accelerate_{true}, query_fast_{false}, hint_checked_{false};
     CatalogView view_{CatalogView::kSongs};
     CatalogFilter filter_{CatalogFilter::kNone};
     std::array<char, 64> filter_text_{}, anchor_{};

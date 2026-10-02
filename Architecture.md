@@ -16,8 +16,11 @@ work. Older two-output/OLED references below are historical provisional design.
 bounded directory work queue, idle incremental build, per-record integrity/path
 checks and PSRAM 16-row pages. PlayerFrontend supplies songs/artist/album views,
 full collection/filter playback and cached context resume. No indexing/metadata
-work runs on the real-time audio workers. Queries are UI-sliced; their SD
-contention/large filtered latency are still acceptance gaps. See docs/library-index.md.
+work runs on the real-time audio workers. A v2 footer supplies bounded PSRAM
+artist/album dictionaries and grouped track IDs; filtered selection uses direct
+record access, with legacy/allocation/group-cap slow fallback. Queries/footer
+warmup are UI-sliced; SD contention and fallback latency remain acceptance gaps.
+See docs/library-index.md for memory budgets, wire format and resume checks.
 
 ## 1. Architecture objective
 

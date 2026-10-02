@@ -34,8 +34,10 @@ completion is not asserted.
 2026-10-02 software continuation: [14b10c0 device build/size](https://github.com/Hustlenix/Nightwave/actions/runs/36962788706)
 and [Project quality, 8 Release + 8 ASAN/leak suites](https://github.com/Hustlenix/Nightwave/actions/runs/36962788677)
 passed. The SD-backed songs/artists/albums catalog and indexed/filter/folder
-resume are implemented with [explicit limits](library-index.md). Fast filtered
-navigation, MP3 duration/seek, selected BT/TFT adapters and reviewed fuel/power
+resume are implemented with [explicit limits](library-index.md). Later v2 lookup
+source adds accelerated filtered navigation; its evidence is recorded separately
+in software-validation.md. Fallback/SD-latency acceptance, MP3 duration/seek,
+selected BT/TFT adapters and reviewed fuel/power
 HAL/acceptance remain incomplete. Funding status remains NOT READY.
 
 ## Builder-authored continuation

@@ -34,6 +34,7 @@ class PlayerFrontend {
     std::size_t queue_size() const { return assets_ ? (catalog_queue_ ? catalog_queue_count_ : queue_count_) : 0; }
     std::uint32_t catalog_scanned() const { return assets_ ? assets_->catalog.scanned() : 0; }
     bool catalog_building() const { return assets_ && assets_->catalog.building(); }
+    bool catalog_fast_lookup() const { return assets_ && assets_->catalog.fast_lookup_ready(); }
  private:
     struct Entry { std::array<char, 256> name{}; bool directory{false}; };
     struct UiAssets {
@@ -50,6 +51,7 @@ class PlayerFrontend {
     void catalog_query(bool last_cursor = false);
     void catalog_event(const ButtonEvent&);
     void catalog_selected();
+    void save_catalog_context();
     OutputPath selected_output() const;
     void next(int direction, bool automatic = false);
     void parent();
@@ -77,6 +79,7 @@ class PlayerFrontend {
     CatalogFilter catalog_filter_{CatalogFilter::kNone}, queue_filter_{CatalogFilter::kNone};
     std::array<char, 64> catalog_filter_text_{}, catalog_anchor_{}, queue_filter_text_{};
     std::uint32_t catalog_offset_{0}, catalog_queue_count_{0}, pending_index_{0}, pending_position_{0};
+    std::uint32_t resume_hint_{UINT32_MAX};
     bool oled_ready_{false}, dirty_{false}, nvs_ready_{false}, was_running_{false};
     bool headphone_{false}, detect_candidate_{false}, truncated_{false}, display_asleep_{false};
     bool auto_advance_{false}, sleep_fading_{false};

@@ -17,13 +17,16 @@ budgets; do not use a larger battery to conceal uncontrolled load.
 | Worker/UI stacks | 4+8+4+6 KiB, plus console/input/IDF | Actual minimum high-water marks required, ≥25% spare target |
 | New TFT framebuffer | 112.5–131.25 KiB + 15 KiB DMA tiles | Explicit PSRAM framebuffer; internal DMA tiles |
 | Full-card index/cache | 16 metadata records ≈8 KiB + bounded controls in PSRAM | SD-backed 10,000-track catalog; no full-library RAM vector |
+| Artist/album lookup | 227,488 bytes per generation; 454,976-byte active + staging peak | Explicit PSRAM; 1,024 keys per field; slow fallback on allocation/cap failure |
 | Settings | 788-byte versioned record + bounded strings | Commit after quiet interval/checkpoint, no per-frame flash writes |
 | BT | Dedicated module allowance or measured ESP32 stack/SBC envelope | Architecture-dependent; do not assume S3 BLE supplies A2DP |
 
 S3's nominal 512 KiB SRAM is not all application heap. Initial new-feature static
 allocations exceeded 200 KiB; lyrics/queue were moved to an explicit ~73 KiB
 PSRAM allocation at initialization; the catalog adds roughly 9 KiB of bounded
-page/traversal/control state to that allocation. Failure disables UI playback safely, leaving
+page/traversal/control state to that allocation. V2 group lookups are additional
+explicit PSRAM allocations (not BSS/internal malloc); failure of these retains
+slow catalog browsing, not a hidden track truncation. Failure of UiAssets itself disables UI playback safely, leaving
 console diagnostics available. PSRAM is configured for
 capability allocation, **not automatic malloc fallback**. A successful link is
 not enough: measure free/largest internal block, minimum heap, stacks and cache
@@ -82,8 +85,12 @@ filesystem sandbox. Missing tracks become recoverable errors, not infinite
 auto-skip. Browser retains ≤128 entries and examines ≤512 per scan; the limit
 is explicit. A separate idle-built SD catalog now provides whole-card songs,
 artist/album groups and 16-row pages. See library-index.md for exact limits,
-reserved cache files, generation rotation and the remaining worst-case filtered
-query latency/per-file metadata-reuse gaps. Operation slices are not proven
+reserved cache files, generation rotation and lookup/fallback limits. A ready
+lookup serves group pages from RAM, filtered pages with ≤16 checked record reads,
+and selected/advanced tracks with one record read. Correct resume hints are
+path/tag-checked; stale hints still search. Low-memory/over-cap/legacy caches
+retain slow scans, and per-file metadata reuse remains open. These are operation
+counts, not measured device latency. Operation slices are not proven
 millisecond bounds. Runtime filesystem/heap/underrun evidence remains required.
 
 ## Power / eight-hour requirement
@@ -114,7 +121,8 @@ charge-while-play testing before reviewed power hardware and bench gate.
 
 Implemented: bounded lyric/metadata/M3U loaders, accepted-sample clock, modes,
 sleep fade/stop/display sleep, versioned resume/settings, provisional OLED
-views, machine-readable diagnostics and SD-backed paged library. Pending: chosen
-BT transport, TFT UI, fast filtered index queries, MP3 duration/fast seek, fully separated hardware HAL,
+views, machine-readable diagnostics and SD-backed paged library with bounded v2
+group lookup. Pending: chosen
+BT transport, TFT UI, fallback/SD-contention latency acceptance, MP3 duration/fast seek, fully separated hardware HAL,
 fuel gauge/charging/low-battery policy and physical timing/power acceptance.
 This is an honest software checkpoint, not a completed production/funding build.

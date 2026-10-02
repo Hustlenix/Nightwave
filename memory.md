@@ -14,8 +14,9 @@ Latest 2026-10-01 final master/addendum supersedes older two-output scope.
 Bluetooth A2DP SOURCE and readable display must be chosen by builder before
 final schematic tasks. Do not silently switch MCU or preserve old OLED. Current
 software adds bounded lyrics/metadata/M3U, modes, seek/resume, sleep and checked
-settings. The 2026-10-02 continuation implements an SD-backed paged catalog;
-filtered large-library performance, chosen BT/TFT and reviewed power/HAL remain open.
+settings. The 2026-10-02 continuation implements an SD-backed paged catalog and
+bounded PSRAM lookup; fallback/SD-latency acceptance, chosen BT/TFT and reviewed
+power/HAL remain open.
 See docs/engineering-budgets.md for exact limits and current evidence ledger.
 
 Complete the digital software/design preparation for Pixl funding under the
@@ -35,7 +36,13 @@ AI-generated hardware files, and independent human sanity checking.
   36962788677 success, 8/8 Release + 8/8 ASAN/leak. Link DIRAM 204882/341760,
   .bss 144960, image 437340 bytes (not runtime measurements). Failed Release
   path warning and noncanonical fixture assertion were repaired; evidence kept.
-  Filtered 10,000-record scans remain slow; no physical acceptance is implied.
+  V2 lookup continuation: 227488-byte explicit PSRAM generation, active/staging
+  peak 454976; 1024 artist/album keys each, 10000 tracks. Group pages need no
+  catalog record reads, filtered page ≤16, selection/correct resume hint one;
+  path/tag checked and stale hint searches. Legacy v1 is preserved/readable;
+  footer/allocation/group-cap failure falls back to slow scans without dropping
+  tracks. Host 10000-file tests are metadata-only, not physical audio proof.
+  New code needs its own CI evidence; old 14b10c0 build is not its validation.
   Bluetooth/display choices are still PENDING. No final builder files created.
 
 - FINAL-MASTER CHECKPOINT: 50df90c firmware/size reports passed (run 36882011549);
@@ -47,7 +54,8 @@ AI-generated hardware files, and independent human sanity checking.
 - Builder BD-14 Bluetooth and BD-15 display choices are the CURRENT gate before
   final schematic tasks. Comparisons recommend conditional S3 + qualified BM83
   AT and non-touch 1.69-inch TFT; neither is selected. Old MCU-first advice is
-  superseded. Full-card index, chosen adapters and fuel/power HAL remain open.
+  superseded. Full-card index is implemented with explicit lookup/fallback limits;
+  chosen adapters, MP3 duration/fast seek and fuel/power HAL remain open.
 - Expanded model: assumed TFT 60mA/speaker 0.25W needs 6.609Ah for 8h; old 6.6Ah
   candidate models only 7.99h. No pack/charger/runtime is locked or measured.
 

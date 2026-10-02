@@ -17,7 +17,8 @@ AI output is not physical evidence and is not human engineering time. No AI-gene
 
 2026-10-02 software continuation: Codex authored the bounded SD-backed catalog,
 incremental traversal/query state machines, library UI/queue/resume integration,
-cache-integrity logic, synthetic tests and accompanying documentation. No
+cache-integrity logic, bounded v2 PSRAM dictionaries/grouped IDs, cache migration,
+checked ordinal-hint resume, synthetic tests and accompanying documentation. No
 builder radio/display choice, electrical/CAD authorship, physical timing or
 independent hardware approval follows from this software work.
 
