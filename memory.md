@@ -63,6 +63,15 @@ reports without treating any record as physical acceptance. BD-15 remains
 pending, so current full power/charging/pack/GPIO review and Builder Task1 are
 not complete or authorized to start. No final schematic authored.
 
+Final pushed diagnostics-reader checkpoint3316ff5: quality37003778650 success,
+10/10 Release +10/10 ASAN/leak, project/engineering/parser checks. Firmware and
+C++ tests are identical to validated ee2f4fc (device37003131904). This evidence-
+only continuation changes no software. Worktree clean after commit/push must
+be checked, not assumed. Next required user input is BD-15; recommend non-touch
+Waveshare24382, alternativeAdafruit3787. Neither selected. Only after selection
+propagation, full updated power/charging/battery analysis and BOM/GPIO review
+may the first precise builder-authored schematic task be handed off.
+
 Complete the digital software/design preparation for Pixl funding under the
 2026-10-01 request. The old physical-before-digital gate is superseded; physical
 validation remains pending. Do not order hardware, connect lithium, invent

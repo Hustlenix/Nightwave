@@ -218,3 +218,10 @@ to ee2f4fc; their own project-quality run is recorded after execution. The reade
 now validates engineering counters/flags/null battery fields, rejects overflow/
 excessive nesting, and keeps physical acceptance NOT_ESTABLISHED even if a
 captured record falsely says physical_pass=true.
+
+Final diagnostics-reader checkpoint `3316ff55d83511158287a02ada794164c2e98f55`
+is pushed. [Project quality 37003778650](https://github.com/Hustlenix/Nightwave/actions/runs/37003778650)
+succeeded: validator, engineering/diagnostic parser self-tests, 10/10 Release
+and 10/10 ASAN/leak suites. `git diff ee2f4fc 3316ff5 -- firmware tests` is empty,
+so the successful ee2f4fc ESP32-S3 build applies to identical firmware/C++ sources.
+This subsequent evidence-ledger-only commit changes no software source.
