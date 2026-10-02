@@ -139,3 +139,21 @@ passed. The new catalog location assertion used CTest's `tests/../` fixture path
 instead of its canonical root. The fixture lookup now uses the canonical root,
 matching the saved-path contract. ASAN was skipped by that failed run; it is
 not recorded as a pass. Targeted WSL tests with canonical arguments had passed.
+
+Validated checkpoint `14b10c02e433cf87f54a9f238603f0969b49ef90`:
+
+- [ESP32-S3 build + size/components](https://github.com/Hustlenix/Nightwave/actions/runs/36962788706): success.
+- [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/36962788677): success, 8/8 Release and 8/8 ASAN/leak suites.
+- New frontend assertions verify catalog traversal does not advance while audio
+  owns workers. The fake-audio suite does not prove on-device SD starvation bounds.
+- Link report: DIRAM 204,882/341,760 bytes, remaining 136,878; .bss 144,960;
+  image 437,340 bytes. Not runtime heap/PSRAM/CPU measurements.
+- The device build includes upstream ESP-IDF Wi-Fi/supplicant CMake dependency
+  warnings; it successfully builds. No project warning was suppressed.
+- Concurrent origin/main CI/setting-migration/website changes were preserved
+  via merge adbb92e, not overwritten. The original adbb92e device run was
+  superseded/cancelled; it is not counted as successful validation.
+
+Later documentation-only ledger changes leave firmware/test source identical
+to this validated checkpoint. The full product is still not funding-ready;
+library-index.md records filtered-query performance and physical acceptance gaps.

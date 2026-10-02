@@ -31,6 +31,10 @@ AI-generated hardware files, and independent human sanity checking.
   songs/artists/albums pages, full indexed/filter playback, backup cache fallback,
   root/checksum validation and folder/indexed-filter resume. Source validation
   evidence is recorded only after execution in docs/software-validation.md.
+  Validated source 14b10c0: Firmware run 36962788706 success; quality run
+  36962788677 success, 8/8 Release + 8/8 ASAN/leak. Link DIRAM 204882/341760,
+  .bss 144960, image 437340 bytes (not runtime measurements). Failed Release
+  path warning and noncanonical fixture assertion were repaired; evidence kept.
   Filtered 10,000-record scans remain slow; no physical acceptance is implied.
   Bluetooth/display choices are still PENDING. No final builder files created.
 

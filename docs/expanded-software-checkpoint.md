@@ -45,6 +45,13 @@ change the built firmware.
 Initial 54ba552 tests caught corrupt-path display clipping; repaired in 35b7ab4.
 Do not hide a failed run or treat an unexecuted checklist as a pass.
 
+Current 2026-10-02 checkpoint: 14b10c0 [device build/size](https://github.com/Hustlenix/Nightwave/actions/runs/36962788706)
+and [8/8 Release + 8/8 ASAN/leak suites](https://github.com/Hustlenix/Nightwave/actions/runs/36962788677)
+passed. This supersedes the older firmware-source/evidence paragraph above.
+The catalog and real frontend integrate >128-track fixtures, full indexed/filter
+queues and resume; filtered 10,000-record queries still require performance work.
+No physical SD, acoustic, battery or hardware-authorship result follows from CI.
+
 ## Actual next human gate
 
 Choose BD-14 Bluetooth architecture and BD-15 display using their comparison

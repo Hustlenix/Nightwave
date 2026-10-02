@@ -36,6 +36,12 @@ link-time remainder 137,102 bytes; .bss 144,736 bytes; image 426,724 bytes.
 These are compiler/linker figures, **not runtime heap measurements**. Runtime
 decoder/stacks/filesystem/driver allocations still consume that headroom.
 
+New executed 14b10c0 link report: DIRAM 204,882/341,760 bytes, remainder 136,878;
+.bss 144,960; image 437,340 bytes.
+[Catalog checkpoint device report](https://github.com/Hustlenix/Nightwave/actions/runs/36962788706).
+The PSRAM-resident catalog avoids another large static internal allocation;
+these remain link numbers, not proof of runtime filesystem/cache/heap headroom.
+
 Current priorities: audio 8, decode 6, storage 5, UI 3. CPU targets (not results):
 audio work <25% of a 256-frame deadline (5.33 ms at 48 kHz), decode worst compute
 <50% of represented frame time, combined audio/storage/decode <70% one-core
