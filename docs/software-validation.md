@@ -249,3 +249,16 @@ tests pass targeted strict Release and ASAN with leak detection in WSL.
 All 27 Python tests (9 funding, 12 Trial inventory, 6 power arithmetic) and the
 project validator pass locally. The new source requires 13/13 full C++ suites
 and its own ESP32-S3 CI build; the pending run must not be labelled successful.
+
+Published engineering source `a7edc5f215600a4436387c0fcfee70ace1dda816` has
+passed [Project quality 37126760412](https://github.com/Hustlenix/Nightwave/actions/runs/37126760412):
+**13/13 Release, 13/13 ASAN with leak detection**, all 27 Python tests (9 funding,
+12 finished-device inventory, 6 selected-product power), validator and engineering
+calculations. CI logs were read on 2026-10-03, not inferred from queued status.
+This includes 10,000-track artists/albums/filtered pages, corrupt/legacy cache,
+group/low-memory fallback, stale resume, settings reload, malformed BT PCM,
+selected-display geometry and actual ESP-IDF input adapter against host fakes.
+[ESP32-S3 firmware 37126760414](https://github.com/Hustlenix/Nightwave/actions/runs/37126760414)
+also completed successfully for that exact source, including compilation of the
+new input adapter. No host/CI
+result establishes physical radio/display/SD, battery runtime, CAD fit or authorship.

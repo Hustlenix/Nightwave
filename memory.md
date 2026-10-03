@@ -10,6 +10,18 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+Published 2026-10-03 engineering source: `a7edc5f215600a4436387c0fcfee70ace1dda816`.
+Project quality37126760412 verified successful: all13 Release/all13 ASAN with
+leak detection, 27 Python tests, project validator/calculations. New source
+includes selected TFT geometry, compiled TCA9535 input adapter, malformed BT PCM
+fail-closed fix, current power screening and bounded Trial evidence inventory.
+Firmware37126760414 verified completed successfully for that exact source.
+The evidence-ledger follow-up changes documentation only; firmware/tests/tools
+remain identical to this validated checkpoint. Actual Trial audit
+returns BLOCKED, 41 missing findings, measured runtime null and physical_pass=false.
+Independent agent/source reviews do not satisfy independent human hardware review.
+The baseline/history below is retained and superseded by this current entry.
+
 2026-10-03 finished-device continuation: preserve the complete frozen systems
 scope, not arbitrary feature-count growth. Main was fast-forwarded to the latest
 published runtime checkpoint `8bb9232`; live verification found firmware

@@ -1,13 +1,15 @@
 # Power options for the builder's decision
 
 Current scope (2026-10-03): selected BM83SM1-00TA and Waveshare 24382 require a
-new load model. Charger/pack examples below remain comparisons only; no pack,
+new load model, now reproduced in [current-power-model.md](current-power-model.md).
+Charger/pack examples below remain comparisons only; no pack,
 charge current or final power circuit is selected by the Bluetooth decision.
 
 2026-10-01. No substitute is selected or ordered. Source/model research is
 independent of builder authoring. Final values and thermal validation remain
 pending. Run `rtk python tools/engineering_calculations.py` for reproducible
-examples. Existing runtime model is tools/power_budget.py.
+examples. `tools/power_budget.py` is historical only; current selected-product
+screening is `tools/product_power_budget.py`. Neither is achieved runtime.
 
 ## Current conflict
 
