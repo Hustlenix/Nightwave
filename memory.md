@@ -29,6 +29,15 @@ Actual funding inventory is BLOCKED with34 findings, priced core USD53.16 and
 no final total. Selected TCA9535 has no verified price; it is not counted as zero.
 The baseline/history below is retained and superseded by this current entry.
 
+2026-10-03 builder handoff: `hardware/kicad/nightwave-starter` now contains an
+AI-assisted KiCad 10 project skeleton with a root hierarchy, six empty subsystem
+sheets, a blank PCB and explicit per-sheet TODO notes. KiCad CLI loads and plots
+all seven pages and ERC reports zero violations because no electrical circuit is
+present yet. This starter does not resolve the final GPIO map, charger/pack/BT
+rail, exact support parts, footprints, placement or routing; it is not a finished
+schematic or funding-ready design. The builder must materially author and review
+the actual design, returning one subsystem at a time for review.
+
 2026-10-03 finished-device continuation: preserve the complete frozen systems
 scope, not arbitrary feature-count growth. Main was fast-forwarded to the latest
 published runtime checkpoint `8bb9232`; live verification found firmware

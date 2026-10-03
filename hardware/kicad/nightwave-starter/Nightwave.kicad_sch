@@ -1,0 +1,191 @@
+(kicad_sch
+	(version 20260306)
+	(generator "nightwave_starter")
+	(generator_version "1.0")
+	(uuid "c71ffabb-a3fa-59c8-b600-92057a966d04")
+	(paper "A4")
+	(lib_symbols)
+	(text "NIGHTWAVE - SCHEMATIC STARTER"
+		(exclude_from_sim no)
+		(at 20 16 0)
+		(effects
+			(font
+				(size 3.0 3.0)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "5748fa58-f942-5f3c-bd09-63cc1ca40ff5")
+	)
+	(text "AI-assisted structure only. Double-click a block to open its sheet. This is not an electrically complete design."
+		(exclude_from_sim no)
+		(at 20 23 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "696cbff8-6783-55fc-9ab7-942fd5eb404b")
+	)
+	(text "Finish one sheet at a time: datasheet -> symbol -> circuit -> footprint -> ERC -> review."
+		(exclude_from_sim no)
+		(at 20 29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "10af4358-83d3-5caf-a0fa-90bf1386be62")
+	)
+	(sheet
+		(at 20 42)
+		(size 75 35)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke (width 0) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "a82972b4-f225-5ef0-9f96-efb4a01fee9b")
+		(property "Sheetname" "Power and Charging"
+			(at 20 41.2375 0)
+			(effects (font (size 1.524 1.524) (bold yes)) (justify left bottom))
+		)
+		(property "Sheetfile" "01_power_charging.kicad_sch"
+			(at 20 77.9401 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "Nightwave"
+				(path "/c71ffabb-a3fa-59c8-b600-92057a966d04" (page "2"))
+			)
+		)
+	)
+	(sheet
+		(at 105 42)
+		(size 75 35)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke (width 0) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "eb7c83dd-8766-513c-bf40-3fad2bf82151")
+		(property "Sheetname" "MCU and Storage"
+			(at 105 41.2375 0)
+			(effects (font (size 1.524 1.524) (bold yes)) (justify left bottom))
+		)
+		(property "Sheetfile" "02_mcu_storage.kicad_sch"
+			(at 105 77.9401 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "Nightwave"
+				(path "/c71ffabb-a3fa-59c8-b600-92057a966d04" (page "3"))
+			)
+		)
+	)
+	(sheet
+		(at 190 42)
+		(size 75 35)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke (width 0) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "f3f07f01-1258-53c5-9d6f-a66ed4c6ea35")
+		(property "Sheetname" "Local Audio"
+			(at 190 41.2375 0)
+			(effects (font (size 1.524 1.524) (bold yes)) (justify left bottom))
+		)
+		(property "Sheetfile" "03_local_audio.kicad_sch"
+			(at 190 77.9401 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "Nightwave"
+				(path "/c71ffabb-a3fa-59c8-b600-92057a966d04" (page "4"))
+			)
+		)
+	)
+	(sheet
+		(at 20 95)
+		(size 75 35)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke (width 0) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "3624b223-2be1-56a7-84fe-a626a2765ac8")
+		(property "Sheetname" "Display and Controls"
+			(at 20 94.2375 0)
+			(effects (font (size 1.524 1.524) (bold yes)) (justify left bottom))
+		)
+		(property "Sheetfile" "04_display_controls.kicad_sch"
+			(at 20 130.9401 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "Nightwave"
+				(path "/c71ffabb-a3fa-59c8-b600-92057a966d04" (page "5"))
+			)
+		)
+	)
+	(sheet
+		(at 105 95)
+		(size 75 35)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke (width 0) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "0a6d58cb-20c5-5155-a3b0-d9d490e8e9e0")
+		(property "Sheetname" "Bluetooth"
+			(at 105 94.2375 0)
+			(effects (font (size 1.524 1.524) (bold yes)) (justify left bottom))
+		)
+		(property "Sheetfile" "05_bluetooth.kicad_sch"
+			(at 105 130.9401 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "Nightwave"
+				(path "/c71ffabb-a3fa-59c8-b600-92057a966d04" (page "6"))
+			)
+		)
+	)
+	(sheet
+		(at 190 95)
+		(size 75 35)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke (width 0) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "c1219ade-cc6a-58d4-9d86-c24713d05884")
+		(property "Sheetname" "Connectors and Test"
+			(at 190 94.2375 0)
+			(effects (font (size 1.524 1.524) (bold yes)) (justify left bottom))
+		)
+		(property "Sheetfile" "06_connectors_test.kicad_sch"
+			(at 190 130.9401 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "Nightwave"
+				(path "/c71ffabb-a3fa-59c8-b600-92057a966d04" (page "7"))
+			)
+		)
+	)
+	(sheet_instances
+		(path "/" (page "1"))
+	)
+	(embedded_fonts no)
+)

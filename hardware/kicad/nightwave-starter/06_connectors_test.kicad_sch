@@ -1,0 +1,77 @@
+(kicad_sch
+	(version 20260306)
+	(generator "nightwave_starter")
+	(generator_version "1.0")
+	(uuid "3c4a014a-aae4-5d6c-80e3-be440ccc6930")
+	(paper "A4")
+	(lib_symbols)
+	(text "Connectors and Test"
+		(exclude_from_sim no)
+		(at 25 22 0)
+		(effects
+			(font
+				(size 3.0 3.0)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "afde51a8-81b0-5a15-ac3b-62437c06c35d")
+	)
+	(text "STARTER SHEET - you must select parts/values, draw circuits, assign footprints and review datasheets."
+		(exclude_from_sim no)
+		(at 25 30 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "6b458408-e85c-59ff-ab61-8a8c0f0db980")
+	)
+	(text "1. Draw exact battery, speaker, headphone, display and programming connectors."
+		(exclude_from_sim no)
+		(at 25 42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "64f02aac-4c83-57f5-8e59-1e176c4baff8")
+	)
+	(text "2. Add named test points for GND, VBUS, BAT, SYS, 3V3, EN and GPIO0."
+		(exclude_from_sim no)
+		(at 25 51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1825b4c6-d7d5-5f53-b298-60b02818c125")
+	)
+	(text "3. OPEN: exact connector MPNs, mates, polarity and footprints need selection."
+		(exclude_from_sim no)
+		(at 25 60 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d4de853d-220d-583e-ac6d-b0415cd583ce")
+	)
+	(text "4. Keep current measurement access and never add a grounded speaker test point."
+		(exclude_from_sim no)
+		(at 25 69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b3566915-a118-5533-aa28-96028e34d304")
+	)
+	(embedded_fonts no)
+)

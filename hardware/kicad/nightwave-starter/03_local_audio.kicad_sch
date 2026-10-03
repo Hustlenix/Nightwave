@@ -1,0 +1,77 @@
+(kicad_sch
+	(version 20260306)
+	(generator "nightwave_starter")
+	(generator_version "1.0")
+	(uuid "5b9b9d42-6614-5e17-a6f1-a9c120acadca")
+	(paper "A4")
+	(lib_symbols)
+	(text "Local Audio"
+		(exclude_from_sim no)
+		(at 25 22 0)
+		(effects
+			(font
+				(size 3.0 3.0)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "7e13cb1e-77fb-562b-9858-ccf6adff42cb")
+	)
+	(text "STARTER SHEET - you must select parts/values, draw circuits, assign footprints and review datasheets."
+		(exclude_from_sim no)
+		(at 25 30 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "fca56377-5a9a-5c9b-9977-0aca5b4399af")
+	)
+	(text "1. Draw the shared I2S source, DAC/headphone branch and digital speaker branch."
+		(exclude_from_sim no)
+		(at 25 42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "755196cd-9890-5f20-af9e-4763353b9998")
+	)
+	(text "2. Candidates: PCM5102A, TPA6132A2 and MAX98360CEFB+T; verify every suffix."
+		(exclude_from_sim no)
+		(at 25 51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4754141d-dc46-5310-993f-56ce173b14ad")
+	)
+	(text "3. Add default-off mute/enable behavior and a real headphone insertion detector."
+		(exclude_from_sim no)
+		(at 25 60 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "60a9bd7d-cd6e-5f4e-985d-05ad2b8842dc")
+	)
+	(text "4. Never connect either BTL speaker output to ground."
+		(exclude_from_sim no)
+		(at 25 69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "586f575d-3055-5555-8ec7-7beaf12fed08")
+	)
+	(embedded_fonts no)
+)

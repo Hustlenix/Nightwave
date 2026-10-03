@@ -1,0 +1,77 @@
+(kicad_sch
+	(version 20260306)
+	(generator "nightwave_starter")
+	(generator_version "1.0")
+	(uuid "5f537a8f-cbcb-5394-924b-700b63694144")
+	(paper "A4")
+	(lib_symbols)
+	(text "Display and Controls"
+		(exclude_from_sim no)
+		(at 25 22 0)
+		(effects
+			(font
+				(size 3.0 3.0)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "e308cc45-e71d-5d08-8c43-36304f875119")
+	)
+	(text "STARTER SHEET - you must select parts/values, draw circuits, assign footprints and review datasheets."
+		(exclude_from_sim no)
+		(at 25 30 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "7af3c2e2-f29e-52b3-ab88-30443230d66f")
+	)
+	(text "1. Selected display: Waveshare 24382, 240x280 ST7789V2 SPI module."
+		(exclude_from_sim no)
+		(at 25 42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9668c385-0ab2-5d61-8ee0-7579d0abc6f8")
+	)
+	(text "2. Selected expander: TCA9535PWR, input-only for buttons and slow status inputs."
+		(exclude_from_sim no)
+		(at 25 51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "22db6391-e989-5d7d-971d-20c809266bda")
+	)
+	(text "3. Draw five buttons, pull networks, INT/address straps and display connector."
+		(exclude_from_sim no)
+		(at 25 60 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d11c1386-b679-5604-b2d8-a8db537cd088")
+	)
+	(text "4. OPEN: expander ports, IRQ GPIO and final TFT GPIO assignments need review."
+		(exclude_from_sim no)
+		(at 25 69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a1dc99d0-27c2-59d6-9956-2bc57668f887")
+	)
+	(embedded_fonts no)
+)

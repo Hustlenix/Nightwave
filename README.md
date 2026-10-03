@@ -134,6 +134,11 @@ runtime, and charge-while-play safety is not verified.
 There is no completed KiCad schematic/board, routed four-layer PCB, editable
 enclosure, full STEP assembly or manufacturing archive yet. No dummy CAD files,
 fake assembly photographs or render-only substitutes are presented as evidence.
+An [AI-assisted KiCad starter](hardware/kicad/nightwave-starter/START_HERE.md)
+now supplies a root hierarchy, six empty subsystem sheets and a blank board so
+the builder can begin quickly. It is scaffolding only: it contains no finished
+circuit, footprint assignment, GPIO map, placement or routing and is not funding
+evidence by itself.
 The board, battery, speaker, display, controls and ports must all have verified
 mounting and clearances in the builder-owned design before funding submission.
 

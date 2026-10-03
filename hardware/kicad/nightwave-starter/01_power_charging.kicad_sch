@@ -1,0 +1,77 @@
+(kicad_sch
+	(version 20260306)
+	(generator "nightwave_starter")
+	(generator_version "1.0")
+	(uuid "75eb4483-f9c2-58dd-a5a0-61a43b780e9d")
+	(paper "A4")
+	(lib_symbols)
+	(text "Power and Charging"
+		(exclude_from_sim no)
+		(at 25 22 0)
+		(effects
+			(font
+				(size 3.0 3.0)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "83567062-673b-5e98-86a9-70e0f4623fa2")
+	)
+	(text "STARTER SHEET - you must select parts/values, draw circuits, assign footprints and review datasheets."
+		(exclude_from_sim no)
+		(at 25 30 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "5ed0f588-9e92-5223-b4ac-61b47569d53f")
+	)
+	(text "1. Draw: USB-C input/protection, charger, protected 1S pack and power path."
+		(exclude_from_sim no)
+		(at 25 42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2b2a0c9d-a9b4-5351-bc0e-c80e4a922185")
+	)
+	(text "2. Then add: 3V3 regulator, real shutdown/wake circuit and fuel gauge."
+		(exclude_from_sim no)
+		(at 25 51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "413ca51e-47e1-5ad9-9ae1-4f9d5b78824b")
+	)
+	(text "3. OPEN: charger/pack, BM83 rail and support values are not selected or reviewed."
+		(exclude_from_sim no)
+		(at 25 60 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "04a6f23b-67e7-5dd3-aae0-e6b9d3049b8d")
+	)
+	(text "4. Do not connect a cell until a human review and current-limited bring-up."
+		(exclude_from_sim no)
+		(at 25 69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7b27bae3-b9bd-5d84-922e-a71acf772f71")
+	)
+	(embedded_fonts no)
+)

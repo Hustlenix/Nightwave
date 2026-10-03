@@ -1,0 +1,77 @@
+(kicad_sch
+	(version 20260306)
+	(generator "nightwave_starter")
+	(generator_version "1.0")
+	(uuid "b095810a-8fc9-50ef-ac41-63e42d5f5464")
+	(paper "A4")
+	(lib_symbols)
+	(text "Bluetooth"
+		(exclude_from_sim no)
+		(at 25 22 0)
+		(effects
+			(font
+				(size 3.0 3.0)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "72632bc2-605f-521c-9400-c0d1585ab379")
+	)
+	(text "STARTER SHEET - you must select parts/values, draw circuits, assign footprints and review datasheets."
+		(exclude_from_sim no)
+		(at 25 30 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "6cb67b41-1d14-5a2c-8e65-fd962a6cc4a9")
+	)
+	(text "1. Selected architecture: ESP32-S3 plus BM83SM1-00TA A2DP source module."
+		(exclude_from_sim no)
+		(at 25 42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7b4bdf0c-6463-5239-8e8b-59b901858405")
+	)
+	(text "2. Draw power/reset, UART, MFB, P0_0 host wake, service access and digital audio."
+		(exclude_from_sim no)
+		(at 25 51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dc69f02b-8916-5bd3-b716-e64fc58a4e64")
+	)
+	(text "3. OPEN: exact TA firmware behavior, clock/rate interface and 3.2-4.2 V rail."
+		(exclude_from_sim no)
+		(at 25 60 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3d6de056-4761-5ae7-b61e-cbb053461ea3")
+	)
+	(text "4. Preserve module antenna keep-out and provisioning/recovery access."
+		(exclude_from_sim no)
+		(at 25 69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0336e727-4bee-5f3d-9ad4-fdb9ae035d21")
+	)
+	(embedded_fonts no)
+)

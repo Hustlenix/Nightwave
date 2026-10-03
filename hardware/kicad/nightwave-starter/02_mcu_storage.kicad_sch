@@ -1,0 +1,77 @@
+(kicad_sch
+	(version 20260306)
+	(generator "nightwave_starter")
+	(generator_version "1.0")
+	(uuid "569f8c84-adbe-52cf-ad97-fa9349e7ae69")
+	(paper "A4")
+	(lib_symbols)
+	(text "MCU and Storage"
+		(exclude_from_sim no)
+		(at 25 22 0)
+		(effects
+			(font
+				(size 3.0 3.0)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "e0e3125f-989c-5177-9639-8b0b82e53ae8")
+	)
+	(text "STARTER SHEET - you must select parts/values, draw circuits, assign footprints and review datasheets."
+		(exclude_from_sim no)
+		(at 25 30 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "053a6a80-e3ee-5045-a46a-85d76c13615c")
+	)
+	(text "1. Selected MCU: ESP32-S3-WROOM-1-N16R8 module; use the module reference circuit."
+		(exclude_from_sim no)
+		(at 25 42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a50b9aaf-a8eb-57c3-a79f-88a896922d29")
+	)
+	(text "2. Draw: 3V3/GND, EN, GPIO0, USB/UART service and microSD interface."
+		(exclude_from_sim no)
+		(at 25 51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "10795a45-830c-5a51-a8d3-af271c24828d")
+	)
+	(text "3. OPEN: the combined numbered GPIO map and exact microSD socket are not final."
+		(exclude_from_sim no)
+		(at 25 60 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "af950f91-90c5-53d2-a3ad-84ac09a87848")
+	)
+	(text "4. Reserve straps, USB, UART0 and octal-PSRAM pins before assigning signals."
+		(exclude_from_sim no)
+		(at 25 69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c9797af9-f6f0-5a08-85fa-5f898d45f337")
+	)
+	(embedded_fonts no)
+)
