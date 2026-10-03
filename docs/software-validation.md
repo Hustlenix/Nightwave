@@ -267,5 +267,11 @@ Follow-up inventory verification found a stale selection-label allowlist: it
 recognized BD-14 but not actual BD-15/16 or retained-S3 labels. The checker now
 accepts those explicit labels without accepting unknown decisions or treating
 selection as completed pricing/review. A tenth funding regression preserves
-missing-price/final-total blockers. All 28 Python tests pass locally; fresh
-follow-up CI must be checked separately. Firmware/C++ sources are unchanged.
+missing-price/final-total blockers. All 28 Python tests pass locally.
+
+Final verified software source `cb3db92af2a889a90981650fe004e3e03244d0a7`:
+
+- [Project quality 37127240521](https://github.com/Hustlenix/Nightwave/actions/runs/37127240521): success; 13/13 Release, 13/13 ASAN/leak, 10 funding +12 Trial +6 power Python tests, project validator and calculations.
+- [ESP32-S3 firmware 37127240508](https://github.com/Hustlenix/Nightwave/actions/runs/37127240508): success for that exact commit.
+- Firmware/C++ sources remain identical to a7edc5f; the follow-up changes only the funding checker, its Python regression and documentation. This final ledger follow-up changes documentation only, not software/config/BOM/tests.
+- Actual funding inventory remains BLOCKED with 34 findings and no final total. Finished-device inventory remains BLOCKED with 41 findings, runtime null and physical_pass=false. No fabricated evidence was added to make either inventory green.

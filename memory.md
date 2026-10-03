@@ -10,12 +10,12 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
-Published 2026-10-03 engineering source: `a7edc5f215600a4436387c0fcfee70ace1dda816`.
-Project quality37126760412 verified successful: all13 Release/all13 ASAN with
-leak detection, 27 Python tests, project validator/calculations. New source
+Published 2026-10-03 verified software source: `cb3db92af2a889a90981650fe004e3e03244d0a7`.
+Project quality37127240521 verified successful: all13 Release/all13 ASAN with
+leak detection, 28 Python tests, project validator/calculations. New source
 includes selected TFT geometry, compiled TCA9535 input adapter, malformed BT PCM
 fail-closed fix, current power screening and bounded Trial evidence inventory.
-Firmware37126760414 verified completed successfully for that exact source.
+Firmware37127240508 verified completed successfully for that exact source.
 The evidence-ledger follow-up changes documentation only; firmware/tests/tools
 remain identical to this validated checkpoint. Actual Trial audit
 returns BLOCKED, 41 missing findings, measured runtime null and physical_pass=false.
@@ -24,7 +24,9 @@ Follow-up verification fixes funding inventory's stale status allowlist for
 BD-15/16 and retained S3: selections are not falsely reported pending, while
 missing prices, final total, power review and sources remain real blockers.
 New regression raises Python suite count to28 (10funding/12Trial/6power), locally
-passing; follow-up CI pending. Firmware/C++ sources remain identical to a7edc5f.
+and in CI passing. Firmware/C++ sources remain identical to a7edc5f.
+Actual funding inventory is BLOCKED with34 findings, priced core USD53.16 and
+no final total. Selected TCA9535 has no verified price; it is not counted as zero.
 The baseline/history below is retained and superseded by this current entry.
 
 2026-10-03 finished-device continuation: preserve the complete frozen systems
