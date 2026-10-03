@@ -66,6 +66,26 @@ class ShippingReadinessTests(unittest.TestCase):
         self.assertIsNone(result["final_total_usd"])
         self.assertTrue(issues)
 
+    def test_current_builder_choices_count_as_selected_not_complete(self):
+        for status in ("BUILDER_SELECTED_BD14", "BUILDER_SELECTED_BD15",
+                       "BUILDER_SELECTED_BD16", "RETAINED_BY_BD14"):
+            with self.subTest(status=status):
+                self.rows[0][6] = status
+                self.rows[0][3:5] = ["", ""]
+                self.write_bom()
+                issues = []
+                result = shipping.audit_bom(self.root, issues)
+                self.assertFalse(any("selection is unresolved" in issue for issue in issues))
+                self.assertTrue(any("invalid unit price" in issue for issue in issues))
+                self.assertTrue(any("incomplete" in issue for issue in issues))
+                self.assertEqual(result["priced_rows"], 0)
+        for status in ("CANDIDATE", "REVIEW_REQUIRED", "BUILDER_SELECTED_BD999"):
+            self.rows[0][6] = status
+            self.write_bom()
+            issues = []
+            shipping.audit_bom(self.root, issues)
+            self.assertTrue(any("selection is unresolved" in issue for issue in issues))
+
     def test_missing_price_not_zero(self):
         self.rows[0][3:5] = ["", ""]
         self.rows[1][4] = "0"

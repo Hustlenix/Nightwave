@@ -11,7 +11,10 @@ from pathlib import Path
 
 MAX_BYTES = 1024 * 1024
 MAX_ROWS = 2000
-FINAL_STATUSES = {"BUILDER_SELECTED", "BUILDER_SELECTED_BD14", "APPROVED", "LOCKED"}
+# These establish only a declared selection, never source/physical approval.
+SELECTED_STATUSES = {"BUILDER_SELECTED", "BUILDER_SELECTED_BD14",
+                     "BUILDER_SELECTED_BD15", "BUILDER_SELECTED_BD16",
+                     "RETAINED_BY_BD14", "APPROVED", "LOCKED"}
 TOTAL_IDS = {"TOTAL", "TOTAL_COST", "GRAND_TOTAL"}
 
 
@@ -69,7 +72,7 @@ def audit_bom(root: Path, findings: list[str]) -> dict:
         if not mpn or mpn in identities:
             findings.append(f"BOM: missing or duplicate part identity {mpn!r}")
         identities.add(mpn)
-        if row["Decision_Status"].strip().upper() not in FINAL_STATUSES or "PENDING" in mpn.upper():
+        if row["Decision_Status"].strip().upper() not in SELECTED_STATUSES or "PENDING" in mpn.upper():
             findings.append(f"BOM: {mpn or 'unnamed row'} selection is unresolved")
         if not row["Supplier_URL"].strip().lower().startswith(("https://", "http://")):
             findings.append(f"BOM: {mpn} has no supplier link")

@@ -20,6 +20,11 @@ The evidence-ledger follow-up changes documentation only; firmware/tests/tools
 remain identical to this validated checkpoint. Actual Trial audit
 returns BLOCKED, 41 missing findings, measured runtime null and physical_pass=false.
 Independent agent/source reviews do not satisfy independent human hardware review.
+Follow-up verification fixes funding inventory's stale status allowlist for
+BD-15/16 and retained S3: selections are not falsely reported pending, while
+missing prices, final total, power review and sources remain real blockers.
+New regression raises Python suite count to28 (10funding/12Trial/6power), locally
+passing; follow-up CI pending. Firmware/C++ sources remain identical to a7edc5f.
 The baseline/history below is retained and superseded by this current entry.
 
 2026-10-03 finished-device continuation: preserve the complete frozen systems

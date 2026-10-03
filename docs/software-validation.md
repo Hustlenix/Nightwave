@@ -262,3 +262,10 @@ selected-display geometry and actual ESP-IDF input adapter against host fakes.
 also completed successfully for that exact source, including compilation of the
 new input adapter. No host/CI
 result establishes physical radio/display/SD, battery runtime, CAD fit or authorship.
+
+Follow-up inventory verification found a stale selection-label allowlist: it
+recognized BD-14 but not actual BD-15/16 or retained-S3 labels. The checker now
+accepts those explicit labels without accepting unknown decisions or treating
+selection as completed pricing/review. A tenth funding regression preserves
+missing-price/final-total blockers. All 28 Python tests pass locally; fresh
+follow-up CI must be checked separately. Firmware/C++ sources are unchanged.
