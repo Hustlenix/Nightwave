@@ -9,7 +9,14 @@ enum class BluetoothArchitecture { kPending, kBm83At };
 // Builder selected BD-14 on 2026-10-02. Selection is not adapter/bench proof.
 inline constexpr auto kBluetoothArchitecture = BluetoothArchitecture::kBm83At;
 inline constexpr bool kBluetoothBackendQualified = false;
-inline constexpr bool kFinalDisplaySelected = false;
+// Builder selected BD-15 Waveshare 24382 on 2026-10-03. Not a pin/driver lock.
+inline constexpr bool kFinalDisplaySelected = true;
+inline constexpr std::uint32_t kFinalDisplaySku = 24382;
+inline constexpr bool kFinalDisplayDriverQualified = false;
+inline constexpr bool kCombinedProductPinsReviewed = false;
+// Builder selected BD-16 on 2026-10-03. Address/port map/IRQ await source review.
+inline constexpr bool kTca9535InputExpansionSelected = true;
+inline constexpr bool kTca9535PhysicalQualified = false;
 inline constexpr bool kBatteryLocked = false;
 // Existing constants below are the legacy USB-powered bench map only.
 

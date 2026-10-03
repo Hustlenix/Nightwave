@@ -16,3 +16,5 @@ esp_err_t i2c_master_bus_add_device(i2c_master_bus_handle_t, const i2c_device_co
 esp_err_t i2c_master_bus_rm_device(i2c_master_dev_handle_t);
 esp_err_t i2c_del_master_bus(i2c_master_bus_handle_t);
 esp_err_t i2c_master_transmit(i2c_master_dev_handle_t, const std::uint8_t*, std::size_t, int);
+esp_err_t i2c_master_transmit_receive(i2c_master_dev_handle_t, const std::uint8_t*, std::size_t,
+    std::uint8_t*, std::size_t, int);

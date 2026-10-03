@@ -6,6 +6,7 @@ on:
       - "docs/**"
       - "hardware/*.csv"
       - "hardware/*.json"
+      - "measurements/trial-evidence.json"
       - "tools/**"
       - "tests/**"
       - "firmware/**"
@@ -15,6 +16,7 @@ on:
       - "docs/**"
       - "hardware/*.csv"
       - "hardware/*.json"
+      - "measurements/trial-evidence.json"
       - "tools/**"
       - "tests/**"
       - "firmware/**"
@@ -37,6 +39,12 @@ jobs:
         run: python3 tools/validate_project.py
       - name: Test shipping artifact inventory and incomplete-cost handling
         run: python3 -m unittest discover -s tests -p 'test_shipping_readiness.py'
+      - name: Test finished-device evidence inventory without certifying physical results
+        run: python3 -m unittest discover -s tests -p 'test_trial_readiness.py'
+      - name: Test selected-product power arithmetic and unknown measurement status
+        run: python3 -m unittest discover -s tests -p 'test_product_power_budget.py'
+      - name: Calculate selected-product screening model
+        run: python3 tools/product_power_budget.py
       - name: Generate deterministic audio fixtures
         run: python3 tools/generate_test_media.py --output .generated/test-media
       - name: Encode original MP3 fixtures

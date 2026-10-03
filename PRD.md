@@ -2,7 +2,7 @@
 
 # Nightwave — Offline Music Player (T4 Target)
 
-## Current product scope — 2026-10-02
+## Current product scope — 2026-10-03
 
 The Trial acceptance matrix in docs/trial-acceptance.md tracks the entire product
 and required physical evidence. Runtime recording is implemented as sampled
@@ -18,7 +18,10 @@ for honest implementation gaps. Builder selects Bluetooth/display before final
 schematic and materially authors schematic, PCB layout/routing and enclosure.
 No physical result, funding eligibility or T4 award is inferred.
 BD-14 is builder-selected: retain ESP32-S3 plus BM83SM1-00TA A2DP source.
-BD-15 remains pending. The old OLED and battery sizing are not final hardware.
+BD-15 is builder-selected: Waveshare 24382 non-touch 240x280 ST7789V2.
+The old OLED is bench-only. BD-16 selects TCA9535PWR input expansion; its final
+map, reviewed power/charge
+design and battery sizing remain open; see docs/current-power-model.md.
 
 ## 1. Product definition
 
@@ -139,7 +142,7 @@ A rotary encoder MAY be added for navigation/volume but MUST NOT remove the requ
 
 ## 10. Display and interaction
 
-A larger, readable SPI display will be selected in BD-15. The 128x64 OLED is only a USB-powered bench adapter, not the final product screen. Final driver, glyph/readability and power acceptance follow the selected SKU.
+The builder selected Waveshare 24382 non-touch 1.69-inch 240x280 SPI display in BD-15. The 128x64 OLED is only a USB-powered bench adapter, not the final product screen. The selected geometry/tile contract is host-tested, but the actual SPI driver, glyph/wrapping, readability, current and fit are not qualified.
 
 Required screens:
 

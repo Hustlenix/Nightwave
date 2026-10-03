@@ -15,7 +15,7 @@ The prototype proves the architecture in separable stages:
 5. TPA6132A2 headphone output;
 6. MAX98357A mono speaker output.
 
-No lithium cell or charger is used. The MAX98357A breakout is an available functional proxy for the final MAX98360C speaker path. The Adafruit SSD1306 breakout is a documented UI proxy while the final SH1106 module remains unresolved.
+No lithium cell or charger is used. The MAX98357A breakout is a functional proxy for the provisional MAX98360C speaker path. The Adafruit SSD1306 breakout is a bench-only UI proxy. The builder selected Waveshare 24382 non-touch TFT in BD-15; the old SH1106 proposal is obsolete, not a final product default. This bench map does not allocate the selected BM83 or TFT; do not wire them from this table.
 
 ## GPIO map and development-board exceptions
 

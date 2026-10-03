@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "device_identity": {"firmware_commit": null, "board_revision": null},
+  "own_files": {"builder_reported_played": false, "storage": "microSD", "media_inventory": null, "playback_log": null},
+  "speaker": {"builder_reported_audible": false, "without_phone_app_streaming": false, "evidence": null},
+  "controls": {"play_pause": false, "skip": false, "volume": false, "without_console_commands": false, "evidence": null},
+  "runtime": {
+    "builder_reported_measured": false,
+    "output": "speaker",
+    "duration_hours": null,
+    "start_utc": null,
+    "end_utc": null,
+    "raw_log": null,
+    "external_evidence": null,
+    "conditions": {
+      "battery_mpn": null,
+      "battery_capacity_mah": null,
+      "full_charge_method": null,
+      "speaker_mpn": null,
+      "speaker_load_ohms": null,
+      "volume_percent": null,
+      "display_backlight_profile": null,
+      "ambient_c": null,
+      "logger_setup": null,
+      "cutoff_reason": null,
+      "usb_power_or_charging_absent": false,
+      "continuous_playback": false
+    }
+  },
+  "artifacts": {
+    "schematic": null,
+    "editable_enclosure": null,
+    "assembly_step": null,
+    "build_photos": [],
+    "demo": {"path": null, "url": null, "builder_reported_real_device": false},
+    "readme": "README.md",
+    "parts_list": "hardware/BOM.csv"
+  },
+  "human_review": {"builder_reported_completed": false, "reviewer": null, "record": null},
+  "pixl_help": {"builder_reported_confirmed": false, "record": null}
+}

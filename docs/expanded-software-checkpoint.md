@@ -1,6 +1,8 @@
 # Final-master execution checkpoint
 
-2026-10-02 current continuation: BM83SM1-00TA selected, BD-15 pending. The
+2026-10-03 current continuation: BM83SM1-00TA and Waveshare 24382 non-touch selected.
+BD-16 selects TCA9535PWR input expansion; combined map and reviewed charger/pack/
+BT rail remain open. The
 following historical ledger is superseded for MP3 duration/sparse seek, portable
 BT/power/display interfaces and engineering JSON by mp3-seek-index.md and
 software-interfaces.md. Actual current-revision CI is in software-validation.md.
@@ -21,7 +23,7 @@ AI-authored, no orders were placed and no human hours/results were invented.
 | Outputs | Speaker/wired/auto preference, faded switch | Chosen Bluetooth transport; actual jack circuit |
 | Battery | Unknown/unmeasured displayed honestly | Gauge/bus HAL, charging/fault/low-battery shutdown after power choice |
 | Diagnostics | JSON boot/stream/performance/self-test + parser | Task CPU, route counters, BT/battery telemetry, physical evidence |
-| Display | Provisional OLED plus new candidate comparison | Builder display choice, true TFT driver/UI/glyph testing |
+| Display | Bench OLED; selected 24382 geometry/tile contract | Combined GPIO review, true TFT driver/UI/glyph/current/fit testing |
 | Engineering/manufacturing | Updated budgets and source-review gates | Complete BOM, builder sources, ERC/DRC/fit/exports, human review |
 
 ## Current validation
@@ -61,14 +63,13 @@ No physical SD, acoustic, battery or hardware-authorship result follows from CI.
 
 ## Actual next human gate
 
-BD-14 is selected: retain S3 + BM83SM1-00TA. Choose BD-15 using its comparison
-document. Do not create final schematic/PCB/CAD until both are chosen, current
-software is pushed/verified, and new power/BOM/GPIO propagation is complete. Code
-for a chosen radio/display cannot be represented as completed before a choice.
-The assistant's conditional recommendations are S3 + qualified BM83 AT and
-non-touch 1.69-inch TFT; exact firmware/SKU and drawings still need qualification.
+BD-14 selects S3 + BM83SM1-00TA, BD-15 selects Waveshare 24382 non-touch and
+BD-16 selects TCA9535PWR input expansion. The choices are recorded, but final
+schematic/PCB/CAD cannot start until current software is pushed/verified and the
+combined numbered map, power/charger/pack/BT rail and support BOM are reviewed.
+Selected SKU does not mean functioning radio/display or reviewed drawing.
 
-After BD-15: reconcile GPIO/SRAM/PSRAM/power and implement exact selected
+After the recorded BD-15 choice: reconcile GPIO/SRAM/PSRAM/power and implement exact selected
 adapters/display UI. MP3 duration/seek and portable HAL contracts are implemented;
 vendor firmware access, rate conversion and physical power adapters remain open. Then
 builder authors one subsystem at a time using builder-tasks.md. Reviews identify

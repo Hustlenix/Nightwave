@@ -12,15 +12,25 @@
 - Evidence: Manufacturer research is linked in bluetooth-architecture.md; builder source/journal PENDING.
 - Validation still required: chosen firmware/tools, one-headphone source demo, latency/rates, power, source review.
 
-### BD-15 Display
+### BD-15 Display — selected 2026-10-03
 
 - Decision: readable display SKU/envelope, before schematic/CAD.
 - Alternatives: Adafruit 3787 1.54-inch TFT; Waveshare non-touch 1.69-inch TFT SKU 24382. Old OLED is a bench reference, not a final default.
-- My selection: PENDING BUILDER INPUT.
-- Why I selected it: PENDING BUILDER INPUT.
+- My selection: Waveshare 24382 non-touch 1.69-inch 240x280 ST7789V2 module, explicitly selected by the builder in chat on 2026-10-03. Not touch SKU 27057.
+- Why I selected it: personal reasons not supplied; do not invent a first-person justification.
 - Tradeoffs: Readability, SPI/GPIO/RAM, backlight power, driver and enclosure size.
-- Evidence: Maker snapshots/calculations in display-selection.md; builder source/journal PENDING.
-- Validation still required: exact drawing, driver, brightness/current, glyph/wrapping and fit tests.
+- Evidence: actual builder chat selection; maker snapshots/calculations in display-selection.md. Builder source/journal remains PENDING.
+- Validation still required: exact supplied module revision/drawing/thickness, connector/cable, combined pin strategy, driver, brightness/current, glyph/wrapping and fit tests. Selection is not physical qualification or battery approval.
+
+### BD-16 Combined GPIO input expansion — selected 2026-10-03
+
+- Decision: recover GPIO capacity without using USB, boot straps or PSRAM pins.
+- Alternatives: TCA9535PWR input expansion; review a reduced/direct pin strategy.
+- My selection: TI TCA9535PWR, explicitly selected in chat on 2026-10-03 for five buttons and slow card/charge/gauge inputs. Audio mute, power hold, TFT and BT timing controls remain direct.
+- Why I selected it: personal reasons not supplied; do not invent them.
+- Tradeoffs: one 24-pin IC, external pull-ups and IRQ; shared-bus failure/recovery and polling latency; eight unused inputs must not float.
+- Evidence: actual chat selection; datasheet/register and ESP-IDF adapter regression in docs/input-expansion.md. Maker price/stock remain unverified.
+- Validation still required: address straps, exact port/IRQ map, I2C electrical/POR/off-state review, debounced button integration, physical latency/current and footprint/source review. Selection is not schematic entry approval.
 
 For subsequent choices use these seven fields: Decision / Alternatives / My
 selection / Why I selected it / Tradeoffs / Evidence / Validation still required.

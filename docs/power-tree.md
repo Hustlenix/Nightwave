@@ -1,12 +1,15 @@
 # Provisional Power Tree
 
-Current product: ESP32-S3 + selected BM83SM1-00TA, BD-15 readable TFT pending.
+Current product: ESP32-S3 + selected BM83SM1-00TA and Waveshare 24382 non-touch TFT.
 The tree below documents the old local-output/OLED prototype, not a final
 three-output circuit. Add a separately qualified BM83 supply within its 3.2–4.2 V
 operating range with switched-off/backfeed analysis; do not attach it to an
 unbounded SYS rail or power peripherals from SYS_PWR. Disable/isolate its
 internal charger when using the product's external protected-pack charger.
-Current full power/capacity/charging calculations wait for BD-15; no pack is locked.
+Current full screening is [current-power-model.md](current-power-model.md);
+no pack, charger or regulator circuit is locked. BQ25185 nominal adapter SYS
+is 4.5 V, outside BM83's operating rail range: add a separately reviewed BT
+regulator/isolation branch, not a direct SYS connection.
 The selected S3 retains native USB service access. Its actual USB circuit,
 source-current permission and ESD must be builder-authored and reviewed.
 

@@ -1,7 +1,10 @@
-# BD-15 Readable display — builder choice pending
+# BD-15 Readable display — Waveshare 24382 selected
 
-Checked 2026-10-02. Recommendation: **A**, non-touch Waveshare SKU 24382,
-for extra lyric height and the smaller carrier. **Neither option is selected.**
+Builder selected **A**, non-touch Waveshare SKU **24382**, in chat on 2026-10-03.
+Personal reasons were not supplied. The comparison below preserves the dated
+2026-10-02 research, not an order or live stock guarantee. Direct maker pages
+returned 403 during the 2026-10-03 refresh; indexed official specifications and
+$9.49 listing matched the recorded snapshot. Numeric stock/India delivery remain unknown.
 The old 128x64 OLED remains a bench adapter, not a realistic final default.
 
 | Item | A — Waveshare 1.69inch LCD Module | B — Adafruit 1.54-inch IPS |
@@ -38,9 +41,20 @@ DMA tiles: 15360 internal bytes. Ideal full-frame wire times at 20 MHz:
 Use bounded partial updates at 5 Hz, audio priority and no frame-time SD art
 loads/allocations. Current panel drivers are **not** implemented or qualified.
 
-After the builder chooses, combine GPIO with selected BM83 UART/wake/reset and
+`SelectedDisplayProfile` now tests portrait 240x280 bounds, inclusive GRAM windows
+with a 20-row offset and <=16-row RGB565 tiles, including bottom row 299 and
+failed-call output preservation. Maker RPi example records MADCTL 0x00, COLMOD
+0x05, 100 ms reset phases and 120 ms sleep-out wait. These constants come from
+[Waveshare's downloadable example](https://files.waveshare.com/upload/8/8d/LCD_Module_RPI_code.zip),
+not an actual initialized panel. Exact module revision/gamma/colour/orientation
+and hardware SPI init/render/sleep tests remain required. Do not silently replace
+0x05 with a generic ST7789 value or treat this geometry contract as a working UI.
+
+Now that the builder has chosen, combine GPIO with selected BM83 UART/wake/reset and
+the selected TCA9535PWR input expansion,
 I2S, verify connector/outline/revision, implement exact panel initialization,
 offsets/PWM/sleep and test long/Unicode policy/lyric wrapping/readability. Measure
 brightness-dependent current. No final cutout, battery or schematic task before
-selection propagation and updated power/BOM/pins. The recommendation is not a
-silent selection.
+selection propagation and updated power/BOM/pins. The actual chat selection is
+recorded in builder-decisions.md; it does not qualify the physical panel or approve
+the remaining GPIO, battery, power circuit or mechanical details.

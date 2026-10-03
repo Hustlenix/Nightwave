@@ -8,7 +8,11 @@ Local software decoding remains mandatory. New scope includes synced .lrc,
 metadata/M3U, playback modes/resume/sleep and Bluetooth audio output. S3 remains
 the working target, not an A2DP-capable chip. Choose docs/bluetooth-architecture.md
 and docs/display-selection.md before final schematic work. On 2026-10-02 the
-builder selected S3 plus BM83SM1-00TA (BD-14); BD-15 remains pending.
+builder selected S3 plus BM83SM1-00TA (BD-14). On 2026-10-03 the builder selected
+Waveshare 24382 non-touch 240x280 ST7789V2 (BD-15). BD-16 selects TCA9535PWR
+input expansion; its combined numbered map and reviewed power hardware/pack
+remain open; docs/current-power-model.md is
+the current calculated screening model, not physical runtime evidence.
 docs/engineering-budgets.md distinguishes
 implemented software from remaining library performance, HAL/power and transport
 work. Older two-output/OLED references below are historical provisional design.
@@ -49,6 +53,14 @@ but Bluetooth at those rates requires a tested converter or explicit rejection.
 No implicit rate change, AVRCP Tx support or speaker fallback on BT loss.
 Source-mode control and full-text display/power HAL boundaries are portable;
 hardware adapters, final GPIO, power rails and acoustic timing remain unqualified.
+
+Implementation boundary, 2026-10-03: `StreamingPlayer` currently owns the local
+`I2sAudioSink` and its muted/speaker/line routes. `BluetoothSource` is a separate
+host-tested control/PCM contract; `app_main` instantiates `UnavailableBluetooth`.
+The three-output diagram specifies the product, not an integrated three-output
+implementation. Combined routing, actual UART events/provisioning and rate-correct
+PCM transport still require implementation and qualification. Invalid PCM now
+faults closed, disconnects and invalidates stale events; this does not enable radio.
 
 Historical two-local-output bench pipeline (not the complete product architecture):
 
@@ -459,8 +471,14 @@ Buttons:
 
 ## 14. Display hardware
 
-Final product: readable SPI display selected in BD-15 (pending). The small
+Final product: Waveshare 24382 non-touch 240x280 SPI display selected in BD-15. The small
 monochrome OLED is a legacy bench adapter, not a final default.
+
+SelectedDisplayProfile defines portrait 240x280 geometry, 20-row GRAM offset,
+RGB565 and bounded 16-row tiles (7,680 bytes). Maker example register choices
+are recorded, not a functioning ESP-IDF driver. GPIO, initialization, PWM/sleep,
+full lyric wrapping/glyphs and physical panel tests remain unfinished. Do not
+run the historical OLED adapter against the TFT or infer a reviewed final map.
 
 Selection criteria:
 - low current;

@@ -11,9 +11,12 @@ docs/engineering-budgets.md. The new scope includes lyrics, metadata/library,
 modes/resume/sleep and Bluetooth output; old exclusions are superseded.
 The provisional OLED and S3 pin map are not a final hardware lock.
 
-2026-10-02: BD-14 is selected by the builder: S3 plus BM83SM1-00TA. BD-15 remains
-pending. Before Builder Task 1: propagate both actual choices, recalculate the
-full product power model, update critical BOM/pins and push verified software.
+2026-10-03: both builder choices are recorded: BD-14 S3 plus BM83SM1-00TA;
+BD-15 Waveshare 24382 non-touch TFT. Before Builder Task 1: propagate both
+choices, review the selected BD-16 TCA9535PWR strategy's combined map and current calculated
+power/charge model and critical BOM/pins, and push/verify the software checkpoint.
+docs/current-power-model.md replaces the old OLED runtime estimate; it does not
+lock a battery or charger, or establish achieved runtime.
 An old checklist below never authorizes skipping these prerequisites.
 
 2026-10-01 builder-authored continuation: the builder reports direct Pixl

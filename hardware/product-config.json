@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-02",
+  "updated": "2026-10-03",
   "main_mcu": "ESP32-S3-WROOM-1-N16R8",
   "bluetooth": {
     "decision": "BD-14",
@@ -14,11 +14,38 @@
   },
   "display": {
     "decision": "BD-15",
-    "status": "pending_builder_selection",
-    "candidate_skus": ["Waveshare_24382", "Adafruit_3787"],
+    "status": "builder_selected",
+    "mpn": "24382",
+    "manufacturer": "Waveshare",
+    "controller": "ST7789V2",
+    "resolution": [240, 280],
+    "board_dimensions_mm": [31.5, 39.0],
+    "active_area_mm": [27.972, 32.634],
+    "interface": "four_wire_SPI",
+    "supply_v": 3.3,
+    "touch": false,
+    "driver_qualified": false,
     "pins": "pending_combined_map"
   },
-  "battery": {"status": "pending_updated_power_model", "locked": false},
+  "input_expansion": {
+    "decision": "BD-16",
+    "status": "builder_selected",
+    "mpn": "TCA9535PWR",
+    "role": "input_only_buttons_and_slow_status",
+    "interface": "I2C",
+    "supply_v": 3.3,
+    "address": "pending_reviewed_straps",
+    "port_map": "pending_source_review",
+    "physical_qualified": false
+  },
+  "combined_pins_reviewed": false,
+  "power_model": {
+    "tool": "tools/product_power_budget.py",
+    "document": "docs/current-power-model.md",
+    "status": "calculated_screening_not_reviewed_circuit",
+    "measured": false
+  },
+  "battery": {"status": "pending_reviewed_power_model_and_pack", "locked": false},
   "schematic_entry_ready": false,
   "physical_validation": false
 }

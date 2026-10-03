@@ -26,6 +26,25 @@ else()
 endif()
 
 enable_testing()
+add_executable(nightwave_expander_tests expander_tests.cpp
+    ../firmware/components/input/tca9535_i2c.cpp)
+target_include_directories(nightwave_expander_tests PRIVATE fakes
+    ../firmware/components/input/include ../firmware/components/app_state/include)
+if(MSVC)
+    target_compile_options(nightwave_expander_tests PRIVATE /W4 /WX)
+else()
+    target_compile_options(nightwave_expander_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_expander_tests COMMAND nightwave_expander_tests)
+add_executable(nightwave_display_profile_tests display_profile_tests.cpp)
+target_include_directories(nightwave_display_profile_tests PRIVATE
+    ../firmware/components/ui/include ../firmware/components/app_state/include)
+if(MSVC)
+    target_compile_options(nightwave_display_profile_tests PRIVATE /W4 /WX)
+else()
+    target_compile_options(nightwave_display_profile_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME nightwave_display_profile_tests COMMAND nightwave_display_profile_tests)
 add_executable(nightwave_runtime_tests runtime_tests.cpp ../firmware/components/diagnostics/runtime_recorder.cpp)
 target_include_directories(nightwave_runtime_tests PRIVATE
     ../firmware/components/diagnostics/include ../firmware/components/power/include)

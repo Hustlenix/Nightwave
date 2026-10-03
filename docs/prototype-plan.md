@@ -30,7 +30,7 @@ The exact dated order list is [`hardware/prototype-BOM.csv`](../hardware/prototy
 | DAC | Adafruit 6250 PCM5102 breakout | shared I2S, 3.3 V | stereo DAC clocks and line audio | custom analog layout/noise |
 | headphone amp | TI TPA6132A2EVM2 | analog stereo, 3.3 V | safe headphone drive, gain, mute/pops | final QFN layout/ESD/jack detect; procurement remains gated |
 | speaker amp | Adafruit 3006 MAX98357A breakout | shared I2S, 5 V | mono mix/channel mode, speaker playback | final MAX98360C package/EMI/layout |
-| display | Adafruit 938 1.3 in SSD1306 breakout | I2C 3.3 V | UI scheduling/readability | final SH1106 vendor/connector/current |
+| display | Adafruit 938 1.3 in SSD1306 breakout | I2C 3.3 V | bench UI scheduling/basic text | final BD-15 TFT driver, readable lyrics, connector/current/fit |
 | controls | five momentary buttons | GPIO to GND with pulls | debounce/UX event model | final switch height/ergonomics |
 | speaker | Adafruit 6486 8 Ω/2 W bench speaker | differential Class-D | load/audio/acoustic experiments | final CMS-28528N-L152 cavity and grille |
 

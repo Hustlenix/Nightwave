@@ -10,6 +10,39 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-03 finished-device continuation: preserve the complete frozen systems
+scope, not arbitrary feature-count growth. Main was fast-forwarded to the latest
+published runtime checkpoint `8bb9232`; live verification found firmware
+37021176284 and quality37021176476 successful (11 Release +11 ASAN/leak suites,
+nine synthetic funding inventory tests). New malformed-PCM Bluetooth fault-state
+coverage and a separate bounded Trial evidence inventory are added next; their
+new-source CI must be verified independently. Runtime is unknown and no physical
+test/demo/final schematic/CAD exists. The pending evidence record must never be
+filled with generated or invented human observations.
+
+Bluetooth's combined audio router, actual radio adapter and low-rate conversion
+are genuine software gaps, not merely unmeasured hardware. BD-14 remains S3 plus
+BM83SM1-00TA; BD-15 was explicitly selected by the builder on 2026-10-03 as
+Waveshare 24382 non-touch 240x280 ST7789V2. This dated entry supersedes all
+older pending-BD-15 notes below. Host-tested geometry/tile contract is not a
+working SPI/glyph driver. Builder explicitly selected BD-16 TCA9535PWR input
+expansion on 2026-10-03. 25 retained usable S3 GPIO versus 31 minimum direct
+product signals; eight slow inputs + one direct IRQ save seven. Address/port/IRQ
+and combined numbered map remain unreviewed. Portable all-input driver and
+finite-timeout ESP-IDF shared-bus adapter are now digitally implemented with
+fault/readback/partial-read/recovery tests; the old ButtonMonitor still uses
+bench GPIO, so final button/gesture integration and physical qualification remain open.
+The current reproducible screening is tools/product_power_budget.py and
+docs/current-power-model.md: continuously lit typical speaker 1.7468 W,
+8 h requirement 7.0816 Ah under stated margins, hypothetical 6.6 Ah 7.4559 h.
+These are calculated, not measured. BQ25185's 4.5 V SYS cannot directly feed
+the BM83 operating rail. Charger/source/thermal, isolated BT rail and pack review
+remain open. Core captured-price subtotal is now USD53.16 including selected
+display; battery/support/BT rail/fab/delivery excluded. No battery, final pin map
+or schematic-entry lock is inferred. Stale final-SH1106 bench text and funding evidence/decision wording
+are corrected; prototype prices and core quantities remain dated snapshots.
+The builder's #pixl-help clarification question is drafted, not sent or approved.
+
 2026-10-02 Trial-completion continuation implements sampled runtime diagnostics
 and boot-lifetime accepted-media/fault counters. The current power/audio adapters
 remain unqualified, so the recorder cannot establish physical battery runtime.
@@ -195,7 +228,8 @@ AI-generated hardware files, and independent human sanity checking.
 - Built-in speaker.
 - 3.5 mm wired stereo headphone output.
 - Rechargeable 1-cell lithium battery.
-- Larger readable display (BD-15 pending); old OLED is bench-only.
+- Waveshare 24382 non-touch readable TFT (BD-15 selected); old OLED is bench-only.
+- TCA9535PWR input expansion (BD-16 selected); combined port/IRQ/pin map unreviewed.
 - >=8 h measured "full-night" speaker playback acceptance requirement.
 - Custom PCB.
 - Editable custom enclosure CAD + STEP.

@@ -225,3 +225,27 @@ succeeded: validator, engineering/diagnostic parser self-tests, 10/10 Release
 and 10/10 ASAN/leak suites. `git diff ee2f4fc 3316ff5 -- firmware tests` is empty,
 so the successful ee2f4fc ESP32-S3 build applies to identical firmware/C++ sources.
 This subsequent evidence-ledger-only commit changes no software source.
+
+## Runtime checkpoint and finished-device continuation
+
+Verified on 2026-10-03 for published source `8bb9232c2c0647568259bf5ba04034ea728a4218`:
+
+- [ESP32-S3 firmware](https://github.com/Hustlenix/Nightwave/actions/runs/37021176284): success.
+- [Project quality](https://github.com/Hustlenix/Nightwave/actions/runs/37021176476): success, 11/11 Release and 11/11 ASAN/leak suites, nine synthetic shipping-inventory tests and project/calculation checks.
+- Includes the sampled runtime recorder and boot-lifetime counters. Synthetic
+  playback windows are not physical battery runtime; unknown power keeps battery
+  evidence unestablished.
+
+The 2026-10-03 continuation adds a separate finished-device evidence inventory and
+malformed-PCM Bluetooth fail-closed regression. Null/empty/oversized/mismatched
+blocks must fault, disconnect once, invalidate the epoch and request a stop; no
+invalid block reaches the backend. Targeted strict optimized and ASAN/leak HAL
+tests passed in WSL. Full Release/ASAN and firmware CI for this changed source
+must be recorded separately after execution. No real radio/backend is enabled.
+
+Selected-product continuation records the builder's BD-15 Waveshare 24382 and
+BD-16 TCA9535PWR choices. New display geometry/tile and input-expander adapter
+tests pass targeted strict Release and ASAN with leak detection in WSL.
+All 27 Python tests (9 funding, 12 Trial inventory, 6 power arithmetic) and the
+project validator pass locally. The new source requires 13/13 full C++ suites
+and its own ESP32-S3 CI build; the pending run must not be labelled successful.

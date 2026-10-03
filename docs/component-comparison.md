@@ -1,5 +1,10 @@
 # Component Comparison
 
+2026-10-03 current choices supersede the historical pending labels below:
+S3 + BM83SM1-00TA (BD-14), Waveshare 24382 non-touch (BD-15), TCA9535PWR
+input expansion (BD-16). Current BOM is hardware/BOM.csv and selected-product
+screening is current-power-model.md. Price snapshots are not procurement approval.
+
 ## 2026-10-01 expanded-scope candidates — NOT LOCKED
 
 | Function | Candidate | Cost/availability snapshot | Qualification blocker | Status |

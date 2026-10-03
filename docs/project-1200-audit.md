@@ -1,5 +1,10 @@
 # Project 1200 audit — 2026-10-02
 
+2026-10-03 repository-only update: BD-15 now selects Waveshare 24382 non-touch
+and BD-16 selects TCA9535PWR input expansion. This does not refresh the dated
+authenticated project-page observations below. The current BOM includes both,
+but charger/pack/BT rail/support costs and hardware sources remain incomplete.
+
 This is AI-assisted documentation of observed state, not a builder journal,
 human time record, design approval or evidence of physical construction.
 
@@ -46,7 +51,8 @@ screenshots, runtime numbers, build photos or CAD sources.
 
 ## Remaining work in order
 
-1. Builder chooses display BD-15 using `display-selection.md`.
+1. BD-14/15/16 are now selected. Review the combined numbered map, current power/
+   charger/pack/BT rail and remaining schematic-critical support selections.
 2. Propagate the selection into GPIO, firmware adapter, BOM, mechanical and power
    budgets. Keep estimates distinct from measurements; qualify the BM83 route.
 3. Builder authors schematic, PCB and enclosure, using `builder-tasks.md` and

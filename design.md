@@ -9,6 +9,12 @@ window/cutouts and final enclosure dimensions follow the builder's display/BT
 decisions; no final CAD is assistant-authored. Earlier retro/OLED sketches below
 are historical exploratory direction, not an approved physical design.
 
+2026-10-03 selected display: Waveshare 24382 non-touch, 240x280; maker board
+31.5x39 mm and active area 27.972x32.634 mm. Final window, corner treatment,
+glass/PCB thickness, mount coordinates, cable bend and connector access must
+follow the exact supplied drawing and builder-owned CAD. BM83 and S3 need
+separate antenna exclusions. Pack size and enclosure dimensions are not locked.
+
 ## 1. Design principles
 
 Nightwave should look and behave like a small intentional consumer device, not a development board inside a box.
@@ -137,7 +143,7 @@ SD card replacement MUST be practical.
 
 ## 9. Display typography
 
-Readable display typography (BD-15 final screen pending; OLED sketches are bench-only):
+Readable display typography (BD-15 selected Waveshare 24382; driver/glyph tests pending; OLED sketches are bench-only):
 - one readable bitmap font family or at most two sizes;
 - high contrast;
 - no decorative tiny fonts;

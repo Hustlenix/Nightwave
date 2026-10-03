@@ -1,6 +1,6 @@
 # Power options for the builder's decision
 
-Current scope (2026-10-02): selected BM83SM1-00TA and pending BD-15 require a
+Current scope (2026-10-03): selected BM83SM1-00TA and Waveshare 24382 require a
 new load model. Charger/pack examples below remain comparisons only; no pack,
 charge current or final power circuit is selected by the Bluetooth decision.
 

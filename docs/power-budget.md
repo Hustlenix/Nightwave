@@ -9,9 +9,10 @@ See [expanded scenarios](engineering-budgets.md): assumed TFT load changes the
 6.6 Ah speaker profile to 7.99 h with margins; louder audio/BT scanning is worse.
 Neither pack size nor charger is locked. Measure and optimise before enlarging.
 
-BM83SM1-00TA is now selected; BD-15 is still pending. Recalculate all three
+BM83SM1-00TA and Waveshare 24382 are now selected. [Current model](current-power-model.md)
+recalculates all three
 output routes, display/backlight, idle, peaks, losses, 8-hour capacity, charge
-time and source permission after BD-15. The pack below is a historical candidate
+time and source permission as estimated screening only. The pack below is a historical candidate
 removed from the active BOM, not a battery lock. All values remain estimates.
 
 ## Historical estimated OLED speaker-playback profile

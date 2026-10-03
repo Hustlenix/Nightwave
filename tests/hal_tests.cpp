@@ -10,14 +10,14 @@ namespace {
 int failures = 0;
 #define CHECK(v) do { if (!(v)) { ++failures; std::cerr << __LINE__ << ": " << #v << '\n'; } } while(false)
 struct FakeBt : nightwave::BluetoothBackend {
-    bool fail{false}; unsigned disconnects{0};
+    bool fail{false}; unsigned disconnects{0}, writes{0};
     nightwave::BtWrite result{nightwave::BtWrite::kAccepted};
     nightwave::BtCapabilities capabilities() const override { return {true, false, true, true}; }
     bool discover(std::uint32_t) override { return !fail; }
     bool connect(const nightwave::BtDevice&, std::uint32_t) override { return !fail; }
     bool start(const nightwave::AudioFormat&, std::uint32_t) override { return !fail; }
     void disconnect(std::uint32_t) override { ++disconnects; }
-    nightwave::BtWrite write(const nightwave::PcmBlock&) override { return result; }
+    nightwave::BtWrite write(const nightwave::PcmBlock&) override { ++writes; return result; }
 };
 }
 int main() {
@@ -78,6 +78,31 @@ int main() {
         CHECK(source.write(block) == BtWrite::kUnavailable); source.disconnect();
     }
     CHECK(source.discover(UINT32_MAX - 100)); source.tick(15000); CHECK(source.state() == BtState::kFault);
+    CHECK(backend.writes == 2000); // Accepted and backpressured valid blocks reach the backend.
+    for (unsigned invalid = 0; invalid < 6; ++invalid) {
+        FakeBt guarded_backend; BluetoothSource guarded(guarded_backend);
+        CHECK(guarded.discover(0)); CHECK(guarded.found(device, guarded.epoch()));
+        CHECK(guarded.choose(0, 1)); CHECK(guarded.connected(guarded.epoch()));
+        CHECK(guarded.start({44100, 2, 16}, 2)); CHECK(guarded.streaming(guarded.epoch()));
+        const auto streaming_epoch = guarded.epoch();
+        PcmBlock malformed = block;
+        switch (invalid) {
+            case 0: malformed.interleaved_samples = nullptr; break;
+            case 1: malformed.frame_count = 0; break;
+            case 2: malformed.frame_count = 1025; break;
+            case 3: malformed.format.sample_rate_hz = 48000; break;
+            case 4: malformed.format.channel_count = 1; break;
+            default: malformed.format.bits_per_sample = 8; break;
+        }
+        CHECK(guarded.write(malformed) == BtWrite::kFault);
+        CHECK(guarded.state() == BtState::kFault && guarded.epoch() != streaming_epoch);
+        CHECK(guarded_backend.writes == 0 && guarded_backend.disconnects == 1);
+        CHECK(guarded.take_stop_request() && !guarded.take_stop_request());
+        CHECK(!guarded.connected(streaming_epoch) && !guarded.streaming(streaming_epoch));
+        guarded.lost(streaming_epoch);
+        CHECK(guarded.write(block) == BtWrite::kUnavailable);
+        CHECK(guarded_backend.writes == 0 && guarded_backend.disconnects == 1 && !guarded.take_stop_request());
+    }
     UnavailablePower power; const auto unknown = power.sample(123);
     CHECK(!unknown.voltage_valid && !unknown.charge_percent_valid && unknown.state.source == PowerSource::kUnknown && !power.request_shutdown());
     BatteryPolicy pending; CHECK(!pending.update(unknown, 123).available);

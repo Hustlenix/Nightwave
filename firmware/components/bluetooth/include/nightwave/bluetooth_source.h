@@ -73,7 +73,10 @@ class BluetoothSource {
     }
     BtWrite write(const PcmBlock& block) {
         if (state_ != BtState::kStreaming) return BtWrite::kUnavailable;
-        if (block.frame_count > 1024 || !valid_stereo_block(block, format_)) return BtWrite::kFault;
+        if (block.frame_count > 1024 || !valid_stereo_block(block, format_)) {
+            fault();
+            return BtWrite::kFault;
+        }
         const auto result = backend_.write(block);
         if (result == BtWrite::kFault || result == BtWrite::kUnavailable) fault();
         return result;

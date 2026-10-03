@@ -1,7 +1,10 @@
 # Expanded-scope engineering budgets
 
 2026-10-01. Planning limits/calculated scenarios, not device measurements.
-BM83SM1-00TA is selected; the display choice is open. Reject a final design that violates these
+2026-10-03 update: BM83SM1-00TA, Waveshare 24382 non-touch and TCA9535PWR input
+expansion are builder-selected, not physically qualified. Current power screening
+is current-power-model.md; combined numbered map and charger/pack review remain
+open. Reject a final design that violates these
 budgets; do not use a larger battery to conceal uncontrolled load.
 
 ## Memory / scheduling
@@ -98,7 +101,8 @@ millisecond bounds. Runtime filesystem/heap/underrun evidence remains required.
 ## Power / eight-hour requirement
 
 The following table and `tools/power_budget.py` are historical sensitivity
-examples, NOT the selected BM83/product power budget. Recalculate after BD-15.
+examples, NOT the selected BM83/24382 product power budget. The reproducible
+[current model](current-power-model.md) replaces them; no values are measured.
 Historical assumptions: 85% regulator/80% amp efficiency, 80%
 usable capacity, 80% aging and 20% load margin. TFT scenarios replace the old
 5 mA display with an assumed 60/100 mA, not a measured panel current. BT 50 mA

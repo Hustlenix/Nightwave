@@ -1,8 +1,8 @@
 # Nightwave
 
-Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It reads user-owned MP3 and PCM/WAV files directly from microSD, with software decoding, physical controls, wired stereo headphones, a speaker, synchronized LRC and Bluetooth output. No phone or streaming service is required. On 2026-10-02 the builder selected ESP32-S3 plus BM83SM1-00TA; its AT-source backend remains unqualified. Final display BD-15 and battery sizing remain pending.
+Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It reads user-owned MP3 and PCM/WAV files directly from microSD, with software decoding, physical controls, wired stereo headphones, a speaker, synchronized LRC and Bluetooth output. No phone or streaming service is required. The builder selected ESP32-S3 plus BM83SM1-00TA (BD-14) and Waveshare 24382 non-touch TFT (BD-15). Their hardware drivers, combined GPIO map and battery sizing are not qualified or locked.
 
-> Status (2026-10-02): WAV/MP3 three-task streaming, bench OLED/five-button interaction,
+> Status (2026-10-03): WAV/MP3 three-task streaming, bench OLED/five-button interaction,
 > lyrics/metadata/M3U, modes, bounded seek/resume, sleep timer and versioned
 > persistence are implemented for the provisional hardware. The 2026-10-02
 > continuation adds an idle-built SD catalog, paged songs/artists/albums and
@@ -19,8 +19,10 @@ Nightwave is an in-progress, standalone pocket music player for the Pixl “A Mu
 
 Hardware design proceeds in builder-authored mentor/reviewer mode. **Before
 final schematic tasks**, review the selected [Bluetooth architecture](docs/bluetooth-architecture.md)
-and choose [display BD-15](docs/display-selection.md). Combined GPIO/power/BOM
-must then be updated before the first schematic task. Then use
+and [display BD-15](docs/display-selection.md). BD-16 selects
+[TCA9535PWR input expansion](docs/input-expansion.md); review its [combined GPIO map](docs/pin-budget.md)
+and review the [current power model](docs/current-power-model.md), charger/pack
+and complete BOM before the first schematic task. Then use
 [builder tasks](docs/builder-tasks.md), [subsystem requirements](docs/schematic-requirements.md)
 and [your decision log](docs/builder-decisions.md). AI research and review are
 disclosed; final schematic, routing and enclosure must be materially authored
@@ -52,7 +54,7 @@ StorageTask -> compressed ring buffer -> DecoderTask -> PCM ring buffer
                                3.5 mm stereo jack
 ```
 
-The ESP32 owns file enumeration, storage reads, MP3/WAV decoding, buffering, playback state, I2S output, buttons, UI, settings, diagnostics, and power policy. Nightwave does not use DFPlayer or another module that hides the storage/decode/playback pipeline. The diagram above is the historical two-local-output bench path. The product adds a mutually exclusive rate-qualified I2S branch to BM83SM1-00TA for A2DP source output. That adapter is not yet physically qualified.
+The ESP32 owns file enumeration, storage reads, MP3/WAV decoding, buffering, playback state, I2S output, buttons, UI, settings, diagnostics, and power policy. Nightwave does not use DFPlayer or another module that hides the storage/decode/playback pipeline. The diagram above is the current two-local-output software/bench path. The product requires a third mutually exclusive, rate-qualified I2S branch to BM83SM1-00TA for A2DP source output. Its radio adapter, combined playback router and 22.05/32 kHz conversion are not implemented. Host-tested Bluetooth control/framing contracts do not make that output operational.
 
 The bench prototype uses an available MAX98357A breakout as a functional speaker-path proxy; the provisional final-board selection is MAX98360C.
 
@@ -117,9 +119,13 @@ output uses the separate stereo DAC/amp path. Neither path is physically proven.
 
 USB-C and a protected 1S pack feed a charger/power path; SYS powers the speaker
 and a buck-boost supplies 3.3 V. This direction is **provisional**, not a finished
-circuit. The [historical OLED energy model](docs/power-budget.md) used an
-unselected 6600 mAh example; current BM83/display route, idle, peak and charging
-budgets must be recalculated after BD-15. [Charger timer, source-current and peak-load conflicts](docs/power-assumptions.md)
+circuit. The [selected-product screening model](docs/current-power-model.md)
+calculates MCU, SD, selected TFT, speaker/wired/BT, idle, transients and charging.
+Its continuously lit typical speaker case needs an estimated 7.08 Ah for eight
+hours under the documented margins; a hypothetical 6.6 Ah gives 7.46 h, not a
+passing measurement. Dimming/gating scenarios are conditional, not implemented
+power savings. The [historical OLED model](docs/power-budget.md) is superseded.
+[Charger timer, source-current and peak-load conflicts](docs/power-assumptions.md)
 must be resolved before locking hardware. Estimated runtime is not measured
 runtime, and charge-while-play safety is not verified.
 
@@ -133,14 +139,15 @@ mounting and clearances in the builder-owned design before funding submission.
 
 ## BOM
 
-[Preliminary BOM CSV](hardware/BOM.csv): captured-price core subtotal **$43.67**,
-including selected BM83 but excluding the pending display and battery. This is
+[Preliminary BOM CSV](hardware/BOM.csv): captured-price core subtotal **$53.16**,
+including selected BM83 and Waveshare 24382, excluding the pending battery. This is
 not a finished BOM total or funding/order cost. USB-C, support parts, PCB,
 assembly, enclosure, delivery and taxes also remain excluded/pending. Critical
 rows now include package, datasheet, source, footprint and electrical roles;
 pending rows are explicit, not approved substitutes. The spreadsheet review
 preserved the CSV and checked its selected/pending fields. Older prices remain
-dated snapshots; Bluetooth/display comparisons were checked 2026-10-02.
+dated snapshots; the selected display was checked via official indexed content
+2026-10-03 (direct fetch refused; stock/delivery unverified).
 No parts have been ordered by this run.
 
 ## Build the firmware
@@ -197,6 +204,25 @@ No funding request has been submitted.
 Run the [shipping artifact inventory](docs/shipping-audit.md) to expose unresolved
 costs and missing design sources. A passing development validator or green form
 checkbox does not establish a complete funding design or T4 eligibility.
+
+## Finished-device acceptance
+
+The [finished-device evidence inventory](docs/trial-acceptance.md#finished-device-evidence-inventory)
+tracks own-file standalone speaker playback, physical play/pause/skip/volume,
+actual full-night speaker battery runtime, final schematic/CAD/STEP, parts/build
+instructions, build photos and a real demo video. The pending record is
+[trial-evidence.json](measurements/trial-evidence.json); **achieved runtime is
+unknown**, not an estimate or a simulated eight-hour result. No demo video exists
+yet. Only populate evidence after the corresponding real work and human review.
+
+```sh
+python3 tools/check_trial_readiness.py
+```
+
+Exit 2 lists missing evidence. Exit 0 only inventories builder-reported evidence
+for human review; it never certifies playback, safety, runtime, authorship or Pixl
+acceptance. Keep the full [systems scope](docs/trial-acceptance.md) through release;
+the hardware integrations must work, not just appear in the feature list.
 
 ## Engineering documents
 

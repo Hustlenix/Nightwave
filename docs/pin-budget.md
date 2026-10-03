@@ -2,8 +2,8 @@
 
 Basis: `ESP32-S3-WROOM-1-N16R8` / `ESP32-S3-DevKitC-1-N8R8`. This is a provisional logical map, not a wiring instruction.
 
-BD-14 is selected: retain ESP32-S3 and add BM83SM1-00TA. BD-15 remains open.
-Reconcile their combined SPI/UART/wake/reset/backlight and
+BD-14 selects ESP32-S3 + BM83SM1-00TA, BD-15 selects Waveshare 24382 non-touch,
+and BD-16 selects TCA9535PWR **input-only** expansion (2026-10-03). Reconcile their combined SPI/UART/wake/reset/backlight and
 antenna/power needs before final schematic work. No new GPIO was silently
 assigned and the old OLED interface is not a TFT pin allocation.
 
@@ -11,12 +11,36 @@ assigned and the old OLED interface is not a TFT pin allocation.
 
 - GPIO0, GPIO3, GPIO45, GPIO46: strapping; avoid for attached circuits that can alter boot levels.
 - GPIO19/20: native USB/JTAG D−/D+; reserved for programming/debug.
-- GPIO26–32: flash/PSRAM interface; do not use.
-- GPIO33–37: octal PSRAM signals on R8 variants; do not use.
+- GPIO26–34: not available at this module's external GPIO pads; do not use.
+- GPIO35–37: bonded module signals occupied by octal PSRAM on N16R8; do not use.
 - GPIO43/44: UART0 TX/RX; retain for bring-up logs.
 - GPIO45/46 also have special input/voltage constraints; left unused.
 
-Source: [ESP32-S3 GPIO documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/gpio.html) and the module datasheet.
+Source: [ESP32-S3 GPIO documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/gpio.html) and
+[module datasheet v1.8, pin table and R8 footnote](https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf), checked 2026-10-03.
+
+## Selected-product capacity audit, not a final numbered map
+
+| Allocation | GPIO count | Basis |
+| --- | ---: | --- |
+| Module external GPIO pads before octal-PSRAM exclusion | 36 | GPIO0-21 and GPIO35-48 |
+| Exclude octal-PSRAM GPIO35-37 | -3 | N16R8 module footnote |
+| Exclude four boot straps, native USB pair, UART0 pair | -8 | Retain service/recovery and boot safety |
+| Available product pool | **25** | 36 minus 3 minus 8; explicit list below |
+| Historical local-output map | 21 | Includes five buttons, three slow status, OLED reset |
+| Replace one OLED reset with six TFT controls | +5 | 24382 SPI/data/control/backlight |
+| BM83 UART pair, MFB, P0_0 host-wake input, RST_N | +5 | Baseline subject to exact AT configuration |
+| Direct-only minimum product signals | **31** | Optional MCLK/flow control/mute/CC IRQ not yet included |
+| Move eight slow inputs to TCA9535, add one direct INT | -7 | Five buttons + SD_CD/CHARGE_STATUS/FUEL_ALERT |
+| Selected-expander minimum direct signals | **24** | One nominal spare, zero if separate MCLK required |
+
+Explicit retained GPIO pool: **1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,
+38,39,40,41,42,47,48** = **25**. The module datasheet's 36 count includes
+occupied GPIO35-37. Direct-only deficit is **six**;
+selected expansion leaves **one** nominal spare, **zero** with extra MCLK.
+Use the explicit set, not headline counts, for a reviewed numbered map.
+Additional DAC mute, UART RTS/CTS, CC-controller IRQ or reset/power control must
+fit this set or be explicitly reviewed; do not silently claim free headroom.
 
 ## Prototype Pin Map
 
@@ -81,20 +105,26 @@ Prototype breakouts may force different pins; any variant must live in one board
 
 Current additions are not assigned by the historical table. The TFT needs SPI
 clock/data, CS, DC, reset and PWM backlight (six GPIO with independent reset).
-BM83 needs UART TX/RX plus reviewed MFB wake, P0_0 provisioning/boot and RST_N
+BM83 needs UART TX/RX plus reviewed MFB wake, P0_0 UART_TX_IND host-wake and RST_N
 control/service access. Its I2S input may share the existing three audio signals
 only after clock-direction, rate, powered-off backfeed and three-load fanout
 review; confirm whether the selected AT configuration requires an extra MCLK.
 Do not treat sharing as a tested interface.
 
 The four historical free pins (41/42/47/48) cannot cover these additions even
-when GPIO40 is reused for TFT reset. Resolve a GPIO expander/button strategy,
-reviewed reset sharing or service-only controls before publishing a final map.
-I2C GPIO8/9 remain useful for the gauge/possible expander, not the final TFT.
+when GPIO40 is reused for TFT reset. BD-16 now selects the TCA9535 input strategy;
+the combined numbered map, address, eight port positions and IRQ remain unreviewed.
+I2C GPIO8/9 remain bench bus references for the gauge/expander, not the final TFT.
 USB, UART bring-up, straps and octal-PSRAM reservations are not spare pins.
-`PENDING_GPIO_STRATEGY` in the BOM tracks this unresolved circuit decision.
+`TCA9535PWR` in the BOM records the choice; docs/input-expansion.md tracks integration.
 Final firmware pin assignments must follow the builder-reviewed map; none are
 silently selected here.
+
+P0_0 is not the Test-mode selection pin. Public BM83 pin descriptions identify
+P3_4/SYS_CFG low during reset as Test-mode entry and also assign RTS in applicable
+configurations. Preserve service/recovery access and verify the selected TA AT
+firmware's actual multiplexing before allocating it. See
+[Microchip pin descriptions](https://onlinedocs.microchip.com/oxy/GUID-414904F5-364E-4377-B959-9226AD29D6A9-en-US-8/GUID-5FC141CE-AE19-4658-9333-3E22FD2F4681.html).
 
 Mentor review: GPIO16 needs a real digital insertion detector, not a pull-up on
 SJ-3503-SMT-TR's audio switch contacts. GPIO18's prototype DAC mute role versus

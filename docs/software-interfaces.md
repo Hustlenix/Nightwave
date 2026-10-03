@@ -1,9 +1,14 @@
 # Portable product interfaces
 
 2026-10-02. These are host-tested contracts, not working wireless/display/power
-hardware adapters. ESP32-S3 + BM83SM1-00TA is builder-selected; BD-15 is pending.
+hardware adapters. ESP32-S3 + BM83SM1-00TA and Waveshare 24382 non-touch are
+builder-selected. Actual drivers and combined GPIO/power review remain unfinished.
 
 ## Bluetooth
+
+Selected input expansion BD-16 now has a portable all-input TCA9535 driver and
+compiled finite-timeout shared-bus ESP-IDF adapter. See input-expansion.md for
+host coverage and unfinished board-map/debounced frontend integration.
 
 `BluetoothBackend` submits non-blocking discovery/connect/start commands and
 reports PCM accepted/would-block/unavailable/fault. A production I2S adapter must
@@ -34,7 +39,8 @@ requests a real controlled shutdown. The default returns unknown and refuses
 physical shutdown. No invented SOC or charging status. `BatteryPolicy` refuses
 invalid/stale samples and defaults disabled; fixture cutoff/hysteresis values
 are not approved settings for a selected cell. Real gauge/charger/latch adapters
-follow the builder-reviewed power circuit and updated model after BD-15.
+follow the builder-reviewed power circuit; current-power-model.md is estimated
+screening only, not a reviewed power adapter or pack lock.
 
 ## Display
 
@@ -43,7 +49,10 @@ full title/artist/album, current/next lyric and timing/state, plus a legacy text
 fallback. String pointers are borrowed only during present; a DMA/queued adapter
 must copy bounded fields. The OLED bench adapter consumes the fallback. The TFT
 must render the full fields and declare glyph/Unicode policy. Preserved UTF-8 is
-not complete Unicode rendering. Exact panel init/offset/PWM/sleep awaits BD-15.
+not complete Unicode rendering. SelectedDisplayProfile now records 24382 portrait
+geometry, 20-row offset, RGB565 maker constants and <=16-row tiles without I/O.
+Exact panel SPI initialization/PWM/sleep and lyric glyph/wrapping remain unfinished;
+a profile test must not be reported as a working TFT driver.
 
 ## Engineering diagnostics
 

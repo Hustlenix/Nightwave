@@ -2,7 +2,8 @@
 
 2026-10-02. Implemented source and host fixtures; hardware timing, card-loss,
 power-cut and large-card acceptance remain unverified. BD-14 now selects S3 +
-BM83SM1-00TA; BD-15 remains a builder choice. Neither is selected by library code.
+BM83SM1-00TA and Waveshare 24382 non-touch; both are actual builder choices,
+not selections made by library code. Combined pin/power and drivers remain open.
 
 ## Behavior
 

@@ -111,6 +111,13 @@ def validate_required_files() -> None:
         "tools/analyze_diagnostics.py",
         "hardware/product-config.json",
         "docs/mp3-seek-index.md",
+        "docs/current-power-model.md",
+        "tools/product_power_budget.py",
+        "tests/test_product_power_budget.py",
+        "docs/input-expansion.md",
+        "tools/check_trial_readiness.py",
+        "tests/test_trial_readiness.py",
+        "measurements/trial-evidence.json",
     ]
     missing = [path for path in required if not (ROOT / path).is_file()]
     if missing:
@@ -132,8 +139,22 @@ def validate_current_bom() -> None:
         raise AssertionError("Selected Bluetooth source missing from BOM")
     if config["display"]["status"] == "pending_builder_selection" and "PENDING_DISPLAY_BD15" not in parts:
         raise AssertionError("Missing explicit pending display BOM row")
+    if config["display"]["status"] == "builder_selected" and config["display"].get("mpn") not in parts:
+        raise AssertionError("Selected display missing from BOM")
+    if config["input_expansion"]["status"] == "builder_selected" and config["input_expansion"].get("mpn") not in parts:
+        raise AssertionError("Selected input expander missing from BOM")
+    header = (ROOT / "firmware/components/app_state/include/nightwave/hardware_config.h").read_text(encoding="utf-8")
+    if config["display"].get("mpn") != "24382" or "kFinalDisplaySku = 24382;" not in header:
+        raise AssertionError("Selected display JSON/firmware identity mismatch")
+    if config["input_expansion"].get("mpn") != "TCA9535PWR" or "kTca9535InputExpansionSelected = true;" not in header:
+        raise AssertionError("Selected input expander JSON/firmware identity mismatch")
+    for relative in (config["power_model"]["tool"], config["power_model"]["document"]):
+        if not (ROOT / relative).is_file():
+            raise AssertionError("Missing selected-product power screening")
     unresolved_display = config["display"]["status"] != "builder_selected"
     unresolved_power = config["battery"]["status"] != "reviewed_power_model"
+    if not config["combined_pins_reviewed"] and config["schematic_entry_ready"]:
+        raise AssertionError("Unreviewed combined pin map cannot start schematic")
     if (unresolved_display or unresolved_power) and (config["battery"]["locked"] or config["schematic_entry_ready"]):
         raise AssertionError("Current pending display/power review cannot lock battery or start schematic")
 

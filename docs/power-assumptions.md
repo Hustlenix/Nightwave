@@ -1,7 +1,8 @@
 # Power design constraints and unresolved decisions
 
-2026-10-02 scope: BM83SM1-00TA is selected and BD-15 remains pending. The old
-OLED/6600 mAh examples are historical screening, not the current product power
+2026-10-03 scope: BM83SM1-00TA and Waveshare 24382 non-touch are selected.
+[Current selected-product screening](current-power-model.md) supersedes the old
+OLED/6600 mAh examples, which are historical screening, not current product power
 model or an approved battery. Rebuild route/idle/peak/charge/source budgets after
 the display decision. Power HAL readings are explicitly unknown without a real
 adapter; host low-voltage thresholds are fixtures, not approved cell policy.

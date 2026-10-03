@@ -7,7 +7,11 @@ the updated power model, BOM and GPIO budget are complete**.
 Read bluetooth-architecture.md and display-selection.md. The existing S3 pin
 table and OLED envelope are provisional and cannot be treated as final.
 
-BD-14 is selected: S3 + BM83SM1-00TA. BD-15 is still open. Only after all the
+BD-14 is selected: S3 + BM83SM1-00TA. BD-15 is selected: Waveshare 24382 non-touch.
+BD-16 selects TCA9535PWR input expansion; the combined map and power/charger/pack
+review remain open. See
+[pin budget](pin-budget.md) and [current power screening](current-power-model.md).
+The existing bench pins are not final combined-product assignments. Only after all the
 entry checks above, start with task 1 (MCU); remaining tasks are assignments,
 not a demand to complete the whole device before review. Return one subsystem
 at a time. AI keeps independent research/test/documentation work moving, but
@@ -268,7 +272,9 @@ Actual chosen module supply/pin/dimension/controller drawing; display-selection.
 
 ### Engineering decisions I must make
 
-Exact MPN/controller, SPI versus I2C, reset/backlight, voltage and mounting.
+Review selected Waveshare 24382/ST7789V2 four-wire SPI, exact cable/mating
+connector, reset/PWM backlight, 3.3 V logic/supply, GPIO and mounting. Do not
+reopen SPI versus I2C or substitute the old OLED without a new builder decision.
 
 ### Constraints
 

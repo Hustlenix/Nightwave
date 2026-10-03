@@ -1,9 +1,10 @@
 # Schematic mentoring and review requirements
 
-Entry gate: BM83SM1-00TA is builder-selected (BD-14); BD-15 remains pending.
+Entry gate: BM83SM1-00TA (BD-14) and Waveshare 24382 non-touch (BD-15) are builder-selected.
 Do not start Builder Task 1 until the current software checkpoint is pushed and
-verified, BD-15 is recorded, selections propagated, and the new power/BOM/pin
-budget is complete. The legacy OLED footprint and two-output map are not final.
+verified, selections propagated, selected BD-16 input strategy mapped/reviewed and the new
+power/charger/pack/BOM/pin budget reviewed. See current-power-model.md and
+pin-budget.md. The legacy OLED footprint and two-output map are not final.
 
 Selected Bluetooth block must reserve the exact 50-pad BM83 land pattern,
 qualified 3.2–4.2 V rail, UART, MFB, provisioning/boot, reset and reviewed I2S
@@ -11,6 +12,13 @@ clock/rate interface. Disable its internal charger with the external product
 charger; evaluate powered-off audio/control backfeed. Preserve AT firmware
 provision/recovery access and both module antenna keep-outs. Public framing
 support is not qualification of source commands, firmware access or a headset.
+
+BM83 P0_0 is a configuration-dependent UART_TX_IND host-wake output, not the
+Test-mode strap. P3_4/SYS_CFG supplies reset-time Test-mode access in public
+documentation and can also be RTS. Review the exact TA AT image's functions;
+preserve safe service access and do not treat every service signal as free GPIO.
+Candidate BQ25185 SYS is 4.5 V in adapter mode and must not directly feed BM83;
+PENDING_BT_POWER_RAIL makes the unresolved supply explicit in the BOM.
 
 Checked 2026-10-01. This is a requirements/reference packet, not a complete
 netlist or final schematic. The builder chooses parts/values and draws the
@@ -115,11 +123,17 @@ external 10 kohm pull-ups on CMD and DAT0–3 are required even for one-bit use.
 Review: local decoupling/inrush, detect polarity, ESD, no 5 V contacts, removable
 card accessibility. Firmware does not currently provide automatic hotplug remount.
 
-## 7. Display (older OLED reference only)
+## 7. Selected display: Waveshare 24382 non-touch
 
-Final-addendum gate: choose BD-15 before authoring this block. TFT candidates,
-logic/backlight/GPIO/memory/connector requirements are in display-selection.md.
-The OLED notes below are retained references, not a final selection or cutout.
+BD-15 is recorded: 240x280 ST7789V2 SPI, 3.3 V supply and logic, six independent
+GPIO signals MOSI/SCLK/CS/DC/reset/PWM backlight. Review the exact MX1.25 8-pin
+cable pinout, mating connector MPN/footprint, backlight input limits, reset and
+powered-off behavior against the supplied revision. A module drawing is not
+a bare-controller footprint. Budget 90 mA maximum maker allowance and bounded
+RGB565 tiles; no verified ESP-IDF driver or final combined GPIO map exists.
+See display-selection.md, pin-budget.md and current-power-model.md.
+
+### Historical OLED bench reference, not the final product
 
 SH1106-compatible is not an exact purchasable module definition. Obtain the
 module maker's pinout, drawing, supply limits, address straps, controller and
@@ -134,7 +148,11 @@ or price is asserted here.
 
 ## 8. Five buttons
 
-Current firmware uses active-low switches to ground, GPIO1/2/4/10/15. Select
+Legacy bench firmware uses active-low switches to ground, GPIO1/2/4/10/15.
+BD-16 moves product buttons and slow SD/charge/gauge inputs to TCA9535PWR;
+exact port allocation, IRQ GPIO/address straps and debounced frontend integration
+remain pending. All 16 ports stay inputs with external defined levels; do not
+move mute, power hold or timing signals into this input-only contract. Select
 exact momentary switch MPN, actuation force, lifetime, travel and actuator height.
 External pull-up choices must account for leakage/off state. Avoid a large RC
 that invalidates debounce or creates slow noisy edges. Firmware debounce is
@@ -229,7 +247,12 @@ Review: debugger/probe access after assembly, clear pad labels/polarity, no
 inaccessible reset/boot, no grounded speaker test point. Capture actual ERC and
 net cross-checks; a checklist is not an executed electrical test.
 
-## Current GPIO interface contract (GPIO numbers, not module pads)
+## Legacy bench GPIO contract — not the selected-product map
+
+GPIO numbers below are not module pads or final product assignments. BD-16
+relocates five buttons, SD detect, charge status and fuel alert to TCA9535PWR;
+their ports/address/IRQ and combined BM83/TFT map require source review. Do not
+draw the final schematic from this historical bench table.
 
 | Interface | GPIO | Direction / default intent |
 | --- | --- | --- |
