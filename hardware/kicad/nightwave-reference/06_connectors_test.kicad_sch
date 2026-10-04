@@ -1,0 +1,697 @@
+(kicad_sch (version 20260306) (generator "nightwave_reference_generator")
+          (uuid "8519cbce-d8e2-52dc-b755-8d456961e7b0") (paper "A3")
+          (lib_symbols (symbol "Switch:SW_SPDT"
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "SW"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPDT"
+			(at 0 -5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Switch, single pole double throw"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "SW_SPDT_0_1"
+			(circle
+				(center -2.032 0)
+				(radius 0.4572)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.651 0.254) (xy 1.651 2.286)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 2.032 2.54)
+				(radius 0.4572)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 2.032 -2.54)
+				(radius 0.4572)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "SW_SPDT_1_1"
+			(rectangle
+				(start -3.175 3.81)
+				(end 3.175 -3.81)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(pin passive line
+				(at 5.08 2.54 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 2.54)
+				(name "B"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 5.08 -2.54 180)
+				(length 2.54)
+				(name "C"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "Connector_Generic:Conn_01x06"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x06"
+			(at 0 -10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Connector*:*_1x??_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_01x06_1_1"
+			(rectangle
+				(start -1.27 6.35)
+				(end 1.27 -8.89)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(rectangle
+				(start -1.27 5.207)
+				(end 0 4.953)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 2.667)
+				(end 0 2.413)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 0.127)
+				(end 0 -0.127)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -2.413)
+				(end 0 -2.667)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -4.953)
+				(end 0 -5.207)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -7.493)
+				(end 0 -7.747)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(pin passive line
+				(at -5.08 5.08 0)
+				(length 3.81)
+				(name "Pin_1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 2.54 0)
+				(length 3.81)
+				(name "Pin_2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 3.81)
+				(name "Pin_3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -2.54 0)
+				(length 3.81)
+				(name "Pin_4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -5.08 0)
+				(length 3.81)
+				(name "Pin_5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -7.62 0)
+				(length 3.81)
+				(name "Pin_6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "Connector:TestPoint"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.762)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "TP"
+			(at 0 6.858 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 5.08 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 5.08 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point tp"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 3.302)
+				(radius 0.762)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 0 90)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	))
+          (text "Service connectors, power switch and test points" (exclude_from_sim no) (at 25 18 0) (effects (font (size 2.5 2.5) (bold yes)) (justify left bottom)))
+          (text "AI-authored engineering reference. Verify pinout, support values, footprint orientation, lithium safety, RF keepout and assembly before fabrication." (exclude_from_sim no) (at 25 25 0) (effects (font (size 1.0 1.0)) (justify left bottom)))
+          (symbol (lib_id "Switch:SW_SPDT") (at 74.930 69.850 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "963aea03-ca9a-58ba-abe3-68e59eaff538")
+        (property "Reference" "SW6" (at 74.930 54.850 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "MAIN_POWER" (at 74.930 84.850 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "Button_Switch_SMD:SW_SPDT_PCM12" (at 74.930 69.850 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 74.930 69.850 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "0156e71b-abd2-597d-85b9-82682191c951"))
+        (pin "2" (uuid "065d06f7-8052-53a7-a4c7-ef0bec78811e"))
+        (pin "3" (uuid "bf6d46e5-1756-525e-a147-0e3862e3c4b9"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "SW6") (unit 1))))) (symbol (lib_id "Connector_Generic:Conn_01x06") (at 154.940 69.850 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "d033ee62-6a82-562e-b698-9480ae7ad579")
+        (property "Reference" "J8" (at 154.940 54.850 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "UART0_SERVICE" (at 154.940 84.850 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" (at 154.940 69.850 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 154.940 69.850 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "bbeb5dbe-f39d-54a7-b726-2bb9b7ea0b2a"))
+        (pin "2" (uuid "14d27a26-56e7-57d8-b435-c2bb494e9a05"))
+        (pin "3" (uuid "88962ad6-e194-55b9-a645-19be0a9f4d4d"))
+        (pin "4" (uuid "677a3d12-6455-5e7c-ae2f-27c6dccabfc5"))
+        (pin "5" (uuid "5f2b2412-0b02-5d7d-8fe5-70dd1db8056c"))
+        (pin "6" (uuid "32b92e2a-0019-5c90-ab71-9c64d7ee2309"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "J8") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 69.850 134.620 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "a8cf24e1-ea18-5bd9-ac2b-bdda3e2b4954")
+        (property "Reference" "TP1" (at 69.850 119.620 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "VBUS5" (at 69.850 149.620 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 69.850 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 69.850 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "9a9bf73c-95b1-5a97-a1b5-53753a274b46"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP1") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 118.110 134.620 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "b15ee6ea-df50-5032-8ffb-e5a3e30cb7e7")
+        (property "Reference" "TP2" (at 118.110 119.620 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "BAT" (at 118.110 149.620 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 118.110 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 118.110 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "bcb2f6b5-8fe7-549d-bfa6-9b3bf0e46f72"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP2") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 166.370 134.620 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "65fc4ebe-0b32-5a9c-9195-f1693754f81f")
+        (property "Reference" "TP3" (at 166.370 119.620 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "SYS" (at 166.370 149.620 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 166.370 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 166.370 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "69ba9a52-e000-524b-ae61-7ef165ff4417"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP3") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 214.630 134.620 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "15bc1a06-54a7-58af-8b7e-a04521a04758")
+        (property "Reference" "TP4" (at 214.630 119.620 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "VSYS_SW" (at 214.630 149.620 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 214.630 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 214.630 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "65c5460d-1943-54bc-bc89-9d4be0d1d0af"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP4") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 261.620 134.620 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "1a6da482-301b-5de1-9ed7-04d7b65574ba")
+        (property "Reference" "TP5" (at 261.620 119.620 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "+3V3" (at 261.620 149.620 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 261.620 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 261.620 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "8606656a-b63d-5163-a756-e558a35eca16"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP5") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 309.880 134.620 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "ec54acca-9335-5aba-98c5-86900879674a")
+        (property "Reference" "TP6" (at 309.880 119.620 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "+3V6_BT" (at 309.880 149.620 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 309.880 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 309.880 134.620 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "ac5cceb8-0033-5c18-8ad4-3c90d25c32ad"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP6") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 69.850 180.340 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "2009282d-0d8d-5b2e-a533-17e76bfe10f1")
+        (property "Reference" "TP7" (at 69.850 165.340 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "I2C_SDA" (at 69.850 195.340 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 69.850 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 69.850 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "16d36e55-b6a0-5582-bf5b-b0eedb3839d5"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP7") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 118.110 180.340 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "a334a9fc-12a7-5702-84ca-229365aadfaf")
+        (property "Reference" "TP8" (at 118.110 165.340 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "I2C_SCL" (at 118.110 195.340 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 118.110 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 118.110 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "d1b2dd50-1b15-5805-a9dd-425fdf152eed"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP8") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 166.370 180.340 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "2c2c2b48-1933-556d-ba6b-7ff9796fee58")
+        (property "Reference" "TP9" (at 166.370 165.340 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "I2S_BCLK" (at 166.370 195.340 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 166.370 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 166.370 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "2cf3b8db-0143-5be1-a750-7cec752c39ad"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP9") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 214.630 180.340 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "089ec7b0-f7aa-552c-8202-705052f5e726")
+        (property "Reference" "TP10" (at 214.630 165.340 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "I2S_LRCLK" (at 214.630 195.340 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 214.630 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 214.630 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "8ff5df39-5f5f-5887-883d-a1d82d4f319f"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP10") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 261.620 180.340 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "02ae385d-9f8a-514d-891a-55bacef8734c")
+        (property "Reference" "TP11" (at 261.620 165.340 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "I2S_DOUT" (at 261.620 195.340 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 261.620 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 261.620 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "955255c1-591d-5b54-a71f-6484b726c4d0"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP11") (unit 1))))) (symbol (lib_id "Connector:TestPoint") (at 309.880 180.340 0) (unit 1) (in_bom yes) (on_board yes) (dnp no)
+        (uuid "b3ae046d-3434-52bc-a986-9ea4371183b1")
+        (property "Reference" "TP12" (at 309.880 165.340 0) (effects (font (size 1.27 1.27))))
+        (property "Value" "GND" (at 309.880 195.340 0) (effects (font (size 1.27 1.27))))
+        (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 309.880 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (property "Datasheet" "" (at 309.880 180.340 0) (effects (font (size 1.27 1.27)) (hide yes)))
+        (pin "1" (uuid "b3b0b67c-a800-516c-b210-5aa1968974a6"))
+        (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778" (reference "TP12") (unit 1)))))
+          (wire (pts (xy 80.010 72.390) (xy 82.550 72.390)) (stroke (width 0) (type default)) (uuid "e18ca197-f37a-5dab-9799-29dee3d432fb")) (global_label "GND" (shape passive) (at 82.550 72.390 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "2bed4694-3b27-5811-aa6f-84030c9ff37e")) (wire (pts (xy 69.850 69.850) (xy 67.310 69.850)) (stroke (width 0) (type default)) (uuid "6cfbc65f-c802-5e31-b88d-7c415ff78419")) (global_label "PWR_SWITCH_ON" (shape passive) (at 67.310 69.850 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "334bc7da-2786-5cc3-8b7a-c31d4354d41d")) (wire (pts (xy 80.010 67.310) (xy 82.550 67.310)) (stroke (width 0) (type default)) (uuid "85a18a4e-3276-5a0c-88e8-a56609539599")) (global_label "SYS" (shape passive) (at 82.550 67.310 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "332a243b-d29c-5d84-b9e8-4f470878b147")) (wire (pts (xy 149.860 74.930) (xy 147.320 74.930)) (stroke (width 0) (type default)) (uuid "aacb0b9d-2712-5257-9d5d-a674323dd57e")) (global_label "+3V3" (shape passive) (at 147.320 74.930 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "68e5cd7a-db16-5a4e-bd73-d3fee591e8d6")) (wire (pts (xy 149.860 72.390) (xy 147.320 72.390)) (stroke (width 0) (type default)) (uuid "036c682e-f53b-5ce4-b142-9e4edd1c3e0f")) (global_label "GND" (shape passive) (at 147.320 72.390 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "bce7209a-f40a-5ddd-9470-5be353e32ba7")) (wire (pts (xy 149.860 69.850) (xy 147.320 69.850)) (stroke (width 0) (type default)) (uuid "93bcc26a-53df-50d9-9ea2-14ffa94de177")) (global_label "UART0_TX" (shape passive) (at 147.320 69.850 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "1475c215-b10a-5a64-b9e3-b8167102e7ef")) (wire (pts (xy 149.860 67.310) (xy 147.320 67.310)) (stroke (width 0) (type default)) (uuid "1ad5d5f3-f44c-547b-84db-c578434b1a63")) (global_label "UART0_RX" (shape passive) (at 147.320 67.310 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "8cf7ff5a-613b-53f6-b472-bfc883f45cd2")) (wire (pts (xy 149.860 64.770) (xy 147.320 64.770)) (stroke (width 0) (type default)) (uuid "24935a93-4887-5548-9633-dbc8287c453c")) (global_label "ESP_EN" (shape passive) (at 147.320 64.770 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "64f5d362-c488-50b5-b8c8-524bac2601bf")) (wire (pts (xy 149.860 62.230) (xy 149.860 59.690)) (stroke (width 0) (type default)) (uuid "22e096f0-74bf-5fb3-a6fe-092de528d8cd")) (global_label "BOOT_N" (shape passive) (at 149.860 59.690 90) (effects (font (size 0.9 0.9)) (justify left)) (uuid "d50eedbe-4460-56f2-8bfa-c5506ed46edc")) (wire (pts (xy 69.850 134.620) (xy 67.310 134.620)) (stroke (width 0) (type default)) (uuid "715fcbcb-1543-5123-9412-4592243fee59")) (global_label "VBUS5" (shape passive) (at 67.310 134.620 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "1b6330bc-b0cc-580f-a78b-6f9ed6a0162f")) (wire (pts (xy 118.110 134.620) (xy 115.570 134.620)) (stroke (width 0) (type default)) (uuid "63d4d88b-544b-5772-8a32-531af7f2f2df")) (global_label "BAT" (shape passive) (at 115.570 134.620 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "b9da1923-47bc-5de2-8646-762c955cf45c")) (wire (pts (xy 166.370 134.620) (xy 163.830 134.620)) (stroke (width 0) (type default)) (uuid "f9382239-7b0c-564e-96e9-2c3c07f46dc4")) (global_label "SYS" (shape passive) (at 163.830 134.620 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "e1c37bc5-24b0-50ef-ba3e-841997b212cf")) (wire (pts (xy 214.630 134.620) (xy 212.090 134.620)) (stroke (width 0) (type default)) (uuid "6a328af1-2914-5397-b5ff-abafc9816af2")) (global_label "VSYS_SW" (shape passive) (at 212.090 134.620 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "c5dafeb9-3f94-5305-8e28-ab53141fb454")) (wire (pts (xy 261.620 134.620) (xy 259.080 134.620)) (stroke (width 0) (type default)) (uuid "4015486e-b4f7-5296-bb77-1fb5a9cc9cd9")) (global_label "+3V3" (shape passive) (at 259.080 134.620 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "4c2573a0-99f7-5a7e-b0d3-077811970d6d")) (wire (pts (xy 309.880 134.620) (xy 307.340 134.620)) (stroke (width 0) (type default)) (uuid "9a555a25-915f-57bf-943b-26ec996aeea3")) (global_label "+3V6_BT" (shape passive) (at 307.340 134.620 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "667bb5b5-7a3d-5618-90b4-ecc8198f8bb9")) (wire (pts (xy 69.850 180.340) (xy 67.310 180.340)) (stroke (width 0) (type default)) (uuid "b7f87e34-f2bd-5cc9-a924-7ee9193c6a6e")) (global_label "I2C_SDA" (shape passive) (at 67.310 180.340 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "3ff68f7a-a266-5407-9faf-3efbb1c02b23")) (wire (pts (xy 118.110 180.340) (xy 115.570 180.340)) (stroke (width 0) (type default)) (uuid "a7f334ab-e86c-5e69-ac7b-3dd329f19f71")) (global_label "I2C_SCL" (shape passive) (at 115.570 180.340 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "f1b99032-8da5-5285-b11b-0c83da433a00")) (wire (pts (xy 166.370 180.340) (xy 163.830 180.340)) (stroke (width 0) (type default)) (uuid "389df45a-6583-5077-a5d3-bff33e721357")) (global_label "I2S_BCLK" (shape passive) (at 163.830 180.340 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "5eea46ea-732e-525b-8e2e-a83db98e27fc")) (wire (pts (xy 214.630 180.340) (xy 212.090 180.340)) (stroke (width 0) (type default)) (uuid "ad616b42-82ec-51e9-b5b0-e59bce872f2c")) (global_label "I2S_LRCLK" (shape passive) (at 212.090 180.340 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "7cb178cd-2752-5b51-b0e9-0737a3bb5e95")) (wire (pts (xy 261.620 180.340) (xy 259.080 180.340)) (stroke (width 0) (type default)) (uuid "811cb201-157d-5c10-9cfa-aaec61db3039")) (global_label "I2S_DOUT" (shape passive) (at 259.080 180.340 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "da9d1c1b-24e4-575e-9f06-fa7a76521dfc")) (wire (pts (xy 309.880 180.340) (xy 307.340 180.340)) (stroke (width 0) (type default)) (uuid "429b93eb-8a0d-5909-afde-7563a64a7f62")) (global_label "GND" (shape passive) (at 307.340 180.340 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "54857875-0da2-5568-ab06-c23621a192e0"))
+          (embedded_fonts no))

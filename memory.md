@@ -482,3 +482,18 @@ At the start of every session:
 4. Continue the current phase without re-planning finalized architecture.
 5. Stop only at a genuine HUMAN GATE, a safety issue, or a rule conflict.
 6. Update this file when durable state changes.
+# 2026-10-04 — AI-authored KiCad reference checkpoint
+
+- Generated `hardware/kicad/nightwave-reference/` separately from the live
+  beginner starter, preserving the user's KiCad-created settings/history.
+- Reference package covers the selected ESP32-S3, BM83SM1-00TA, Waveshare
+  24382 and TCA9535PWR architecture plus USB-C, BQ25628E power path, dual
+  TPS63802 rails, PCM5102A/TPA6132A2/MAX98357A audio, microSD, buttons,
+  connectors and test points.
+- KiCad CLI parses and exports the seven-page schematic, four-layer placed
+  board, PDF, BOM, manifest, renders, STEP, Gerbers, drill and position files.
+- This is not fabrication-ready: the board is unrouted and the captured ERC,
+  DRC and schematic-parity reports remain failing. Independent lithium, power,
+  RF, footprint and layout review is mandatory before ordering or connecting a
+  battery. No physical measurements, runtime or demo evidence exists yet.
+

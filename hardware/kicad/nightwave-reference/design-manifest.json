@@ -1,0 +1,2193 @@
+{
+  "schema": 1,
+  "status": "AI-authored digital reference; unbuilt; not approved for fabrication or lithium connection",
+  "board": {
+    "layers": 4,
+    "outline_mm": [
+      110,
+      100
+    ],
+    "stackup": "final fab stackup pending independent review"
+  },
+  "selected_architecture": {
+    "mcu": "ESP32-S3-WROOM-1-N16R8",
+    "bluetooth": "BM83SM1-00TA",
+    "display": "Waveshare 24382",
+    "input_expander": "TCA9535PWR",
+    "battery_reference": "Adafruit 5035 protected 1S 10050 mAh plus external 10k NTC",
+    "charger": "BQ25628ERYKR",
+    "logic_regulator": "TPS63802DLAR",
+    "bluetooth_regulator": "TPS63802DLAR",
+    "load_switch": "TPS22965DSGR"
+  },
+  "components": [
+    {
+      "reference": "J1",
+      "value": "USB4105-GF-A",
+      "manufacturer": "GCT",
+      "mpn": "USB4105-GF-A",
+      "sheet": "01_power_charging",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
+      "datasheet": "https://gct.co/files/specs/usb4105-spec.pdf",
+      "pin_nets": {
+        "A1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "A4": {
+          "name": "VBUS",
+          "net": "VBUS5"
+        },
+        "A5": {
+          "name": "CC1",
+          "net": "USB_CC1"
+        },
+        "A6": {
+          "name": "D+",
+          "net": "USB_DP"
+        },
+        "A7": {
+          "name": "D-",
+          "net": "USB_DM"
+        },
+        "A8": {
+          "name": "SBU1",
+          "net": "NC"
+        },
+        "A9": {
+          "name": "VBUS",
+          "net": "VBUS5"
+        },
+        "A12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "B1": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "B4": {
+          "name": "VBUS",
+          "net": "VBUS5"
+        },
+        "B5": {
+          "name": "CC2",
+          "net": "USB_CC2"
+        },
+        "B6": {
+          "name": "D+",
+          "net": "USB_DP"
+        },
+        "B7": {
+          "name": "D-",
+          "net": "USB_DM"
+        },
+        "B8": {
+          "name": "SBU2",
+          "net": "NC"
+        },
+        "B9": {
+          "name": "VBUS",
+          "net": "VBUS5"
+        },
+        "B12": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "SH": {
+          "name": "SHIELD",
+          "net": "CHASSIS"
+        }
+      }
+    },
+    {
+      "reference": "U2",
+      "value": "TUSB320LAIRWBR",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TUSB320LAIRWBR",
+      "sheet": "01_power_charging",
+      "footprint": "Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tusb320.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "USB_CC1"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "USB_CC2"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "GND"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "VBUS5"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "GND"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "USB_INT_N"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "I2C_SDA"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "I2C_SCL"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "GND"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "GND"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "+3V3"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "U3",
+      "value": "BQ25628ERYKR",
+      "manufacturer": "Texas Instruments",
+      "mpn": "BQ25628ERYKR",
+      "sheet": "01_power_charging",
+      "footprint": "Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/bq25628e.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "VBUS5"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "PMID"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "SW_CHG"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "SW_CHG"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "GND"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "BAT"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "BAT"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "SYS"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "SYS"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "TS"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "ILIM"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "I2C_SDA"
+        },
+        "13": {
+          "name": "Pin_13",
+          "net": "I2C_SCL"
+        },
+        "14": {
+          "name": "Pin_14",
+          "net": "CHG_INT_N"
+        },
+        "15": {
+          "name": "Pin_15",
+          "net": "CHG_STAT"
+        },
+        "16": {
+          "name": "Pin_16",
+          "net": "REGN"
+        },
+        "17": {
+          "name": "Pin_17",
+          "net": "BTST"
+        },
+        "18": {
+          "name": "Pin_18",
+          "net": "PGND"
+        },
+        "19": {
+          "name": "Pin_19",
+          "net": "PGND"
+        },
+        "20": {
+          "name": "Pin_20",
+          "net": "VAC_OVP"
+        },
+        "21": {
+          "name": "Pin_21",
+          "net": "DPLUS"
+        },
+        "22": {
+          "name": "Pin_22",
+          "net": "DMINUS"
+        },
+        "23": {
+          "name": "Pin_23",
+          "net": "QON"
+        },
+        "24": {
+          "name": "Pin_24",
+          "net": "CE_N"
+        },
+        "25": {
+          "name": "Pin_25",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U4",
+      "value": "TPS22965DSGR",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TPS22965DSGR",
+      "sheet": "01_power_charging",
+      "footprint": "Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tps22965.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "SYS"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "SYS"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "PWR_SWITCH_ON"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "GND"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "VSYS_SW"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "VSYS_SW"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "VSYS_SW"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "VSYS_SW"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U5",
+      "value": "TPS63802DLAR",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TPS63802DLAR",
+      "sheet": "01_power_charging",
+      "footprint": "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm_ThermalVias",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tps63802.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "VSYS_SW"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "SW1_3V3"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "SW2_3V3"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "GND"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "FB_3V3"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "+3V3"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "+3V3"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "PWR_GOOD_3V3"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "VSYS_SW"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "+3V3_EN"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U6",
+      "value": "TPS63802DLAR",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TPS63802DLAR",
+      "sheet": "01_power_charging",
+      "footprint": "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm_ThermalVias",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tps63802.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "VSYS_SW"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "SW1_BT"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "SW2_BT"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "GND"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "FB_BT"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "+3V6_BT"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "+3V6_BT"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "PWR_GOOD_BT"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "VSYS_SW"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "+3V6_BT_EN"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U7",
+      "value": "MAX17048G+T10",
+      "manufacturer": "Analog Devices",
+      "mpn": "MAX17048G+T10",
+      "sheet": "01_power_charging",
+      "footprint": "Package_DFN_QFN:TDFN-8-1EP_2x2mm_P0.5mm_EP0.8x1.2mm",
+      "datasheet": "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX17048-MAX17049.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "BAT"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "I2C_SCL"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "I2C_SDA"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "FUEL_ALERT_N"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "BAT"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "GND"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "GND"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "J2",
+      "value": "BATTERY_1S_10050mAh",
+      "manufacturer": "Adafruit",
+      "mpn": "5035",
+      "sheet": "01_power_charging",
+      "footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "BAT"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "J3",
+      "value": "EXTERNAL_10K_NTC",
+      "manufacturer": "",
+      "mpn": "EXTERNAL_10K_NTC",
+      "sheet": "01_power_charging",
+      "footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "TS"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U1",
+      "value": "ESP32-S3-WROOM-1-N16R8",
+      "manufacturer": "Espressif Systems",
+      "mpn": "ESP32-S3-WROOM-1-N16R8",
+      "sheet": "02_mcu_storage",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1",
+      "datasheet": "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "GND"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "+3V3"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "ESP_EN"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "BT_MFB"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "I2S_BCLK"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "I2S_LRCLK"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "I2S_DOUT"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "BT_RST_N"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "HP_DETECT"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "SPK_EN"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "DAC_XSMT"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "I2C_SDA"
+        },
+        "13": {
+          "name": "Pin_13",
+          "net": "NC"
+        },
+        "14": {
+          "name": "Pin_14",
+          "net": "NC"
+        },
+        "15": {
+          "name": "Pin_15",
+          "net": "NC"
+        },
+        "16": {
+          "name": "Pin_16",
+          "net": "NC"
+        },
+        "17": {
+          "name": "Pin_17",
+          "net": "I2C_SCL"
+        },
+        "18": {
+          "name": "Pin_18",
+          "net": "BT_WAKE"
+        },
+        "19": {
+          "name": "Pin_19",
+          "net": "SD_CMD"
+        },
+        "20": {
+          "name": "Pin_20",
+          "net": "SD_CLK"
+        },
+        "21": {
+          "name": "Pin_21",
+          "net": "SD_D0"
+        },
+        "22": {
+          "name": "Pin_22",
+          "net": "TCA_INT_N"
+        },
+        "23": {
+          "name": "Pin_23",
+          "net": "BT_MCLK_OPTION"
+        },
+        "24": {
+          "name": "Pin_24",
+          "net": "TFT_MOSI"
+        },
+        "25": {
+          "name": "Pin_25",
+          "net": "TFT_SCLK"
+        },
+        "26": {
+          "name": "Pin_26",
+          "net": "NC"
+        },
+        "27": {
+          "name": "Pin_27",
+          "net": "BOOT_N"
+        },
+        "28": {
+          "name": "Pin_28",
+          "net": "NC"
+        },
+        "29": {
+          "name": "Pin_29",
+          "net": "NC"
+        },
+        "30": {
+          "name": "Pin_30",
+          "net": "NC"
+        },
+        "31": {
+          "name": "Pin_31",
+          "net": "TFT_BL_PWM"
+        },
+        "32": {
+          "name": "Pin_32",
+          "net": "HP_EN"
+        },
+        "33": {
+          "name": "Pin_33",
+          "net": "TFT_RST"
+        },
+        "34": {
+          "name": "Pin_34",
+          "net": "TFT_DC"
+        },
+        "35": {
+          "name": "Pin_35",
+          "net": "TFT_CS"
+        },
+        "36": {
+          "name": "Pin_36",
+          "net": "NC"
+        },
+        "37": {
+          "name": "Pin_37",
+          "net": "NC"
+        },
+        "38": {
+          "name": "Pin_38",
+          "net": "BT_UART_RX"
+        },
+        "39": {
+          "name": "Pin_39",
+          "net": "BT_UART_TX"
+        },
+        "40": {
+          "name": "Pin_40",
+          "net": "GND"
+        },
+        "41": {
+          "name": "Pin_41",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "J4",
+      "value": "Molex 104031-0811",
+      "manufacturer": "Molex",
+      "mpn": "104031-0811",
+      "sheet": "02_mcu_storage",
+      "footprint": "Connector_Card:microSD_HC_Molex_104031-0811",
+      "datasheet": "https://www.molex.com/en-us/products/part-detail/1040310811",
+      "pin_nets": {
+        "1": {
+          "name": "DAT2",
+          "net": "SD_D2_NC"
+        },
+        "2": {
+          "name": "DAT3/CD",
+          "net": "+3V3"
+        },
+        "3": {
+          "name": "CMD",
+          "net": "SD_CMD"
+        },
+        "4": {
+          "name": "VDD",
+          "net": "+3V3"
+        },
+        "5": {
+          "name": "CLK",
+          "net": "SD_CLK"
+        },
+        "6": {
+          "name": "VSS",
+          "net": "GND"
+        },
+        "7": {
+          "name": "DAT0",
+          "net": "SD_D0"
+        },
+        "8": {
+          "name": "DAT1",
+          "net": "SD_D1_NC"
+        },
+        "SH": {
+          "name": "SHIELD",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U8",
+      "value": "PCM5102APWR",
+      "manufacturer": "Texas Instruments",
+      "mpn": "PCM5102APWR",
+      "sheet": "03_local_audio",
+      "footprint": "Package_SO:Texas_PW0020A_TSSOP-20_4.4x6.5mm_P0.65mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/pcm5102a.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "+3V3_A"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "NC"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "GND"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "NC"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "NC"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "DAC_L"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "DAC_R"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "+3V3_A"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "GND"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "GND"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "GND"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "GND"
+        },
+        "13": {
+          "name": "Pin_13",
+          "net": "I2S_BCLK_DAC"
+        },
+        "14": {
+          "name": "Pin_14",
+          "net": "I2S_DOUT_DAC"
+        },
+        "15": {
+          "name": "Pin_15",
+          "net": "I2S_LRCLK_DAC"
+        },
+        "16": {
+          "name": "Pin_16",
+          "net": "GND"
+        },
+        "17": {
+          "name": "Pin_17",
+          "net": "DAC_XSMT"
+        },
+        "18": {
+          "name": "Pin_18",
+          "net": "NC"
+        },
+        "19": {
+          "name": "Pin_19",
+          "net": "GND"
+        },
+        "20": {
+          "name": "Pin_20",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "U9",
+      "value": "TPA6132A2RTER",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TPA6132A2RTER",
+      "sheet": "03_local_audio",
+      "footprint": "Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm_ThermalVias",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tpa6132a2.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "DAC_L"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "DAC_L"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "DAC_R"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "DAC_R"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "HP_R"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "NC"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "NC"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "GND"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "NC"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "GND"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "NC"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "NC"
+        },
+        "13": {
+          "name": "Pin_13",
+          "net": "HP_EN"
+        },
+        "14": {
+          "name": "Pin_14",
+          "net": "+3V3_A"
+        },
+        "15": {
+          "name": "Pin_15",
+          "net": "GND"
+        },
+        "16": {
+          "name": "Pin_16",
+          "net": "HP_L"
+        },
+        "17": {
+          "name": "Pin_17",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U10",
+      "value": "MAX98357AETE+T",
+      "manufacturer": "Analog Devices",
+      "mpn": "MAX98357AETE+T",
+      "sheet": "03_local_audio",
+      "footprint": "Package_CSP:WLCSP-9_1.21x1.22mm_Layout3x3_P0.4mm",
+      "datasheet": "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX98357A-MAX98357B.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "DIN",
+          "net": "I2S_DOUT_SPK"
+        },
+        "2": {
+          "name": "GAIN_SLOT",
+          "net": "GND"
+        },
+        "3": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "4": {
+          "name": "~{SD_MODE}",
+          "net": "SPK_EN"
+        },
+        "5": {
+          "name": "NC",
+          "net": "NC"
+        },
+        "6": {
+          "name": "NC",
+          "net": "NC"
+        },
+        "7": {
+          "name": "VDD",
+          "net": "VSYS_SW"
+        },
+        "8": {
+          "name": "VDD",
+          "net": "VSYS_SW"
+        },
+        "9": {
+          "name": "OUTP",
+          "net": "SPK_P"
+        },
+        "10": {
+          "name": "OUTN",
+          "net": "SPK_N"
+        },
+        "11": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "12": {
+          "name": "NC",
+          "net": "NC"
+        },
+        "13": {
+          "name": "NC",
+          "net": "NC"
+        },
+        "14": {
+          "name": "LRCLK",
+          "net": "I2S_LRCLK_SPK"
+        },
+        "15": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "16": {
+          "name": "BCLK",
+          "net": "I2S_BCLK_SPK"
+        },
+        "17": {
+          "name": "PAD",
+          "net": "NC"
+        }
+      }
+    },
+    {
+      "reference": "J5",
+      "value": "SJ-3523-SMT-TR",
+      "manufacturer": "Same Sky",
+      "mpn": "SJ-3523-SMT-TR",
+      "sheet": "03_local_audio",
+      "footprint": "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal",
+      "datasheet": "https://www.sameskydevices.com/product/resource/sj-3523-smt-tr.pdf",
+      "pin_nets": {
+        "G": {
+          "name": "",
+          "net": "GND"
+        },
+        "R": {
+          "name": "",
+          "net": "HP_R"
+        },
+        "RN": {
+          "name": "",
+          "net": "HP_DETECT_BIAS"
+        },
+        "S": {
+          "name": "",
+          "net": "GND"
+        },
+        "SN": {
+          "name": "",
+          "net": "GND"
+        },
+        "T": {
+          "name": "",
+          "net": "HP_L"
+        },
+        "TN": {
+          "name": "",
+          "net": "HP_DETECT"
+        }
+      }
+    },
+    {
+      "reference": "J6",
+      "value": "CMS-28528N-L152",
+      "manufacturer": "Same Sky",
+      "mpn": "CMS-28528N-L152",
+      "sheet": "03_local_audio",
+      "footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
+      "datasheet": "https://www.sameskydevices.com/product/resource/cms-28528n-l152.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "SPK_P"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "SPK_N"
+        }
+      }
+    },
+    {
+      "reference": "U11",
+      "value": "TCA9535PWR",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TCA9535PWR",
+      "sheet": "04_display_controls",
+      "footprint": "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tca9535.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "TCA_INT_N"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "GND"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "BTN_PREV_N"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "BTN_PLAY_N"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "BTN_NEXT_N"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "BTN_VOL_DOWN_N"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "BTN_VOL_UP_N"
+        },
+        "9": {
+          "name": "Pin_9",
+          "net": "SD_DETECT_N"
+        },
+        "10": {
+          "name": "Pin_10",
+          "net": "CHG_STAT"
+        },
+        "11": {
+          "name": "Pin_11",
+          "net": "FUEL_ALERT_N"
+        },
+        "12": {
+          "name": "Pin_12",
+          "net": "GND"
+        },
+        "13": {
+          "name": "Pin_13",
+          "net": "CHG_INT_N"
+        },
+        "14": {
+          "name": "Pin_14",
+          "net": "USB_INT_N"
+        },
+        "15": {
+          "name": "Pin_15",
+          "net": "PWR_GOOD_3V3"
+        },
+        "16": {
+          "name": "Pin_16",
+          "net": "PWR_GOOD_BT"
+        },
+        "17": {
+          "name": "Pin_17",
+          "net": "EXP_IN14"
+        },
+        "18": {
+          "name": "Pin_18",
+          "net": "EXP_IN15"
+        },
+        "19": {
+          "name": "Pin_19",
+          "net": "EXP_IN16"
+        },
+        "20": {
+          "name": "Pin_20",
+          "net": "EXP_IN17"
+        },
+        "21": {
+          "name": "Pin_21",
+          "net": "GND"
+        },
+        "22": {
+          "name": "Pin_22",
+          "net": "I2C_SCL"
+        },
+        "23": {
+          "name": "Pin_23",
+          "net": "I2C_SDA"
+        },
+        "24": {
+          "name": "Pin_24",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "J7",
+      "value": "Waveshare 24382 TFT",
+      "manufacturer": "Waveshare",
+      "mpn": "24382",
+      "sheet": "04_display_controls",
+      "footprint": "Connector_JST:JST_GH_SM08B-GHS-TB_1x08-1MP_P1.25mm_Horizontal",
+      "datasheet": "https://www.waveshare.com/wiki/1.69inch_LCD_Module",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "TFT_MOSI"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "TFT_SCLK"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "TFT_CS"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "TFT_DC"
+        },
+        "7": {
+          "name": "Pin_7",
+          "net": "TFT_RST"
+        },
+        "8": {
+          "name": "Pin_8",
+          "net": "TFT_BL_PWM"
+        }
+      }
+    },
+    {
+      "reference": "SW1",
+      "value": "PREV",
+      "manufacturer": "",
+      "mpn": "PREV",
+      "sheet": "04_display_controls",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BTN_PREV_N"
+        },
+        "2": {
+          "name": "2",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "SW2",
+      "value": "PLAY_PAUSE",
+      "manufacturer": "",
+      "mpn": "PLAY_PAUSE",
+      "sheet": "04_display_controls",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BTN_PLAY_N"
+        },
+        "2": {
+          "name": "2",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "SW3",
+      "value": "NEXT",
+      "manufacturer": "",
+      "mpn": "NEXT",
+      "sheet": "04_display_controls",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BTN_NEXT_N"
+        },
+        "2": {
+          "name": "2",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "SW4",
+      "value": "VOL_DOWN",
+      "manufacturer": "",
+      "mpn": "VOL_DOWN",
+      "sheet": "04_display_controls",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BTN_VOL_DOWN_N"
+        },
+        "2": {
+          "name": "2",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "SW5",
+      "value": "VOL_UP",
+      "manufacturer": "",
+      "mpn": "VOL_UP",
+      "sheet": "04_display_controls",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BTN_VOL_UP_N"
+        },
+        "2": {
+          "name": "2",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "U12",
+      "value": "BM83SM1-00TA",
+      "manufacturer": "Microchip Technology",
+      "mpn": "BM83SM1-00TA",
+      "sheet": "05_bluetooth",
+      "footprint": "RF_Module:Microchip_BM83",
+      "datasheet": "https://ww1.microchip.com/downloads/en/DeviceDoc/BM83-Bluetooth-Stereo-Audio-Module-Data-Sheet-DS70005402D.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "DR1",
+          "net": "I2S_DOUT_BT"
+        },
+        "2": {
+          "name": "RFS1",
+          "net": "I2S_LRCLK_BT"
+        },
+        "3": {
+          "name": "SCLK1",
+          "net": "I2S_BCLK_BT"
+        },
+        "4": {
+          "name": "DT1",
+          "net": "NC"
+        },
+        "5": {
+          "name": "MCLK1",
+          "net": "BT_MCLK_OPTION"
+        },
+        "6": {
+          "name": "AOHPR",
+          "net": "NC"
+        },
+        "7": {
+          "name": "AOHPM",
+          "net": "NC"
+        },
+        "8": {
+          "name": "AOHPL",
+          "net": "NC"
+        },
+        "9": {
+          "name": "MICN2",
+          "net": "NC"
+        },
+        "10": {
+          "name": "MICP2",
+          "net": "NC"
+        },
+        "11": {
+          "name": "AIR",
+          "net": "NC"
+        },
+        "12": {
+          "name": "AIL",
+          "net": "NC"
+        },
+        "13": {
+          "name": "MICN1",
+          "net": "NC"
+        },
+        "14": {
+          "name": "MICP1",
+          "net": "NC"
+        },
+        "15": {
+          "name": "MICBIAS",
+          "net": "NC"
+        },
+        "16": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "17": {
+          "name": "DMIC_CLK",
+          "net": "NC"
+        },
+        "18": {
+          "name": "DMIC1_R",
+          "net": "NC"
+        },
+        "19": {
+          "name": "DMIC1_L",
+          "net": "NC"
+        },
+        "20": {
+          "name": "P3_2",
+          "net": "NC"
+        },
+        "21": {
+          "name": "P2_6",
+          "net": "NC"
+        },
+        "22": {
+          "name": "ADAP_IN",
+          "net": "+3V6_BT"
+        },
+        "23": {
+          "name": "BAT_IN",
+          "net": "+3V6_BT"
+        },
+        "24": {
+          "name": "SYS_PWR",
+          "net": "NC"
+        },
+        "25": {
+          "name": "VDD_IO",
+          "net": "+3V3"
+        },
+        "26": {
+          "name": "PWR(MFB)",
+          "net": "BT_MFB"
+        },
+        "27": {
+          "name": "SK1_AMB_DET",
+          "net": "NC"
+        },
+        "28": {
+          "name": "SK2_KEY_AD",
+          "net": "NC"
+        },
+        "29": {
+          "name": "P8_6/UART_RXD",
+          "net": "BT_UART_TX"
+        },
+        "30": {
+          "name": "P8_5/UART_TXD",
+          "net": "BT_UART_RX"
+        },
+        "31": {
+          "name": "P3_4/UART_RTS",
+          "net": "BT_SERVICE_P34"
+        },
+        "32": {
+          "name": "LED1",
+          "net": "BT_LED"
+        },
+        "33": {
+          "name": "P0_2",
+          "net": "NC"
+        },
+        "34": {
+          "name": "LED2",
+          "net": "BT_STATE"
+        },
+        "35": {
+          "name": "P0_6",
+          "net": "NC"
+        },
+        "36": {
+          "name": "DM",
+          "net": "NC"
+        },
+        "37": {
+          "name": "DP",
+          "net": "NC"
+        },
+        "38": {
+          "name": "P0_3",
+          "net": "NC"
+        },
+        "39": {
+          "name": "P2_7",
+          "net": "NC"
+        },
+        "40": {
+          "name": "P0_5",
+          "net": "NC"
+        },
+        "41": {
+          "name": "P1_6/PWM1",
+          "net": "NC"
+        },
+        "42": {
+          "name": "P2_3",
+          "net": "NC"
+        },
+        "43": {
+          "name": "~{RST}",
+          "net": "BT_RST_N"
+        },
+        "44": {
+          "name": "P0_1",
+          "net": "NC"
+        },
+        "45": {
+          "name": "P0_7",
+          "net": "NC"
+        },
+        "46": {
+          "name": "P1_2/TDI_CPU/SCL",
+          "net": "I2C_SCL"
+        },
+        "47": {
+          "name": "P1_3/TCK_CPU/SDA",
+          "net": "I2C_SDA"
+        },
+        "48": {
+          "name": "P3_7/UART_CTS",
+          "net": "NC"
+        },
+        "49": {
+          "name": "P0_0/UART_TX_IND",
+          "net": "BT_WAKE"
+        },
+        "50": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "56": {
+          "name": "GND",
+          "net": "GND"
+        },
+        "57": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "SW6",
+      "value": "MAIN_POWER",
+      "manufacturer": "",
+      "mpn": "MAIN_POWER",
+      "sheet": "06_connectors_test",
+      "footprint": "Button_Switch_SMD:SW_SPDT_PCM12",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "A",
+          "net": "GND"
+        },
+        "2": {
+          "name": "B",
+          "net": "PWR_SWITCH_ON"
+        },
+        "3": {
+          "name": "C",
+          "net": "SYS"
+        }
+      }
+    },
+    {
+      "reference": "J8",
+      "value": "UART0_SERVICE",
+      "manufacturer": "",
+      "mpn": "UART0_SERVICE",
+      "sheet": "06_connectors_test",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "Pin_1",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "Pin_2",
+          "net": "GND"
+        },
+        "3": {
+          "name": "Pin_3",
+          "net": "UART0_TX"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "UART0_RX"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "ESP_EN"
+        },
+        "6": {
+          "name": "Pin_6",
+          "net": "BOOT_N"
+        }
+      }
+    },
+    {
+      "reference": "TP1",
+      "value": "VBUS5",
+      "manufacturer": "",
+      "mpn": "VBUS5",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "VBUS5"
+        }
+      }
+    },
+    {
+      "reference": "TP2",
+      "value": "BAT",
+      "manufacturer": "",
+      "mpn": "BAT",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BAT"
+        }
+      }
+    },
+    {
+      "reference": "TP3",
+      "value": "SYS",
+      "manufacturer": "",
+      "mpn": "SYS",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "SYS"
+        }
+      }
+    },
+    {
+      "reference": "TP4",
+      "value": "VSYS_SW",
+      "manufacturer": "",
+      "mpn": "VSYS_SW",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "VSYS_SW"
+        }
+      }
+    },
+    {
+      "reference": "TP5",
+      "value": "+3V3",
+      "manufacturer": "",
+      "mpn": "+3V3",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "TP6",
+      "value": "+3V6_BT",
+      "manufacturer": "",
+      "mpn": "+3V6_BT",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "+3V6_BT"
+        }
+      }
+    },
+    {
+      "reference": "TP7",
+      "value": "I2C_SDA",
+      "manufacturer": "",
+      "mpn": "I2C_SDA",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "I2C_SDA"
+        }
+      }
+    },
+    {
+      "reference": "TP8",
+      "value": "I2C_SCL",
+      "manufacturer": "",
+      "mpn": "I2C_SCL",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "I2C_SCL"
+        }
+      }
+    },
+    {
+      "reference": "TP9",
+      "value": "I2S_BCLK",
+      "manufacturer": "",
+      "mpn": "I2S_BCLK",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "I2S_BCLK"
+        }
+      }
+    },
+    {
+      "reference": "TP10",
+      "value": "I2S_LRCLK",
+      "manufacturer": "",
+      "mpn": "I2S_LRCLK",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "I2S_LRCLK"
+        }
+      }
+    },
+    {
+      "reference": "TP11",
+      "value": "I2S_DOUT",
+      "manufacturer": "",
+      "mpn": "I2S_DOUT",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "I2S_DOUT"
+        }
+      }
+    },
+    {
+      "reference": "TP12",
+      "value": "GND",
+      "manufacturer": "",
+      "mpn": "GND",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R1",
+      "value": "5.1k",
+      "manufacturer": "",
+      "mpn": "5.1k",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "USB_CC1"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R2",
+      "value": "5.1k",
+      "manufacturer": "",
+      "mpn": "5.1k",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "USB_CC2"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R3",
+      "value": "4.7k",
+      "manufacturer": "",
+      "mpn": "4.7k",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2C_SDA"
+        },
+        "2": {
+          "name": "",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R4",
+      "value": "4.7k",
+      "manufacturer": "",
+      "mpn": "4.7k",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2C_SCL"
+        },
+        "2": {
+          "name": "",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R5",
+      "value": "22",
+      "manufacturer": "",
+      "mpn": "22",
+      "sheet": "02_mcu_storage",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "USB_DP"
+        },
+        "2": {
+          "name": "",
+          "net": "USB_DP_MCU"
+        }
+      }
+    },
+    {
+      "reference": "R6",
+      "value": "22",
+      "manufacturer": "",
+      "mpn": "22",
+      "sheet": "02_mcu_storage",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "USB_DM"
+        },
+        "2": {
+          "name": "",
+          "net": "USB_DM_MCU"
+        }
+      }
+    },
+    {
+      "reference": "R7",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_BCLK"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_BCLK_DAC"
+        }
+      }
+    },
+    {
+      "reference": "R8",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_LRCLK"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_LRCLK_DAC"
+        }
+      }
+    },
+    {
+      "reference": "R9",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_DOUT"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_DOUT_DAC"
+        }
+      }
+    },
+    {
+      "reference": "R10",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_BCLK"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_BCLK_SPK"
+        }
+      }
+    },
+    {
+      "reference": "R11",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_LRCLK"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_LRCLK_SPK"
+        }
+      }
+    },
+    {
+      "reference": "R12",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_DOUT"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_DOUT_SPK"
+        }
+      }
+    },
+    {
+      "reference": "R13",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "05_bluetooth",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_BCLK"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_BCLK_BT"
+        }
+      }
+    },
+    {
+      "reference": "R14",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "05_bluetooth",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_LRCLK"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_LRCLK_BT"
+        }
+      }
+    },
+    {
+      "reference": "R15",
+      "value": "33",
+      "manufacturer": "",
+      "mpn": "33",
+      "sheet": "05_bluetooth",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "I2S_DOUT"
+        },
+        "2": {
+          "name": "",
+          "net": "I2S_DOUT_BT"
+        }
+      }
+    },
+    {
+      "reference": "C1",
+      "value": "10u",
+      "manufacturer": "",
+      "mpn": "10u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "VBUS5"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C2",
+      "value": "10u",
+      "manufacturer": "",
+      "mpn": "10u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "BAT"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C3",
+      "value": "22u",
+      "manufacturer": "",
+      "mpn": "22u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "SYS"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C4",
+      "value": "22u",
+      "manufacturer": "",
+      "mpn": "22u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "VSYS_SW"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C5",
+      "value": "22u",
+      "manufacturer": "",
+      "mpn": "22u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C6",
+      "value": "22u",
+      "manufacturer": "",
+      "mpn": "22u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "+3V6_BT"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C7",
+      "value": "10u",
+      "manufacturer": "",
+      "mpn": "10u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "+3V3_A"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C8",
+      "value": "1u",
+      "manufacturer": "",
+      "mpn": "1u",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "",
+          "net": "REGN"
+        },
+        "2": {
+          "name": "",
+          "net": "GND"
+        }
+      }
+    }
+  ],
+  "review_gates": [
+    "Independent electrical review of USB-C, BQ25628E, NTC, battery polarity and charge limits",
+    "Manufacturer-footprint and pin-one review for every IC/module",
+    "BM83 AT source firmware, I2S clock direction/rate and antenna keepout validation",
+    "ESP32-S3 and BM83 RF keepout/layout review",
+    "Display connector/cable pinout and backlight-current validation",
+    "Complete manual PCB routing/return-path/SI review and clean final DRC",
+    "Mechanical fit check against editable enclosure CAD before fabrication"
+  ]
+}
