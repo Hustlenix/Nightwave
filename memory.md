@@ -519,7 +519,10 @@ unfinished electrical/product qualification gates.
   pending: no complete procurement BOM or updated qualified power model exists.
 - Project validator, reference semantic checks and all 34 Python tests passed.
   See reference reports for final native ERC/DRC/parity and source hashes.
-  Fresh Release/ASAN/ESP32 build results must be tied to the pushed CI revision.
+  Pushed engineering commit `90974a381d566704c60d4a95520b1424880c3434`
+  passed Project quality CI `37344278247` (Release host tests and ASAN/leak
+  checks included) and ESP32-S3 Firmware CI `37344278327`. These builds do not
+  qualify the reference-board drivers or prove physical operation.
 - Rebuilt editable KiCad, PDF, Gerber/drill/placement and PCB STEP review
   package. The STEP is not enclosure CAD and lacks some component 3D bodies.
 - Not fabrication-ready or grant-approved: USB source current/protection and

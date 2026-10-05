@@ -38,6 +38,11 @@ Fresh local project validation and all 34 Python tests passed. The six reference
 regression tests include connector-vs-load MPN identity, BM83 supply/ground
 land constraints, amplifier exposed-pad grounding and reserved PSRAM pins.
 Current ERC/DRC/parity reports and source hashes are in the reference package.
+For pushed commit `90974a381d566704c60d4a95520b1424880c3434`,
+[Project quality CI](https://github.com/Hustlenix/Nightwave/actions/runs/37344278247)
+passed including Release host tests and ASAN/leak checks, and
+[ESP32-S3 Firmware CI](https://github.com/Hustlenix/Nightwave/actions/runs/37344278327)
+passed. These are software/build results, not reference-board hardware proof.
 ERC uses passive electrical pin types and must not be presented as a full
 electrical review. New CI results, when available, are revision-specific.
 
