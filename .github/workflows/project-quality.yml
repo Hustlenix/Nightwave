@@ -6,6 +6,7 @@ on:
       - "docs/**"
       - "hardware/*.csv"
       - "hardware/*.json"
+      - "hardware/kicad/nightwave-reference/**"
       - "measurements/trial-evidence.json"
       - "tools/**"
       - "tests/**"
@@ -16,6 +17,7 @@ on:
       - "docs/**"
       - "hardware/*.csv"
       - "hardware/*.json"
+      - "hardware/kicad/nightwave-reference/**"
       - "measurements/trial-evidence.json"
       - "tools/**"
       - "tests/**"
@@ -37,6 +39,11 @@ jobs:
       - uses: actions/checkout@v7
       - name: Validate BOMs and wiring consistency
         run: python3 tools/validate_project.py
+      - name: Check reference-design pin and footprint regressions (not electrical sign-off)
+        run: |
+          python3 tools/validate_reference_design.py
+          python3 -m unittest discover -s tests -p 'test_reference_design.py'
+          python3 tools/validate_reference_package.py
       - name: Test shipping artifact inventory and incomplete-cost handling
         run: python3 -m unittest discover -s tests -p 'test_shipping_readiness.py'
       - name: Test finished-device evidence inventory without certifying physical results

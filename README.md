@@ -1,5 +1,22 @@
 # Nightwave
 
+## PCB checkpoint - 2026-10-05
+
+The AI-authored [KiCad reference project](hardware/kicad/nightwave-reference/README.md)
+now has a routed four-layer board, 132 circuit footprints plus three M2
+mounting holes, numbered GPIO assignments, and native manufacturing review
+exports. See its [validation status](hardware/kicad/nightwave-reference/VALIDATION_STATUS.md)
+and [engineering checkpoint](docs/reference-pcb-checkpoint.md) for exact results.
+The [downloadable review package](hardware/kicad/Nightwave-AI-Reference-2026-10-05.zip)
+includes editable sources, PDF, Gerbers, drill, positions and board STEP.
+
+**This is not fabrication or grant-submission approval.** USB source-current
+and protection, power-loop/current capacity, complete component procurement,
+firmware-to-board integration and enclosure fit remain unresolved. Clean
+connectivity/clearance checks are not electrical safety or functional proof.
+The builder requested this separate AI-authored reference when their laptop
+could not run KiCad; their original starter files remain untouched.
+
 Nightwave is an in-progress, standalone pocket music player for the Pixl “A Music player for the saloon” Trial. It reads user-owned MP3 and PCM/WAV files directly from microSD, with software decoding, physical controls, wired stereo headphones, a speaker, synchronized LRC and Bluetooth output. No phone or streaming service is required. The builder selected ESP32-S3 plus BM83SM1-00TA (BD-14) and Waveshare 24382 non-touch TFT (BD-15). Their hardware drivers, combined GPIO map and battery sizing are not qualified or locked.
 
 > Status (2026-10-03): WAV/MP3 three-task streaming, bench OLED/five-button interaction,
@@ -12,12 +29,15 @@ Nightwave is an in-progress, standalone pocket music player for the Pixl “A Mu
 > [expanded-scope checkpoint](docs/engineering-budgets.md) for remaining software.
 > Executed [firmware/host CI evidence](docs/software-validation.md) is revision-specific.
 > **Funding package is NOT READY:** final power design,
-> complete BOM, builder-owned PCB/CAD, manufacturing files and human reviews are
-> missing. No physical playback, runtime, fit, final hardware or tier is claimed.
+> complete procurement BOM, reviewed enclosure CAD and human reviews are
+> missing. An [AI-authored PCB reference](hardware/kicad/nightwave-reference/README.md)
+> now exists; its native checks do not constitute fabrication approval or builder authorship.
+> No physical playback, runtime, fit, final hardware or tier is claimed.
 
 ## Why it exists
 
-Hardware design proceeds in builder-authored mentor/reviewer mode. **Before
+The original hardware workflow used builder-authored mentor/reviewer mode;
+the separate AI-authored reference above was subsequently requested. **Before
 final schematic tasks**, review the selected [Bluetooth architecture](docs/bluetooth-architecture.md)
 and [display BD-15](docs/display-selection.md). BD-16 selects
 [TCA9535PWR input expansion](docs/input-expansion.md); review its [combined GPIO map](docs/pin-budget.md)
@@ -56,7 +76,7 @@ StorageTask -> compressed ring buffer -> DecoderTask -> PCM ring buffer
 
 The ESP32 owns file enumeration, storage reads, MP3/WAV decoding, buffering, playback state, I2S output, buttons, UI, settings, diagnostics, and power policy. Nightwave does not use DFPlayer or another module that hides the storage/decode/playback pipeline. The diagram above is the current two-local-output software/bench path. The product requires a third mutually exclusive, rate-qualified I2S branch to BM83SM1-00TA for A2DP source output. Its radio adapter, combined playback router and 22.05/32 kHz conversion are not implemented. Host-tested Bluetooth control/framing contracts do not make that output operational.
 
-The bench prototype uses an available MAX98357A breakout as a functional speaker-path proxy; the provisional final-board selection is MAX98360C.
+The bench prototype uses an available MAX98357A breakout as a functional speaker-path proxy. The current AI-authored KiCad reference uses MAX98357AETE+T (TQFN); MAX98360C in historical candidate documents is not the reference board's fitted amplifier. This remains an unqualified engineering candidate.
 
 ## Current implementation
 
@@ -131,9 +151,13 @@ runtime, and charge-while-play safety is not verified.
 
 ## PCB and enclosure
 
-There is no completed KiCad schematic/board, routed four-layer PCB, editable
-enclosure, full STEP assembly or manufacturing archive yet. No dummy CAD files,
-fake assembly photographs or render-only substitutes are presented as evidence.
+The [current KiCad reference](hardware/kicad/nightwave-reference/README.md)
+contains a seven-sheet schematic, placed four-layer board, project-local land
+patterns and explicit pin map. Check its [revision-specific validation status](hardware/kicad/nightwave-reference/VALIDATION_STATUS.md)
+for actual routing, DRC/parity results and available review exports. The source
+is AI-authored at the builder's request, not evidence of human-authored CAD.
+It is not fabrication approved. No reviewed editable enclosure, full mechanical
+assembly or physical build proof is claimed. See [the reference differences and remaining gates](docs/reference-pcb-checkpoint.md).
 An [AI-assisted KiCad starter](hardware/kicad/nightwave-starter/START_HERE.md)
 now supplies a root hierarchy, six empty subsystem sheets and a blank board so
 the builder can begin quickly. It is scaffolding only: it contains no finished

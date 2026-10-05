@@ -2,6 +2,12 @@
 
 Basis: `ESP32-S3-WROOM-1-N16R8` / `ESP32-S3-DevKitC-1-N8R8`. This is a provisional logical map, not a wiring instruction.
 
+2026-10-04: the [AI-authored reference board GPIO map](../hardware/kicad/nightwave-reference/FINAL_GPIO_MAP.md)
+is the numbered map for that KiCad candidate. Historical tables below are not
+its wiring instructions. The reference uses GPIO14 for expander INT, GPIO18
+for DAC mute, GPIO39 for headphone enable and GPIO21 for optional BM83 MCLK.
+Do not claim the historical bench firmware is qualified for this reference.
+
 BD-14 selects ESP32-S3 + BM83SM1-00TA, BD-15 selects Waveshare 24382 non-touch,
 and BD-16 selects TCA9535PWR **input-only** expansion (2026-10-03). Reconcile their combined SPI/UART/wake/reset/backlight and
 antenna/power needs before final schematic work. No new GPIO was silently

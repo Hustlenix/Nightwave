@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "10.0.5"
     },
-    "CreationDate": "2026-10-04T14:30:10+05:30"
+    "CreationDate": "2026-10-05T22:21:42+05:30"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -18,21 +18,27 @@
       "Y": 100.05
     },
     "LayerNumber": 4,
-    "BoardThickness": 1.6,
+    "BoardThickness": 1.2,
     "Finish": "None"
   },
   "DesignRules": [
     {
       "Layers": "Outer",
-      "PadToPad": 0.2,
-      "PadToTrack": 0.2,
-      "TrackToTrack": 0.2
+      "PadToPad": 0.15,
+      "PadToTrack": 0.15,
+      "TrackToTrack": 0.15,
+      "MinLineWidth": 0.15,
+      "TrackToRegion": 0.2,
+      "RegionToRegion": 0.2
     },
     {
       "Layers": "Inner",
       "PadToPad": 0.0,
       "PadToTrack": 0.0,
-      "TrackToTrack": 0.2
+      "TrackToTrack": 0.15,
+      "MinLineWidth": 0.15,
+      "TrackToRegion": 0.2,
+      "RegionToRegion": 0.2
     }
   ],
   "FilesAttributes": [
@@ -54,6 +60,16 @@
     {
       "Path": "Nightwave-Reference-B_Cu.gbl",
       "FileFunction": "Copper,L4,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Nightwave-Reference-F_Paste.gtp",
+      "FileFunction": "SolderPaste,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Nightwave-Reference-B_Paste.gbp",
+      "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
@@ -103,7 +119,7 @@
     },
     {
       "Type": "Dielectric",
-      "Thickness": 0.48,
+      "Thickness": 0.3467,
       "Material": "FR4",
       "Name": "F.Cu/In1.Cu",
       "Notes": "Type: dielectric layer 1 (from F.Cu to In1.Cu)"
@@ -115,7 +131,7 @@
     },
     {
       "Type": "Dielectric",
-      "Thickness": 0.48,
+      "Thickness": 0.3467,
       "Material": "FR4",
       "Name": "In1.Cu/In2.Cu",
       "Notes": "Type: dielectric layer 2 (from In1.Cu to In2.Cu)"
@@ -127,7 +143,7 @@
     },
     {
       "Type": "Dielectric",
-      "Thickness": 0.48,
+      "Thickness": 0.3467,
       "Material": "FR4",
       "Name": "In2.Cu/B.Cu",
       "Notes": "Type: dielectric layer 3 (from In2.Cu to B.Cu)"

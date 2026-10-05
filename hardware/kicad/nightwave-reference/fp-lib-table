@@ -1,0 +1,1 @@
+(fp_lib_table (version 7) (lib (name "Nightwave")(type "KiCad")(uri "${KIPRJMOD}/Nightwave.pretty")(options "")(descr "Manufacturer land patterns")))

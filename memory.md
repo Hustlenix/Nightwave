@@ -497,3 +497,33 @@ At the start of every session:
   RF, footprint and layout review is mandatory before ordering or connecting a
   battery. No physical measurements, runtime or demo evidence exists yet.
 
+## 2026-10-05 - Routed AI reference checkpoint
+
+This supersedes the unrouted state recorded immediately above, not the
+unfinished electrical/product qualification gates.
+
+- Completed routing closure of the 132-component reference and added three
+  board-only M2 non-plated mounting holes (135 total footprints), copper
+  exclusions, ground/logic planes and functional silkscreen.
+- Corrected charger/regulator land patterns and logical pin maps, BM83
+  BAT_IN/ADAP_IN/VDD_IO treatment and ground lands 56/57, amplifier EP,
+  SD pulls, isolated headphone detect and averaged-stereo mode divider.
+- Preserved RF antenna keepouts. BM83 body keepout has narrowly scoped windows
+  at recommended ground lands, not relaxed antenna restrictions. Via-in-pad
+  solder/paste treatment remains an assembly review item.
+- Widened 209 power trace sections; remaining necks and switching loops still
+  require current/thermal/layout review. Geometry closure is not a safety claim.
+- Separated J2/J3/J6/J7 PCB header MPNs from the off-board pack/NTC/speaker/TFT;
+  PH header current rating is 2 A with specified wiring, not the pack's 3 A.
+  Generic passives, several connectors/harness parts and complete pricing remain
+  pending: no complete procurement BOM or updated qualified power model exists.
+- Project validator, reference semantic checks and all 34 Python tests passed.
+  See reference reports for final native ERC/DRC/parity and source hashes.
+  Fresh Release/ASAN/ESP32 build results must be tied to the pushed CI revision.
+- Rebuilt editable KiCad, PDF, Gerber/drill/placement and PCB STEP review
+  package. The STEP is not enclosure CAD and lacks some component 3D bodies.
+- Not fabrication-ready or grant-approved: USB source current/protection and
+  impedance, power loops/current capacity, complete sourcing, final enclosure
+  fit and firmware reconciliation are unresolved. No physical evidence or
+  human authorship is invented. Starter user edits/history are preserved.
+

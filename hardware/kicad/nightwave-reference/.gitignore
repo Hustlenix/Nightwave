@@ -2,3 +2,6 @@
 *.lck
 ~*.tmp
 .history/
+reports/filled-drc.json
+reports/placement-drc.rpt
+reports/render/detail.png

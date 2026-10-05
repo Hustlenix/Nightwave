@@ -1,6 +1,6 @@
 # Nightwave KiCad reference design
 
-This directory is a **complete AI-authored digital reference package for independent engineering review**. It is unbuilt, unmeasured, and **not approved for fabrication or lithium-cell connection**.
+This directory is an AI-authored KiCad engineering reference. See `VALIDATION_STATUS.md` for the actual routing/check results of the exported revision. It is unbuilt, unmeasured, and **not approved for fabrication or lithium-cell connection**. It is not evidence of human-authored CAD or Pixl acceptance.
 
 ## What is here
 
@@ -13,7 +13,7 @@ This directory is a **complete AI-authored digital reference package for indepen
 
 ## Critical stop
 
-Do not order this board yet. An independent reviewer must close every item in `REVIEW_CHECKLIST.md`, complete placement/routing, then the reviewed layout must produce a clean ERC/DRC with no waived safety or RF faults. The board contains footprints and the full ratsnest so tomorrow's KiCad work starts from a real source package, not a blank canvas.
+Do not order this board yet. An independent reviewer must close `REVIEW_CHECKLIST.md`. Automated routing and clearance/connectivity checks do not establish USB impedance, power-loop stability, current capacity, RF performance, charger safety, manufacturability or enclosure fit. All block-symbol pins currently use passive electrical types: zero ERC means connectivity checks only, not power/driver-type qualification.
 
 ## Opening tomorrow
 

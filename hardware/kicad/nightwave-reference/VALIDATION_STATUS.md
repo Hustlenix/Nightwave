@@ -1,21 +1,16 @@
-# Validation status — 2026-10-04
+# Validation status
 
-## Completed digitally
+Generated UTC: 2026-10-05T16:52:21.545680+00:00
 
-- KiCad 10 parses the root and all six child schematic sheets.
-- KiCad XML netlist export succeeds.
-- Four-layer board source parses and renders from both sides.
-- 61 footprints are placed inside a 110 x 100 mm reference outline.
-- STEP, Gerber, drill, position, BOM, manifest, schematic PDF, GPIO map and review reports are exported.
-- All seven schematic PDF pages were rasterized and visually inspected.
+- Components: 135; track/via items: 2436.
+- Native KiCad DRC violations: 0.
+- Unconnected items: 0.
+- Schematic/PCB parity findings: 0.
+- ERC checks connectivity using passive block-symbol pins. Zero ERC is **not** a driver/power-type review.
+- 134 power-net segments below 0.6 mm require explicit current-density/voltage-drop review; see `reports/validation.json`. Autorouter necking is not a current-rating approval.
+- Gerbers/drills/positions and PCB STEP are review exports only. Missing custom-part 3D bodies are not fit evidence. Board STEP is not enclosure CAD.
+- Independent electrical, USB source-current/ESD/impedance, RF, power-loop and mechanical review are pending.
+- Exact passive/connector MPNs and complete pricing remain pending; reference BOM is not a complete procurement BOM.
+- No physical device, measurements, runtime, assembly photos, demo video or Pixl acceptance is claimed.
 
-## Not passed — blocks fabrication
-
-- ERC: **101 open violations** in the latest report.
-- DRC: **55 rule violations**, **214 unconnected items**, and **228 schematic-parity issues**.
-- PCB routing is intentionally incomplete; the board contains a ratsnest, not production copper.
-- Several 3D package models are absent from the local KiCad model library; the STEP board therefore has incomplete component bodies.
-- Charger support values, USB-C policy, switch-mode loops, RF keepouts, BM83 firmware/clocking and lithium thermal policy require independent engineering review.
-
-The files under `manufacturing/` are review aids only and carry a DO NOT
-FABRICATE warning. They must be regenerated after routing and review.
+**DO NOT FABRICATE OR CONNECT A LITHIUM CELL before closing `REVIEW_CHECKLIST.md`.**

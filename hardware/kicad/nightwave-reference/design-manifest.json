@@ -7,6 +7,7 @@
       110,
       100
     ],
+    "thickness_mm": 1.2,
     "stackup": "final fab stackup pending independent review"
   },
   "selected_architecture": {
@@ -34,6 +35,10 @@
           "name": "GND",
           "net": "GND"
         },
+        "A12": {
+          "name": "GND",
+          "net": "GND"
+        },
         "A4": {
           "name": "VBUS",
           "net": "VBUS5"
@@ -58,11 +63,11 @@
           "name": "VBUS",
           "net": "VBUS5"
         },
-        "A12": {
+        "B1": {
           "name": "GND",
           "net": "GND"
         },
-        "B1": {
+        "B12": {
           "name": "GND",
           "net": "GND"
         },
@@ -90,72 +95,9 @@
           "name": "VBUS",
           "net": "VBUS5"
         },
-        "B12": {
-          "name": "GND",
-          "net": "GND"
-        },
         "SH": {
           "name": "SHIELD",
           "net": "CHASSIS"
-        }
-      }
-    },
-    {
-      "reference": "U2",
-      "value": "TUSB320LAIRWBR",
-      "manufacturer": "Texas Instruments",
-      "mpn": "TUSB320LAIRWBR",
-      "sheet": "01_power_charging",
-      "footprint": "Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm",
-      "datasheet": "https://www.ti.com/lit/ds/symlink/tusb320.pdf",
-      "pin_nets": {
-        "1": {
-          "name": "Pin_1",
-          "net": "USB_CC1"
-        },
-        "2": {
-          "name": "Pin_2",
-          "net": "USB_CC2"
-        },
-        "3": {
-          "name": "Pin_3",
-          "net": "GND"
-        },
-        "4": {
-          "name": "Pin_4",
-          "net": "VBUS5"
-        },
-        "5": {
-          "name": "Pin_5",
-          "net": "GND"
-        },
-        "6": {
-          "name": "Pin_6",
-          "net": "USB_INT_N"
-        },
-        "7": {
-          "name": "Pin_7",
-          "net": "I2C_SDA"
-        },
-        "8": {
-          "name": "Pin_8",
-          "net": "I2C_SCL"
-        },
-        "9": {
-          "name": "Pin_9",
-          "net": "GND"
-        },
-        "10": {
-          "name": "Pin_10",
-          "net": "GND"
-        },
-        "11": {
-          "name": "Pin_11",
-          "net": "+3V3"
-        },
-        "12": {
-          "name": "Pin_12",
-          "net": "+3V3"
         }
       }
     },
@@ -165,108 +107,80 @@
       "manufacturer": "Texas Instruments",
       "mpn": "BQ25628ERYKR",
       "sheet": "01_power_charging",
-      "footprint": "Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias",
+      "footprint": "Nightwave:TI_RYK0018A",
       "datasheet": "https://www.ti.com/lit/ds/symlink/bq25628e.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
-          "net": "VBUS5"
+          "name": "BTST",
+          "net": "BTST"
         },
         "2": {
-          "name": "Pin_2",
-          "net": "PMID"
+          "name": "REGN",
+          "net": "REGN"
         },
         "3": {
-          "name": "Pin_3",
-          "net": "SW_CHG"
+          "name": "PG",
+          "net": "PGOOD_CHG"
         },
         "4": {
-          "name": "Pin_4",
-          "net": "SW_CHG"
+          "name": "ILIM",
+          "net": "ILIM"
         },
         "5": {
-          "name": "Pin_5",
-          "net": "GND"
+          "name": "TS_BIAS",
+          "net": "TS_BIAS"
         },
         "6": {
-          "name": "Pin_6",
-          "net": "BAT"
+          "name": "TS",
+          "net": "TS"
         },
         "7": {
-          "name": "Pin_7",
-          "net": "BAT"
+          "name": "QON",
+          "net": "NC"
         },
         "8": {
-          "name": "Pin_8",
-          "net": "SYS"
+          "name": "BAT",
+          "net": "BAT"
         },
         "9": {
-          "name": "Pin_9",
+          "name": "SYS",
           "net": "SYS"
         },
         "10": {
-          "name": "Pin_10",
-          "net": "TS"
+          "name": "STAT",
+          "net": "CHG_STAT"
         },
         "11": {
-          "name": "Pin_11",
-          "net": "ILIM"
+          "name": "INT",
+          "net": "CHG_INT_N"
         },
         "12": {
-          "name": "Pin_12",
+          "name": "SDA",
           "net": "I2C_SDA"
         },
         "13": {
-          "name": "Pin_13",
+          "name": "SCL",
           "net": "I2C_SCL"
         },
         "14": {
-          "name": "Pin_14",
-          "net": "CHG_INT_N"
+          "name": "CE",
+          "net": "GND"
         },
         "15": {
-          "name": "Pin_15",
-          "net": "CHG_STAT"
+          "name": "GND",
+          "net": "GND"
         },
         "16": {
-          "name": "Pin_16",
-          "net": "REGN"
+          "name": "SW",
+          "net": "SW_CHG"
         },
         "17": {
-          "name": "Pin_17",
-          "net": "BTST"
+          "name": "PMID",
+          "net": "PMID"
         },
         "18": {
-          "name": "Pin_18",
-          "net": "PGND"
-        },
-        "19": {
-          "name": "Pin_19",
-          "net": "PGND"
-        },
-        "20": {
-          "name": "Pin_20",
-          "net": "VAC_OVP"
-        },
-        "21": {
-          "name": "Pin_21",
-          "net": "DPLUS"
-        },
-        "22": {
-          "name": "Pin_22",
-          "net": "DMINUS"
-        },
-        "23": {
-          "name": "Pin_23",
-          "net": "QON"
-        },
-        "24": {
-          "name": "Pin_24",
-          "net": "CE_N"
-        },
-        "25": {
-          "name": "Pin_25",
-          "net": "GND"
+          "name": "VBUS",
+          "net": "VBUS5"
         }
       }
     },
@@ -280,39 +194,39 @@
       "datasheet": "https://www.ti.com/lit/ds/symlink/tps22965.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
+          "name": "VIN",
           "net": "SYS"
         },
         "2": {
-          "name": "Pin_2",
+          "name": "VIN",
           "net": "SYS"
         },
         "3": {
-          "name": "Pin_3",
+          "name": "ON",
           "net": "PWR_SWITCH_ON"
         },
         "4": {
-          "name": "Pin_4",
-          "net": "GND"
+          "name": "VBIAS",
+          "net": "SYS"
         },
         "5": {
-          "name": "Pin_5",
-          "net": "VSYS_SW"
+          "name": "GND",
+          "net": "GND"
         },
         "6": {
-          "name": "Pin_6",
-          "net": "VSYS_SW"
+          "name": "CT",
+          "net": "NC"
         },
         "7": {
-          "name": "Pin_7",
+          "name": "VOUT",
           "net": "VSYS_SW"
         },
         "8": {
-          "name": "Pin_8",
+          "name": "VOUT",
           "net": "VSYS_SW"
         },
         "9": {
-          "name": "Pin_9",
+          "name": "EP",
           "net": "GND"
         }
       }
@@ -323,52 +237,48 @@
       "manufacturer": "Texas Instruments",
       "mpn": "TPS63802DLAR",
       "sheet": "01_power_charging",
-      "footprint": "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm_ThermalVias",
+      "footprint": "Nightwave:TI_DLA0010A",
       "datasheet": "https://www.ti.com/lit/ds/symlink/tps63802.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
+          "name": "EN",
           "net": "VSYS_SW"
         },
         "2": {
-          "name": "Pin_2",
-          "net": "SW1_3V3"
-        },
-        "3": {
-          "name": "Pin_3",
-          "net": "SW2_3V3"
-        },
-        "4": {
-          "name": "Pin_4",
+          "name": "MODE",
           "net": "GND"
         },
-        "5": {
-          "name": "Pin_5",
+        "3": {
+          "name": "AGND",
+          "net": "GND"
+        },
+        "4": {
+          "name": "FB",
           "net": "FB_3V3"
         },
+        "5": {
+          "name": "PG",
+          "net": "PWR_GOOD_3V3"
+        },
         "6": {
-          "name": "Pin_6",
+          "name": "VOUT",
           "net": "+3V3"
         },
         "7": {
-          "name": "Pin_7",
-          "net": "+3V3"
+          "name": "L2",
+          "net": "SW2_3V3"
         },
         "8": {
-          "name": "Pin_8",
-          "net": "PWR_GOOD_3V3"
+          "name": "GND",
+          "net": "GND"
         },
         "9": {
-          "name": "Pin_9",
-          "net": "VSYS_SW"
+          "name": "L1",
+          "net": "SW1_3V3"
         },
         "10": {
-          "name": "Pin_10",
-          "net": "+3V3_EN"
-        },
-        "11": {
-          "name": "Pin_11",
-          "net": "GND"
+          "name": "VIN",
+          "net": "VSYS_SW"
         }
       }
     },
@@ -378,52 +288,48 @@
       "manufacturer": "Texas Instruments",
       "mpn": "TPS63802DLAR",
       "sheet": "01_power_charging",
-      "footprint": "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm_ThermalVias",
+      "footprint": "Nightwave:TI_DLA0010A",
       "datasheet": "https://www.ti.com/lit/ds/symlink/tps63802.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
+          "name": "EN",
           "net": "VSYS_SW"
         },
         "2": {
-          "name": "Pin_2",
-          "net": "SW1_BT"
-        },
-        "3": {
-          "name": "Pin_3",
-          "net": "SW2_BT"
-        },
-        "4": {
-          "name": "Pin_4",
+          "name": "MODE",
           "net": "GND"
         },
-        "5": {
-          "name": "Pin_5",
+        "3": {
+          "name": "AGND",
+          "net": "GND"
+        },
+        "4": {
+          "name": "FB",
           "net": "FB_BT"
         },
+        "5": {
+          "name": "PG",
+          "net": "PWR_GOOD_BT"
+        },
         "6": {
-          "name": "Pin_6",
+          "name": "VOUT",
           "net": "+3V6_BT"
         },
         "7": {
-          "name": "Pin_7",
-          "net": "+3V6_BT"
+          "name": "L2",
+          "net": "SW2_BT"
         },
         "8": {
-          "name": "Pin_8",
-          "net": "PWR_GOOD_BT"
+          "name": "GND",
+          "net": "GND"
         },
         "9": {
-          "name": "Pin_9",
-          "net": "VSYS_SW"
+          "name": "L1",
+          "net": "SW1_BT"
         },
         "10": {
-          "name": "Pin_10",
-          "net": "+3V6_BT_EN"
-        },
-        "11": {
-          "name": "Pin_11",
-          "net": "GND"
+          "name": "VIN",
+          "net": "VSYS_SW"
         }
       }
     },
@@ -437,51 +343,51 @@
       "datasheet": "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX17048-MAX17049.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
-          "net": "BAT"
-        },
-        "2": {
-          "name": "Pin_2",
+          "name": "CTG",
           "net": "GND"
         },
+        "2": {
+          "name": "CELL",
+          "net": "BAT"
+        },
         "3": {
-          "name": "Pin_3",
-          "net": "I2C_SCL"
+          "name": "VDD",
+          "net": "BAT"
         },
         "4": {
-          "name": "Pin_4",
-          "net": "I2C_SDA"
+          "name": "GND",
+          "net": "GND"
         },
         "5": {
-          "name": "Pin_5",
+          "name": "ALRT",
           "net": "FUEL_ALERT_N"
         },
         "6": {
-          "name": "Pin_6",
-          "net": "BAT"
+          "name": "QSTRT",
+          "net": "GND"
         },
         "7": {
-          "name": "Pin_7",
-          "net": "GND"
+          "name": "SCL",
+          "net": "I2C_SCL"
         },
         "8": {
-          "name": "Pin_8",
-          "net": "GND"
+          "name": "SDA",
+          "net": "I2C_SDA"
         },
         "9": {
-          "name": "Pin_9",
+          "name": "EP",
           "net": "GND"
         }
       }
     },
     {
       "reference": "J2",
-      "value": "BATTERY_1S_10050mAh",
-      "manufacturer": "Adafruit",
-      "mpn": "5035",
+      "value": "BATTERY_CONNECTOR",
+      "manufacturer": "JST",
+      "mpn": "S2B-PH-K-S",
       "sheet": "01_power_charging",
       "footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
-      "datasheet": "",
+      "datasheet": "https://www.jst-mfg.com/product/pdf/eng/ePH.pdf",
       "pin_nets": {
         "1": {
           "name": "Pin_1",
@@ -496,11 +402,11 @@
     {
       "reference": "J3",
       "value": "EXTERNAL_10K_NTC",
-      "manufacturer": "",
-      "mpn": "EXTERNAL_10K_NTC",
+      "manufacturer": "JST",
+      "mpn": "S2B-PH-K-S",
       "sheet": "01_power_charging",
       "footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
-      "datasheet": "",
+      "datasheet": "https://www.jst-mfg.com/product/pdf/eng/ePH.pdf",
       "pin_nets": {
         "1": {
           "name": "Pin_1",
@@ -522,167 +428,167 @@
       "datasheet": "https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
+          "name": "GND",
           "net": "GND"
         },
         "2": {
-          "name": "Pin_2",
+          "name": "3V3",
           "net": "+3V3"
         },
         "3": {
-          "name": "Pin_3",
+          "name": "EN",
           "net": "ESP_EN"
         },
         "4": {
-          "name": "Pin_4",
+          "name": "GPIO4",
           "net": "BT_MFB"
         },
         "5": {
-          "name": "Pin_5",
+          "name": "GPIO5",
           "net": "I2S_BCLK"
         },
         "6": {
-          "name": "Pin_6",
+          "name": "GPIO6",
           "net": "I2S_LRCLK"
         },
         "7": {
-          "name": "Pin_7",
+          "name": "GPIO7",
           "net": "I2S_DOUT"
         },
         "8": {
-          "name": "Pin_8",
+          "name": "GPIO15",
           "net": "BT_RST_N"
         },
         "9": {
-          "name": "Pin_9",
+          "name": "GPIO16",
           "net": "HP_DETECT"
         },
         "10": {
-          "name": "Pin_10",
+          "name": "GPIO17",
           "net": "SPK_EN"
         },
         "11": {
-          "name": "Pin_11",
+          "name": "GPIO18",
           "net": "DAC_XSMT"
         },
         "12": {
-          "name": "Pin_12",
+          "name": "GPIO8",
           "net": "I2C_SDA"
         },
         "13": {
-          "name": "Pin_13",
-          "net": "NC"
+          "name": "GPIO19_USB_D-",
+          "net": "USB_DM_MCU"
         },
         "14": {
-          "name": "Pin_14",
-          "net": "NC"
+          "name": "GPIO20_USB_D+",
+          "net": "USB_DP_MCU"
         },
         "15": {
-          "name": "Pin_15",
+          "name": "GPIO3",
           "net": "NC"
         },
         "16": {
-          "name": "Pin_16",
+          "name": "GPIO46",
           "net": "NC"
         },
         "17": {
-          "name": "Pin_17",
+          "name": "GPIO9",
           "net": "I2C_SCL"
         },
         "18": {
-          "name": "Pin_18",
+          "name": "GPIO10",
           "net": "BT_WAKE"
         },
         "19": {
-          "name": "Pin_19",
+          "name": "GPIO11",
           "net": "SD_CMD"
         },
         "20": {
-          "name": "Pin_20",
+          "name": "GPIO12",
           "net": "SD_CLK"
         },
         "21": {
-          "name": "Pin_21",
+          "name": "GPIO13",
           "net": "SD_D0"
         },
         "22": {
-          "name": "Pin_22",
+          "name": "GPIO14",
           "net": "TCA_INT_N"
         },
         "23": {
-          "name": "Pin_23",
+          "name": "GPIO21",
           "net": "BT_MCLK_OPTION"
         },
         "24": {
-          "name": "Pin_24",
+          "name": "GPIO47",
           "net": "TFT_MOSI"
         },
         "25": {
-          "name": "Pin_25",
+          "name": "GPIO48",
           "net": "TFT_SCLK"
         },
         "26": {
-          "name": "Pin_26",
+          "name": "GPIO45",
           "net": "NC"
         },
         "27": {
-          "name": "Pin_27",
+          "name": "GPIO0",
           "net": "BOOT_N"
         },
         "28": {
-          "name": "Pin_28",
+          "name": "GPIO35_PSRAM",
           "net": "NC"
         },
         "29": {
-          "name": "Pin_29",
+          "name": "GPIO36_PSRAM",
           "net": "NC"
         },
         "30": {
-          "name": "Pin_30",
+          "name": "GPIO37_PSRAM",
           "net": "NC"
         },
         "31": {
-          "name": "Pin_31",
+          "name": "GPIO38",
           "net": "TFT_BL_PWM"
         },
         "32": {
-          "name": "Pin_32",
+          "name": "GPIO39",
           "net": "HP_EN"
         },
         "33": {
-          "name": "Pin_33",
+          "name": "GPIO40",
           "net": "TFT_RST"
         },
         "34": {
-          "name": "Pin_34",
+          "name": "GPIO41",
           "net": "TFT_DC"
         },
         "35": {
-          "name": "Pin_35",
+          "name": "GPIO42",
           "net": "TFT_CS"
         },
         "36": {
-          "name": "Pin_36",
-          "net": "NC"
+          "name": "RXD0",
+          "net": "UART0_RX"
         },
         "37": {
-          "name": "Pin_37",
-          "net": "NC"
+          "name": "TXD0",
+          "net": "UART0_TX"
         },
         "38": {
-          "name": "Pin_38",
+          "name": "GPIO2",
           "net": "BT_UART_RX"
         },
         "39": {
-          "name": "Pin_39",
+          "name": "GPIO1",
           "net": "BT_UART_TX"
         },
         "40": {
-          "name": "Pin_40",
+          "name": "GND",
           "net": "GND"
         },
         "41": {
-          "name": "Pin_41",
+          "name": "EP_GND",
           "net": "GND"
         }
       }
@@ -698,11 +604,11 @@
       "pin_nets": {
         "1": {
           "name": "DAT2",
-          "net": "SD_D2_NC"
+          "net": "NC"
         },
         "2": {
           "name": "DAT3/CD",
-          "net": "+3V3"
+          "net": "SD_DAT3"
         },
         "3": {
           "name": "CMD",
@@ -726,7 +632,15 @@
         },
         "8": {
           "name": "DAT1",
-          "net": "SD_D1_NC"
+          "net": "NC"
+        },
+        "9": {
+          "name": "SD_DETECT_N",
+          "net": "SD_DETECT_N"
+        },
+        "10": {
+          "name": "GND",
+          "net": "GND"
         },
         "SH": {
           "name": "SHIELD",
@@ -744,83 +658,83 @@
       "datasheet": "https://www.ti.com/lit/ds/symlink/pcm5102a.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
+          "name": "CPVDD",
           "net": "+3V3_A"
         },
         "2": {
-          "name": "Pin_2",
-          "net": "NC"
+          "name": "CAPP",
+          "net": "PCM_CP_P"
         },
         "3": {
-          "name": "Pin_3",
+          "name": "CPGND",
           "net": "GND"
         },
         "4": {
-          "name": "Pin_4",
-          "net": "NC"
+          "name": "CAPM",
+          "net": "PCM_CP_M"
         },
         "5": {
-          "name": "Pin_5",
-          "net": "NC"
+          "name": "VNEG",
+          "net": "PCM_VNEG"
         },
         "6": {
-          "name": "Pin_6",
+          "name": "OUTL",
           "net": "DAC_L"
         },
         "7": {
-          "name": "Pin_7",
+          "name": "OUTR",
           "net": "DAC_R"
         },
         "8": {
-          "name": "Pin_8",
+          "name": "AVDD",
           "net": "+3V3_A"
         },
         "9": {
-          "name": "Pin_9",
+          "name": "AGND",
           "net": "GND"
         },
         "10": {
-          "name": "Pin_10",
+          "name": "DEMP",
           "net": "GND"
         },
         "11": {
-          "name": "Pin_11",
+          "name": "FLT",
           "net": "GND"
         },
         "12": {
-          "name": "Pin_12",
+          "name": "SCK",
           "net": "GND"
         },
         "13": {
-          "name": "Pin_13",
+          "name": "BCK",
           "net": "I2S_BCLK_DAC"
         },
         "14": {
-          "name": "Pin_14",
+          "name": "DIN",
           "net": "I2S_DOUT_DAC"
         },
         "15": {
-          "name": "Pin_15",
+          "name": "LRCK",
           "net": "I2S_LRCLK_DAC"
         },
         "16": {
-          "name": "Pin_16",
+          "name": "FMT",
           "net": "GND"
         },
         "17": {
-          "name": "Pin_17",
+          "name": "XSMT",
           "net": "DAC_XSMT"
         },
         "18": {
-          "name": "Pin_18",
-          "net": "NC"
+          "name": "LDOO",
+          "net": "PCM_LDOO"
         },
         "19": {
-          "name": "Pin_19",
+          "name": "DGND",
           "net": "GND"
         },
         "20": {
-          "name": "Pin_20",
+          "name": "DVDD",
           "net": "+3V3"
         }
       }
@@ -835,71 +749,71 @@
       "datasheet": "https://www.ti.com/lit/ds/symlink/tpa6132a2.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
-          "net": "DAC_L"
+          "name": "INL-",
+          "net": "HP_IN_L"
         },
         "2": {
-          "name": "Pin_2",
-          "net": "DAC_L"
+          "name": "INL+",
+          "net": "GND"
         },
         "3": {
-          "name": "Pin_3",
-          "net": "DAC_R"
+          "name": "INR+",
+          "net": "GND"
         },
         "4": {
-          "name": "Pin_4",
-          "net": "DAC_R"
+          "name": "INR-",
+          "net": "HP_IN_R"
         },
         "5": {
-          "name": "Pin_5",
+          "name": "OUTR",
           "net": "HP_R"
         },
         "6": {
-          "name": "Pin_6",
-          "net": "NC"
-        },
-        "7": {
-          "name": "Pin_7",
-          "net": "NC"
-        },
-        "8": {
-          "name": "Pin_8",
+          "name": "G0",
           "net": "GND"
         },
+        "7": {
+          "name": "G1",
+          "net": "GND"
+        },
+        "8": {
+          "name": "HPVSS",
+          "net": "HP_VSS"
+        },
         "9": {
-          "name": "Pin_9",
-          "net": "NC"
+          "name": "CPN",
+          "net": "HP_CP_N"
         },
         "10": {
-          "name": "Pin_10",
+          "name": "PGND",
           "net": "GND"
         },
         "11": {
-          "name": "Pin_11",
-          "net": "NC"
+          "name": "CPP",
+          "net": "HP_CP_P"
         },
         "12": {
-          "name": "Pin_12",
-          "net": "NC"
+          "name": "HPVDD",
+          "net": "HP_VDD"
         },
         "13": {
-          "name": "Pin_13",
+          "name": "EN",
           "net": "HP_EN"
         },
         "14": {
-          "name": "Pin_14",
+          "name": "VDD",
           "net": "+3V3_A"
         },
         "15": {
-          "name": "Pin_15",
+          "name": "SGND",
           "net": "GND"
         },
         "16": {
-          "name": "Pin_16",
+          "name": "OUTL",
           "net": "HP_L"
         },
         "17": {
-          "name": "Pin_17",
+          "name": "EP",
           "net": "GND"
         }
       }
@@ -910,7 +824,7 @@
       "manufacturer": "Analog Devices",
       "mpn": "MAX98357AETE+T",
       "sheet": "03_local_audio",
-      "footprint": "Package_CSP:WLCSP-9_1.21x1.22mm_Layout3x3_P0.4mm",
+      "footprint": "Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm",
       "datasheet": "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX98357A-MAX98357B.pdf",
       "pin_nets": {
         "1": {
@@ -927,7 +841,7 @@
         },
         "4": {
           "name": "~{SD_MODE}",
-          "net": "SPK_EN"
+          "net": "SPK_SD_MODE"
         },
         "5": {
           "name": "NC",
@@ -979,57 +893,57 @@
         },
         "17": {
           "name": "PAD",
-          "net": "NC"
+          "net": "GND"
         }
       }
     },
     {
       "reference": "J5",
-      "value": "SJ-3523-SMT-TR",
+      "value": "SJ3-350153AG-TR",
       "manufacturer": "Same Sky",
-      "mpn": "SJ-3523-SMT-TR",
+      "mpn": "SJ3-350153AG-TR",
       "sheet": "03_local_audio",
-      "footprint": "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal",
-      "datasheet": "https://www.sameskydevices.com/product/resource/sj-3523-smt-tr.pdf",
+      "footprint": "Nightwave:SameSky_SJ3-350153AG",
+      "datasheet": "https://www.sameskydevices.com/product/resource/sj3-35015x.pdf",
       "pin_nets": {
-        "G": {
-          "name": "",
+        "1": {
+          "name": "Pin_1",
           "net": "GND"
         },
-        "R": {
-          "name": "",
-          "net": "HP_R"
-        },
-        "RN": {
-          "name": "",
-          "net": "HP_DETECT_BIAS"
-        },
-        "S": {
-          "name": "",
-          "net": "GND"
-        },
-        "SN": {
-          "name": "",
-          "net": "GND"
-        },
-        "T": {
-          "name": "",
+        "2": {
+          "name": "Pin_2",
           "net": "HP_L"
         },
-        "TN": {
-          "name": "",
+        "3": {
+          "name": "Pin_3",
+          "net": "HP_R"
+        },
+        "4": {
+          "name": "Pin_4",
+          "net": "GND"
+        },
+        "5": {
+          "name": "Pin_5",
+          "net": "GND"
+        },
+        "6": {
+          "name": "Pin_6",
           "net": "HP_DETECT"
+        },
+        "MS": {
+          "name": "GND",
+          "net": "GND"
         }
       }
     },
     {
       "reference": "J6",
-      "value": "CMS-28528N-L152",
-      "manufacturer": "Same Sky",
-      "mpn": "CMS-28528N-L152",
+      "value": "BTL_SPEAKER_CONNECTOR",
+      "manufacturer": "JST",
+      "mpn": "S2B-PH-K-S",
       "sheet": "03_local_audio",
       "footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
-      "datasheet": "https://www.sameskydevices.com/product/resource/cms-28528n-l152.pdf",
+      "datasheet": "https://www.jst-mfg.com/product/pdf/eng/ePH.pdf",
       "pin_nets": {
         "1": {
           "name": "Pin_1",
@@ -1051,111 +965,111 @@
       "datasheet": "https://www.ti.com/lit/ds/symlink/tca9535.pdf",
       "pin_nets": {
         "1": {
-          "name": "Pin_1",
+          "name": "INT",
           "net": "TCA_INT_N"
         },
         "2": {
-          "name": "Pin_2",
+          "name": "A1",
           "net": "GND"
         },
         "3": {
-          "name": "Pin_3",
+          "name": "A2",
           "net": "GND"
         },
         "4": {
-          "name": "Pin_4",
+          "name": "P0_0",
           "net": "BTN_PREV_N"
         },
         "5": {
-          "name": "Pin_5",
+          "name": "P0_1",
           "net": "BTN_PLAY_N"
         },
         "6": {
-          "name": "Pin_6",
+          "name": "P0_2",
           "net": "BTN_NEXT_N"
         },
         "7": {
-          "name": "Pin_7",
+          "name": "P0_3",
           "net": "BTN_VOL_DOWN_N"
         },
         "8": {
-          "name": "Pin_8",
+          "name": "P0_4",
           "net": "BTN_VOL_UP_N"
         },
         "9": {
-          "name": "Pin_9",
+          "name": "P0_5",
           "net": "SD_DETECT_N"
         },
         "10": {
-          "name": "Pin_10",
+          "name": "P0_6",
           "net": "CHG_STAT"
         },
         "11": {
-          "name": "Pin_11",
+          "name": "P0_7",
           "net": "FUEL_ALERT_N"
         },
         "12": {
-          "name": "Pin_12",
+          "name": "GND",
           "net": "GND"
         },
         "13": {
-          "name": "Pin_13",
+          "name": "P1_0",
           "net": "CHG_INT_N"
         },
         "14": {
-          "name": "Pin_14",
-          "net": "USB_INT_N"
+          "name": "P1_1",
+          "net": "PGOOD_CHG"
         },
         "15": {
-          "name": "Pin_15",
+          "name": "P1_2",
           "net": "PWR_GOOD_3V3"
         },
         "16": {
-          "name": "Pin_16",
+          "name": "P1_3",
           "net": "PWR_GOOD_BT"
         },
         "17": {
-          "name": "Pin_17",
+          "name": "P1_4",
           "net": "EXP_IN14"
         },
         "18": {
-          "name": "Pin_18",
+          "name": "P1_5",
           "net": "EXP_IN15"
         },
         "19": {
-          "name": "Pin_19",
+          "name": "P1_6",
           "net": "EXP_IN16"
         },
         "20": {
-          "name": "Pin_20",
+          "name": "P1_7",
           "net": "EXP_IN17"
         },
         "21": {
-          "name": "Pin_21",
+          "name": "A0",
           "net": "GND"
         },
         "22": {
-          "name": "Pin_22",
+          "name": "SCL",
           "net": "I2C_SCL"
         },
         "23": {
-          "name": "Pin_23",
+          "name": "SDA",
           "net": "I2C_SDA"
         },
         "24": {
-          "name": "Pin_24",
+          "name": "VCC",
           "net": "+3V3"
         }
       }
     },
     {
       "reference": "J7",
-      "value": "Waveshare 24382 TFT",
-      "manufacturer": "Waveshare",
-      "mpn": "24382",
+      "value": "TFT_24382_HARNESS",
+      "manufacturer": "JST",
+      "mpn": "SM08B-GHS-TB(LF)(SN)",
       "sheet": "04_display_controls",
       "footprint": "Connector_JST:JST_GH_SM08B-GHS-TB_1x08-1MP_P1.25mm_Horizontal",
-      "datasheet": "https://www.waveshare.com/wiki/1.69inch_LCD_Module",
+      "datasheet": "https://www.jst-mfg.com/product/pdf/eng/eGH.pdf",
       "pin_nets": {
         "1": {
           "name": "Pin_1",
@@ -1188,6 +1102,10 @@
         "8": {
           "name": "Pin_8",
           "net": "TFT_BL_PWM"
+        },
+        "MP": {
+          "name": "GND",
+          "net": "GND"
         }
       }
     },
@@ -1195,7 +1113,7 @@
       "reference": "SW1",
       "value": "PREV",
       "manufacturer": "",
-      "mpn": "PREV",
+      "mpn": "PENDING_SELECTION",
       "sheet": "04_display_controls",
       "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
       "datasheet": "",
@@ -1214,7 +1132,7 @@
       "reference": "SW2",
       "value": "PLAY_PAUSE",
       "manufacturer": "",
-      "mpn": "PLAY_PAUSE",
+      "mpn": "PENDING_SELECTION",
       "sheet": "04_display_controls",
       "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
       "datasheet": "",
@@ -1233,7 +1151,7 @@
       "reference": "SW3",
       "value": "NEXT",
       "manufacturer": "",
-      "mpn": "NEXT",
+      "mpn": "PENDING_SELECTION",
       "sheet": "04_display_controls",
       "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
       "datasheet": "",
@@ -1252,7 +1170,7 @@
       "reference": "SW4",
       "value": "VOL_DOWN",
       "manufacturer": "",
-      "mpn": "VOL_DOWN",
+      "mpn": "PENDING_SELECTION",
       "sheet": "04_display_controls",
       "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
       "datasheet": "",
@@ -1271,7 +1189,7 @@
       "reference": "SW5",
       "value": "VOL_UP",
       "manufacturer": "",
-      "mpn": "VOL_UP",
+      "mpn": "PENDING_SELECTION",
       "sheet": "04_display_controls",
       "footprint": "Button_Switch_SMD:SW_SPST_TL3342",
       "datasheet": "",
@@ -1292,7 +1210,7 @@
       "manufacturer": "Microchip Technology",
       "mpn": "BM83SM1-00TA",
       "sheet": "05_bluetooth",
-      "footprint": "RF_Module:Microchip_BM83",
+      "footprint": "Nightwave:Microchip_BM83_GroundLands",
       "datasheet": "https://ww1.microchip.com/downloads/en/DeviceDoc/BM83-Bluetooth-Stereo-Audio-Module-Data-Sheet-DS70005402D.pdf",
       "pin_nets": {
         "1": {
@@ -1381,7 +1299,7 @@
         },
         "22": {
           "name": "ADAP_IN",
-          "net": "+3V6_BT"
+          "net": "NC"
         },
         "23": {
           "name": "BAT_IN",
@@ -1393,7 +1311,7 @@
         },
         "25": {
           "name": "VDD_IO",
-          "net": "+3V3"
+          "net": "NC"
         },
         "26": {
           "name": "PWR(MFB)",
@@ -1477,11 +1395,11 @@
         },
         "46": {
           "name": "P1_2/TDI_CPU/SCL",
-          "net": "I2C_SCL"
+          "net": "NC"
         },
         "47": {
           "name": "P1_3/TCK_CPU/SDA",
-          "net": "I2C_SDA"
+          "net": "NC"
         },
         "48": {
           "name": "P3_7/UART_CTS",
@@ -1509,7 +1427,7 @@
       "reference": "SW6",
       "value": "MAIN_POWER",
       "manufacturer": "",
-      "mpn": "MAIN_POWER",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "Button_Switch_SMD:SW_SPDT_PCM12",
       "datasheet": "",
@@ -1532,7 +1450,7 @@
       "reference": "J8",
       "value": "UART0_SERVICE",
       "manufacturer": "",
-      "mpn": "UART0_SERVICE",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
       "datasheet": "",
@@ -1567,7 +1485,7 @@
       "reference": "TP1",
       "value": "VBUS5",
       "manufacturer": "",
-      "mpn": "VBUS5",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1582,7 +1500,7 @@
       "reference": "TP2",
       "value": "BAT",
       "manufacturer": "",
-      "mpn": "BAT",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1597,7 +1515,7 @@
       "reference": "TP3",
       "value": "SYS",
       "manufacturer": "",
-      "mpn": "SYS",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1612,7 +1530,7 @@
       "reference": "TP4",
       "value": "VSYS_SW",
       "manufacturer": "",
-      "mpn": "VSYS_SW",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1627,7 +1545,7 @@
       "reference": "TP5",
       "value": "+3V3",
       "manufacturer": "",
-      "mpn": "+3V3",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1642,7 +1560,7 @@
       "reference": "TP6",
       "value": "+3V6_BT",
       "manufacturer": "",
-      "mpn": "+3V6_BT",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1657,7 +1575,7 @@
       "reference": "TP7",
       "value": "I2C_SDA",
       "manufacturer": "",
-      "mpn": "I2C_SDA",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1672,7 +1590,7 @@
       "reference": "TP8",
       "value": "I2C_SCL",
       "manufacturer": "",
-      "mpn": "I2C_SCL",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1687,7 +1605,7 @@
       "reference": "TP9",
       "value": "I2S_BCLK",
       "manufacturer": "",
-      "mpn": "I2S_BCLK",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1702,7 +1620,7 @@
       "reference": "TP10",
       "value": "I2S_LRCLK",
       "manufacturer": "",
-      "mpn": "I2S_LRCLK",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1717,7 +1635,7 @@
       "reference": "TP11",
       "value": "I2S_DOUT",
       "manufacturer": "",
-      "mpn": "I2S_DOUT",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1732,7 +1650,7 @@
       "reference": "TP12",
       "value": "GND",
       "manufacturer": "",
-      "mpn": "GND",
+      "mpn": "PENDING_SELECTION",
       "sheet": "06_connectors_test",
       "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
       "datasheet": "",
@@ -1744,20 +1662,80 @@
       }
     },
     {
+      "reference": "TP13",
+      "value": "BT_SERVICE_P34",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BT_SERVICE_P34"
+        }
+      }
+    },
+    {
+      "reference": "TP14",
+      "value": "BT_LED",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BT_LED"
+        }
+      }
+    },
+    {
+      "reference": "TP15",
+      "value": "BT_STATE",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "BT_STATE"
+        }
+      }
+    },
+    {
+      "reference": "TP16",
+      "value": "HP_DETECT",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "06_connectors_test",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "HP_DETECT"
+        }
+      }
+    },
+    {
       "reference": "R1",
       "value": "5.1k",
       "manufacturer": "",
-      "mpn": "5.1k",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "USB_CC1",
           "net": "USB_CC1"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -1766,17 +1744,17 @@
       "reference": "R2",
       "value": "5.1k",
       "manufacturer": "",
-      "mpn": "5.1k",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "USB_CC2",
           "net": "USB_CC2"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -1785,17 +1763,17 @@
       "reference": "R3",
       "value": "4.7k",
       "manufacturer": "",
-      "mpn": "4.7k",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2C_SDA",
           "net": "I2C_SDA"
         },
         "2": {
-          "name": "",
+          "name": "+3V3",
           "net": "+3V3"
         }
       }
@@ -1804,17 +1782,17 @@
       "reference": "R4",
       "value": "4.7k",
       "manufacturer": "",
-      "mpn": "4.7k",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2C_SCL",
           "net": "I2C_SCL"
         },
         "2": {
-          "name": "",
+          "name": "+3V3",
           "net": "+3V3"
         }
       }
@@ -1823,17 +1801,17 @@
       "reference": "R5",
       "value": "22",
       "manufacturer": "",
-      "mpn": "22",
+      "mpn": "PENDING_SELECTION",
       "sheet": "02_mcu_storage",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "USB_DP",
           "net": "USB_DP"
         },
         "2": {
-          "name": "",
+          "name": "USB_DP_MCU",
           "net": "USB_DP_MCU"
         }
       }
@@ -1842,17 +1820,17 @@
       "reference": "R6",
       "value": "22",
       "manufacturer": "",
-      "mpn": "22",
+      "mpn": "PENDING_SELECTION",
       "sheet": "02_mcu_storage",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "USB_DM",
           "net": "USB_DM"
         },
         "2": {
-          "name": "",
+          "name": "USB_DM_MCU",
           "net": "USB_DM_MCU"
         }
       }
@@ -1861,17 +1839,17 @@
       "reference": "R7",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "03_local_audio",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_BCLK",
           "net": "I2S_BCLK"
         },
         "2": {
-          "name": "",
+          "name": "I2S_BCLK_DAC",
           "net": "I2S_BCLK_DAC"
         }
       }
@@ -1880,17 +1858,17 @@
       "reference": "R8",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "03_local_audio",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_LRCLK",
           "net": "I2S_LRCLK"
         },
         "2": {
-          "name": "",
+          "name": "I2S_LRCLK_DAC",
           "net": "I2S_LRCLK_DAC"
         }
       }
@@ -1899,17 +1877,17 @@
       "reference": "R9",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "03_local_audio",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_DOUT",
           "net": "I2S_DOUT"
         },
         "2": {
-          "name": "",
+          "name": "I2S_DOUT_DAC",
           "net": "I2S_DOUT_DAC"
         }
       }
@@ -1918,17 +1896,17 @@
       "reference": "R10",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "03_local_audio",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_BCLK",
           "net": "I2S_BCLK"
         },
         "2": {
-          "name": "",
+          "name": "I2S_BCLK_SPK",
           "net": "I2S_BCLK_SPK"
         }
       }
@@ -1937,17 +1915,17 @@
       "reference": "R11",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "03_local_audio",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_LRCLK",
           "net": "I2S_LRCLK"
         },
         "2": {
-          "name": "",
+          "name": "I2S_LRCLK_SPK",
           "net": "I2S_LRCLK_SPK"
         }
       }
@@ -1956,17 +1934,17 @@
       "reference": "R12",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "03_local_audio",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_DOUT",
           "net": "I2S_DOUT"
         },
         "2": {
-          "name": "",
+          "name": "I2S_DOUT_SPK",
           "net": "I2S_DOUT_SPK"
         }
       }
@@ -1975,17 +1953,17 @@
       "reference": "R13",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "05_bluetooth",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_BCLK",
           "net": "I2S_BCLK"
         },
         "2": {
-          "name": "",
+          "name": "I2S_BCLK_BT",
           "net": "I2S_BCLK_BT"
         }
       }
@@ -1994,17 +1972,17 @@
       "reference": "R14",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "05_bluetooth",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_LRCLK",
           "net": "I2S_LRCLK"
         },
         "2": {
-          "name": "",
+          "name": "I2S_LRCLK_BT",
           "net": "I2S_LRCLK_BT"
         }
       }
@@ -2013,17 +1991,17 @@
       "reference": "R15",
       "value": "33",
       "manufacturer": "",
-      "mpn": "33",
+      "mpn": "PENDING_SELECTION",
       "sheet": "05_bluetooth",
       "footprint": "Resistor_SMD:R_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "I2S_DOUT",
           "net": "I2S_DOUT"
         },
         "2": {
-          "name": "",
+          "name": "I2S_DOUT_BT",
           "net": "I2S_DOUT_BT"
         }
       }
@@ -2032,17 +2010,17 @@
       "reference": "C1",
       "value": "10u",
       "manufacturer": "",
-      "mpn": "10u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "VBUS5",
           "net": "VBUS5"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -2051,17 +2029,17 @@
       "reference": "C2",
       "value": "10u",
       "manufacturer": "",
-      "mpn": "10u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "BAT",
           "net": "BAT"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -2070,17 +2048,17 @@
       "reference": "C3",
       "value": "22u",
       "manufacturer": "",
-      "mpn": "22u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "SYS",
           "net": "SYS"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -2089,17 +2067,17 @@
       "reference": "C4",
       "value": "22u",
       "manufacturer": "",
-      "mpn": "22u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "VSYS_SW",
           "net": "VSYS_SW"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -2108,17 +2086,17 @@
       "reference": "C5",
       "value": "22u",
       "manufacturer": "",
-      "mpn": "22u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "+3V3",
           "net": "+3V3"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -2127,17 +2105,17 @@
       "reference": "C6",
       "value": "22u",
       "manufacturer": "",
-      "mpn": "22u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "+3V6_BT",
           "net": "+3V6_BT"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
@@ -2146,37 +2124,1329 @@
       "reference": "C7",
       "value": "10u",
       "manufacturer": "",
-      "mpn": "10u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "+3V3_A",
           "net": "+3V3_A"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
         }
       }
     },
     {
       "reference": "C8",
-      "value": "1u",
+      "value": "4.7u",
       "manufacturer": "",
-      "mpn": "1u",
+      "mpn": "PENDING_SELECTION",
       "sheet": "01_power_charging",
       "footprint": "Capacitor_SMD:C_0603_1608Metric",
       "datasheet": "",
       "pin_nets": {
         "1": {
-          "name": "",
+          "name": "REGN",
           "net": "REGN"
         },
         "2": {
-          "name": "",
+          "name": "GND",
           "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "L1",
+      "value": "0.47uH XFL4015-471MEC",
+      "manufacturer": "Coilcraft",
+      "mpn": "XFL4015-471MEC",
+      "sheet": "01_power_charging",
+      "footprint": "Nightwave:Coilcraft_XFL4015",
+      "datasheet": "https://www.coilcraft.com/getmedia/84927b8b-f089-421b-a7f4-a0fa23afe908/xfl4015.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "SW1_3V3"
+        },
+        "2": {
+          "name": "2",
+          "net": "SW2_3V3"
+        }
+      }
+    },
+    {
+      "reference": "L2",
+      "value": "0.47uH XFL4015-471MEC",
+      "manufacturer": "Coilcraft",
+      "mpn": "XFL4015-471MEC",
+      "sheet": "01_power_charging",
+      "footprint": "Nightwave:Coilcraft_XFL4015",
+      "datasheet": "https://www.coilcraft.com/getmedia/84927b8b-f089-421b-a7f4-a0fa23afe908/xfl4015.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "SW1_BT"
+        },
+        "2": {
+          "name": "2",
+          "net": "SW2_BT"
+        }
+      }
+    },
+    {
+      "reference": "L3",
+      "value": "0.7uH XFL4015-701MEC",
+      "manufacturer": "Coilcraft",
+      "mpn": "XFL4015-701MEC",
+      "sheet": "01_power_charging",
+      "footprint": "Nightwave:Coilcraft_XFL4015",
+      "datasheet": "https://www.coilcraft.com/getmedia/84927b8b-f089-421b-a7f4-a0fa23afe908/xfl4015.pdf",
+      "pin_nets": {
+        "1": {
+          "name": "1",
+          "net": "SW_CHG"
+        },
+        "2": {
+          "name": "2",
+          "net": "SYS"
+        }
+      }
+    },
+    {
+      "reference": "R16",
+      "value": "511k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "FB_3V3",
+          "net": "FB_3V3"
+        }
+      }
+    },
+    {
+      "reference": "R17",
+      "value": "91k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "FB_3V3",
+          "net": "FB_3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R18",
+      "value": "562k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V6_BT",
+          "net": "+3V6_BT"
+        },
+        "2": {
+          "name": "FB_BT",
+          "net": "FB_BT"
+        }
+      }
+    },
+    {
+      "reference": "R19",
+      "value": "91k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "FB_BT",
+          "net": "FB_BT"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R20",
+      "value": "5.49k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "ILIM",
+          "net": "ILIM"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R21",
+      "value": "5.23k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "TS_BIAS",
+          "net": "TS_BIAS"
+        },
+        "2": {
+          "name": "TS",
+          "net": "TS"
+        }
+      }
+    },
+    {
+      "reference": "R22",
+      "value": "30.1k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "TS",
+          "net": "TS"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R23",
+      "value": "0",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "CHASSIS",
+          "net": "CHASSIS"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R24",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "ESP_EN",
+          "net": "ESP_EN"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R25",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BOOT_N",
+          "net": "BOOT_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R26",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "HP_DETECT",
+          "net": "HP_DETECT"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R27",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "SPK_SD_MODE",
+          "net": "SPK_SD_MODE"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R28",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "HP_EN",
+          "net": "HP_EN"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R29",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "DAC_XSMT",
+          "net": "DAC_XSMT"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R30",
+      "value": "0",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "+3V3_A",
+          "net": "+3V3_A"
+        }
+      }
+    },
+    {
+      "reference": "R31",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BTN_PREV_N",
+          "net": "BTN_PREV_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R32",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BTN_PLAY_N",
+          "net": "BTN_PLAY_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R33",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BTN_NEXT_N",
+          "net": "BTN_NEXT_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R34",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BTN_VOL_DOWN_N",
+          "net": "BTN_VOL_DOWN_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R35",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BTN_VOL_UP_N",
+          "net": "BTN_VOL_UP_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R36",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "SD_DETECT_N",
+          "net": "SD_DETECT_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R37",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "CHG_STAT",
+          "net": "CHG_STAT"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R38",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "FUEL_ALERT_N",
+          "net": "FUEL_ALERT_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R39",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "CHG_INT_N",
+          "net": "CHG_INT_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R40",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "PGOOD_CHG",
+          "net": "PGOOD_CHG"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R41",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "PWR_GOOD_3V3",
+          "net": "PWR_GOOD_3V3"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R42",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "PWR_GOOD_BT",
+          "net": "PWR_GOOD_BT"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R43",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "TCA_INT_N",
+          "net": "TCA_INT_N"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R44",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "EXP_IN14",
+          "net": "EXP_IN14"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R45",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "EXP_IN15",
+          "net": "EXP_IN15"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R46",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "EXP_IN16",
+          "net": "EXP_IN16"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R47",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "EXP_IN17",
+          "net": "EXP_IN17"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "C9",
+      "value": "47n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BTST",
+          "net": "BTST"
+        },
+        "2": {
+          "name": "SW_CHG",
+          "net": "SW_CHG"
+        }
+      }
+    },
+    {
+      "reference": "C10",
+      "value": "10u/25V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "PMID",
+          "net": "PMID"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C11",
+      "value": "10u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "VSYS_SW",
+          "net": "VSYS_SW"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C12",
+      "value": "22u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C13",
+      "value": "10u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "VSYS_SW",
+          "net": "VSYS_SW"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C14",
+      "value": "22u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V6_BT",
+          "net": "+3V6_BT"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C15",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "01_power_charging",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "BAT",
+          "net": "BAT"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C16",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C17",
+      "value": "10u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C18",
+      "value": "1u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "ESP_EN",
+          "net": "ESP_EN"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C19",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C20",
+      "value": "10u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C21",
+      "value": "2.2u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "PCM_CP_P",
+          "net": "PCM_CP_P"
+        },
+        "2": {
+          "name": "PCM_CP_M",
+          "net": "PCM_CP_M"
+        }
+      }
+    },
+    {
+      "reference": "C22",
+      "value": "2.2u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "PCM_VNEG",
+          "net": "PCM_VNEG"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C23",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "PCM_LDOO",
+          "net": "PCM_LDOO"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C24",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3_A",
+          "net": "+3V3_A"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C25",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C26",
+      "value": "1u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "HP_CP_P",
+          "net": "HP_CP_P"
+        },
+        "2": {
+          "name": "HP_CP_N",
+          "net": "HP_CP_N"
+        }
+      }
+    },
+    {
+      "reference": "C27",
+      "value": "1u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "HP_VSS",
+          "net": "HP_VSS"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C28",
+      "value": "2.2u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "HP_VDD",
+          "net": "HP_VDD"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C29",
+      "value": "1u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "DAC_L",
+          "net": "DAC_L"
+        },
+        "2": {
+          "name": "HP_IN_L",
+          "net": "HP_IN_L"
+        }
+      }
+    },
+    {
+      "reference": "C30",
+      "value": "1u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "DAC_R",
+          "net": "DAC_R"
+        },
+        "2": {
+          "name": "HP_IN_R",
+          "net": "HP_IN_R"
+        }
+      }
+    },
+    {
+      "reference": "C31",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3_A",
+          "net": "+3V3_A"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C32",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "VSYS_SW",
+          "net": "VSYS_SW"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C33",
+      "value": "10u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "VSYS_SW",
+          "net": "VSYS_SW"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C34",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C35",
+      "value": "10u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "04_display_controls",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V3",
+          "net": "+3V3"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C36",
+      "value": "10u/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "05_bluetooth",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V6_BT",
+          "net": "+3V6_BT"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "C37",
+      "value": "100n/10V",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "05_bluetooth",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "+3V6_BT",
+          "net": "+3V6_BT"
+        },
+        "2": {
+          "name": "GND",
+          "net": "GND"
+        }
+      }
+    },
+    {
+      "reference": "R48",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "SD_CMD",
+          "net": "SD_CMD"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R49",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "SD_D0",
+          "net": "SD_D0"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R50",
+      "value": "10k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "02_mcu_storage",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "SD_DAT3",
+          "net": "SD_DAT3"
+        },
+        "2": {
+          "name": "+3V3",
+          "net": "+3V3"
+        }
+      }
+    },
+    {
+      "reference": "R51",
+      "value": "47k",
+      "manufacturer": "",
+      "mpn": "PENDING_SELECTION",
+      "sheet": "03_local_audio",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "datasheet": "",
+      "pin_nets": {
+        "1": {
+          "name": "SPK_EN",
+          "net": "SPK_EN"
+        },
+        "2": {
+          "name": "SPK_SD_MODE",
+          "net": "SPK_SD_MODE"
         }
       }
     }

@@ -1,10 +1,3 @@
-NIGHTWAVE AI-AUTHORED REFERENCE EXPORTS - DO NOT FABRICATE
-
-These files are generated only so an independent engineer can inspect the
-current digital package. The PCB is placed but intentionally unrouted, ERC/DRC
-are not clean, support values require datasheet review, and lithium/RF safety
-has not been independently approved.
-
-Ordering, assembling, powering, or connecting a lithium cell from this export
-would be unsafe. Close REVIEW_CHECKLIST.md, complete routing, obtain reviewer
-sign-off, and regenerate every manufacturing file before ordering.
+UNBUILT AI-AUTHORED REVIEW EXPORTS - NOT FABRICATION APPROVED
+See ../VALIDATION_STATUS.md and ../REVIEW_CHECKLIST.md.
+A clean DRC is not charging, thermal, RF, USB or mechanical qualification.
