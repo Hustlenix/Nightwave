@@ -26,6 +26,16 @@ else()
 endif()
 
 enable_testing()
+add_executable(nightwave_bluetooth_preference_tests bluetooth_preference_tests.cpp
+    ../firmware/components/bluetooth/bluetooth_preference.cpp)
+target_include_directories(nightwave_bluetooth_preference_tests PRIVATE fakes
+    ../firmware/components/bluetooth/include ../firmware/components/audio_pipeline/include)
+if(MSVC)
+    target_compile_options(nightwave_bluetooth_preference_tests PRIVATE /W4 /WX /UNDEBUG)
+else()
+    target_compile_options(nightwave_bluetooth_preference_tests PRIVATE -Wall -Wextra -Wpedantic -Werror -UNDEBUG)
+endif()
+add_test(NAME nightwave_bluetooth_preference_tests COMMAND nightwave_bluetooth_preference_tests)
 find_package(Threads REQUIRED)
 foreach(board_profile reference bench)
     add_executable(nightwave_${board_profile}_i2c_tests board_i2c_tests.cpp

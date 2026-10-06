@@ -3,7 +3,7 @@
 #include <cstring>
 #include "nightwave/audio_types.h"
 namespace nightwave {
-enum class BtState { kUnavailable, kIdle, kDiscovering, kConnecting, kConnected, kStarting, kStreaming, kFault };
+enum class BtState { kUnavailable, kIdle, kDiscovering, kConnecting, kConnected, kStarting, kStreaming, kFault, kPairing, kReconnecting };
 enum class BtWrite { kAccepted, kWouldBlock, kUnavailable, kFault };
 struct BtDevice { std::array<std::uint8_t, 6> address{}; std::array<char, 48> name{}; };
 struct BtCapabilities { bool a2dp_source{false}, avrcp{false}; bool rate_44100{false}, rate_48000{false}; };
@@ -37,6 +37,19 @@ class BluetoothSource {
     std::uint32_t epoch() const { return epoch_; }
     std::size_t count() const { return count_; }
     const BtDevice* device(std::size_t n) const { return n < count_ ? &devices_[n] : nullptr; }
+    // Remembered address is a reconnect preference, not evidence of bonding.
+    bool reconnect(const BtDevice& device, std::uint32_t now) {
+        if ((state_ != BtState::kIdle && state_ != BtState::kFault) ||
+            device.address == std::array<std::uint8_t, 6>{} ||
+            !std::memchr(device.name.data(), 0, device.name.size())) return false;
+        ++epoch_; started_ = now;
+        if (!backend_.connect(device, epoch_)) { fault(); return false; }
+        state_ = BtState::kReconnecting; return true;
+    }
+    bool pairing(std::uint32_t epoch) {
+        if (epoch != epoch_ || (state_ != BtState::kConnecting && state_ != BtState::kReconnecting)) return false;
+        state_ = BtState::kPairing; return true;
+    }
     bool discover(std::uint32_t now) {
         if (state_ != BtState::kIdle && state_ != BtState::kFault) return false;
         ++epoch_; count_ = 0; started_ = now;
@@ -56,7 +69,7 @@ class BluetoothSource {
         state_ = BtState::kConnecting; return true;
     }
     bool connected(std::uint32_t epoch) {
-        if (state_ != BtState::kConnecting || epoch != epoch_) return false;
+        if ((state_ != BtState::kConnecting && state_ != BtState::kPairing && state_ != BtState::kReconnecting) || epoch != epoch_) return false;
         state_ = BtState::kConnected; return true;
     }
     bool start(const AudioFormat& format, std::uint32_t now) {
@@ -83,7 +96,8 @@ class BluetoothSource {
     }
     void lost(std::uint32_t epoch) { if (epoch == epoch_ && state_ != BtState::kUnavailable && state_ != BtState::kIdle) fault(); }
     void tick(std::uint32_t now) {
-        const auto limit = state_ == BtState::kDiscovering ? 15000u : state_ == BtState::kConnecting ? 10000u : state_ == BtState::kStarting ? 5000u : 0u;
+        const auto limit = state_ == BtState::kDiscovering ? 15000u :
+            (state_ == BtState::kConnecting || state_ == BtState::kReconnecting || state_ == BtState::kPairing) ? 10000u : state_ == BtState::kStarting ? 5000u : 0u;
         if (limit && now - started_ >= limit) fault();
     }
     void disconnect() {

@@ -56,6 +56,10 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_product_power_budget.py'
       - name: Calculate selected-product screening model
         run: python3 tools/product_power_budget.py
+      - name: Check exclusive-output power and charging estimates
+        run: |
+          python3 -m unittest discover -s tests -p 'test_output_power_model.py'
+          python3 tools/output_power_model.py
       - name: Check compact builder constraints and capacity-independent sizing
         run: |
           python3 -m unittest discover -s tests -p 'test_compact_design_screen.py'
