@@ -26,6 +26,26 @@ else()
 endif()
 
 enable_testing()
+find_package(Threads REQUIRED)
+foreach(board_profile reference bench)
+    add_executable(nightwave_${board_profile}_i2c_tests board_i2c_tests.cpp
+        ../firmware/components/board_io/board_i2c.cpp
+        ../firmware/components/power/power_i2c.cpp
+        ../firmware/components/input/tca9535_i2c.cpp)
+    target_include_directories(nightwave_${board_profile}_i2c_tests PRIVATE fakes
+        ../firmware/components/board_io/include ../firmware/components/power/include
+        ../firmware/components/app_state/include ../firmware/components/input/include)
+    target_link_libraries(nightwave_${board_profile}_i2c_tests PRIVATE Threads::Threads)
+    if(board_profile STREQUAL "reference")
+        target_compile_definitions(nightwave_${board_profile}_i2c_tests PRIVATE CONFIG_NIGHTWAVE_REFERENCE_BOARD=1)
+    endif()
+    if(MSVC)
+        target_compile_options(nightwave_${board_profile}_i2c_tests PRIVATE /W4 /WX /UNDEBUG)
+    else()
+        target_compile_options(nightwave_${board_profile}_i2c_tests PRIVATE -Wall -Wextra -Wpedantic -Werror -UNDEBUG)
+    endif()
+    add_test(NAME nightwave_${board_profile}_i2c_tests COMMAND nightwave_${board_profile}_i2c_tests)
+endforeach()
 add_executable(nightwave_reference_board_tests reference_board_tests.cpp
     ../firmware/components/ui/st7789_display.cpp)
 target_include_directories(nightwave_reference_board_tests PRIVATE

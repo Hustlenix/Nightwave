@@ -19,8 +19,8 @@ Tca9535Input expander(bus);
 bool attached = false;
 bool initialize_source() {
     if (!attached) {
-        const auto shared=reference_i2c_bus();
-        if (!shared || !bus.attach(shared, reference_board::kTcaAddress)) return false;
+        const auto shared=reference_i2c_device(reference_board::kTcaAddress);
+        if (!shared || !bus.attach_borrowed(shared)) return false;
         attached=true;
     }
     return expander.initialize();

@@ -14,6 +14,8 @@ class Tca9535I2c final : public Tca9535Bus {
     Tca9535I2c(const Tca9535I2c&) = delete;
     Tca9535I2c& operator=(const Tca9535I2c&) = delete;
     bool attach(i2c_master_bus_handle_t bus, std::uint8_t address);
+    // Handle belongs to the board's lifetime-long registry, not this adapter.
+    bool attach_borrowed(i2c_master_dev_handle_t device);
     bool detach();
     bool write_pair(std::uint8_t first_register, std::uint8_t port0,
                     std::uint8_t port1) override;
@@ -21,6 +23,7 @@ class Tca9535I2c final : public Tca9535Bus {
 
   private:
     i2c_master_dev_handle_t device_{};
+    bool owns_device_{false};
 };
 
 }  // namespace nightwave

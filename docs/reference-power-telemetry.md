@@ -28,7 +28,11 @@ clear event flags, quick-start the gauge, reset safety timers, change charging,
 or disable protections. Reading the chip cannot fix unsafe autonomous defaults.
 Reference bus devices use 100 kHz, with a 100 us guard before power reads for
 the charger's START spacing requirement. Devices borrow the lifetime-long bus;
-creation/retry is serialized before application transfers. Native tests cover
+bus and device creation/retry share one lock. All three registered device handles
+live until reset; the input adapter borrows its handle and cannot delete it.
+Native tests exercise 12 concurrent startup callers, allocation failures, lock
+timeouts, a failed transfer that modifies its receive buffer, and borrowed-handle
+lifetime. Bench mode does not allocate this bus. Additional tests cover
 register conversion, wrong identity, every transfer failure, recovery and all
 status encodings. ESP-IDF builds and physical bus verification are separate.
 

@@ -11,13 +11,21 @@ bool Tca9535I2c::attach(i2c_master_bus_handle_t bus, std::uint8_t address) {
     i2c_master_dev_handle_t handle{};
     if (i2c_master_bus_add_device(bus, &config, &handle) != ESP_OK) return false;
     device_ = handle;
+    owns_device_ = true;
+    return true;
+}
+
+bool Tca9535I2c::attach_borrowed(i2c_master_dev_handle_t device) {
+    if (device_ || !device) return false;
+    device_=device; owns_device_=false;
     return true;
 }
 
 bool Tca9535I2c::detach() {
     if (!device_) return true;
-    if (i2c_master_bus_rm_device(device_) != ESP_OK) return false;
+    if (owns_device_ && i2c_master_bus_rm_device(device_) != ESP_OK) return false;
     device_ = nullptr;
+    owns_device_ = false;
     return true;
 }
 

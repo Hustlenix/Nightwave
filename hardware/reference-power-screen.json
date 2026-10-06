@@ -126,7 +126,10 @@
   "charger_reset": {
     "charge_ma": 320,
     "voltage_mv": 4200,
-    "fast_charge_timer_hours": 12,
+    "fast_charge_timer_hours": 14.5,
+    "fast_charge_timer_min_hours": 10.5,
+    "fast_charge_timer_max_hours": 15.5,
+    "timer_source_note": "Rev C section 7.6 and register 0x15 specify 14.5 h nominal; section 8.4.1 still says 12 h. Use 10.5 h minimum for screening and seek TI clarification.",
     "input_register_ma": 1600,
     "ilim_typical_ma": 455.3734061930783
   },
@@ -146,7 +149,7 @@
   },
   "blocking_findings": [
     "No source detection/enumeration/suspend policy; 455 mA typical ILIM is not USB authorization",
-    "10050 mAh / 320 mA = 31.4 h ideal CC, longer than 12 h default fast-charge timer; not a complete charging design",
+    "10050 mAh / 320 mA = 31.4 h ideal CC-equivalent, longer than 10.5 h minimum / 14.5 h nominal default fast-charge timer; stage/dynamic timing must be reviewed, not assumed to rescue charging",
     "Transient load screen exceeds the pack harness 2 A limit; current/load limiting or an approved alternative is required",
     "Pack specifies charging 0..45 C; reference NTC and JEITA defaults require an explicit compatible-temperature review",
     "Charger CE tied low and no qualified charging-control backend; telemetry cannot enforce safe reset behavior",

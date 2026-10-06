@@ -17,6 +17,10 @@ Console `power` exposes validity and raw charger diagnostics; physical flags
 remain false. Reference power calculations use 3.6 V BT and the 10.05 Ah
 reference pack (9.5 Ah minimum), and expose unresolved default-charge timer,
 2 A harness transient, USB source and 0..45 C charging-temperature constraints.
+Timer correction: Rev C timing/register tables specify 14.5 h nominal, 10.5 h
+minimum, 15.5 h maximum. The section 8.4.1 prose still says 12 h; do not use that
+stale prose as the model input. Stage-specific/dynamic timer behavior still needs
+review; a CC-equivalent time alone is not a full charging simulation.
 Pushed source b7566f34de4ed5d4800aa6802087daeb4587eb0e: CI 37443602845 passed
 all 16 Release/all 16 ASAN-leak suites plus 42 Python tests; firmware CI
 37443602596 passed reference and bench builds. CAD unchanged; budget/size

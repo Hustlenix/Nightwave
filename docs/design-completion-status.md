@@ -33,7 +33,7 @@ Both reference and legacy bench ESP32-S3 jobs passed in
 Continuation after add9625: shared I2C ownership and read-only MAX17048/BQ25628E
 power telemetry are implemented; host conversion/failure tests pass locally.
 The new reference-specific power calculation exposes concrete blockers:
-320 mA default charging versus 10.05 Ah/12-hour timer, >2 A transient harness
+320 mA default charging versus 10.05 Ah/10.5-hour minimum timer, >2 A transient harness
 screen, USB current permission and pack-compatible temperature policy.
 These are not resolved by reading registers. Source
 b7566f34de4ed5d4800aa6802087daeb4587eb0e is pushed. Quality run
