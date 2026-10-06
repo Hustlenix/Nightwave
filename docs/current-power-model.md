@@ -2,6 +2,11 @@
 
 ## Reference-circuit override - 2026-10-06
 
+Latest product-mode authority: [exclusive-output model](output-power-estimates.md)
+and [power architecture](final-power-architecture.md). The retained-BT reference
+screen below is a hardware-overhead sensitivity, not simultaneous audio output
+or final compact battery sizing.
+
 New compact requirements: [builder constraints](compact-builder-constraints.md).
 `tools/compact_design_screen.py` calculates capacity-independent eight-hour
 power ceilings. Neither 6,600 mAh nor 10,050 mAh is selected for the final device;

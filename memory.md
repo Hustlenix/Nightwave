@@ -10,6 +10,18 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-06 pre-schematic continuation: builder approved developing protected
+5 V-only USB-C/TUSB320LAI/BQ25628E switching architecture, reset-default charging
+disabled; final protection/input startup/NTC implementation remains engineering
+work. No CAD changed. See docs/final-power-architecture.md. Exclusive-output
+model tools/output_power_model.py replaces simultaneous speaker/BT audio runtime
+assumptions. Source a88537a pushed: 53 Python tests pass locally; quality CI
+37451781581 and both firmware profiles37451781647 successful. Adds tested
+Bluetooth pairing/reconnect states and NVS preferred-endpoint record; NOT live
+radio integration or radio bond erase. TA lifecycle warning prompted pending
+builder question about investigating00TB; no substitution yet. Battery candidates
+have vendor dimensional conflicts/stock gaps, not qualified pack selections.
+
 2026-10-06 builder decision: target PCB <=90x60 mm and finished pocket device
 about <=110x70x25 mm; small overruns require engineering justification. Budget
 target INR15,000 electronics plus PCB fabrication/assembly, reusable tools
