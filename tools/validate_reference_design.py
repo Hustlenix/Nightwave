@@ -18,6 +18,11 @@ def validate(manifest=None):
     assert net('U12',23)=='+3V6_BT'
     assert net('U12',22)=='NC', 'BM83 ADAP_IN must not be fed from BAT_IN rail'
     assert net('U12',25)=='NC', 'BM83 internal VDD_IO must not be driven externally'
+    for ref in [f'U{i}' for i in range(1,13) if i!=2]:
+        assert all('electrical_type' in row for row in parts[ref]['pin_nets'].values()), 'Missing ERC type'
+        assert any(row['electrical_type']!='passive' for row in parts[ref]['pin_nets'].values()), 'All-passive IC masks ERC failures'
+    assert parts['U12']['pin_nets']['5']['electrical_type']=='output', 'BM83 MCLK is an output, never drive from S3'
+    assert parts['U1']['pin_nets']['23']['electrical_type']=='input', 'S3 GPIO21 must not contend with BM83 MCLK'
     assert net('U10',17)=='GND', 'Speaker amplifier exposed pad needs ground'
     assert parts['U3']['footprint']=='Nightwave:TI_RYK0018A'
     assert parts['U5']['footprint']==parts['U6']['footprint']=='Nightwave:TI_DLA0010A'

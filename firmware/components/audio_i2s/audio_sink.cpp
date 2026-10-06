@@ -22,6 +22,12 @@ i2s_chan_handle_t as_channel(void* value) {
 }
 
 void set_output_pins(bool speaker, bool line) {
+    // Disable both loads before releasing the DAC mute. On the reference PCB
+    // GPIO18 is XSMT, not the headphone amplifier's enable (GPIO39).
+    gpio_set_level(static_cast<gpio_num_t>(hardware::kSpeakerEnable), 0);
+    gpio_set_level(static_cast<gpio_num_t>(hardware::kHeadphoneEnable), 0);
+    if constexpr (hardware::kDacMute >= 0)
+        gpio_set_level(static_cast<gpio_num_t>(hardware::kDacMute), line);
     gpio_set_level(static_cast<gpio_num_t>(hardware::kSpeakerEnable), speaker);
     gpio_set_level(static_cast<gpio_num_t>(hardware::kHeadphoneEnable), line);
 }
@@ -32,6 +38,8 @@ bool I2sAudioSink::initialize_safe_outputs() {
     enable_config.pin_bit_mask =
         (1ULL << hardware::kSpeakerEnable) |
         (1ULL << hardware::kHeadphoneEnable);
+    if constexpr (hardware::kDacMute >= 0)
+        enable_config.pin_bit_mask |= (1ULL << hardware::kDacMute);
     enable_config.mode = GPIO_MODE_OUTPUT;
     enable_config.pull_up_en = GPIO_PULLUP_DISABLE;
     enable_config.pull_down_en = GPIO_PULLDOWN_ENABLE;

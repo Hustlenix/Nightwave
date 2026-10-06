@@ -1,14 +1,19 @@
 # Nightwave
 
-## PCB checkpoint - 2026-10-05
+## PCB checkpoint - 2026-10-06
 
 The AI-authored [KiCad reference project](hardware/kicad/nightwave-reference/README.md)
 now has a routed four-layer board, 132 circuit footprints plus three M2
 mounting holes, numbered GPIO assignments, and native manufacturing review
 exports. See its [validation status](hardware/kicad/nightwave-reference/VALIDATION_STATUS.md)
 and [engineering checkpoint](docs/reference-pcb-checkpoint.md) for exact results.
-The [downloadable review package](hardware/kicad/Nightwave-AI-Reference-2026-10-05.zip)
+The [downloadable review package](hardware/kicad/Nightwave-AI-Reference-2026-10-06.zip)
 includes editable sources, PDF, Gerbers, drill, positions and board STEP.
+
+The [completion ledger](docs/design-completion-status.md) tracks open work.
+The [reference firmware profile](docs/reference-board-firmware.md) now matches
+the PCB GPIO map and implements TFT output and expander buttons. Typed ERC,
+DRC and schematic/board parity pass locally; hardware operation remains untested.
 
 **This is not fabrication or grant-submission approval.** USB source-current
 and protection, power-loop/current capacity, complete component procurement,

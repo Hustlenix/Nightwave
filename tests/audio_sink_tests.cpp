@@ -4,6 +4,7 @@
 #include <string>
 #include "driver/i2s_std.h"
 #include "nightwave/audio_sink.h"
+#include "nightwave/hardware_config.h"
 
 namespace {
 int failures = 0;
@@ -67,11 +68,13 @@ int main() {
     CHECK(sink.configure({44100, 1, 16}) == AudioSinkStatus::kFault);
     CHECK(sink.configure(format) == AudioSinkStatus::kAccepted);
     CHECK(calls == "NIPE");
-    CHECK(levels[17] == 0 && levels[18] == 0);
+    CHECK(levels[hardware::kSpeakerEnable] == 0 && levels[hardware::kHeadphoneEnable] == 0);
+    if constexpr (hardware::kReferenceBoard) CHECK(levels[18] == 0);
     CHECK(sink.select_output(OutputPath::kSpeaker));
-    CHECK(levels[17] == 1 && levels[18] == 0);
+    CHECK(levels[hardware::kSpeakerEnable] == 1 && levels[hardware::kHeadphoneEnable] == 0);
     CHECK(sink.select_output(OutputPath::kLine));
-    CHECK(levels[17] == 0 && levels[18] == 1);
+    CHECK(levels[hardware::kSpeakerEnable] == 0 && levels[hardware::kHeadphoneEnable] == 1);
+    if constexpr (hardware::kReferenceBoard) CHECK(levels[18] == 1);
     CHECK(sink.write(block) == AudioSinkStatus::kAccepted);
     CHECK(last_timeout == 1000 && last_bytes == 8);
     block.format.sample_rate_hz = 48000;
@@ -85,7 +88,8 @@ int main() {
     write_error = ESP_OK;
     CHECK(sink.drain() == AudioSinkStatus::kAccepted && last_bytes == 8192);
     sink.stop();
-    CHECK(!sink.ready() && levels[17] == 0 && levels[18] == 0);
+    CHECK(!sink.ready() && levels[hardware::kSpeakerEnable] == 0 && levels[hardware::kHeadphoneEnable] == 0);
+    if constexpr (hardware::kReferenceBoard) CHECK(levels[18] == 0);
     const auto deleted = deletes;
     sink.stop(); CHECK(deletes == deleted);
     for (int stage = 0; stage < 5; ++stage) {
@@ -94,7 +98,7 @@ int main() {
         fail_enable = stage == 4;
         const auto old_deletes = deletes;
         CHECK(sink.configure(format) == AudioSinkStatus::kFault);
-        CHECK(!sink.ready() && levels[17] == 0 && levels[18] == 0);
+        CHECK(!sink.ready() && levels[hardware::kSpeakerEnable] == 0 && levels[hardware::kHeadphoneEnable] == 0);
         CHECK(deletes == old_deletes + (stage == 0 ? 0 : 1));
     }
     if (failures) return EXIT_FAILURE;

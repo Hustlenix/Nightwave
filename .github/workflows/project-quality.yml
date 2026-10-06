@@ -42,6 +42,8 @@ jobs:
       - name: Check reference-design pin and footprint regressions (not electrical sign-off)
         run: |
           python3 tools/validate_reference_design.py
+          python3 tools/validate_reference_firmware.py
+          python3 -m unittest discover -s tests -p 'test_reference_firmware.py'
           python3 -m unittest discover -s tests -p 'test_reference_design.py'
           python3 tools/validate_reference_package.py
       - name: Test shipping artifact inventory and incomplete-cost handling

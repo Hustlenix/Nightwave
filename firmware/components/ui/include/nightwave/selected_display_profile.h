@@ -4,7 +4,8 @@
 
 namespace nightwave {
 // Builder-selected Waveshare 24382, not touch 27057. Geometry/transport contract
-// only: no operational TFT driver or GPIO assignment. Bench OLED stays active.
+// and tiled ST7789 driver contract. The reference profile uses the TFT adapter;
+// the explicitly selected legacy bench profile retains the OLED.
 // Basis: maker specifications and LCD_1in69.c portrait window example (2023-03-09).
 struct SelectedDisplayProfile {
     static constexpr std::uint32_t sku = 24382;

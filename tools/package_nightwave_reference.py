@@ -28,7 +28,7 @@ def source_hashes():
 
 
 def archive_package():
-    archive=ROOT/'hardware/kicad/Nightwave-AI-Reference-2026-10-05.zip'
+    archive=ROOT/'hardware/kicad/Nightwave-AI-Reference-2026-10-06.zip'
     validation=json.loads((BASE/'reports/validation.json').read_text(encoding='utf-8'))
     if validation.get('source_hashes')!=source_hashes():
         raise RuntimeError('Source files changed after export; regenerate checks and exports')
@@ -57,6 +57,11 @@ def main():
     pcb=BASE/f'{NAME}.kicad_pcb'
     sch=BASE/f'{NAME}.kicad_sch'
     run('sch','erc','-o',reports/'erc.rpt',sch)
+    run('sch','erc','--format','json','-o',reports/'erc.json',sch)
+    erc=json.loads((reports/'erc.json').read_text(encoding='utf-8'))
+    erc_findings=[v for sheet in erc['sheets'] for v in sheet['violations']]
+    if erc_findings:
+        raise RuntimeError(f'ERC has {len(erc_findings)} findings; do not publish stale clean evidence')
     run('sch','export','netlist','-o',reports/f'{NAME}.xml',sch)
     run('sch','export','pdf','-o',reports/f'{NAME}-Schematic-Review.pdf',sch)
     run('pcb','drc','--schematic-parity','--refill-zones','--save-board','--format','json','-o',reports/'drc.json',pcb)
@@ -88,7 +93,8 @@ def main():
         'track_and_via_items':len(list(board.GetTracks())),
         'drc_counts':counts,
         'connectivity_geometry_clean':all(v==0 for v in counts.values()),
-        'erc_scope':'passive block-symbol connectivity only; no power/driver-type certification',
+        'erc_scope':'typed IC pins and explicit external supply declarations; not analog or mode-configuration qualification',
+        'erc_findings':len(erc_findings),
         'narrow_power_segments':narrow,
         'independent_electrical_review_approved':False,
         'fabrication_approved':False,
@@ -104,7 +110,7 @@ def main():
         f'- Native KiCad DRC violations: {counts["violations"]}.\n'
         f'- Unconnected items: {counts["unconnected_items"]}.\n'
         f'- Schematic/PCB parity findings: {counts["schematic_parity"]}.\n'
-        '- ERC checks connectivity using passive block-symbol pins. Zero ERC is **not** a driver/power-type review.\n'
+        '- ERC uses explicit IC electrical pin types and four supply-source declarations. Zero ERC is **not** analog, mode-configuration or physical qualification.\n'
         f'- {len(narrow)} power-net segments below 0.6 mm require explicit current-density/voltage-drop review; see `reports/validation.json`. Autorouter necking is not a current-rating approval.\n'
         '- Gerbers/drills/positions and PCB STEP are review exports only. Missing custom-part 3D bodies are not fit evidence. Board STEP is not enclosure CAD.\n'
         '- Independent electrical, USB source-current/ESD/impedance, RF, power-loop and mechanical review are pending.\n'
@@ -118,7 +124,7 @@ def main():
     u1=next(c for c in manifest['components'] if c['reference']=='U1')
     u11=next(c for c in manifest['components'] if c['reference']=='U11')
     lines=['# Reference GPIO map','',
-           'This map matches the reference schematic, not the historical OLED/direct-button firmware configuration. Live adapters remain unqualified.','',
+           'The reference firmware profile is cross-checked against this schematic map. The legacy bench profile is separate. Physical adapters remain unqualified.','',
            '| Module pad | GPIO/function | Net |','| --- | --- | --- |']
     for pin,row in u1['pin_nets'].items():
         lines.append(f'| {pin} | {row["name"]} | {row["net"]} |')

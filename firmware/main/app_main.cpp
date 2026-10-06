@@ -24,6 +24,7 @@
 #include "nightwave/bm83_at_codec.h"
 #include "nightwave/runtime_recorder.h"
 #include "esp_heap_caps.h"
+#include "nightwave/st7789_spi.h"
 
 namespace {
 
@@ -34,7 +35,13 @@ nightwave::SdStorage g_storage;
 nightwave::I2sAudioSink g_audio;
 nightwave::StreamingPlayer g_player;
 nightwave::ButtonMonitor g_buttons;
+#if defined(CONFIG_NIGHTWAVE_REFERENCE_BOARD) && CONFIG_NIGHTWAVE_REFERENCE_BOARD
+nightwave::St7789Spi g_tft_bus;
+nightwave::St7789Display g_tft(g_tft_bus);
+nightwave::PlayerFrontend g_frontend(g_storage, g_player, g_audio, g_buttons, "/sdcard", &g_tft);
+#else
 nightwave::PlayerFrontend g_frontend(g_storage, g_player, g_audio, g_buttons);
+#endif
 SemaphoreHandle_t g_commands = nullptr;
 nightwave::UnavailableBluetooth g_bluetooth_backend;
 nightwave::BluetoothSource g_bluetooth(g_bluetooth_backend);
@@ -308,6 +315,7 @@ void execute_command(char* line) {
 }  // namespace
 
 extern "C" void app_main() {
+    ESP_LOGW(kTag, "Board profile: %s; hardware remains unqualified", nightwave::hardware::kReferenceBoard ? "REFERENCE PCB / TFT / TCA9535" : "LEGACY BENCH / OLED / GPIO buttons");
     g_audio.initialize_safe_outputs();
     nightwave::log_boot_diagnostics();
     if (!g_buttons.start()) ESP_LOGE(kTag, "button monitor failed to start");

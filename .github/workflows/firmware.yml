@@ -23,6 +23,10 @@ concurrency:
 jobs:
   esp-idf-build:
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        board: [reference, bench]
     steps:
       - uses: actions/checkout@v7
       - name: Build ESP32-S3 firmware
@@ -31,4 +35,4 @@ jobs:
           esp_idf_version: v6.1
           target: esp32s3
           path: firmware
-          command: idf.py build size size-components
+          command: idf.py -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.${{ matrix.board }}" build size size-components

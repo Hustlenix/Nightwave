@@ -10,6 +10,18 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-06 continuation (supersedes historical checkpoint details below):
+reference GPIO profile, TCA9535 button runtime with recovery, ST7789 tiled TFT
+renderer/ESP-IDF SPI adapter and separate legacy bench profile implemented.
+Typed active-symbol ERC and four explicit supply declarations replace the
+all-passive model. Local native ERC/DRC/unconnected/parity counts are zero;
+39 Python tests, project/package/pin validators and focused host tests pass.
+Full current-revision Release/ASAN and both firmware profile CI runs are pending.
+Do not reuse older green CI as proof for this new source. See
+docs/design-completion-status.md for remaining power, procurement, Bluetooth,
+mechanical, review and eligibility gates. No fabrication approval or physical
+performance is claimed. Starter project/user changes remain preserved.
+
 Published 2026-10-03 verified software source: `cb3db92af2a889a90981650fe004e3e03244d0a7`.
 Project quality37127240521 verified successful: all13 Release/all13 ASAN with
 leak detection, 28 Python tests, project validator/calculations. New source

@@ -1,0 +1,66 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-06T09:36:55",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "10.0.5",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/5aeecf6f-4d30-5388-b813-a754d1969eee",
+            "violations": []
+        },
+        {
+            "path": "/Power, charging and battery safety/",
+            "uuid_path": "/5aeecf6f-4d30-5388-b813-a754d1969eee/bf2108b5-ac6e-5671-9d96-ef86cf59d215",
+            "violations": []
+        },
+        {
+            "path": "/MCU, USB and microSD storage/",
+            "uuid_path": "/5aeecf6f-4d30-5388-b813-a754d1969eee/3752e09a-5584-5685-b6c5-8dde7394b284",
+            "violations": []
+        },
+        {
+            "path": "/I2S DAC, headphone and speaker audio/",
+            "uuid_path": "/5aeecf6f-4d30-5388-b813-a754d1969eee/5c16935f-f10e-565e-824c-a5a6959b00e6",
+            "violations": []
+        },
+        {
+            "path": "/TFT display, input expander and buttons/",
+            "uuid_path": "/5aeecf6f-4d30-5388-b813-a754d1969eee/baad2e12-26ff-5f8a-8d20-da58a985c2a6",
+            "violations": []
+        },
+        {
+            "path": "/BM83 Bluetooth source module/",
+            "uuid_path": "/5aeecf6f-4d30-5388-b813-a754d1969eee/2fcf5750-c57e-58fe-8dcb-36756349dca5",
+            "violations": []
+        },
+        {
+            "path": "/Service connectors, power switch and test points/",
+            "uuid_path": "/5aeecf6f-4d30-5388-b813-a754d1969eee/28ea9116-ad31-5df1-bfc0-c864d1269778",
+            "violations": []
+        }
+    ],
+    "source": "Nightwave-Reference.kicad_sch"
+}

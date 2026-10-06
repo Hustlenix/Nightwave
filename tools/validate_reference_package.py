@@ -9,6 +9,9 @@ BASE=Path(__file__).resolve().parents[1]/'hardware/kicad/nightwave-reference'
 def validate():
     status=json.loads((BASE/'reports/validation.json').read_text(encoding='utf-8'))
     report=json.loads((BASE/'reports/drc.json').read_text(encoding='utf-8'))
+    erc=json.loads((BASE/'reports/erc.json').read_text(encoding='utf-8'))
+    assert not [v for sheet in erc['sheets'] for v in sheet['violations']], 'Typed ERC findings unresolved'
+    assert status.get('erc_findings')==0, 'Typed ERC result missing'
     for key in ['violations','unconnected_items','schematic_parity']:
         assert report[key]==[], f'Native {key} findings are unresolved'
         assert status['drc_counts'][key]==0

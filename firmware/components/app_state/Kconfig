@@ -1,0 +1,10 @@
+menu "Nightwave hardware"
+choice NIGHTWAVE_BOARD
+    prompt "Board profile (must match actual wiring)"
+    default NIGHTWAVE_REFERENCE_BOARD
+    config NIGHTWAVE_REFERENCE_BOARD
+        bool "AI reference PCB: TFT and TCA9535 (unqualified hardware)"
+    config NIGHTWAVE_LEGACY_BENCH
+        bool "Legacy USB bench: OLED and direct GPIO buttons"
+endchoice
+endmenu

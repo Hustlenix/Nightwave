@@ -1,5 +1,119 @@
 (kicad_sch (version 20260306) (generator "nightwave_reference_generator")
-      (uuid "5aeecf6f-4d30-5388-b813-a754d1969eee") (paper "A3") (lib_symbols)
+      (uuid "5aeecf6f-4d30-5388-b813-a754d1969eee") (paper "A3") (lib_symbols (symbol "power:PWR_FLAG"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#FLG"
+			(at 0 1.905 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "flag power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_0"
+			(pin power_out line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(embedded_fonts no)
+	))
       (text "NIGHTWAVE AI-AUTHORED DIGITAL REFERENCE" (exclude_from_sim no) (at 35 15 0) (effects (font (size 2.5 2.5) (bold yes)) (justify left bottom)))
       (text "Complete source package for independent engineering review; unbuilt and not approved for fabrication or lithium connection." (exclude_from_sim no) (at 35 21 0) (effects (font (size 1.1 1.1)) (justify left bottom)))
       (sheet (at 35 25) (size 95 24)
@@ -33,4 +147,35 @@
           (property "Sheetname" "Service connectors, power switch and test points" (at 35 194 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
           (property "Sheetfile" "06_connectors_test.kicad_sch" (at 35 220 0) (effects (font (size 1.27 1.27)) (justify left top)))
           (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee" (page "7")))))
+      (text "ERC source declarations: USB input, battery, return, and analog rail after R30. Not safety approval."
+        (at 170 230 0) (effects (font (size 1 1)) (justify left)))
+      (symbol (lib_id "power:PWR_FLAG") (at 190.5 250.19 0) (unit 1)
+          (in_bom no) (on_board yes) (dnp no) (uuid "8756bcc6-a1e8-5dd1-b6dc-58a52da785cf")
+          (property "Reference" "#FLG0001" (at 190.5 246.19 0) (effects (font (size 1.27 1.27)) (hide yes)))
+          (property "Value" "PWR_FLAG" (at 190.5 242.19 0) (effects (font (size 1.27 1.27))))
+          (pin "1" (uuid "9153596a-5f63-5dc0-b799-1a87f8fb9806"))
+          (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee" (reference "#FLG0001") (unit 1)))))
+          (global_label "VBUS5" (shape passive) (at 190.5 250.19 0)
+            (effects (font (size 1.27 1.27)) (justify left)) (uuid "00d35a3a-62ea-5906-89d4-ac2985ab9243")) (symbol (lib_id "power:PWR_FLAG") (at 245.11 250.19 0) (unit 1)
+          (in_bom no) (on_board yes) (dnp no) (uuid "586a76e4-a24a-588b-a539-7babced55d95")
+          (property "Reference" "#FLG0002" (at 245.11 246.19 0) (effects (font (size 1.27 1.27)) (hide yes)))
+          (property "Value" "PWR_FLAG" (at 245.11 242.19 0) (effects (font (size 1.27 1.27))))
+          (pin "1" (uuid "ab070561-3f0d-5c69-b582-8e4ac1990402"))
+          (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee" (reference "#FLG0002") (unit 1)))))
+          (global_label "BAT" (shape passive) (at 245.11 250.19 0)
+            (effects (font (size 1.27 1.27)) (justify left)) (uuid "c0c059ee-2231-5924-a847-9ee49a3c075d")) (symbol (lib_id "power:PWR_FLAG") (at 299.72 250.19 0) (unit 1)
+          (in_bom no) (on_board yes) (dnp no) (uuid "00716234-8f47-5488-8716-e2133f0ec419")
+          (property "Reference" "#FLG0003" (at 299.72 246.19 0) (effects (font (size 1.27 1.27)) (hide yes)))
+          (property "Value" "PWR_FLAG" (at 299.72 242.19 0) (effects (font (size 1.27 1.27))))
+          (pin "1" (uuid "dcb3bbc8-dad7-5086-9979-0994c4ad6260"))
+          (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee" (reference "#FLG0003") (unit 1)))))
+          (global_label "GND" (shape passive) (at 299.72 250.19 0)
+            (effects (font (size 1.27 1.27)) (justify left)) (uuid "5e3b0e3b-6f3c-54db-8e84-9e45367b06f6")) (symbol (lib_id "power:PWR_FLAG") (at 355.6 250.19 0) (unit 1)
+          (in_bom no) (on_board yes) (dnp no) (uuid "143aa395-06d4-5339-92f7-bfd9f875199c")
+          (property "Reference" "#FLG0004" (at 355.6 246.19 0) (effects (font (size 1.27 1.27)) (hide yes)))
+          (property "Value" "PWR_FLAG" (at 355.6 242.19 0) (effects (font (size 1.27 1.27))))
+          (pin "1" (uuid "e7be1a69-ea0f-58af-bbb5-b144f4a4138d"))
+          (instances (project "Nightwave-Reference" (path "/5aeecf6f-4d30-5388-b813-a754d1969eee" (reference "#FLG0004") (unit 1)))))
+          (global_label "+3V3_A" (shape passive) (at 355.6 250.19 0)
+            (effects (font (size 1.27 1.27)) (justify left)) (uuid "12adf76f-f594-5d4b-aeea-97057625981b"))
       (sheet_instances (path "/" (page "1"))) (embedded_fonts no))

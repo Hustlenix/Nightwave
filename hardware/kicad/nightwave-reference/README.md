@@ -13,7 +13,7 @@ This directory is an AI-authored KiCad engineering reference. See `VALIDATION_ST
 
 ## Critical stop
 
-Do not order this board yet. An independent reviewer must close `REVIEW_CHECKLIST.md`. Automated routing and clearance/connectivity checks do not establish USB impedance, power-loop stability, current capacity, RF performance, charger safety, manufacturability or enclosure fit. All block-symbol pins currently use passive electrical types: zero ERC means connectivity checks only, not power/driver-type qualification.
+Do not order this board yet. An independent reviewer must close `REVIEW_CHECKLIST.md`. Automated routing and clearance/connectivity checks do not establish USB impedance, power-loop stability, current capacity, RF performance, charger safety, manufacturability or enclosure fit. IC pins now have explicit electrical types from manufacturer pin-function tables. ERC checks this model; it does not verify analog behavior or mode-dependent module configuration. The four source flags declare external power/ground and the analog rail after R30, not safety approval.
 
 ## Opening tomorrow
 

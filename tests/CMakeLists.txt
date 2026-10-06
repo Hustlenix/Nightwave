@@ -26,6 +26,22 @@ else()
 endif()
 
 enable_testing()
+add_executable(nightwave_reference_board_tests reference_board_tests.cpp
+    ../firmware/components/ui/st7789_display.cpp)
+target_include_directories(nightwave_reference_board_tests PRIVATE
+    ../firmware/components/app_state/include ../firmware/components/input/include ../firmware/components/ui/include)
+target_compile_definitions(nightwave_reference_board_tests PRIVATE CONFIG_NIGHTWAVE_REFERENCE_BOARD=1)
+add_test(NAME nightwave_reference_board_tests COMMAND nightwave_reference_board_tests)
+add_executable(nightwave_reference_audio_tests audio_sink_tests.cpp
+    ../firmware/components/audio_i2s/audio_sink.cpp)
+target_include_directories(nightwave_reference_audio_tests PRIVATE fakes
+    ../firmware/components/app_state/include ../firmware/components/audio_i2s/include ../firmware/components/audio_pipeline/include)
+target_compile_definitions(nightwave_reference_audio_tests PRIVATE CONFIG_NIGHTWAVE_REFERENCE_BOARD=1)
+add_test(NAME nightwave_reference_audio_tests COMMAND nightwave_reference_audio_tests)
+if(NOT MSVC)
+    target_compile_options(nightwave_reference_board_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+    target_compile_options(nightwave_reference_audio_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
 add_executable(nightwave_expander_tests expander_tests.cpp
     ../firmware/components/input/tca9535_i2c.cpp)
 target_include_directories(nightwave_expander_tests PRIVATE fakes

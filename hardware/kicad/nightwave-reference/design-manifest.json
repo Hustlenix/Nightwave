@@ -33,71 +33,88 @@
       "pin_nets": {
         "A1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "A12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "A4": {
           "name": "VBUS",
-          "net": "VBUS5"
+          "net": "VBUS5",
+          "electrical_type": "passive"
         },
         "A5": {
           "name": "CC1",
-          "net": "USB_CC1"
+          "net": "USB_CC1",
+          "electrical_type": "passive"
         },
         "A6": {
           "name": "D+",
-          "net": "USB_DP"
+          "net": "USB_DP",
+          "electrical_type": "passive"
         },
         "A7": {
           "name": "D-",
-          "net": "USB_DM"
+          "net": "USB_DM",
+          "electrical_type": "passive"
         },
         "A8": {
           "name": "SBU1",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "passive"
         },
         "A9": {
           "name": "VBUS",
-          "net": "VBUS5"
+          "net": "VBUS5",
+          "electrical_type": "passive"
         },
         "B1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "B12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "B4": {
           "name": "VBUS",
-          "net": "VBUS5"
+          "net": "VBUS5",
+          "electrical_type": "passive"
         },
         "B5": {
           "name": "CC2",
-          "net": "USB_CC2"
+          "net": "USB_CC2",
+          "electrical_type": "passive"
         },
         "B6": {
           "name": "D+",
-          "net": "USB_DP"
+          "net": "USB_DP",
+          "electrical_type": "passive"
         },
         "B7": {
           "name": "D-",
-          "net": "USB_DM"
+          "net": "USB_DM",
+          "electrical_type": "passive"
         },
         "B8": {
           "name": "SBU2",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "passive"
         },
         "B9": {
           "name": "VBUS",
-          "net": "VBUS5"
+          "net": "VBUS5",
+          "electrical_type": "passive"
         },
         "SH": {
           "name": "SHIELD",
-          "net": "CHASSIS"
+          "net": "CHASSIS",
+          "electrical_type": "passive"
         }
       }
     },
@@ -112,75 +129,93 @@
       "pin_nets": {
         "1": {
           "name": "BTST",
-          "net": "BTST"
+          "net": "BTST",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "REGN",
-          "net": "REGN"
+          "net": "REGN",
+          "electrical_type": "power_out"
         },
         "3": {
           "name": "PG",
-          "net": "PGOOD_CHG"
+          "net": "PGOOD_CHG",
+          "electrical_type": "open_collector"
         },
         "4": {
           "name": "ILIM",
-          "net": "ILIM"
+          "net": "ILIM",
+          "electrical_type": "input"
         },
         "5": {
           "name": "TS_BIAS",
-          "net": "TS_BIAS"
+          "net": "TS_BIAS",
+          "electrical_type": "power_out"
         },
         "6": {
           "name": "TS",
-          "net": "TS"
+          "net": "TS",
+          "electrical_type": "input"
         },
         "7": {
           "name": "QON",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "8": {
           "name": "BAT",
-          "net": "BAT"
+          "net": "BAT",
+          "electrical_type": "passive"
         },
         "9": {
           "name": "SYS",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "power_out"
         },
         "10": {
           "name": "STAT",
-          "net": "CHG_STAT"
+          "net": "CHG_STAT",
+          "electrical_type": "open_collector"
         },
         "11": {
           "name": "INT",
-          "net": "CHG_INT_N"
+          "net": "CHG_INT_N",
+          "electrical_type": "open_collector"
         },
         "12": {
           "name": "SDA",
-          "net": "I2C_SDA"
+          "net": "I2C_SDA",
+          "electrical_type": "bidirectional"
         },
         "13": {
           "name": "SCL",
-          "net": "I2C_SCL"
+          "net": "I2C_SCL",
+          "electrical_type": "input"
         },
         "14": {
           "name": "CE",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "15": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "16": {
           "name": "SW",
-          "net": "SW_CHG"
+          "net": "SW_CHG",
+          "electrical_type": "passive"
         },
         "17": {
           "name": "PMID",
-          "net": "PMID"
+          "net": "PMID",
+          "electrical_type": "power_out"
         },
         "18": {
           "name": "VBUS",
-          "net": "VBUS5"
+          "net": "VBUS5",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -195,39 +230,48 @@
       "pin_nets": {
         "1": {
           "name": "VIN",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "power_in"
         },
         "2": {
           "name": "VIN",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "power_in"
         },
         "3": {
           "name": "ON",
-          "net": "PWR_SWITCH_ON"
+          "net": "PWR_SWITCH_ON",
+          "electrical_type": "input"
         },
         "4": {
           "name": "VBIAS",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "power_in"
         },
         "5": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "6": {
           "name": "CT",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "passive"
         },
         "7": {
           "name": "VOUT",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "power_out"
         },
         "8": {
           "name": "VOUT",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "passive"
         },
         "9": {
           "name": "EP",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -242,43 +286,53 @@
       "pin_nets": {
         "1": {
           "name": "EN",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "input"
         },
         "2": {
           "name": "MODE",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "3": {
           "name": "AGND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "4": {
           "name": "FB",
-          "net": "FB_3V3"
+          "net": "FB_3V3",
+          "electrical_type": "input"
         },
         "5": {
           "name": "PG",
-          "net": "PWR_GOOD_3V3"
+          "net": "PWR_GOOD_3V3",
+          "electrical_type": "open_collector"
         },
         "6": {
           "name": "VOUT",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "power_out"
         },
         "7": {
           "name": "L2",
-          "net": "SW2_3V3"
+          "net": "SW2_3V3",
+          "electrical_type": "passive"
         },
         "8": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "9": {
           "name": "L1",
-          "net": "SW1_3V3"
+          "net": "SW1_3V3",
+          "electrical_type": "passive"
         },
         "10": {
           "name": "VIN",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -293,43 +347,53 @@
       "pin_nets": {
         "1": {
           "name": "EN",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "input"
         },
         "2": {
           "name": "MODE",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "3": {
           "name": "AGND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "4": {
           "name": "FB",
-          "net": "FB_BT"
+          "net": "FB_BT",
+          "electrical_type": "input"
         },
         "5": {
           "name": "PG",
-          "net": "PWR_GOOD_BT"
+          "net": "PWR_GOOD_BT",
+          "electrical_type": "open_collector"
         },
         "6": {
           "name": "VOUT",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "power_out"
         },
         "7": {
           "name": "L2",
-          "net": "SW2_BT"
+          "net": "SW2_BT",
+          "electrical_type": "passive"
         },
         "8": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "9": {
           "name": "L1",
-          "net": "SW1_BT"
+          "net": "SW1_BT",
+          "electrical_type": "passive"
         },
         "10": {
           "name": "VIN",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -344,39 +408,48 @@
       "pin_nets": {
         "1": {
           "name": "CTG",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "2": {
           "name": "CELL",
-          "net": "BAT"
+          "net": "BAT",
+          "electrical_type": "input"
         },
         "3": {
           "name": "VDD",
-          "net": "BAT"
+          "net": "BAT",
+          "electrical_type": "power_in"
         },
         "4": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "5": {
           "name": "ALRT",
-          "net": "FUEL_ALERT_N"
+          "net": "FUEL_ALERT_N",
+          "electrical_type": "open_collector"
         },
         "6": {
           "name": "QSTRT",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "7": {
           "name": "SCL",
-          "net": "I2C_SCL"
+          "net": "I2C_SCL",
+          "electrical_type": "input"
         },
         "8": {
           "name": "SDA",
-          "net": "I2C_SDA"
+          "net": "I2C_SDA",
+          "electrical_type": "bidirectional"
         },
         "9": {
           "name": "EP",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -391,11 +464,13 @@
       "pin_nets": {
         "1": {
           "name": "Pin_1",
-          "net": "BAT"
+          "net": "BAT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -410,11 +485,13 @@
       "pin_nets": {
         "1": {
           "name": "Pin_1",
-          "net": "TS"
+          "net": "TS",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -429,167 +506,208 @@
       "pin_nets": {
         "1": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "2": {
           "name": "3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "power_in"
         },
         "3": {
           "name": "EN",
-          "net": "ESP_EN"
+          "net": "ESP_EN",
+          "electrical_type": "input"
         },
         "4": {
           "name": "GPIO4",
-          "net": "BT_MFB"
+          "net": "BT_MFB",
+          "electrical_type": "output"
         },
         "5": {
           "name": "GPIO5",
-          "net": "I2S_BCLK"
+          "net": "I2S_BCLK",
+          "electrical_type": "output"
         },
         "6": {
           "name": "GPIO6",
-          "net": "I2S_LRCLK"
+          "net": "I2S_LRCLK",
+          "electrical_type": "output"
         },
         "7": {
           "name": "GPIO7",
-          "net": "I2S_DOUT"
+          "net": "I2S_DOUT",
+          "electrical_type": "output"
         },
         "8": {
           "name": "GPIO15",
-          "net": "BT_RST_N"
+          "net": "BT_RST_N",
+          "electrical_type": "output"
         },
         "9": {
           "name": "GPIO16",
-          "net": "HP_DETECT"
+          "net": "HP_DETECT",
+          "electrical_type": "input"
         },
         "10": {
           "name": "GPIO17",
-          "net": "SPK_EN"
+          "net": "SPK_EN",
+          "electrical_type": "output"
         },
         "11": {
           "name": "GPIO18",
-          "net": "DAC_XSMT"
+          "net": "DAC_XSMT",
+          "electrical_type": "output"
         },
         "12": {
           "name": "GPIO8",
-          "net": "I2C_SDA"
+          "net": "I2C_SDA",
+          "electrical_type": "bidirectional"
         },
         "13": {
           "name": "GPIO19_USB_D-",
-          "net": "USB_DM_MCU"
+          "net": "USB_DM_MCU",
+          "electrical_type": "bidirectional"
         },
         "14": {
           "name": "GPIO20_USB_D+",
-          "net": "USB_DP_MCU"
+          "net": "USB_DP_MCU",
+          "electrical_type": "bidirectional"
         },
         "15": {
           "name": "GPIO3",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "16": {
           "name": "GPIO46",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "17": {
           "name": "GPIO9",
-          "net": "I2C_SCL"
+          "net": "I2C_SCL",
+          "electrical_type": "output"
         },
         "18": {
           "name": "GPIO10",
-          "net": "BT_WAKE"
+          "net": "BT_WAKE",
+          "electrical_type": "bidirectional"
         },
         "19": {
           "name": "GPIO11",
-          "net": "SD_CMD"
+          "net": "SD_CMD",
+          "electrical_type": "bidirectional"
         },
         "20": {
           "name": "GPIO12",
-          "net": "SD_CLK"
+          "net": "SD_CLK",
+          "electrical_type": "bidirectional"
         },
         "21": {
           "name": "GPIO13",
-          "net": "SD_D0"
+          "net": "SD_D0",
+          "electrical_type": "bidirectional"
         },
         "22": {
           "name": "GPIO14",
-          "net": "TCA_INT_N"
+          "net": "TCA_INT_N",
+          "electrical_type": "input"
         },
         "23": {
           "name": "GPIO21",
-          "net": "BT_MCLK_OPTION"
+          "net": "BT_MCLK_OPTION",
+          "electrical_type": "input"
         },
         "24": {
           "name": "GPIO47",
-          "net": "TFT_MOSI"
+          "net": "TFT_MOSI",
+          "electrical_type": "output"
         },
         "25": {
           "name": "GPIO48",
-          "net": "TFT_SCLK"
+          "net": "TFT_SCLK",
+          "electrical_type": "output"
         },
         "26": {
           "name": "GPIO45",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "27": {
           "name": "GPIO0",
-          "net": "BOOT_N"
+          "net": "BOOT_N",
+          "electrical_type": "bidirectional"
         },
         "28": {
           "name": "GPIO35_PSRAM",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "29": {
           "name": "GPIO36_PSRAM",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "30": {
           "name": "GPIO37_PSRAM",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "31": {
           "name": "GPIO38",
-          "net": "TFT_BL_PWM"
+          "net": "TFT_BL_PWM",
+          "electrical_type": "output"
         },
         "32": {
           "name": "GPIO39",
-          "net": "HP_EN"
+          "net": "HP_EN",
+          "electrical_type": "output"
         },
         "33": {
           "name": "GPIO40",
-          "net": "TFT_RST"
+          "net": "TFT_RST",
+          "electrical_type": "output"
         },
         "34": {
           "name": "GPIO41",
-          "net": "TFT_DC"
+          "net": "TFT_DC",
+          "electrical_type": "output"
         },
         "35": {
           "name": "GPIO42",
-          "net": "TFT_CS"
+          "net": "TFT_CS",
+          "electrical_type": "output"
         },
         "36": {
           "name": "RXD0",
-          "net": "UART0_RX"
+          "net": "UART0_RX",
+          "electrical_type": "input"
         },
         "37": {
           "name": "TXD0",
-          "net": "UART0_TX"
+          "net": "UART0_TX",
+          "electrical_type": "output"
         },
         "38": {
           "name": "GPIO2",
-          "net": "BT_UART_RX"
+          "net": "BT_UART_RX",
+          "electrical_type": "input"
         },
         "39": {
           "name": "GPIO1",
-          "net": "BT_UART_TX"
+          "net": "BT_UART_TX",
+          "electrical_type": "output"
         },
         "40": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "41": {
           "name": "EP_GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -604,47 +722,58 @@
       "pin_nets": {
         "1": {
           "name": "DAT2",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "DAT3/CD",
-          "net": "SD_DAT3"
+          "net": "SD_DAT3",
+          "electrical_type": "passive"
         },
         "3": {
           "name": "CMD",
-          "net": "SD_CMD"
+          "net": "SD_CMD",
+          "electrical_type": "passive"
         },
         "4": {
           "name": "VDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "5": {
           "name": "CLK",
-          "net": "SD_CLK"
+          "net": "SD_CLK",
+          "electrical_type": "passive"
         },
         "6": {
           "name": "VSS",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "7": {
           "name": "DAT0",
-          "net": "SD_D0"
+          "net": "SD_D0",
+          "electrical_type": "passive"
         },
         "8": {
           "name": "DAT1",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "passive"
         },
         "9": {
           "name": "SD_DETECT_N",
-          "net": "SD_DETECT_N"
+          "net": "SD_DETECT_N",
+          "electrical_type": "passive"
         },
         "10": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "SH": {
           "name": "SHIELD",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -659,83 +788,103 @@
       "pin_nets": {
         "1": {
           "name": "CPVDD",
-          "net": "+3V3_A"
+          "net": "+3V3_A",
+          "electrical_type": "power_in"
         },
         "2": {
           "name": "CAPP",
-          "net": "PCM_CP_P"
+          "net": "PCM_CP_P",
+          "electrical_type": "passive"
         },
         "3": {
           "name": "CPGND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "4": {
           "name": "CAPM",
-          "net": "PCM_CP_M"
+          "net": "PCM_CP_M",
+          "electrical_type": "passive"
         },
         "5": {
           "name": "VNEG",
-          "net": "PCM_VNEG"
+          "net": "PCM_VNEG",
+          "electrical_type": "power_out"
         },
         "6": {
           "name": "OUTL",
-          "net": "DAC_L"
+          "net": "DAC_L",
+          "electrical_type": "output"
         },
         "7": {
           "name": "OUTR",
-          "net": "DAC_R"
+          "net": "DAC_R",
+          "electrical_type": "output"
         },
         "8": {
           "name": "AVDD",
-          "net": "+3V3_A"
+          "net": "+3V3_A",
+          "electrical_type": "power_in"
         },
         "9": {
           "name": "AGND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "10": {
           "name": "DEMP",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "11": {
           "name": "FLT",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "12": {
           "name": "SCK",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "13": {
           "name": "BCK",
-          "net": "I2S_BCLK_DAC"
+          "net": "I2S_BCLK_DAC",
+          "electrical_type": "input"
         },
         "14": {
           "name": "DIN",
-          "net": "I2S_DOUT_DAC"
+          "net": "I2S_DOUT_DAC",
+          "electrical_type": "input"
         },
         "15": {
           "name": "LRCK",
-          "net": "I2S_LRCLK_DAC"
+          "net": "I2S_LRCLK_DAC",
+          "electrical_type": "input"
         },
         "16": {
           "name": "FMT",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "17": {
           "name": "XSMT",
-          "net": "DAC_XSMT"
+          "net": "DAC_XSMT",
+          "electrical_type": "input"
         },
         "18": {
           "name": "LDOO",
-          "net": "PCM_LDOO"
+          "net": "PCM_LDOO",
+          "electrical_type": "power_out"
         },
         "19": {
           "name": "DGND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "20": {
           "name": "DVDD",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -750,71 +899,88 @@
       "pin_nets": {
         "1": {
           "name": "INL-",
-          "net": "HP_IN_L"
+          "net": "HP_IN_L",
+          "electrical_type": "input"
         },
         "2": {
           "name": "INL+",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "3": {
           "name": "INR+",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "4": {
           "name": "INR-",
-          "net": "HP_IN_R"
+          "net": "HP_IN_R",
+          "electrical_type": "input"
         },
         "5": {
           "name": "OUTR",
-          "net": "HP_R"
+          "net": "HP_R",
+          "electrical_type": "output"
         },
         "6": {
           "name": "G0",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "7": {
           "name": "G1",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "8": {
           "name": "HPVSS",
-          "net": "HP_VSS"
+          "net": "HP_VSS",
+          "electrical_type": "power_out"
         },
         "9": {
           "name": "CPN",
-          "net": "HP_CP_N"
+          "net": "HP_CP_N",
+          "electrical_type": "passive"
         },
         "10": {
           "name": "PGND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "11": {
           "name": "CPP",
-          "net": "HP_CP_P"
+          "net": "HP_CP_P",
+          "electrical_type": "passive"
         },
         "12": {
           "name": "HPVDD",
-          "net": "HP_VDD"
+          "net": "HP_VDD",
+          "electrical_type": "power_out"
         },
         "13": {
           "name": "EN",
-          "net": "HP_EN"
+          "net": "HP_EN",
+          "electrical_type": "input"
         },
         "14": {
           "name": "VDD",
-          "net": "+3V3_A"
+          "net": "+3V3_A",
+          "electrical_type": "power_in"
         },
         "15": {
           "name": "SGND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "16": {
           "name": "OUTL",
-          "net": "HP_L"
+          "net": "HP_L",
+          "electrical_type": "output"
         },
         "17": {
           "name": "EP",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -829,71 +995,88 @@
       "pin_nets": {
         "1": {
           "name": "DIN",
-          "net": "I2S_DOUT_SPK"
+          "net": "I2S_DOUT_SPK",
+          "electrical_type": "input"
         },
         "2": {
           "name": "GAIN_SLOT",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "3": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "4": {
           "name": "~{SD_MODE}",
-          "net": "SPK_SD_MODE"
+          "net": "SPK_SD_MODE",
+          "electrical_type": "input"
         },
         "5": {
           "name": "NC",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "no_connect"
         },
         "6": {
           "name": "NC",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "no_connect"
         },
         "7": {
           "name": "VDD",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "power_in"
         },
         "8": {
           "name": "VDD",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "power_in"
         },
         "9": {
           "name": "OUTP",
-          "net": "SPK_P"
+          "net": "SPK_P",
+          "electrical_type": "output"
         },
         "10": {
           "name": "OUTN",
-          "net": "SPK_N"
+          "net": "SPK_N",
+          "electrical_type": "output"
         },
         "11": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "12": {
           "name": "NC",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "no_connect"
         },
         "13": {
           "name": "NC",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "no_connect"
         },
         "14": {
           "name": "LRCLK",
-          "net": "I2S_LRCLK_SPK"
+          "net": "I2S_LRCLK_SPK",
+          "electrical_type": "input"
         },
         "15": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "16": {
           "name": "BCLK",
-          "net": "I2S_BCLK_SPK"
+          "net": "I2S_BCLK_SPK",
+          "electrical_type": "input"
         },
         "17": {
           "name": "PAD",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -908,31 +1091,38 @@
       "pin_nets": {
         "1": {
           "name": "Pin_1",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "HP_L"
+          "net": "HP_L",
+          "electrical_type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "HP_R"
+          "net": "HP_R",
+          "electrical_type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "HP_DETECT"
+          "net": "HP_DETECT",
+          "electrical_type": "passive"
         },
         "MS": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -947,11 +1137,13 @@
       "pin_nets": {
         "1": {
           "name": "Pin_1",
-          "net": "SPK_P"
+          "net": "SPK_P",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "SPK_N"
+          "net": "SPK_N",
+          "electrical_type": "passive"
         }
       }
     },
@@ -966,99 +1158,123 @@
       "pin_nets": {
         "1": {
           "name": "INT",
-          "net": "TCA_INT_N"
+          "net": "TCA_INT_N",
+          "electrical_type": "open_collector"
         },
         "2": {
           "name": "A1",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "3": {
           "name": "A2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "4": {
           "name": "P0_0",
-          "net": "BTN_PREV_N"
+          "net": "BTN_PREV_N",
+          "electrical_type": "bidirectional"
         },
         "5": {
           "name": "P0_1",
-          "net": "BTN_PLAY_N"
+          "net": "BTN_PLAY_N",
+          "electrical_type": "bidirectional"
         },
         "6": {
           "name": "P0_2",
-          "net": "BTN_NEXT_N"
+          "net": "BTN_NEXT_N",
+          "electrical_type": "bidirectional"
         },
         "7": {
           "name": "P0_3",
-          "net": "BTN_VOL_DOWN_N"
+          "net": "BTN_VOL_DOWN_N",
+          "electrical_type": "bidirectional"
         },
         "8": {
           "name": "P0_4",
-          "net": "BTN_VOL_UP_N"
+          "net": "BTN_VOL_UP_N",
+          "electrical_type": "bidirectional"
         },
         "9": {
           "name": "P0_5",
-          "net": "SD_DETECT_N"
+          "net": "SD_DETECT_N",
+          "electrical_type": "bidirectional"
         },
         "10": {
           "name": "P0_6",
-          "net": "CHG_STAT"
+          "net": "CHG_STAT",
+          "electrical_type": "bidirectional"
         },
         "11": {
           "name": "P0_7",
-          "net": "FUEL_ALERT_N"
+          "net": "FUEL_ALERT_N",
+          "electrical_type": "bidirectional"
         },
         "12": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "13": {
           "name": "P1_0",
-          "net": "CHG_INT_N"
+          "net": "CHG_INT_N",
+          "electrical_type": "bidirectional"
         },
         "14": {
           "name": "P1_1",
-          "net": "PGOOD_CHG"
+          "net": "PGOOD_CHG",
+          "electrical_type": "bidirectional"
         },
         "15": {
           "name": "P1_2",
-          "net": "PWR_GOOD_3V3"
+          "net": "PWR_GOOD_3V3",
+          "electrical_type": "bidirectional"
         },
         "16": {
           "name": "P1_3",
-          "net": "PWR_GOOD_BT"
+          "net": "PWR_GOOD_BT",
+          "electrical_type": "bidirectional"
         },
         "17": {
           "name": "P1_4",
-          "net": "EXP_IN14"
+          "net": "EXP_IN14",
+          "electrical_type": "bidirectional"
         },
         "18": {
           "name": "P1_5",
-          "net": "EXP_IN15"
+          "net": "EXP_IN15",
+          "electrical_type": "bidirectional"
         },
         "19": {
           "name": "P1_6",
-          "net": "EXP_IN16"
+          "net": "EXP_IN16",
+          "electrical_type": "bidirectional"
         },
         "20": {
           "name": "P1_7",
-          "net": "EXP_IN17"
+          "net": "EXP_IN17",
+          "electrical_type": "bidirectional"
         },
         "21": {
           "name": "A0",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "input"
         },
         "22": {
           "name": "SCL",
-          "net": "I2C_SCL"
+          "net": "I2C_SCL",
+          "electrical_type": "input"
         },
         "23": {
           "name": "SDA",
-          "net": "I2C_SDA"
+          "net": "I2C_SDA",
+          "electrical_type": "bidirectional"
         },
         "24": {
           "name": "VCC",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -1073,39 +1289,48 @@
       "pin_nets": {
         "1": {
           "name": "Pin_1",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "TFT_MOSI"
+          "net": "TFT_MOSI",
+          "electrical_type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "TFT_SCLK"
+          "net": "TFT_SCLK",
+          "electrical_type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "TFT_CS"
+          "net": "TFT_CS",
+          "electrical_type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "TFT_DC"
+          "net": "TFT_DC",
+          "electrical_type": "passive"
         },
         "7": {
           "name": "Pin_7",
-          "net": "TFT_RST"
+          "net": "TFT_RST",
+          "electrical_type": "passive"
         },
         "8": {
           "name": "Pin_8",
-          "net": "TFT_BL_PWM"
+          "net": "TFT_BL_PWM",
+          "electrical_type": "passive"
         },
         "MP": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1120,11 +1345,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BTN_PREV_N"
+          "net": "BTN_PREV_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1139,11 +1366,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BTN_PLAY_N"
+          "net": "BTN_PLAY_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1158,11 +1387,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BTN_NEXT_N"
+          "net": "BTN_NEXT_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1177,11 +1408,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BTN_VOL_DOWN_N"
+          "net": "BTN_VOL_DOWN_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1196,11 +1429,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BTN_VOL_UP_N"
+          "net": "BTN_VOL_UP_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1215,211 +1450,263 @@
       "pin_nets": {
         "1": {
           "name": "DR1",
-          "net": "I2S_DOUT_BT"
+          "net": "I2S_DOUT_BT",
+          "electrical_type": "input"
         },
         "2": {
           "name": "RFS1",
-          "net": "I2S_LRCLK_BT"
+          "net": "I2S_LRCLK_BT",
+          "electrical_type": "bidirectional"
         },
         "3": {
           "name": "SCLK1",
-          "net": "I2S_BCLK_BT"
+          "net": "I2S_BCLK_BT",
+          "electrical_type": "bidirectional"
         },
         "4": {
           "name": "DT1",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "output"
         },
         "5": {
           "name": "MCLK1",
-          "net": "BT_MCLK_OPTION"
+          "net": "BT_MCLK_OPTION",
+          "electrical_type": "output"
         },
         "6": {
           "name": "AOHPR",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "output"
         },
         "7": {
           "name": "AOHPM",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "passive"
         },
         "8": {
           "name": "AOHPL",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "output"
         },
         "9": {
           "name": "MICN2",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "10": {
           "name": "MICP2",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "11": {
           "name": "AIR",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "12": {
           "name": "AIL",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "13": {
           "name": "MICN1",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "14": {
           "name": "MICP1",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "15": {
           "name": "MICBIAS",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "power_out"
         },
         "16": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "17": {
           "name": "DMIC_CLK",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "output"
         },
         "18": {
           "name": "DMIC1_R",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "19": {
           "name": "DMIC1_L",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "20": {
           "name": "P3_2",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "21": {
           "name": "P2_6",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "22": {
           "name": "ADAP_IN",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "power_in"
         },
         "23": {
           "name": "BAT_IN",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "power_in"
         },
         "24": {
           "name": "SYS_PWR",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "power_out"
         },
         "25": {
           "name": "VDD_IO",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "power_out"
         },
         "26": {
           "name": "PWR(MFB)",
-          "net": "BT_MFB"
+          "net": "BT_MFB",
+          "electrical_type": "input"
         },
         "27": {
           "name": "SK1_AMB_DET",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "28": {
           "name": "SK2_KEY_AD",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "input"
         },
         "29": {
           "name": "P8_6/UART_RXD",
-          "net": "BT_UART_TX"
+          "net": "BT_UART_TX",
+          "electrical_type": "bidirectional"
         },
         "30": {
           "name": "P8_5/UART_TXD",
-          "net": "BT_UART_RX"
+          "net": "BT_UART_RX",
+          "electrical_type": "bidirectional"
         },
         "31": {
           "name": "P3_4/UART_RTS",
-          "net": "BT_SERVICE_P34"
+          "net": "BT_SERVICE_P34",
+          "electrical_type": "bidirectional"
         },
         "32": {
           "name": "LED1",
-          "net": "BT_LED"
+          "net": "BT_LED",
+          "electrical_type": "open_collector"
         },
         "33": {
           "name": "P0_2",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "34": {
           "name": "LED2",
-          "net": "BT_STATE"
+          "net": "BT_STATE",
+          "electrical_type": "open_collector"
         },
         "35": {
           "name": "P0_6",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "36": {
           "name": "DM",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "37": {
           "name": "DP",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "38": {
           "name": "P0_3",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "39": {
           "name": "P2_7",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "40": {
           "name": "P0_5",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "41": {
           "name": "P1_6/PWM1",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "42": {
           "name": "P2_3",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "43": {
           "name": "~{RST}",
-          "net": "BT_RST_N"
+          "net": "BT_RST_N",
+          "electrical_type": "input"
         },
         "44": {
           "name": "P0_1",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "45": {
           "name": "P0_7",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "46": {
           "name": "P1_2/TDI_CPU/SCL",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "47": {
           "name": "P1_3/TCK_CPU/SDA",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "48": {
           "name": "P3_7/UART_CTS",
-          "net": "NC"
+          "net": "NC",
+          "electrical_type": "bidirectional"
         },
         "49": {
           "name": "P0_0/UART_TX_IND",
-          "net": "BT_WAKE"
+          "net": "BT_WAKE",
+          "electrical_type": "bidirectional"
         },
         "50": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "56": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         },
         "57": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "power_in"
         }
       }
     },
@@ -1434,15 +1721,18 @@
       "pin_nets": {
         "1": {
           "name": "A",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "B",
-          "net": "PWR_SWITCH_ON"
+          "net": "PWR_SWITCH_ON",
+          "electrical_type": "passive"
         },
         "3": {
           "name": "C",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1457,27 +1747,33 @@
       "pin_nets": {
         "1": {
           "name": "Pin_1",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "Pin_2",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         },
         "3": {
           "name": "Pin_3",
-          "net": "UART0_TX"
+          "net": "UART0_TX",
+          "electrical_type": "passive"
         },
         "4": {
           "name": "Pin_4",
-          "net": "UART0_RX"
+          "net": "UART0_RX",
+          "electrical_type": "passive"
         },
         "5": {
           "name": "Pin_5",
-          "net": "ESP_EN"
+          "net": "ESP_EN",
+          "electrical_type": "passive"
         },
         "6": {
           "name": "Pin_6",
-          "net": "BOOT_N"
+          "net": "BOOT_N",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1492,7 +1788,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "VBUS5"
+          "net": "VBUS5",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1507,7 +1804,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BAT"
+          "net": "BAT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1522,7 +1820,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1537,7 +1836,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1552,7 +1852,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1567,7 +1868,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1582,7 +1884,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "I2C_SDA"
+          "net": "I2C_SDA",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1597,7 +1900,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "I2C_SCL"
+          "net": "I2C_SCL",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1612,7 +1916,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "I2S_BCLK"
+          "net": "I2S_BCLK",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1627,7 +1932,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "I2S_LRCLK"
+          "net": "I2S_LRCLK",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1642,7 +1948,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "I2S_DOUT"
+          "net": "I2S_DOUT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1657,7 +1964,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1672,7 +1980,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BT_SERVICE_P34"
+          "net": "BT_SERVICE_P34",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1687,7 +1996,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BT_LED"
+          "net": "BT_LED",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1702,7 +2012,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "BT_STATE"
+          "net": "BT_STATE",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1717,7 +2028,8 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "HP_DETECT"
+          "net": "HP_DETECT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1732,11 +2044,13 @@
       "pin_nets": {
         "1": {
           "name": "USB_CC1",
-          "net": "USB_CC1"
+          "net": "USB_CC1",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1751,11 +2065,13 @@
       "pin_nets": {
         "1": {
           "name": "USB_CC2",
-          "net": "USB_CC2"
+          "net": "USB_CC2",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1770,11 +2086,13 @@
       "pin_nets": {
         "1": {
           "name": "I2C_SDA",
-          "net": "I2C_SDA"
+          "net": "I2C_SDA",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1789,11 +2107,13 @@
       "pin_nets": {
         "1": {
           "name": "I2C_SCL",
-          "net": "I2C_SCL"
+          "net": "I2C_SCL",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1808,11 +2128,13 @@
       "pin_nets": {
         "1": {
           "name": "USB_DP",
-          "net": "USB_DP"
+          "net": "USB_DP",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "USB_DP_MCU",
-          "net": "USB_DP_MCU"
+          "net": "USB_DP_MCU",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1827,11 +2149,13 @@
       "pin_nets": {
         "1": {
           "name": "USB_DM",
-          "net": "USB_DM"
+          "net": "USB_DM",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "USB_DM_MCU",
-          "net": "USB_DM_MCU"
+          "net": "USB_DM_MCU",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1846,11 +2170,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_BCLK",
-          "net": "I2S_BCLK"
+          "net": "I2S_BCLK",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_BCLK_DAC",
-          "net": "I2S_BCLK_DAC"
+          "net": "I2S_BCLK_DAC",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1865,11 +2191,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_LRCLK",
-          "net": "I2S_LRCLK"
+          "net": "I2S_LRCLK",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_LRCLK_DAC",
-          "net": "I2S_LRCLK_DAC"
+          "net": "I2S_LRCLK_DAC",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1884,11 +2212,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_DOUT",
-          "net": "I2S_DOUT"
+          "net": "I2S_DOUT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_DOUT_DAC",
-          "net": "I2S_DOUT_DAC"
+          "net": "I2S_DOUT_DAC",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1903,11 +2233,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_BCLK",
-          "net": "I2S_BCLK"
+          "net": "I2S_BCLK",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_BCLK_SPK",
-          "net": "I2S_BCLK_SPK"
+          "net": "I2S_BCLK_SPK",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1922,11 +2254,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_LRCLK",
-          "net": "I2S_LRCLK"
+          "net": "I2S_LRCLK",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_LRCLK_SPK",
-          "net": "I2S_LRCLK_SPK"
+          "net": "I2S_LRCLK_SPK",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1941,11 +2275,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_DOUT",
-          "net": "I2S_DOUT"
+          "net": "I2S_DOUT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_DOUT_SPK",
-          "net": "I2S_DOUT_SPK"
+          "net": "I2S_DOUT_SPK",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1960,11 +2296,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_BCLK",
-          "net": "I2S_BCLK"
+          "net": "I2S_BCLK",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_BCLK_BT",
-          "net": "I2S_BCLK_BT"
+          "net": "I2S_BCLK_BT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1979,11 +2317,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_LRCLK",
-          "net": "I2S_LRCLK"
+          "net": "I2S_LRCLK",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_LRCLK_BT",
-          "net": "I2S_LRCLK_BT"
+          "net": "I2S_LRCLK_BT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -1998,11 +2338,13 @@
       "pin_nets": {
         "1": {
           "name": "I2S_DOUT",
-          "net": "I2S_DOUT"
+          "net": "I2S_DOUT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "I2S_DOUT_BT",
-          "net": "I2S_DOUT_BT"
+          "net": "I2S_DOUT_BT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2017,11 +2359,13 @@
       "pin_nets": {
         "1": {
           "name": "VBUS5",
-          "net": "VBUS5"
+          "net": "VBUS5",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2036,11 +2380,13 @@
       "pin_nets": {
         "1": {
           "name": "BAT",
-          "net": "BAT"
+          "net": "BAT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2055,11 +2401,13 @@
       "pin_nets": {
         "1": {
           "name": "SYS",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2074,11 +2422,13 @@
       "pin_nets": {
         "1": {
           "name": "VSYS_SW",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2093,11 +2443,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2112,11 +2464,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V6_BT",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2131,11 +2485,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3_A",
-          "net": "+3V3_A"
+          "net": "+3V3_A",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2150,11 +2506,13 @@
       "pin_nets": {
         "1": {
           "name": "REGN",
-          "net": "REGN"
+          "net": "REGN",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2169,11 +2527,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "SW1_3V3"
+          "net": "SW1_3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "SW2_3V3"
+          "net": "SW2_3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2188,11 +2548,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "SW1_BT"
+          "net": "SW1_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "SW2_BT"
+          "net": "SW2_BT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2207,11 +2569,13 @@
       "pin_nets": {
         "1": {
           "name": "1",
-          "net": "SW_CHG"
+          "net": "SW_CHG",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "2",
-          "net": "SYS"
+          "net": "SYS",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2226,11 +2590,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "FB_3V3",
-          "net": "FB_3V3"
+          "net": "FB_3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2245,11 +2611,13 @@
       "pin_nets": {
         "1": {
           "name": "FB_3V3",
-          "net": "FB_3V3"
+          "net": "FB_3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2264,11 +2632,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V6_BT",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "FB_BT",
-          "net": "FB_BT"
+          "net": "FB_BT",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2283,11 +2653,13 @@
       "pin_nets": {
         "1": {
           "name": "FB_BT",
-          "net": "FB_BT"
+          "net": "FB_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2302,11 +2674,13 @@
       "pin_nets": {
         "1": {
           "name": "ILIM",
-          "net": "ILIM"
+          "net": "ILIM",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2321,11 +2695,13 @@
       "pin_nets": {
         "1": {
           "name": "TS_BIAS",
-          "net": "TS_BIAS"
+          "net": "TS_BIAS",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "TS",
-          "net": "TS"
+          "net": "TS",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2340,11 +2716,13 @@
       "pin_nets": {
         "1": {
           "name": "TS",
-          "net": "TS"
+          "net": "TS",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2359,11 +2737,13 @@
       "pin_nets": {
         "1": {
           "name": "CHASSIS",
-          "net": "CHASSIS"
+          "net": "CHASSIS",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2378,11 +2758,13 @@
       "pin_nets": {
         "1": {
           "name": "ESP_EN",
-          "net": "ESP_EN"
+          "net": "ESP_EN",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2397,11 +2779,13 @@
       "pin_nets": {
         "1": {
           "name": "BOOT_N",
-          "net": "BOOT_N"
+          "net": "BOOT_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2416,11 +2800,13 @@
       "pin_nets": {
         "1": {
           "name": "HP_DETECT",
-          "net": "HP_DETECT"
+          "net": "HP_DETECT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2435,11 +2821,13 @@
       "pin_nets": {
         "1": {
           "name": "SPK_SD_MODE",
-          "net": "SPK_SD_MODE"
+          "net": "SPK_SD_MODE",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2454,11 +2842,13 @@
       "pin_nets": {
         "1": {
           "name": "HP_EN",
-          "net": "HP_EN"
+          "net": "HP_EN",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2473,11 +2863,13 @@
       "pin_nets": {
         "1": {
           "name": "DAC_XSMT",
-          "net": "DAC_XSMT"
+          "net": "DAC_XSMT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2492,11 +2884,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3_A",
-          "net": "+3V3_A"
+          "net": "+3V3_A",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2511,11 +2905,13 @@
       "pin_nets": {
         "1": {
           "name": "BTN_PREV_N",
-          "net": "BTN_PREV_N"
+          "net": "BTN_PREV_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2530,11 +2926,13 @@
       "pin_nets": {
         "1": {
           "name": "BTN_PLAY_N",
-          "net": "BTN_PLAY_N"
+          "net": "BTN_PLAY_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2549,11 +2947,13 @@
       "pin_nets": {
         "1": {
           "name": "BTN_NEXT_N",
-          "net": "BTN_NEXT_N"
+          "net": "BTN_NEXT_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2568,11 +2968,13 @@
       "pin_nets": {
         "1": {
           "name": "BTN_VOL_DOWN_N",
-          "net": "BTN_VOL_DOWN_N"
+          "net": "BTN_VOL_DOWN_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2587,11 +2989,13 @@
       "pin_nets": {
         "1": {
           "name": "BTN_VOL_UP_N",
-          "net": "BTN_VOL_UP_N"
+          "net": "BTN_VOL_UP_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2606,11 +3010,13 @@
       "pin_nets": {
         "1": {
           "name": "SD_DETECT_N",
-          "net": "SD_DETECT_N"
+          "net": "SD_DETECT_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2625,11 +3031,13 @@
       "pin_nets": {
         "1": {
           "name": "CHG_STAT",
-          "net": "CHG_STAT"
+          "net": "CHG_STAT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2644,11 +3052,13 @@
       "pin_nets": {
         "1": {
           "name": "FUEL_ALERT_N",
-          "net": "FUEL_ALERT_N"
+          "net": "FUEL_ALERT_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2663,11 +3073,13 @@
       "pin_nets": {
         "1": {
           "name": "CHG_INT_N",
-          "net": "CHG_INT_N"
+          "net": "CHG_INT_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2682,11 +3094,13 @@
       "pin_nets": {
         "1": {
           "name": "PGOOD_CHG",
-          "net": "PGOOD_CHG"
+          "net": "PGOOD_CHG",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2701,11 +3115,13 @@
       "pin_nets": {
         "1": {
           "name": "PWR_GOOD_3V3",
-          "net": "PWR_GOOD_3V3"
+          "net": "PWR_GOOD_3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2720,11 +3136,13 @@
       "pin_nets": {
         "1": {
           "name": "PWR_GOOD_BT",
-          "net": "PWR_GOOD_BT"
+          "net": "PWR_GOOD_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2739,11 +3157,13 @@
       "pin_nets": {
         "1": {
           "name": "TCA_INT_N",
-          "net": "TCA_INT_N"
+          "net": "TCA_INT_N",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2758,11 +3178,13 @@
       "pin_nets": {
         "1": {
           "name": "EXP_IN14",
-          "net": "EXP_IN14"
+          "net": "EXP_IN14",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2777,11 +3199,13 @@
       "pin_nets": {
         "1": {
           "name": "EXP_IN15",
-          "net": "EXP_IN15"
+          "net": "EXP_IN15",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2796,11 +3220,13 @@
       "pin_nets": {
         "1": {
           "name": "EXP_IN16",
-          "net": "EXP_IN16"
+          "net": "EXP_IN16",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2815,11 +3241,13 @@
       "pin_nets": {
         "1": {
           "name": "EXP_IN17",
-          "net": "EXP_IN17"
+          "net": "EXP_IN17",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2834,11 +3262,13 @@
       "pin_nets": {
         "1": {
           "name": "BTST",
-          "net": "BTST"
+          "net": "BTST",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "SW_CHG",
-          "net": "SW_CHG"
+          "net": "SW_CHG",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2853,11 +3283,13 @@
       "pin_nets": {
         "1": {
           "name": "PMID",
-          "net": "PMID"
+          "net": "PMID",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2872,11 +3304,13 @@
       "pin_nets": {
         "1": {
           "name": "VSYS_SW",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2891,11 +3325,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2910,11 +3346,13 @@
       "pin_nets": {
         "1": {
           "name": "VSYS_SW",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2929,11 +3367,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V6_BT",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2948,11 +3388,13 @@
       "pin_nets": {
         "1": {
           "name": "BAT",
-          "net": "BAT"
+          "net": "BAT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2967,11 +3409,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -2986,11 +3430,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3005,11 +3451,13 @@
       "pin_nets": {
         "1": {
           "name": "ESP_EN",
-          "net": "ESP_EN"
+          "net": "ESP_EN",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3024,11 +3472,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3043,11 +3493,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3062,11 +3514,13 @@
       "pin_nets": {
         "1": {
           "name": "PCM_CP_P",
-          "net": "PCM_CP_P"
+          "net": "PCM_CP_P",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "PCM_CP_M",
-          "net": "PCM_CP_M"
+          "net": "PCM_CP_M",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3081,11 +3535,13 @@
       "pin_nets": {
         "1": {
           "name": "PCM_VNEG",
-          "net": "PCM_VNEG"
+          "net": "PCM_VNEG",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3100,11 +3556,13 @@
       "pin_nets": {
         "1": {
           "name": "PCM_LDOO",
-          "net": "PCM_LDOO"
+          "net": "PCM_LDOO",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3119,11 +3577,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3_A",
-          "net": "+3V3_A"
+          "net": "+3V3_A",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3138,11 +3598,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3157,11 +3619,13 @@
       "pin_nets": {
         "1": {
           "name": "HP_CP_P",
-          "net": "HP_CP_P"
+          "net": "HP_CP_P",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "HP_CP_N",
-          "net": "HP_CP_N"
+          "net": "HP_CP_N",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3176,11 +3640,13 @@
       "pin_nets": {
         "1": {
           "name": "HP_VSS",
-          "net": "HP_VSS"
+          "net": "HP_VSS",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3195,11 +3661,13 @@
       "pin_nets": {
         "1": {
           "name": "HP_VDD",
-          "net": "HP_VDD"
+          "net": "HP_VDD",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3214,11 +3682,13 @@
       "pin_nets": {
         "1": {
           "name": "DAC_L",
-          "net": "DAC_L"
+          "net": "DAC_L",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "HP_IN_L",
-          "net": "HP_IN_L"
+          "net": "HP_IN_L",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3233,11 +3703,13 @@
       "pin_nets": {
         "1": {
           "name": "DAC_R",
-          "net": "DAC_R"
+          "net": "DAC_R",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "HP_IN_R",
-          "net": "HP_IN_R"
+          "net": "HP_IN_R",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3252,11 +3724,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3_A",
-          "net": "+3V3_A"
+          "net": "+3V3_A",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3271,11 +3745,13 @@
       "pin_nets": {
         "1": {
           "name": "VSYS_SW",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3290,11 +3766,13 @@
       "pin_nets": {
         "1": {
           "name": "VSYS_SW",
-          "net": "VSYS_SW"
+          "net": "VSYS_SW",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3309,11 +3787,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3328,11 +3808,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3347,11 +3829,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V6_BT",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3366,11 +3850,13 @@
       "pin_nets": {
         "1": {
           "name": "+3V6_BT",
-          "net": "+3V6_BT"
+          "net": "+3V6_BT",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "GND",
-          "net": "GND"
+          "net": "GND",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3385,11 +3871,13 @@
       "pin_nets": {
         "1": {
           "name": "SD_CMD",
-          "net": "SD_CMD"
+          "net": "SD_CMD",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3404,11 +3892,13 @@
       "pin_nets": {
         "1": {
           "name": "SD_D0",
-          "net": "SD_D0"
+          "net": "SD_D0",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3423,11 +3913,13 @@
       "pin_nets": {
         "1": {
           "name": "SD_DAT3",
-          "net": "SD_DAT3"
+          "net": "SD_DAT3",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "+3V3",
-          "net": "+3V3"
+          "net": "+3V3",
+          "electrical_type": "passive"
         }
       }
     },
@@ -3442,11 +3934,13 @@
       "pin_nets": {
         "1": {
           "name": "SPK_EN",
-          "net": "SPK_EN"
+          "net": "SPK_EN",
+          "electrical_type": "passive"
         },
         "2": {
           "name": "SPK_SD_MODE",
-          "net": "SPK_SD_MODE"
+          "net": "SPK_SD_MODE",
+          "electrical_type": "passive"
         }
       }
     }

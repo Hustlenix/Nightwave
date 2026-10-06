@@ -1,6 +1,6 @@
 # Reference GPIO map
 
-This map matches the reference schematic, not the historical OLED/direct-button firmware configuration. Live adapters remain unqualified.
+The reference firmware profile is cross-checked against this schematic map. The legacy bench profile is separate. Physical adapters remain unqualified.
 
 | Module pad | GPIO/function | Net |
 | --- | --- | --- |

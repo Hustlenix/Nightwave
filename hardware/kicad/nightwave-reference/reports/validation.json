@@ -1,17 +1,17 @@
 {
-  "generated_utc": "2026-10-05T16:52:21.545680+00:00",
+  "generated_utc": "2026-10-06T04:09:01.274642+00:00",
   "pcb_sha256": "124b5aa0954293801baee96d6570213f8c020572700481cd57de162140d368e1",
   "source_hashes": {
-    "01_power_charging.kicad_sch": "8b90e84e7e880812a0a8f1b9ee4e9d3fe24b55ee2d0dca3253427f3b80c173e6",
-    "02_mcu_storage.kicad_sch": "6ab77c4ac867d415effb4c7f86b88bcb1e58f7a1b721fcaa23a9fd8edb9e9898",
-    "03_local_audio.kicad_sch": "ef21e40892ed28a154453d8c0a8d71ca31965c3f3c9dc5b5a0043b09fd2d6f44",
-    "04_display_controls.kicad_sch": "b4502795521fdf5c16568ffa922c3580aed4b6e7c189c36ab060cd1766bc6ecd",
-    "05_bluetooth.kicad_sch": "62d936ad5eb5444cdd00477834b8c8b62bc75c5926201ebc4374afd004815fd9",
+    "01_power_charging.kicad_sch": "1802060553dc3027f59057d8a703e75d2ed40695c6244307cca514d9fbe8a563",
+    "02_mcu_storage.kicad_sch": "5ddfdb6feb1910c5294826f7a5549ed8d812bb7d2c00cf0c2cfe10aead311be9",
+    "03_local_audio.kicad_sch": "5a86202423de93af046d0033eb047af489bf579987e9465226424698c8775ef2",
+    "04_display_controls.kicad_sch": "5168d6e2932fee7649b9d14d3949bea23cd7baf644815d424a9164503bb48f1c",
+    "05_bluetooth.kicad_sch": "ce0616ea3301fdc4af4a4df178a694f230196c28d30205643185c55e983243c9",
     "06_connectors_test.kicad_sch": "f19d703d69c84d701a49afca72639d29520ca37c5f84c8189dcac4d8117d54f7",
     "Nightwave-Reference.kicad_pcb": "3d59ddee2c84e95cddec7f82f1022e6fb5de4564728475e741c10d3e3058fa9e",
     "Nightwave-Reference.kicad_pro": "8acff0282bfdedcb09b4a2ecfe723cec4097995d21bcac1016beccbafb23bfe2",
-    "Nightwave-Reference.kicad_sch": "8d4f4e16e012550177ca99cae8481f70194b63178dee427dd2a6c87e51aa1da0",
-    "Nightwave.kicad_sym": "388bb5403c98abb77278aba90c86d51ab0ff1aad3a8f5ad952ba4f86eb293ca9",
+    "Nightwave-Reference.kicad_sch": "01939bb760840bd8e470ded8fceea9669c7910ad9a38b7db9fd1d309aed9bbc5",
+    "Nightwave.kicad_sym": "1bfae744a8d7737080ac39671bf96bdce9e56afaeac247694a105c431a498b2d",
     "Nightwave.pretty/Coilcraft_XFL4015.kicad_mod": "e8b019b908879b4e65f0deb41553687e3a1163b092ce11182857df2da8601705",
     "Nightwave.pretty/Microchip_BM83_GroundLands.kicad_mod": "7f9c3cd76552ff2e8f8c0fa9db4f38a15f5185eed4e84613c4bbce86fe827c63",
     "Nightwave.pretty/SameSky_SJ3-350153AG.kicad_mod": "f2a4276b0f0ebaa49dfbe359e937f0eb4dddd12fe15570674ff22447a7b5ddbd",
@@ -27,7 +27,8 @@
     "schematic_parity": 0
   },
   "connectivity_geometry_clean": true,
-  "erc_scope": "passive block-symbol connectivity only; no power/driver-type certification",
+  "erc_scope": "typed IC pins and explicit external supply declarations; not analog or mode-configuration qualification",
+  "erc_findings": 0,
   "narrow_power_segments": [
     {
       "uuid": "0ef1894f-95d2-46a7-a8dd-f93f5835d352",

@@ -3,6 +3,10 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#ifdef ESP_PLATFORM
+#include "sdkconfig.h"
+#endif
+#include "nightwave/reference_board.h"
 
 namespace nightwave::hardware {
 enum class BluetoothArchitecture { kPending, kBm83At };
@@ -18,7 +22,15 @@ inline constexpr bool kCombinedProductPinsReviewed = false;
 inline constexpr bool kTca9535InputExpansionSelected = true;
 inline constexpr bool kTca9535PhysicalQualified = false;
 inline constexpr bool kBatteryLocked = false;
-// Existing constants below are the legacy USB-powered bench map only.
+// Host tests default to the legacy profile unless explicitly compiled for the
+// reference board. ESP-IDF selection comes from the explicit Kconfig choice.
+#if defined(CONFIG_NIGHTWAVE_REFERENCE_BOARD) && CONFIG_NIGHTWAVE_REFERENCE_BOARD
+inline constexpr bool kReferenceBoard = true;
+using namespace nightwave::reference_board;
+#else
+inline constexpr bool kReferenceBoard = false;
+inline constexpr std::int8_t kDacMute = -1; // Bench has one enable only.
+// Legacy USB-powered bench map; never flash this profile onto the reference PCB.
 
 inline constexpr std::int8_t kSdClk = 12;
 inline constexpr std::int8_t kSdCmd = 11;
@@ -50,6 +62,7 @@ inline constexpr std::array<std::int8_t, 21> kAssignedPins{
     kHeadphoneEnable, kChargeStatus,    kPowerHold,     kFuelAlert,
     kDisplayReset,
 };
+#endif
 
 constexpr bool pins_are_unique() {
     for (std::size_t left = 0; left < kAssignedPins.size(); ++left) {

@@ -21,6 +21,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import pcbnew
+from reference_pin_types import pin_type
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -452,8 +453,9 @@ def custom_symbol_for_component(comp: Component) -> tuple[str, list[dict[str, ob
         angle = 0 if left else 180
         net = comp.nets.get(number)
         name = comp.pin_names.get(number) or original_names.get(number) or net or f"PAD_{number}"
-        pins.append({"number": number, "name": name, "x": x, "y": y, "angle": angle})
-        pin_exprs.append(f'''(pin passive line (at {x:.3f} {y:.3f} {angle}) (length 2.54)
+        electrical = pin_type(comp.ref, number)
+        pins.append({"number": number, "name": name, "x": x, "y": y, "angle": angle, "electrical_type": electrical})
+        pin_exprs.append(f'''(pin {electrical} line (at {x:.3f} {y:.3f} {angle}) (length 2.54)
           (name "{q(name)}" (effects (font (size 0.85 0.85))))
           (number "{q(number)}" (effects (font (size 0.85 0.85)))))''')
     symbol_name = f"Nightwave:{comp.ref}"
@@ -574,11 +576,29 @@ def build_schematics() -> None:
           (embedded_fonts no))'''
         (OUT / f"{sheet}.kicad_sch").write_text(child, encoding="utf-8")
 
+    # ERC needs explicit sources at external connectors and beyond R30's 0-ohm
+    # analog-rail link. These declarations are NOT voltage/current protection.
+    flag_block, _ = load_symbol('power', 'PWR_FLAG')
+    flags = []
+    for index, net in enumerate(['VBUS5', 'BAT', 'GND', '+3V3_A'], start=1):
+        x, y = round((135 + index*55)/1.27)*1.27, 250.19
+        reference = f'#FLG0{index:03d}'
+        flags.append(f'''(symbol (lib_id "power:PWR_FLAG") (at {x} {y} 0) (unit 1)
+          (in_bom no) (on_board yes) (dnp no) (uuid "{uid('flag/'+net)}")
+          (property "Reference" "{reference}" (at {x} {y-4} 0) (effects (font (size 1.27 1.27)) (hide yes)))
+          (property "Value" "PWR_FLAG" (at {x} {y-8} 0) (effects (font (size 1.27 1.27))))
+          (pin "1" (uuid "{uid('flagpin/'+net)}"))
+          (instances (project "{PROJECT}" (path "/{ROOT_UUID}" (reference "{reference}") (unit 1)))))
+          (global_label "{net}" (shape passive) (at {x} {y} 0)
+            (effects (font (size 1.27 1.27)) (justify left)) (uuid "{uid('flaglabel/'+net)}"))''')
     root = f'''(kicad_sch (version 20260306) (generator "nightwave_reference_generator")
-      (uuid "{ROOT_UUID}") (paper "A3") (lib_symbols)
+      (uuid "{ROOT_UUID}") (paper "A3") (lib_symbols {flag_block})
       (text "NIGHTWAVE AI-AUTHORED DIGITAL REFERENCE" (exclude_from_sim no) (at 35 15 0) (effects (font (size 2.5 2.5) (bold yes)) (justify left bottom)))
       (text "Complete source package for independent engineering review; unbuilt and not approved for fabrication or lithium connection." (exclude_from_sim no) (at 35 21 0) (effects (font (size 1.1 1.1)) (justify left bottom)))
       {' '.join(sheet_entries)}
+      (text "ERC source declarations: USB input, battery, return, and analog rail after R30. Not safety approval."
+        (at 170 230 0) (effects (font (size 1 1)) (justify left)))
+      {' '.join(flags)}
       (sheet_instances (path "/" (page "1"))) (embedded_fonts no))'''
     (OUT / f"{PROJECT}.kicad_sch").write_text(root, encoding="utf-8")
 
@@ -741,7 +761,7 @@ def build_board() -> None:
     pcbnew.SaveBoard(str(OUT / f"{PROJECT}.kicad_pcb"), board)
 
 
-def write_support_files() -> None:
+def write_support_files(preserve_project=False) -> None:
     pro = {
         "board": {"design_settings":{"rules":{"min_clearance":0.15,"min_track_width":0.15,"min_through_hole_diameter":0.2,"min_hole_clearance":0.15,"min_hole_to_hole":0.25,"min_copper_edge_clearance":0.5,"min_via_diameter":0.6,"min_via_annular_width":0.1,"min_text_height":0.8,"min_text_thickness":0.08}}}, "boards": [], "cvpcb": {}, "erc": {}, "libraries": {},
         "meta": {"filename": f"{PROJECT}.kicad_pro", "version": 1},
@@ -754,7 +774,8 @@ def write_support_files() -> None:
             "DESIGN_STATUS": "AI-authored, unbuilt, independent review required"
         }
     }
-    (OUT / f"{PROJECT}.kicad_pro").write_text(json.dumps(pro, indent=2), encoding="utf-8")
+    if not preserve_project or not (OUT / f"{PROJECT}.kicad_pro").exists():
+        (OUT / f"{PROJECT}.kicad_pro").write_text(json.dumps(pro, indent=2), encoding="utf-8")
     (OUT / ".gitignore").write_text("*.kicad_prl\n*.lck\n~*.tmp\n.history/\nreports/filled-drc.json\nreports/placement-drc.rpt\nreports/render/detail.png\n", encoding="utf-8")
 
     manifest = {
@@ -771,7 +792,7 @@ def write_support_files() -> None:
         "components": [
             {"reference": c.ref, "value": c.value, "manufacturer": c.manufacturer, "mpn": c.mpn or "PENDING_SELECTION",
              "sheet": c.sheet, "footprint": c.footprint, "datasheet": c.datasheet,
-             "pin_nets": {str(p["number"]): {"name": str(p["name"]), "net": (net_for_pin(c,p) or "NC")} for p in c.parsed_pins}}
+               "pin_nets": {str(p["number"]): {"name": str(p["name"]), "net": (net_for_pin(c,p) or "NC"), "electrical_type": p["electrical_type"]} for p in c.parsed_pins}}
             for c in components
         ],
         "review_gates": [
@@ -818,7 +839,7 @@ This directory is an AI-authored KiCad engineering reference. See `VALIDATION_ST
 
 ## Critical stop
 
-Do not order this board yet. An independent reviewer must close `REVIEW_CHECKLIST.md`. Automated routing and clearance/connectivity checks do not establish USB impedance, power-loop stability, current capacity, RF performance, charger safety, manufacturability or enclosure fit. All block-symbol pins currently use passive electrical types: zero ERC means connectivity checks only, not power/driver-type qualification.
+Do not order this board yet. An independent reviewer must close `REVIEW_CHECKLIST.md`. Automated routing and clearance/connectivity checks do not establish USB impedance, power-loop stability, current capacity, RF performance, charger safety, manufacturability or enclosure fit. IC pins now have explicit electrical types from manufacturer pin-function tables. ERC checks this model; it does not verify analog behavior or mode-dependent module configuration. The four source flags declare external power/ground and the analog rail after R30, not safety approval.
 
 ## Opening tomorrow
 
@@ -903,7 +924,8 @@ def main() -> None:
     if (OUT/f'{PROJECT}.kicad_pcb').exists() and not args.schematic_only and not args.rebuild_board:
         parser.error('Existing PCB preserved. Use --schematic-only for documents; --rebuild-board explicitly discards routing.')
     OUT.mkdir(parents=True, exist_ok=True)
-    build_custom_footprints()
+    if not args.schematic_only:
+        build_custom_footprints()
     # Place block symbols in rows with enough room for every label and the
     # largest module; paginate the power sheet when required.
     for sheet,_ in SHEETS:
@@ -917,7 +939,7 @@ def main() -> None:
     build_schematics()
     if not args.schematic_only:
         build_board()
-    write_support_files()
+    write_support_files(preserve_project=args.schematic_only)
     print(f"Generated {len(components)} components in {OUT}")
 
 
