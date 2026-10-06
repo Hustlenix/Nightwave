@@ -1,0 +1,26 @@
+{
+  "checked_on": "2026-10-06",
+  "manufacturer": "YAGEO",
+  "footprint": "Resistor_SMD:R_0603_1608Metric",
+  "package": "0603 / 1608, nominal 1.6 x 0.8 x 0.45 mm",
+  "tolerance_percent": 1,
+  "rated_power_w_at_70c": 0.1,
+  "limiting_element_voltage_v": 75,
+  "datasheet_base": "https://yageogroup.com/component-documentation/download/specsheet/",
+  "price_status": "QUOTE_PENDING",
+  "zero_ohm_status": "Separate jumper current rating required; not substituted automatically",
+  "by_value": {
+    "5.1k": "RC0603FR-075K1L",
+    "4.7k": "RC0603FR-074K7L",
+    "22": "RC0603FR-0722RL",
+    "33": "RC0603FR-0733RL",
+    "511k": "RC0603FR-07511KL",
+    "91k": "RC0603FR-0791KL",
+    "562k": "RC0603FR-07562KL",
+    "5.49k": "RC0603FR-075K49L",
+    "5.23k": "RC0603FR-075K23L",
+    "30.1k": "RC0603FR-0730K1L",
+    "10k": "RC0603FR-0710KL",
+    "47k": "RC0603FR-0747KL"
+  }
+}

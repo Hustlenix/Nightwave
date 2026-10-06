@@ -17,8 +17,11 @@ Console `power` exposes validity and raw charger diagnostics; physical flags
 remain false. Reference power calculations use 3.6 V BT and the 10.05 Ah
 reference pack (9.5 Ah minimum), and expose unresolved default-charge timer,
 2 A harness transient, USB source and 0..45 C charging-temperature constraints.
-42 Python tests and focused power host/ASAN tests pass locally; CI pending for
-this continuation. CAD unchanged; budget/size choice remains unanswered.
+Pushed source b7566f34de4ed5d4800aa6802087daeb4587eb0e: CI 37443602845 passed
+all 16 Release/all 16 ASAN-leak suites plus 42 Python tests; firmware CI
+37443602596 passed reference and bench builds. CAD unchanged; budget/size
+choice remains unanswered. Procurement follow-up selects 49 resistors from
+manufacturer-checked specs, retaining 48 unresolved entries and unknown total.
 
 2026-10-06 continuation (supersedes historical checkpoint details below):
 reference GPIO profile, TCA9535 button runtime with recovery, ST7789 tiled TFT

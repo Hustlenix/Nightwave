@@ -1,5 +1,14 @@
 # Hardware inventories and authority
 
+`reference-procurement.csv` is the current procurement working inventory:
+it is generated from the actual reference circuit BOM plus manufacturer-checked
+resistor MPN selections in `reference-resistor-selections.json`. Run
+`tools/build_reference_procurement.py` after changing either input. It resolves
+49 resistor positions without changing their values/footprints. Zero-ohm current
+ratings, capacitor effective capacitance, other missing MPNs and complete quotes
+remain open. Empty prices are unknown, not zero; retained older prices are marked
+historical. This file is not a completed purchasing list or an approved order.
+
 Current product choices: ESP32-S3, BM83SM1-00TA Bluetooth output, Waveshare 24382
 TFT and TCA9535PWR controls. Speaker, wired headphones, microSD, synchronized
 lyrics and rechargeable power remain in scope.

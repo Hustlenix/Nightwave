@@ -48,6 +48,8 @@ jobs:
           python3 tools/validate_reference_package.py
       - name: Test shipping artifact inventory and incomplete-cost handling
         run: python3 -m unittest discover -s tests -p 'test_shipping_readiness.py'
+      - name: Check reference procurement choices against schematic inventory
+        run: python3 -m unittest discover -s tests -p 'test_reference_procurement.py'
       - name: Test finished-device evidence inventory without certifying physical results
         run: python3 -m unittest discover -s tests -p 'test_trial_readiness.py'
       - name: Test selected-product power arithmetic and unknown measurement status

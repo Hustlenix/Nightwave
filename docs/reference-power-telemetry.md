@@ -10,10 +10,12 @@ physical run merely because registers are readable.
 
 MAX17048 voltage uses big-endian words and 78.125 microvolt units; SOC is a
 model estimate with pack/temperature compensation still unqualified. Sleep,
-wrong-family version, implausible voltage, SOC above 100%, and bus errors are
+unexpected version, implausible voltage, SOC above 100%, and bus errors are
 rejected. Its hibernate conversion interval can be 45 seconds: the timestamp is
 the register-read time, not a guarantee of a new ADC conversion. No safety
 cutoff or low-battery decision is enabled by this driver.
+The shared VERSION pattern cannot distinguish MAX17048 from MAX17049; correct
+single-cell part assembly must be checked independently.
 
 BQ25628E part identity and status are read along with little-endian configured
 charge voltage/current and input-limit registers. The input register limit is

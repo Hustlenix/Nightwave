@@ -8,7 +8,8 @@ PowerReading ReferencePower::sample(std::uint32_t now) {
     PowerReading result{}; result.sampled_ms=now;
     diagnostic_={}; // Never reuse old readings following a failed transfer.
     std::uint8_t version[2]{}, config[2]{}, cell[2]{}, soc[2]{};
-    // MAX17048 register words are MSB first. Reject sleep and wrong-family IDs.
+    // MAX17048 register words are MSB first. Reject sleep/unexpected version.
+    // VERSION alone cannot distinguish MAX17048 from MAX17049; BOM must match.
     if (bus_.read(0x36,0x08,version,2) && (be(version)&0xfff0)==0x0010 &&
         bus_.read(0x36,0x0c,config,2) && !(be(config)&0x0080) &&
         bus_.read(0x36,0x02,cell,2)) {

@@ -1,0 +1,138 @@
+Reference,Qty,Manufacturer,MPN,Value,Footprint,Datasheet,Unit_Price_USD,Supplier_URL,Status,Price_Status,Selection_Checked_On,Rating_Notes
+J1,1,GCT,USB4105-GF-A,USB4105-GF-A,Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal,https://gct.co/files/specs/usb4105-spec.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+U3,1,Texas Instruments,BQ25628ERYKR,BQ25628ERYKR,Nightwave:TI_RYK0018A,https://www.ti.com/lit/ds/symlink/bq25628e.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+U4,1,Texas Instruments,TPS22965DSGR,TPS22965DSGR,Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias,https://www.ti.com/lit/ds/symlink/tps22965.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+U5,1,Texas Instruments,TPS63802DLAR,TPS63802DLAR,Nightwave:TI_DLA0010A,https://www.ti.com/lit/ds/symlink/tps63802.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+U6,1,Texas Instruments,TPS63802DLAR,TPS63802DLAR,Nightwave:TI_DLA0010A,https://www.ti.com/lit/ds/symlink/tps63802.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+U7,1,Analog Devices,MAX17048G+T10,MAX17048G+T10,Package_DFN_QFN:TDFN-8-1EP_2x2mm_P0.5mm_EP0.8x1.2mm,https://www.analog.com/media/en/technical-documentation/data-sheets/MAX17048-MAX17049.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+J2,1,JST,S2B-PH-K-S,BATTERY_CONNECTOR,Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal,https://www.jst-mfg.com/product/pdf/eng/ePH.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+J3,1,JST,S2B-PH-K-S,EXTERNAL_10K_NTC,Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal,https://www.jst-mfg.com/product/pdf/eng/ePH.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+U1,1,Espressif Systems,ESP32-S3-WROOM-1-N16R8,ESP32-S3-WROOM-1-N16R8,RF_Module:ESP32-S3-WROOM-1,https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf,6.76,,REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+J4,1,Molex,104031-0811,Molex 104031-0811,Connector_Card:microSD_HC_Molex_104031-0811,https://www.molex.com/en-us/products/part-detail/1040310811,2.21,,REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+U8,1,Texas Instruments,PCM5102APWR,PCM5102APWR,Package_SO:Texas_PW0020A_TSSOP-20_4.4x6.5mm_P0.65mm,https://www.ti.com/lit/ds/symlink/pcm5102a.pdf,4.04,,REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+U9,1,Texas Instruments,TPA6132A2RTER,TPA6132A2RTER,Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm_ThermalVias,https://www.ti.com/lit/ds/symlink/tpa6132a2.pdf,1.10,,REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+U10,1,Analog Devices,MAX98357AETE+T,MAX98357AETE+T,Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm,https://www.analog.com/media/en/technical-documentation/data-sheets/MAX98357A-MAX98357B.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+J5,1,Same Sky,SJ3-350153AG-TR,SJ3-350153AG-TR,Nightwave:SameSky_SJ3-350153AG,https://www.sameskydevices.com/product/resource/sj3-35015x.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+J6,1,JST,S2B-PH-K-S,BTL_SPEAKER_CONNECTOR,Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal,https://www.jst-mfg.com/product/pdf/eng/ePH.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+U11,1,Texas Instruments,TCA9535PWR,TCA9535PWR,Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm,https://www.ti.com/lit/ds/symlink/tca9535.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+J7,1,JST,SM08B-GHS-TB(LF)(SN),TFT_24382_HARNESS,Connector_JST:JST_GH_SM08B-GHS-TB_1x08-1MP_P1.25mm_Horizontal,https://www.jst-mfg.com/product/pdf/eng/eGH.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+SW1,1,,PENDING_SELECTION,PREV,Button_Switch_SMD:SW_SPST_TL3342,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+SW2,1,,PENDING_SELECTION,PLAY_PAUSE,Button_Switch_SMD:SW_SPST_TL3342,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+SW3,1,,PENDING_SELECTION,NEXT,Button_Switch_SMD:SW_SPST_TL3342,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+SW4,1,,PENDING_SELECTION,VOL_DOWN,Button_Switch_SMD:SW_SPST_TL3342,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+SW5,1,,PENDING_SELECTION,VOL_UP,Button_Switch_SMD:SW_SPST_TL3342,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+U12,1,Microchip Technology,BM83SM1-00TA,BM83SM1-00TA,Nightwave:Microchip_BM83_GroundLands,https://ww1.microchip.com/downloads/en/DeviceDoc/BM83-Bluetooth-Stereo-Audio-Module-Data-Sheet-DS70005402D.pdf,12.20,,REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+SW6,1,,PENDING_SELECTION,MAIN_POWER,Button_Switch_SMD:SW_SPDT_PCM12,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+J8,1,,PENDING_SELECTION,UART0_SERVICE,Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+TP1,1,,NO_PURCHASE,VBUS5,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP2,1,,NO_PURCHASE,BAT,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP3,1,,NO_PURCHASE,SYS,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP4,1,,NO_PURCHASE,VSYS_SW,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP5,1,,NO_PURCHASE,+3V3,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP6,1,,NO_PURCHASE,+3V6_BT,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP7,1,,NO_PURCHASE,I2C_SDA,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP8,1,,NO_PURCHASE,I2C_SCL,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP9,1,,NO_PURCHASE,I2S_BCLK,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP10,1,,NO_PURCHASE,I2S_LRCLK,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP11,1,,NO_PURCHASE,I2S_DOUT,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP12,1,,NO_PURCHASE,GND,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP13,1,,NO_PURCHASE,BT_SERVICE_P34,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP14,1,,NO_PURCHASE,BT_LED,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP15,1,,NO_PURCHASE,BT_STATE,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+TP16,1,,NO_PURCHASE,HP_DETECT,TestPoint:TestPoint_Pad_D1.0mm,,,,PCB_FEATURE,NO_PURCHASE,,
+R1,1,YAGEO,RC0603FR-075K1L,5.1k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-075K1L,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R2,1,YAGEO,RC0603FR-075K1L,5.1k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-075K1L,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R3,1,YAGEO,RC0603FR-074K7L,4.7k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-074K7L,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R4,1,YAGEO,RC0603FR-074K7L,4.7k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-074K7L,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R5,1,YAGEO,RC0603FR-0722RL,22,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0722RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R6,1,YAGEO,RC0603FR-0722RL,22,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0722RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R7,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R8,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R9,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R10,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R11,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R12,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R13,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R14,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R15,1,YAGEO,RC0603FR-0733RL,33,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0733RL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+C1,1,,PENDING_SELECTION,10u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C2,1,,PENDING_SELECTION,10u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C3,1,,PENDING_SELECTION,22u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C4,1,,PENDING_SELECTION,22u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C5,1,,PENDING_SELECTION,22u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C6,1,,PENDING_SELECTION,22u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C7,1,,PENDING_SELECTION,10u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C8,1,,PENDING_SELECTION,4.7u,Capacitor_SMD:C_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+L1,1,Coilcraft,XFL4015-471MEC,0.47uH XFL4015-471MEC,Nightwave:Coilcraft_XFL4015,https://www.coilcraft.com/getmedia/84927b8b-f089-421b-a7f4-a0fa23afe908/xfl4015.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+L2,1,Coilcraft,XFL4015-471MEC,0.47uH XFL4015-471MEC,Nightwave:Coilcraft_XFL4015,https://www.coilcraft.com/getmedia/84927b8b-f089-421b-a7f4-a0fa23afe908/xfl4015.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+L3,1,Coilcraft,XFL4015-701MEC,0.7uH XFL4015-701MEC,Nightwave:Coilcraft_XFL4015,https://www.coilcraft.com/getmedia/84927b8b-f089-421b-a7f4-a0fa23afe908/xfl4015.pdf,,,REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+R16,1,YAGEO,RC0603FR-07511KL,511k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-07511KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R17,1,YAGEO,RC0603FR-0791KL,91k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0791KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R18,1,YAGEO,RC0603FR-07562KL,562k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-07562KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R19,1,YAGEO,RC0603FR-0791KL,91k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0791KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R20,1,YAGEO,RC0603FR-075K49L,5.49k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-075K49L,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R21,1,YAGEO,RC0603FR-075K23L,5.23k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-075K23L,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R22,1,YAGEO,RC0603FR-0730K1L,30.1k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0730K1L,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R23,1,,PENDING_SELECTION,0,Resistor_SMD:R_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+R24,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R25,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R26,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R27,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R28,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R29,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R30,1,,PENDING_SELECTION,0,Resistor_SMD:R_0603_1608Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+R31,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R32,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R33,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R34,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R35,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R36,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R37,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R38,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R39,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R40,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R41,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R42,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R43,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R44,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R45,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R46,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R47,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+C9,1,,PENDING_SELECTION,47n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C10,1,,PENDING_SELECTION,10u/25V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C11,1,,PENDING_SELECTION,10u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C12,1,,PENDING_SELECTION,22u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C13,1,,PENDING_SELECTION,10u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C14,1,,PENDING_SELECTION,22u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C15,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C16,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C17,1,,PENDING_SELECTION,10u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C18,1,,PENDING_SELECTION,1u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C19,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C20,1,,PENDING_SELECTION,10u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C21,1,,PENDING_SELECTION,2.2u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C22,1,,PENDING_SELECTION,2.2u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C23,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C24,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C25,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C26,1,,PENDING_SELECTION,1u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C27,1,,PENDING_SELECTION,1u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C28,1,,PENDING_SELECTION,2.2u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C29,1,,PENDING_SELECTION,1u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C30,1,,PENDING_SELECTION,1u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C31,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C32,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C33,1,,PENDING_SELECTION,10u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C34,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C35,1,,PENDING_SELECTION,10u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C36,1,,PENDING_SELECTION,10u/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+C37,1,,PENDING_SELECTION,100n/10V,Capacitor_SMD:C_0805_2012Metric,,,,MPN_PENDING_SELECTION,QUOTE_PENDING,,
+R48,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R49,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R50,1,YAGEO,RC0603FR-0710KL,10k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0710KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+R51,1,YAGEO,RC0603FR-0747KL,47k,Resistor_SMD:R_0603_1608Metric,https://yageogroup.com/component-documentation/download/specsheet/RC0603FR-0747KL,,,MPN_SELECTED_APPLICATION_REVIEW_REQUIRED,QUOTE_PENDING,2026-10-06,1%; 0.1 W at 70 C; 75 V limiting element voltage; power/thermal derating applies
+OFFBOARD_BAT,1,Adafruit,5035,Protected 1S 10050mAh; connector limited to 2 A; polarity/pack fit pending,OFF_BOARD_NOT_A_PCB_FOOTPRINT,https://www.adafruit.com/product/5035,29.95,https://www.adafruit.com/product/5035,OFFBOARD_REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+OFFBOARD_SPK,1,Same Sky,CMS-28528N-L152,Speaker; terminate harness for J6,OFF_BOARD_NOT_A_PCB_FOOTPRINT,https://www.sameskydevices.com/product/resource/cms-28528n-l152.pdf,4.76,https://www.sameskydevices.com/product/resource/cms-28528n-l152.pdf,OFFBOARD_REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+OFFBOARD_TFT,1,Waveshare,24382,240x280 TFT module; custom J7 harness,OFF_BOARD_NOT_A_PCB_FOOTPRINT,https://www.waveshare.com/wiki/1.69inch_LCD_Module,9.49,https://www.waveshare.com/wiki/1.69inch_LCD_Module,OFFBOARD_REFERENCE_REVIEW_REQUIRED,HISTORICAL_SNAPSHOT_REQUOTE,,
+OFFBOARD_NTC,1,,PENDING_SELECTION,"10k NTC; verify B curve, tolerances and insulated battery attachment",OFF_BOARD_NOT_A_PCB_FOOTPRINT,,,,OFFBOARD_REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,
+OFFBOARD_HARNESS,1,,PENDING_SELECTION,"PH/GH housings, contacts and wires; polarity and wire rating review required",OFF_BOARD_NOT_A_PCB_FOOTPRINT,,,,OFFBOARD_REFERENCE_REVIEW_REQUIRED,QUOTE_PENDING,,

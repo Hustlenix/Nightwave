@@ -35,8 +35,13 @@ power telemetry are implemented; host conversion/failure tests pass locally.
 The new reference-specific power calculation exposes concrete blockers:
 320 mA default charging versus 10.05 Ah/12-hour timer, >2 A transient harness
 screen, USB current permission and pack-compatible temperature policy.
-These are not resolved by reading registers. Native firmware CI for this
-continuation must pass before it is described as a verified checkpoint.
+These are not resolved by reading registers. Source
+b7566f34de4ed5d4800aa6802087daeb4587eb0e is pushed. Quality run
+[37443602845](https://github.com/Hustlenix/Nightwave/actions/runs/37443602845)
+passed 16 Release/16 ASAN-leak suites and 42 Python tests; both firmware
+profiles passed [37443602596](https://github.com/Hustlenix/Nightwave/actions/runs/37443602596).
+Procurement follow-up resolves 49 resistor MPNs against primary manufacturer
+specifications; 48 other entries and complete current pricing remain open.
 
 | Work | Exit evidence |
 | --- | --- |
