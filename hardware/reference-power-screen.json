@@ -1,0 +1,159 @@
+{
+  "basis": "ESTIMATED_INPUTS_CALCULATED_OUTPUTS_NOT_MEASURED",
+  "hardware": {
+    "charger": "BQ25628ERYKR",
+    "bt_rail_v": 3.6,
+    "pack_reference": "Adafruit 5035",
+    "pack_typical_mah": 10050,
+    "pack_minimum_mah": 9500,
+    "pack_harness_limit_ma": 2000
+  },
+  "battery_locked": false,
+  "fabrication_approved": false,
+  "measured_runtime_hours": null,
+  "profiles": {
+    "idle_lit_bt_retained": {
+      "main_3v3_ma": 205.0,
+      "main_output_w": 0.6765,
+      "regulator_loss_w": 0.15114705882352944,
+      "audio_input_w": 0.0,
+      "bt_output_w": 0.18,
+      "cell_equivalent_w": 1.0326470588235295,
+      "cell_current_at_3v2_ma": 322.7022058823529,
+      "cell_current_with_margin_ma": 387.2426470588235,
+      "typical_capacity_10050mah": {
+        "required_capacity_mah": 4186.406995230524,
+        "estimated_runtime_hours": 19.205012816861295,
+        "usable_energy_wh": 23.798400000000004
+      },
+      "minimum_capacity_9500mah": {
+        "required_capacity_mah": 4186.406995230524,
+        "estimated_runtime_hours": 18.15399221494351,
+        "usable_energy_wh": 22.496000000000002
+      }
+    },
+    "speaker_typical_bt_retained": {
+      "main_3v3_ma": 363.0,
+      "main_output_w": 1.1979,
+      "regulator_loss_w": 0.24315882352941182,
+      "audio_input_w": 0.3125,
+      "bt_output_w": 0.18,
+      "cell_equivalent_w": 1.9585588235294116,
+      "cell_current_at_3v2_ma": 612.0496323529411,
+      "cell_current_with_margin_ma": 734.4595588235293,
+      "typical_capacity_10050mah": {
+        "required_capacity_mah": 7940.103338632748,
+        "estimated_runtime_hours": 10.125812797525194,
+        "usable_energy_wh": 23.798400000000004
+      },
+      "minimum_capacity_9500mah": {
+        "required_capacity_mah": 7940.103338632748,
+        "estimated_runtime_hours": 9.57166383845665,
+        "usable_energy_wh": 22.496000000000002
+      }
+    },
+    "wired_typical_bt_retained": {
+      "main_3v3_ma": 363.0,
+      "main_output_w": 1.1979,
+      "regulator_loss_w": 0.24315882352941182,
+      "audio_input_w": 0.024999999999999998,
+      "bt_output_w": 0.18,
+      "cell_equivalent_w": 1.6710588235294115,
+      "cell_current_at_3v2_ma": 522.2058823529411,
+      "cell_current_with_margin_ma": 626.6470588235293,
+      "typical_capacity_10050mah": {
+        "required_capacity_mah": 6774.562798092208,
+        "estimated_runtime_hours": 11.867924528301891,
+        "usable_energy_wh": 23.798400000000004
+      },
+      "minimum_capacity_9500mah": {
+        "required_capacity_mah": 6774.562798092208,
+        "estimated_runtime_hours": 11.218436121280394,
+        "usable_energy_wh": 22.496000000000002
+      }
+    },
+    "bluetooth_typical_local_muted": {
+      "main_3v3_ma": 363.0,
+      "main_output_w": 1.1979,
+      "regulator_loss_w": 0.24315882352941182,
+      "audio_input_w": 0.0,
+      "bt_output_w": 0.18,
+      "cell_equivalent_w": 1.6460588235294116,
+      "cell_current_at_3v2_ma": 514.3933823529411,
+      "cell_current_with_margin_ma": 617.2720588235293,
+      "typical_capacity_10050mah": {
+        "required_capacity_mah": 6673.211446740857,
+        "estimated_runtime_hours": 12.048172104492016,
+        "usable_energy_wh": 23.798400000000004
+      },
+      "minimum_capacity_9500mah": {
+        "required_capacity_mah": 6673.211446740857,
+        "estimated_runtime_hours": 11.388819402256134,
+        "usable_energy_wh": 22.496000000000002
+      }
+    },
+    "worst_practical": {
+      "main_3v3_ma": 523.0,
+      "main_output_w": 1.7258999999999998,
+      "regulator_loss_w": 0.5214749999999999,
+      "audio_input_w": 1.3333333333333333,
+      "bt_output_w": 0.36,
+      "cell_equivalent_w": 3.9657083333333327,
+      "cell_current_at_3v2_ma": 1239.2838541666665,
+      "cell_current_with_margin_ma": 1487.1406249999998,
+      "typical_capacity_10050mah": {
+        "required_capacity_mah": 16077.195945945941,
+        "estimated_runtime_hours": 5.000872059426124,
+        "usable_energy_wh": 23.798400000000004
+      },
+      "minimum_capacity_9500mah": {
+        "required_capacity_mah": 16077.195945945941,
+        "estimated_runtime_hours": 4.727192493984893,
+        "usable_energy_wh": 22.496000000000002
+      }
+    },
+    "transient_not_runtime": {
+      "main_3v3_ma": 823.0,
+      "main_output_w": 2.7158999999999995,
+      "regulator_loss_w": 0.7689749999999999,
+      "audio_input_w": 2.6666666666666665,
+      "bt_output_w": 0.36,
+      "cell_equivalent_w": 6.5365416666666665,
+      "cell_current_at_3v2_ma": 2042.6692708333333,
+      "cell_current_with_margin_ma": 2451.203125
+    }
+  },
+  "charger_reset": {
+    "charge_ma": 320,
+    "voltage_mv": 4200,
+    "fast_charge_timer_hours": 12,
+    "input_register_ma": 1600,
+    "ilim_typical_ma": 455.3734061930783
+  },
+  "charging": {
+    "system_off_allowance": {
+      "optimistic_charge_current_ma": 320.0,
+      "optimistic_charge_hours": 40.828125,
+      "minimum_source_ma_energy_only": 323.29411764705884,
+      "safe_charge_configuration_established": false
+    },
+    "speaker_playback": {
+      "optimistic_charge_current_ma": 0.0,
+      "optimistic_charge_hours": null,
+      "minimum_source_ma_energy_only": 777.0726643598615,
+      "safe_charge_configuration_established": false
+    }
+  },
+  "blocking_findings": [
+    "No source detection/enumeration/suspend policy; 455 mA typical ILIM is not USB authorization",
+    "10050 mAh / 320 mA = 31.4 h ideal CC, longer than 12 h default fast-charge timer; not a complete charging design",
+    "Transient load screen exceeds the pack harness 2 A limit; current/load limiting or an approved alternative is required",
+    "Pack specifies charging 0..45 C; reference NTC and JEITA defaults require an explicit compatible-temperature review",
+    "Charger CE tied low and no qualified charging-control backend; telemetry cannot enforce safe reset behavior",
+    "Power loop geometry, effective capacitor bias, thermal rise, USB protection and actual currents remain unqualified"
+  ],
+  "sources": [
+    "https://www.ti.com/lit/ds/symlink/bq25628e.pdf",
+    "https://www.adafruit.com/product/5035"
+  ]
+}

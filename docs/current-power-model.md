@@ -2,6 +2,13 @@
 
 ## Reference-circuit override - 2026-10-06
 
+The reference-specific screening now lives in `tools/reference_power_budget.py`
+and [its saved report](../hardware/reference-power-screen.json): 3.6 V BT rail,
+10.05 Ah typical / 9.5 Ah minimum reference pack, retained BT load, regulator
+losses, runtime sensitivities, reset charging and harness-current checks. This
+supersedes the generic rail/pack assumptions below for the reference circuit.
+It explicitly fails the existing timer, USB permission and peak harness gates.
+
 This remains a load sensitivity model, **not the final reference-circuit power
 model**. The AI-authored KiCad candidate now uses BQ25628E switching charging,
 dual TPS63802 rails and TPS22965 switching. Its provisional Adafruit 5035 pack

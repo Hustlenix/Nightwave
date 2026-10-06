@@ -189,3 +189,12 @@ add_test(
     NAME nightwave_host_tests
     COMMAND nightwave_host_tests ${CMAKE_CURRENT_LIST_DIR}/../.generated/test-media/02_left_right_stereo_44100.wav
 )
+add_executable(nightwave_reference_power_tests reference_power_tests.cpp
+    ../firmware/components/power/reference_power.cpp)
+target_include_directories(nightwave_reference_power_tests PRIVATE ../firmware/components/power/include)
+if(MSVC)
+    target_compile_options(nightwave_reference_power_tests PRIVATE /W4 /WX /UNDEBUG)
+else()
+    target_compile_options(nightwave_reference_power_tests PRIVATE -Wall -Wextra -Wpedantic -Werror -UNDEBUG)
+endif()
+add_test(NAME nightwave_reference_power_tests COMMAND nightwave_reference_power_tests)

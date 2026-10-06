@@ -54,6 +54,10 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_product_power_budget.py'
       - name: Calculate selected-product screening model
         run: python3 tools/product_power_budget.py
+      - name: Check reference-circuit power screening and unresolved safety gates
+        run: |
+          python3 -m unittest discover -s tests -p 'test_reference_power_budget.py'
+          python3 tools/reference_power_budget.py
       - name: Generate deterministic audio fixtures
         run: python3 tools/generate_test_media.py --output .generated/test-media
       - name: Encode original MP3 fixtures

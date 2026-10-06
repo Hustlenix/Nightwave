@@ -3,6 +3,7 @@ idf_component_register(
     INCLUDE_DIRS "."
     PRIV_REQUIRES
         app_state
+        board_io
         storage
         library
         decoder

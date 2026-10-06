@@ -2,6 +2,7 @@
 #include "nightwave/button_gestures.h"
 #include "nightwave/hardware_config.h"
 #include "nightwave/tca9535_i2c.h"
+#include "nightwave/board_i2c.h"
 #include "driver/gpio.h"
 #include "esp_log.h"
 #include "esp_timer.h"
@@ -15,18 +16,12 @@ constexpr char kTag[] = "buttons";
 #if defined(CONFIG_NIGHTWAVE_REFERENCE_BOARD) && CONFIG_NIGHTWAVE_REFERENCE_BOARD
 Tca9535I2c bus;
 Tca9535Input expander(bus);
-i2c_master_bus_handle_t owned_bus = nullptr;
+bool attached = false;
 bool initialize_source() {
-    if (!owned_bus) {
-        i2c_master_bus_config_t cfg{};
-        cfg.i2c_port = I2C_NUM_0;
-        cfg.sda_io_num = static_cast<gpio_num_t>(hardware::kI2cSda);
-        cfg.scl_io_num = static_cast<gpio_num_t>(hardware::kI2cScl);
-        cfg.clk_source = I2C_CLK_SRC_DEFAULT; cfg.glitch_ignore_cnt = 7;
-        if (i2c_new_master_bus(&cfg, &owned_bus) != ESP_OK) return false;
-        if (!bus.attach(owned_bus, reference_board::kTcaAddress)) {
-            i2c_del_master_bus(owned_bus); owned_bus = nullptr; return false;
-        }
+    if (!attached) {
+        const auto shared=reference_i2c_bus();
+        if (!shared || !bus.attach(shared, reference_board::kTcaAddress)) return false;
+        attached=true;
     }
     return expander.initialize();
 }

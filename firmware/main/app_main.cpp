@@ -21,6 +21,8 @@
 #include "nightwave/engineering_report.h"
 #include "nightwave/bluetooth_source.h"
 #include "nightwave/power_hal.h"
+#include "nightwave/power_i2c.h"
+#include "nightwave/board_i2c.h"
 #include "nightwave/bm83_at_codec.h"
 #include "nightwave/runtime_recorder.h"
 #include "esp_heap_caps.h"
@@ -45,7 +47,12 @@ nightwave::PlayerFrontend g_frontend(g_storage, g_player, g_audio, g_buttons);
 SemaphoreHandle_t g_commands = nullptr;
 nightwave::UnavailableBluetooth g_bluetooth_backend;
 nightwave::BluetoothSource g_bluetooth(g_bluetooth_backend);
+#if defined(CONFIG_NIGHTWAVE_REFERENCE_BOARD) && CONFIG_NIGHTWAVE_REFERENCE_BOARD
+nightwave::PowerI2c g_power_bus;
+nightwave::ReferencePower g_power(g_power_bus);
+#else
 nightwave::UnavailablePower g_power;
+#endif
 nightwave::RuntimeRecorder g_runtime;
 std::uint64_t g_runtime_sampled_ms = 0, g_runtime_reported_ms = 0;
 
@@ -61,7 +68,7 @@ nightwave::RuntimeObservation runtime_observation() {
         route == nightwave::OutputPath::kLine ? nightwave::RuntimeRoute::kWired : nightwave::RuntimeRoute::kMuted;
     o.volume = g_player.requested_volume();
     o.power = g_power.sample(static_cast<std::uint32_t>(o.monotonic_ms));
-    // UnavailablePower and the untested bench route cannot certify a battery run.
+    // Readable registers do not qualify the pack, model, or physical audio route.
     return o;
 }
 void print_runtime() {
@@ -117,6 +124,7 @@ void print_help() {
         "  volume <0..100>               ramped digital volume\n"
         "  stop                          stop playback and mute outputs\n"
         "  status                        queue/underrun/error counters\n"
+        "  power                         read-only gauge/charger diagnostics\n"
         "  mode <normal|shuffle|all|track> playback sequence mode\n"
         "  sleep <off|15|30|45|60|end>    ramp/stop/display sleep timer\n"
         "  seek <milliseconds>           WAV seek / indexed MP3 with safe fallback\n"
@@ -282,6 +290,18 @@ void execute_command(char* line) {
         report.psram_free = heap_caps_get_free_size(MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
         std::array<char, 1024> json{};
         if (nightwave::format_engineering_report(report, json.data(), json.size())) std::puts(json.data());
+    } else if (std::strcmp(command, "power") == 0) {
+        const auto p=g_power.sample(static_cast<std::uint32_t>(esp_timer_get_time()/1000));
+        std::printf("{\"type\":\"nightwave_power\",\"schema\":1,\"voltage_valid\":%s,\"battery_mv\":%u,\"soc_valid\":%s,\"soc_estimate_percent\":%u,\"charging_valid\":%s,\"charging\":%s,\"source\":%u,\"physically_qualified\":false}\n",
+            p.voltage_valid?"true":"false",unsigned(p.state.battery_millivolts),
+            p.charge_percent_valid?"true":"false",unsigned(p.state.state_of_charge_percent),
+            p.charging_valid?"true":"false",p.state.charging?"true":"false",unsigned(p.state.source));
+#if defined(CONFIG_NIGHTWAVE_REFERENCE_BOARD) && CONFIG_NIGHTWAVE_REFERENCE_BOARD
+        const auto d=g_power.diagnostic();
+        std::printf("{\"type\":\"nightwave_charger_registers\",\"valid\":%s,\"status0\":%u,\"status1\":%u,\"faults\":%u,\"charge_limit_ma\":%u,\"voltage_limit_mv\":%u,\"input_register_limit_ma\":%u,\"charge_configuration_approved\":false}\n",
+            d.valid?"true":"false",unsigned(d.status0),unsigned(d.status1),unsigned(d.faults),
+            unsigned(d.charge_limit_ma),unsigned(d.voltage_limit_mv),unsigned(d.input_limit_ma));
+#endif
     } else if (std::strcmp(command, "status") == 0) {
         const auto status = nightwave::capture_diagnostics(
             g_player.underruns(), g_storage.errors(), g_player.errors(),
@@ -317,6 +337,7 @@ void execute_command(char* line) {
 extern "C" void app_main() {
     ESP_LOGW(kTag, "Board profile: %s; hardware remains unqualified", nightwave::hardware::kReferenceBoard ? "REFERENCE PCB / TFT / TCA9535" : "LEGACY BENCH / OLED / GPIO buttons");
     g_audio.initialize_safe_outputs();
+    if (!nightwave::prepare_board_i2c()) ESP_LOGE(kTag, "shared I2C unavailable; devices will retry");
     nightwave::log_boot_diagnostics();
     if (!g_buttons.start()) ESP_LOGE(kTag, "button monitor failed to start");
     if (!g_storage.mount()) {

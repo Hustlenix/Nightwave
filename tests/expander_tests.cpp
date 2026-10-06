@@ -21,7 +21,7 @@ esp_err_t i2c_master_bus_add_device(i2c_master_bus_handle_t bus, const i2c_devic
                                   i2c_master_dev_handle_t* out) {
     check(bus == &bus_token && config && out);
     check(config->device_address >= 0x20 && config->device_address <= 0x27);
-    check(config->dev_addr_length == I2C_ADDR_BIT_LEN_7 && config->scl_speed_hz == 400000);
+    check(config->dev_addr_length == I2C_ADDR_BIT_LEN_7 && config->scl_speed_hz == 100000);
     ++adds;
     if (add_failure) return ESP_ERR_TIMEOUT;
     *out = &device_token;

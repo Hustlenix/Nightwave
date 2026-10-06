@@ -10,6 +10,16 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-06 power continuation: shared board I2C owner replaces InputTask bus
+ownership. ReferencePower reads MAX17048 and BQ25628E with identity, bounds,
+failure invalidation, opposite word endianness and no charging register writes.
+Console `power` exposes validity and raw charger diagnostics; physical flags
+remain false. Reference power calculations use 3.6 V BT and the 10.05 Ah
+reference pack (9.5 Ah minimum), and expose unresolved default-charge timer,
+2 A harness transient, USB source and 0..45 C charging-temperature constraints.
+42 Python tests and focused power host/ASAN tests pass locally; CI pending for
+this continuation. CAD unchanged; budget/size choice remains unanswered.
+
 2026-10-06 continuation (supersedes historical checkpoint details below):
 reference GPIO profile, TCA9535 button runtime with recovery, ST7789 tiled TFT
 renderer/ESP-IDF SPI adapter and separate legacy bench profile implemented.

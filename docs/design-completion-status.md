@@ -30,6 +30,14 @@ Both reference and legacy bench ESP32-S3 jobs passed in
 
 ## Still open; do not label the design complete
 
+Continuation after add9625: shared I2C ownership and read-only MAX17048/BQ25628E
+power telemetry are implemented; host conversion/failure tests pass locally.
+The new reference-specific power calculation exposes concrete blockers:
+320 mA default charging versus 10.05 Ah/12-hour timer, >2 A transient harness
+screen, USB current permission and pack-compatible temperature policy.
+These are not resolved by reading registers. Native firmware CI for this
+continuation must pass before it is described as a verified checkpoint.
+
 | Work | Exit evidence |
 | --- | --- |
 | Pixl authorship eligibility | Organizer clarification covering the actual AI-authored CAD, plus honest disclosure |

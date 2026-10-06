@@ -7,7 +7,8 @@ uses the selected S3/BM83, Waveshare 24382 and TCA9535 architecture.
 Its [numbered GPIO map](hardware/kicad/nightwave-reference/FINAL_GPIO_MAP.md)
 is checked against the [reference firmware profile](docs/reference-board-firmware.md).
 TFT and expander button transports are implemented but not physically qualified;
-Bluetooth and power monitoring still have unavailable runtime backends.
+Bluetooth still has an unavailable runtime backend. Power monitoring now has
+a read-only shared-I2C adapter; charging control/shutdown remain unqualified.
 The reference circuit uses BQ25628E, dual TPS63802, TPS22965, MAX17048,
 PCM5102A, TPA6132A2 and MAX98357A. Earlier BQ24074/BQ25185 charger options
 and old direct-button/OLED maps below are historical alternatives, not its BOM.

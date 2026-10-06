@@ -48,9 +48,10 @@ block the separate audio task, but end-to-end UI/audio scheduling needs profilin
 Backlight is only enabled after a complete first frame; transport failures turn
 it off and release the bus. Display failure does not imply playback failure.
 
-InputTask currently owns I2C0 in the reference profile. Future charger/gauge
-drivers must share this bus handle through a single board-bus owner; they must
-not create a second I2C0 driver. Legacy OLED owns I2C0 only in the bench profile.
+The board_io component owns I2C0 in the reference profile. Inputs and read-only
+power telemetry borrow the same lifetime-long bus, with serialized creation and
+retry. All reference devices use 100 kHz. Legacy OLED owns I2C0 only in bench
+mode. See [power telemetry and limits](reference-power-telemetry.md).
 
 ## Test boundaries
 
@@ -60,7 +61,9 @@ recovery, and real audio-adapter GPIO calls under both profiles. Native ESP-IDF
 builds are separate from host tests. None measures LCD appearance, sound,
 Bluetooth interoperability, charger safety or battery runtime.
 
-Bluetooth and power monitoring in app_main still use unavailable backends.
+Bluetooth in app_main still uses an unavailable backend. Reference power
+monitoring now reads actual gauge/charger registers when present, but does not
+configure charging, implement shutdown, or qualify the pack/safety policy.
 This checkpoint does not claim a completed integrated player. The physical
 qualification flags deliberately remain false.
 
