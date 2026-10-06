@@ -10,6 +10,16 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+Latest verified continuation: source `161cbc9711793a3932db5e07af251155a77d53fb`
+is pushed to main. Quality CI `37445159892` passed 18 Release suites, 18 ASAN/leak
+suites, 46 Python tests and project/reference validation. Firmware CI
+`37445159915` passed both reference and bench ESP32-S3 builds. Shared I2C device
+registration is now serialized; borrowed device handles cannot be deleted by
+the input adapter. Actual adapter host tests cover concurrent startup, retries,
+timeouts and partial failed reads without publishing corrupt samples. Charger
+timer screening correction below is included in this revision. CAD unchanged;
+remaining electrical, procurement, enclosure and review gates are not cleared.
+
 2026-10-06 power continuation: shared board I2C owner replaces InputTask bus
 ownership. ReferencePower reads MAX17048 and BQ25628E with identity, bounds,
 failure invalidation, opposite word endianness and no charging register writes.

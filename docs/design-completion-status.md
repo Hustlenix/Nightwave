@@ -20,6 +20,19 @@ not a claim. This document is engineering status, not a personal work journal.
 
 ## Executed checkpoint evidence
 
+Latest software source `161cbc9711793a3932db5e07af251155a77d53fb` is pushed to
+`main`. [Quality run 37445159892](https://github.com/Hustlenix/Nightwave/actions/runs/37445159892)
+passed all 18 Release suites, all 18 ASAN/leak suites, 46 Python tests and the
+project/reference validators. Both reference and bench ESP32-S3 builds passed
+[firmware run 37445159915](https://github.com/Hustlenix/Nightwave/actions/runs/37445159915).
+This adds serialized shared-I2C device registration and host concurrency,
+ownership, timeout and partial-read failure tests against the actual adapters.
+Charger timer screening now uses the Rev C table values (10.5 h minimum,
+14.5 h nominal, 15.5 h maximum), with the conflicting 12 h prose recorded.
+These changes do not alter or qualify the PCB, battery, USB interface or enclosure.
+
+Earlier native CAD checkpoint (CAD unchanged by the latest software source):
+
 Source `add96254341f786c73a4e9cfb6795bf37f1b4b58` is pushed to `main`.
 [Project quality run 37441295569](https://github.com/Hustlenix/Nightwave/actions/runs/37441295569)
 passed all 15 Release suites, all 15 AddressSanitizer/leak suites, 39 Python
