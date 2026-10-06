@@ -1,5 +1,16 @@
 # phases.md
 
+## Current execution override - 2026-10-06
+
+The user subsequently authorized implementation of a separate AI-authored PCB
+reference; preserve the original builder starter and disclose the distinction.
+BD-14/15/16 are selected, and the reference GPIO/firmware map exists. Do not
+repeat those decisions as unanswered. Current work and exit evidence are in
+[the completion ledger](docs/design-completion-status.md), which supersedes
+historical workflow and completion claims below. Native checks do not approve
+fabrication, funding eligibility or T4. Power/procurement, integrated Bluetooth,
+enclosure and independent human review remain open before design submission.
+
 # Nightwave — End-to-End Execution Plan for ChatGPT Work
 
 ## Execution philosophy

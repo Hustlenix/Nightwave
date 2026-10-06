@@ -16,8 +16,12 @@ renderer/ESP-IDF SPI adapter and separate legacy bench profile implemented.
 Typed active-symbol ERC and four explicit supply declarations replace the
 all-passive model. Local native ERC/DRC/unconnected/parity counts are zero;
 39 Python tests, project/package/pin validators and focused host tests pass.
-Full current-revision Release/ASAN and both firmware profile CI runs are pending.
-Do not reuse older green CI as proof for this new source. See
+Source add96254341f786c73a4e9cfb6795bf37f1b4b58 was committed and pushed.
+Quality CI 37441295569 passed all 15 Release and all 15 ASAN/leak suites plus
+39 Python tests and project/reference validators. Firmware CI 37441295524
+passed both reference and legacy bench ESP32-S3 profiles. Native ERC negative
+controls caught deliberately conflicting output drivers and missing battery
+supply declarations. Older green CI is not proof for later source changes. See
 docs/design-completion-status.md for remaining power, procurement, Bluetooth,
 mechanical, review and eligibility gates. No fabrication approval or physical
 performance is claimed. Starter project/user changes remain preserved.

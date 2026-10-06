@@ -1,5 +1,19 @@
 # Architecture.md
 
+## Current implementation override - 2026-10-06
+
+The separately disclosed AI-authored [reference PCB](hardware/kicad/nightwave-reference/README.md)
+uses the selected S3/BM83, Waveshare 24382 and TCA9535 architecture.
+Its [numbered GPIO map](hardware/kicad/nightwave-reference/FINAL_GPIO_MAP.md)
+is checked against the [reference firmware profile](docs/reference-board-firmware.md).
+TFT and expander button transports are implemented but not physically qualified;
+Bluetooth and power monitoring still have unavailable runtime backends.
+The reference circuit uses BQ25628E, dual TPS63802, TPS22965, MAX17048,
+PCM5102A, TPA6132A2 and MAX98357A. Earlier BQ24074/BQ25185 charger options
+and old direct-button/OLED maps below are historical alternatives, not its BOM.
+See [remaining completion gates](docs/design-completion-status.md). No pack,
+fabrication approval or physical runtime is locked by this architecture.
+
 # Nightwave — Technical Architecture
 
 ## 2026-10-01 final execution scope override

@@ -1,5 +1,18 @@
 # Selected-product power screening — 2026-10-03
 
+## Reference-circuit override - 2026-10-06
+
+This remains a load sensitivity model, **not the final reference-circuit power
+model**. The AI-authored KiCad candidate now uses BQ25628E switching charging,
+dual TPS63802 rails and TPS22965 switching. Its provisional Adafruit 5035 pack
+is not a locked/approved battery. BQ25185 linear-charger analysis below is
+historical and must not be used to configure or approve that reference board.
+Existing 6.6 Ah examples are hypothetical, not the reference pack's runtime.
+The reference uses 5.49 kohm ILIM (about 455 mA typical), but USB permission,
+component tolerance, startup/suspend, watchdog defaults and full load balance
+still need resolution. Neither the old calculations nor zero DRC authorize
+connecting a battery. See [completion gates](design-completion-status.md).
+
 Hardware decisions are now S3 + BM83SM1-00TA and Waveshare **24382**, non-touch
 240x280 ST7789V2, plus builder-selected TCA9535PWR input expansion (BD-16).
 Its IC and pull-up load are included only in the estimated 5 mA support allowance;

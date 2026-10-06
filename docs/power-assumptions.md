@@ -1,5 +1,13 @@
 # Power design constraints and unresolved decisions
 
+2026-10-06 override: BQ25628E is implemented in the separate AI-authored
+reference, not a builder-approved final power circuit. Earlier statements below
+that it is only an unselected alternative describe the historical research.
+Dual TPS63802 and TPS22965 are present there; BQ25185 is not. The reference's
+USB source policy, thermal/current limits, pack/NTC and firmware defaults still
+need review. See [current model caveat](current-power-model.md) and
+[completion ledger](design-completion-status.md).
+
 2026-10-03 scope: BM83SM1-00TA and Waveshare 24382 non-touch are selected.
 [Current selected-product screening](current-power-model.md) supersedes the old
 OLED/6600 mAh examples, which are historical screening, not current product power

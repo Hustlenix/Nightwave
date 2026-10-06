@@ -1,5 +1,15 @@
 # design.md
 
+## Current implementation override - 2026-10-06
+
+A separate AI-authored reference PCB and board STEP now exist at the user's
+request. The historical no-AI-CAD workflow below no longer describes those
+artifacts; authorship must be disclosed and eligibility resolved with Pixl.
+The board alone is 110 x 100 mm. No enclosure CAD or assembled fit verification
+is complete. Waveshare 24382, two antenna exclusion regions, battery retention,
+speaker, USB/headphone access and physical controls remain mandatory mechanical
+requirements. Do not call the board STEP an enclosure or a finished pocket design.
+
 # Nightwave — Physical + Interface Design System
 
 2026-10-01 visual scope override: original angular industrial/comic-tech identity,

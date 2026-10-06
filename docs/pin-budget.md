@@ -1,5 +1,12 @@
 # ESP32-S3 Pin Budget
 
+2026-10-06: the reference profile now implements this board's numbered mapping;
+`tools/validate_reference_firmware.py` checks all 25 assigned GPIO against the
+schematic manifest. GPIO21 receives optional BM83 MCLK and GPIO10 receives BM83
+host-wake indication; neither is an MCU output. See
+[profile implementation and qualification limits](reference-board-firmware.md).
+Historical capacity estimates and tables below are not a second wiring map.
+
 Basis: `ESP32-S3-WROOM-1-N16R8` / `ESP32-S3-DevKitC-1-N8R8`. This is a provisional logical map, not a wiring instruction.
 
 2026-10-04: the [AI-authored reference board GPIO map](../hardware/kicad/nightwave-reference/FINAL_GPIO_MAP.md)

@@ -1,5 +1,16 @@
 # PRD.md
 
+## Current implementation override - 2026-10-06
+
+The user subsequently requested the separate AI-authored KiCad reference.
+Its numbered pin map and reference firmware profile now exist; they do not
+constitute hardware qualification. Use [the completion ledger](docs/design-completion-status.md)
+and [reference hardware](hardware/kicad/nightwave-reference/README.md) for current
+implementation status. Earlier builder-only workflow, charger candidates and
+bench acceptance lists below are historical, not the current reference BOM.
+Current reference power components are BQ25628E, dual TPS63802, TPS22965 and
+MAX17048; the pack, power safety and complete procurement remain unapproved.
+
 # Nightwave — Offline Music Player (T4 Target)
 
 ## Current product scope — 2026-10-03
