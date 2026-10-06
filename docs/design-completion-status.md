@@ -59,7 +59,7 @@ specifications; 48 other entries and complete current pricing remain open.
 | Work | Exit evidence |
 | --- | --- |
 | Pixl authorship eligibility | Organizer clarification covering the actual AI-authored CAD, plus honest disclosure |
-| Physical envelope/budget | Builder's maximum size and parts/PCB budget; current PCB alone is 110x100 mm |
+| Physical envelope/budget | Decided: PCB <=90x60 mm target, device about <=110x70x25 mm, INR15,000 electronics + PCB/assembly excluding tools. Final PCB/CAD builder-authored; feasibility and quotes remain open. See compact-builder-constraints.md. |
 | USB source-current policy/protection | Reviewed CC/USB enumeration policy, startup current, ESD and connector implementation |
 | Charger/battery safety | Verified limits, NTC curve/attachment, default/reset behavior, charge timing and pack approval |
 | Power/current budget | Mode-specific calculations including transient load, connector/wire/copper limits and estimated runtime |

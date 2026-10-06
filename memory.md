@@ -10,6 +10,18 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-06 builder decision: target PCB <=90x60 mm and finished pocket device
+about <=110x70x25 mm; small overruns require engineering justification. Budget
+target INR15,000 electronics plus PCB fabrication/assembly, reusable tools
+excluded. Size/budget are no longer unanswered. Builder explicitly reserves
+final PCB redesign/routing and final enclosure CAD authorship; do not generate
+those files. Continue software, research, BOM, power and mechanical requirements.
+Neither old 6600 mAh nor reference 10050 mAh pack is selected. Recalculate after
+BT/TFT/speaker/power design finalization. See docs/compact-builder-constraints.md
+and tools/compact_design_screen.py; all 50 local Python tests (including four
+new compact-screen regressions) and the project validator pass. Firmware/CAD
+unchanged by this update. Complete sourcing and power design remain open.
+
 Latest verified continuation: source `161cbc9711793a3932db5e07af251155a77d53fb`
 is pushed to main. Quality CI `37445159892` passed 18 Release suites, 18 ASAN/leak
 suites, 46 Python tests and project/reference validation. Firmware CI

@@ -1,5 +1,14 @@
 # PCB and enclosure requirements for builder authoring
 
+## Current compact-design override - 2026-10-06
+
+Use [compact builder constraints](compact-builder-constraints.md): PCB target
+90 x 60 mm, device about 110 x 70 x 25 mm, electronics/PCB assembly INR15,000
+excluding tools. Builder authors final PCB and enclosure CAD. The AI reference
+is not the final layout. Battery is unselected; old pack/package examples below
+are historical unless reconciled with the current reference BOM. BQ25628E and
+MAX98357A replace older options in the reference, still requiring review.
+
 2026-10-01. Requirements and candidate constraints only. No outline, placement,
 routing, footprint or enclosure source has been authored/verified here. Builder
 must select dimensions/stackup, author files and return them for source review.

@@ -2,6 +2,11 @@
 
 ## Reference-circuit override - 2026-10-06
 
+New compact requirements: [builder constraints](compact-builder-constraints.md).
+`tools/compact_design_screen.py` calculates capacity-independent eight-hour
+power ceilings. Neither 6,600 mAh nor 10,050 mAh is selected for the final device;
+the reference model below is retained only as a load/charge sensitivity.
+
 The reference-specific screening now lives in `tools/reference_power_budget.py`
 and [its saved report](../hardware/reference-power-screen.json): 3.6 V BT rail,
 10.05 Ah typical / 9.5 Ah minimum reference pack, retained BT load, regulator

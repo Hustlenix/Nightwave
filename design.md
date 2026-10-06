@@ -1,5 +1,12 @@
 # design.md
 
+Current builder boundary (2026-10-06): target PCB <=90x60 mm, finished device
+about <=110x70x25 mm, INR15,000 electronics + PCB/assembly excluding tools.
+Final PCB redesign/routing and enclosure CAD are builder-authored. The large
+AI reference is not the final design; battery remains unselected. See
+[compact requirements](docs/compact-builder-constraints.md), which supersede
+older size/budget and final-CAD authoring permissions below.
+
 ## Current implementation override - 2026-10-06
 
 A separate AI-authored reference PCB and board STEP now exist at the user's
