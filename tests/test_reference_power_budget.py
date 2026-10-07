@@ -22,6 +22,7 @@ class ReferencePowerBudgetTests(unittest.TestCase):
     def test_charge_and_peak_failures_remain_visible(self):
         r=report()
         timer=r["charger_reset"]
+        self.assertEqual(timer["input_register_ma"],3200)
         self.assertEqual(timer["fast_charge_timer_hours"],14.5)
         self.assertEqual(timer["fast_charge_timer_min_hours"],10.5)
         self.assertEqual(timer["fast_charge_timer_max_hours"],15.5)

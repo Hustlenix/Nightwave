@@ -31,7 +31,15 @@ int main() {
     assert(r.charging_valid && r.state.charging && r.state.source==PowerSource::kUsb);
     assert(r.sampled_ms==1000 && !power.request_shutdown());
     auto d=power.diagnostic();
-    assert(d.valid && d.charge_limit_ma==320 && d.voltage_limit_mv==4200 && d.input_limit_ma==1600);
+    // BQ25628E Rev C table 8-9: 20 mA/code, not 10 mA/code.
+    assert(d.valid && d.charge_limit_ma==320 && d.voltage_limit_mv==4200 && d.input_limit_ma==3200);
+    for (unsigned code=5; code<=160; ++code) {
+        bus.charger[6]=static_cast<std::uint8_t>((code<<4)&0xff);
+        bus.charger[7]=static_cast<std::uint8_t>(code>>4);
+        power.sample(1100);
+        assert(power.diagnostic().input_limit_ma==code*20);
+    }
+    bus=Bus{};
     assert(!power.sample(999).charge_percent_valid);
     bus.gauge[4]=101; assert(!power.sample(2000).charge_percent_valid);
     bus.gauge[4]=100; bus.gauge[5]=0; assert(power.sample(2000).charge_percent_valid);

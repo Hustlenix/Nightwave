@@ -37,24 +37,56 @@ MAX17048 senses the cell independently of the switched application rails.
 
 ## USB and startup requirements
 
+2026-10-07 builder decision: charging and dead-battery startup require a Type-C
+source advertising at least 1.5 A. Default-current ports are for programming
+while running from a charged battery, NOT charging. No USB enumeration event
+may override this restriction. A 3 A advertisement still uses the 1.5 A design
+ceiling. This supersedes the former default-USB charging proposal below.
+
+Hardware truth table (requirements, not a released circuit):
+
+| TUSB320LAI GPIO OUT1 / OUT2 | Main VBUS path | CE |
+| --- | --- | --- |
+| H/H unattached | Off | High (disabled) |
+| H/L default attached | Off | High |
+| L/H 1.5 A, protection valid | Eligible for controlled ramp | High until configuration and NTC valid |
+| L/L 3 A, protection valid | Same 1.5 A ceiling | Same |
+| Controller unpowered, fault, reset or indeterminate | Off | High |
+
+Use GPIO-mode detection (ADDR floating), not an I2C-only software permission.
+OUT1 low identifies either elevated advertisement; qualify it with power-good,
+sink-only configuration and non-accessory state. Pull states and inversion must
+make unpowered/high-impedance inputs disable the main path. CC logic and its
+small supply are upstream of the gate; their startup consumption/inrush must
+remain within default-source rules. Do not feed their supply from gated SYS:
+that creates a dead-battery startup dependency loop. OUT3 accessory rejection,
+controller reset behavior and propagation time need schematic-level review.
+
+Software charge policy is implemented and host-tested in `charge_policy.h`:
+default unqualified/off, <=100 ms freshness, 1400 mA programmed planning limit,
+960 mA maximum charge request rounded down in 40 mA steps, pack/current/NTC/
+readback qualification, and latched timer/watchdog/thermal faults. Rearm requires
+fresh detached fault-free state. It is deliberately not connected to charging
+writes on the unsafe historical reference board. The upstream hardware gate
+must react without waiting for this policy; CE alone is not input isolation.
+
+Correction: BQ25628E Rev C table 8-9 specifies 20 mA per IINDPM code and 3200 mA
+POR. The previous telemetry decoder used 10 mA/code and reported half the actual
+limit. Code, full-range regression and reference power screen are corrected.
+This did not change hardware current limits; telemetry is still read-only.
+
 TUSB320LAIRWBR is the proposed exact CC controller. Configure sink-only; its
 internal Rd replaces, rather than parallels, discrete CC pull-downs. This is not
 the older TUSB320: live current-advertisement behavior differs. Provide dead-cell
 CC operation and avoid back-driving its unpowered pins. No PD voltages requested.
 [TI TUSB320LAI datasheet](https://www.ti.com/lit/ds/symlink/tusb320lai.pdf).
 
-Current policy must distinguish unattached/unknown, default USB, enumerated USB,
-1.5 A and 3 A advertisements, suspend, detach and detection faults. Never equate
-CC default with unconditional permission for 500 mA. Device design target is at
-most 1.5 A even if source advertises 3 A. All limits need tolerance/headroom for
-CC/protection current outside the charger measurement path.
+All limits need tolerance/headroom for CC/protection current outside the charger
+measurement path. Nominal ILIM arithmetic is not a worst-case current guarantee.
 
-Critical unresolved implementation: reset-default input restriction and safe
-dead-battery startup must work before S3 firmware. CE high stops charging, NOT
-system input draw. A weak/default source may require application rails held off
-and low-power detection/control before boot. Cannot resolve this by merely setting
-IINDPM after startup. Hardware current-limit switching/gating and its reset truth
-table remain engineering work, not a builder preference question.
+Remaining implementation: exact always-on supply/gate/protection network and
+tolerance/short-circuit analysis. The approved policy removes default-current
+charging, but does not establish component selection or electrical qualification.
 
 Protection candidate TPS25947 family offers reverse-blocking/inrush/OVP, but
 exact suffix, clamp/threshold tolerance, low-current limiting range and coordinated

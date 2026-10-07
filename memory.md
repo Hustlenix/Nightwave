@@ -10,6 +10,18 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-07: builder approved requiring >=1.5 A Type-C advertisement for charging
+and dead-battery startup; default-current ports are battery-powered programming
+only. Added default-off, pack-qualified supervisory charge policy with freshness,
+current bounds and latched faults, but no charging writes to historical hardware.
+Corrected BQ25628E IINDPM telemetry scaling from 10 to 20 mA/code: POR is 3200 mA,
+not 1600 mA. Full valid-code regression and charge-policy host tests pass locally;
+all 53 Python tests and project validator pass. Complete Release/ASAN and both
+firmware builds still require current-revision CI. No PCB/enclosure changes.
+This checkpoint is not full pre-schematic closure: exact protection/NTC/support
+parts, live Bluetooth integration/provisioning, complete priced BOM and pack
+selection remain outstanding; do not claim all remaining work is hardware-only.
+
 2026-10-06 pre-schematic continuation: builder approved developing protected
 5 V-only USB-C/TUSB320LAI/BQ25628E switching architecture, reset-default charging
 disabled; final protection/input startup/NTC implementation remains engineering

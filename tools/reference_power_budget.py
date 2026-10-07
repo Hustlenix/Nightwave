@@ -49,7 +49,7 @@ def report():
         "charger_reset":{"charge_ma":320,"voltage_mv":4200,"fast_charge_timer_hours":14.5,
                          "fast_charge_timer_min_hours":10.5,"fast_charge_timer_max_hours":15.5,
                          "timer_source_note":"Rev C section 7.6 and register 0x15 specify 14.5 h nominal; section 8.4.1 still says 12 h. Use 10.5 h minimum for screening and seek TI clarification.",
-                         "input_register_ma":1600,"ilim_typical_ma":ilim_typical},
+                         "input_register_ma":3200,"ilim_typical_ma":ilim_typical},
         "charging":charging,
         "blocking_findings":[
             "No source detection/enumeration/suspend policy; 455 mA typical ILIM is not USB authorization",

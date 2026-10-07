@@ -33,7 +33,7 @@ PowerReading ReferencePower::sample(std::uint32_t now) {
             diagnostic_={true,status[0],status[1],status[2],
                 static_cast<std::uint16_t>(((le(limits)>>5)&0x3f)*40),
                 static_cast<std::uint16_t>(((le(limits+2)>>3)&0x1ff)*10),
-                static_cast<std::uint16_t>(((le(limits+4)>>4)&0xff)*10)};
+                static_cast<std::uint16_t>(((le(limits+4)>>4)&0xff)*20)};
             // VBUS present does not establish whether the battery supplements it.
             if (vbus==4) result.state.source=PowerSource::kUsb;
             else if (result.voltage_valid) result.state.source=PowerSource::kBattery;

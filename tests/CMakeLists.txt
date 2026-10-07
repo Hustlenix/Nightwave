@@ -26,6 +26,14 @@ else()
 endif()
 
 enable_testing()
+add_executable(nightwave_charge_policy_tests charge_policy_tests.cpp)
+target_include_directories(nightwave_charge_policy_tests PRIVATE ../firmware/components/power/include)
+if(MSVC)
+    target_compile_options(nightwave_charge_policy_tests PRIVATE /W4 /WX /UNDEBUG)
+else()
+    target_compile_options(nightwave_charge_policy_tests PRIVATE -Wall -Wextra -Wpedantic -Werror -UNDEBUG)
+endif()
+add_test(NAME nightwave_charge_policy_tests COMMAND nightwave_charge_policy_tests)
 add_executable(nightwave_bluetooth_preference_tests bluetooth_preference_tests.cpp
     ../firmware/components/bluetooth/bluetooth_preference.cpp)
 target_include_directories(nightwave_bluetooth_preference_tests PRIVATE fakes
