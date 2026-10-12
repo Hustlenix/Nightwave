@@ -10,6 +10,13 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-12 continuation: pushed a989a95 propagates approved USB-C gating into
+mode-specific charging model (default-source main path OFF; 3 A capped at same
+1400 mA planning limit). Added NTC reset-window necessary-condition calculation
+and tests: nominal-only 103AT divider is not tolerance proof; +/-2% R(T)
+sensitivity fails for 0..45 C pack limits. This is an estimated sensitivity,
+not manufacturer guaranteed tolerance or a completed safety circuit.
+
 2026-10-12 Bluetooth transport checkpoint: bounded four-command queue and host
 regressions added; partial UART write/ACK timeout errors fail closed without
 replaying potentially non-idempotent commands. Transport reset requires drain/

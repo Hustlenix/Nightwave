@@ -112,6 +112,9 @@ exact curve/tolerance, attached to the selected pack with open/short response
 verified. The reference 103AT network's 0..60 C mapping is not compatible by
 default with a 0..45 C pack. Thresholds, resistor tolerances and reset register
 values remain unresolved; never disable TS protection to pass startup.
+See `ntc-reset-safety.md`: the simple 103AT pull-up/parallel-shunt solution fails
+a documented tolerance sensitivity at reset thresholds. Nominal-only resistor
+selection is rejected; independent hardware window/alternate curve work remains.
 
 Charge-while-playing uses available input power first; charge reduces on overload,
 then battery supplementation may occur. A plugged-in device can still discharge.
