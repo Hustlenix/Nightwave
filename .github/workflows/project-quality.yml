@@ -60,6 +60,8 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p 'test_ntc_window_screen.py'
           python3 tools/ntc_window_screen.py
+          python3 -m unittest discover -s tests -p 'test_independent_thermal_window.py'
+          python3 tools/independent_thermal_window.py
           python3 -m unittest discover -s tests -p 'test_output_power_model.py'
           python3 tools/output_power_model.py
       - name: Check compact builder constraints and capacity-independent sizing

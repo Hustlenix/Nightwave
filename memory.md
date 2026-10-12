@@ -10,6 +10,13 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-12: 5be1fe5 is pushed; Project quality and both-profile Firmware CI
+succeeded. Independent thermal-window sensitivity now has enumerated resistor,
+sensor and comparator-error corners with explicit non-qualified status.
+TLV7042 open-drain POR releases the output; it cannot alone provide fail-safe
+temperature permission. See docs/independent-thermal-window.md. No final CAD
+changed and no thermal safety qualification is claimed.
+
 2026-10-12: aac621b quality CI 38223408078 and both-profile firmware CI
 38223408038 succeeded. Added explicit Bluetooth HAL forgetting state with
 matching completion epoch, unsupported default and timeout/cancellation tests.

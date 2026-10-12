@@ -39,3 +39,7 @@ does not imply charging-temperature protection unless its specification says so.
 
 This is a documented rejected approach, not a request for the builder to solve
 the analog design and not proof that no safe architecture exists.
+
+The next circuit investigation and independently testable corner calculation
+are in [independent-thermal-window.md](independent-thermal-window.md). It exposes
+the open-drain comparator POR hazard rather than treating startup as healthy.
