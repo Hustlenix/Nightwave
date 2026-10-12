@@ -3,7 +3,7 @@
 #include <cstring>
 #include "nightwave/audio_types.h"
 namespace nightwave {
-enum class BtState { kUnavailable, kIdle, kDiscovering, kConnecting, kConnected, kStarting, kStreaming, kFault, kPairing, kReconnecting };
+enum class BtState { kUnavailable, kIdle, kDiscovering, kConnecting, kConnected, kStarting, kStreaming, kFault, kPairing, kReconnecting, kForgetting };
 enum class BtWrite { kAccepted, kWouldBlock, kUnavailable, kFault };
 struct BtDevice { std::array<std::uint8_t, 6> address{}; std::array<char, 48> name{}; };
 struct BtCapabilities { bool a2dp_source{false}, avrcp{false}; bool rate_44100{false}, rate_48000{false}; };
@@ -17,6 +17,8 @@ class BluetoothBackend {
     virtual bool start(const AudioFormat&, std::uint32_t epoch) = 0;
     virtual void disconnect(std::uint32_t epoch) = 0;
     virtual BtWrite write(const PcmBlock&) = 0;
+    // Default unsupported: deleting a host preference never proves bond erase.
+    virtual bool forget(const BtDevice&, std::uint32_t) { return false; }
 };
 class UnavailableBluetooth final : public BluetoothBackend {
  public:
@@ -37,12 +39,25 @@ class BluetoothSource {
     std::uint32_t epoch() const { return epoch_; }
     std::size_t count() const { return count_; }
     const BtDevice* device(std::size_t n) const { return n < count_ ? &devices_[n] : nullptr; }
+    bool forget(const BtDevice& device, std::uint32_t now) {
+        if ((state_!=BtState::kIdle && state_!=BtState::kFault) ||
+            device.address==std::array<std::uint8_t,6>{} ||
+            !std::memchr(device.name.data(),0,device.name.size())) return false;
+        ++epoch_; started_=now; forgotten_=false;
+        if (!backend_.forget(device,epoch_)) { fault(); return false; }
+        state_=BtState::kForgetting; return true;
+    }
+    bool forgotten(std::uint32_t epoch) {
+        if (state_!=BtState::kForgetting || epoch!=epoch_) return false;
+        state_=BtState::kIdle; forgotten_=true; return true;
+    }
+    bool take_forget_confirmation() { const bool value=forgotten_; forgotten_=false; return value; }
     // Remembered address is a reconnect preference, not evidence of bonding.
     bool reconnect(const BtDevice& device, std::uint32_t now) {
         if ((state_ != BtState::kIdle && state_ != BtState::kFault) ||
             device.address == std::array<std::uint8_t, 6>{} ||
             !std::memchr(device.name.data(), 0, device.name.size())) return false;
-        ++epoch_; started_ = now;
+        ++epoch_; started_ = now; forgotten_=false;
         if (!backend_.connect(device, epoch_)) { fault(); return false; }
         state_ = BtState::kReconnecting; return true;
     }
@@ -52,7 +67,7 @@ class BluetoothSource {
     }
     bool discover(std::uint32_t now) {
         if (state_ != BtState::kIdle && state_ != BtState::kFault) return false;
-        ++epoch_; count_ = 0; started_ = now;
+        ++epoch_; count_ = 0; started_ = now; forgotten_=false;
         if (!backend_.discover(epoch_)) { state_ = BtState::kFault; return false; }
         state_ = BtState::kDiscovering; return true;
     }
@@ -97,18 +112,19 @@ class BluetoothSource {
     void lost(std::uint32_t epoch) { if (epoch == epoch_ && state_ != BtState::kUnavailable && state_ != BtState::kIdle) fault(); }
     void tick(std::uint32_t now) {
         const auto limit = state_ == BtState::kDiscovering ? 15000u :
-            (state_ == BtState::kConnecting || state_ == BtState::kReconnecting || state_ == BtState::kPairing) ? 10000u : state_ == BtState::kStarting ? 5000u : 0u;
+            (state_ == BtState::kConnecting || state_ == BtState::kReconnecting || state_ == BtState::kPairing) ? 10000u :
+            (state_ == BtState::kStarting || state_ == BtState::kForgetting) ? 5000u : 0u;
         if (limit && now - started_ >= limit) fault();
     }
     void disconnect() {
         if (state_ == BtState::kUnavailable) return;
-        backend_.disconnect(epoch_); ++epoch_; state_ = BtState::kIdle; stop_requested_ = true;
+        backend_.disconnect(epoch_); ++epoch_; state_ = BtState::kIdle; stop_requested_ = true; forgotten_=false;
     }
     bool take_stop_request() { const bool stop = stop_requested_; stop_requested_ = false; return stop; }
  private:
-    void fault() { backend_.disconnect(epoch_); ++epoch_; state_ = BtState::kFault; stop_requested_ = true; }
+    void fault() { backend_.disconnect(epoch_); ++epoch_; state_ = BtState::kFault; stop_requested_ = true; forgotten_=false; }
     BluetoothBackend& backend_; std::array<BtDevice, kDevices> devices_{};
     AudioFormat format_{}; std::uint32_t epoch_{0}, started_{0}; std::size_t count_{0};
-    BtState state_; bool stop_requested_{false};
+    BtState state_; bool stop_requested_{false}, forgotten_{false};
 };
 } // namespace nightwave

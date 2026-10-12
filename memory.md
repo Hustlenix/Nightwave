@@ -10,6 +10,12 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-12: aac621b quality CI 38223408078 and both-profile firmware CI
+38223408038 succeeded. Added explicit Bluetooth HAL forgetting state with
+matching completion epoch, unsupported default and timeout/cancellation tests.
+This does not implement the module-specific bond erase command or qualify radio
+operation. Independent thermal-window circuit investigation remains in progress.
+
 2026-10-12: charge policy now requires an explicitly qualified positive-current
 error envelope and derates pack/available current before register quantization.
 Unknown tolerance blocks charging. Synthetic-envelope host regression passes;

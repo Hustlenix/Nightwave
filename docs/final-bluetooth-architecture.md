@@ -67,10 +67,18 @@ infrastructure, not version-qualified command semantics or live UART integration
 An epoch cannot disambiguate identical delayed wire ACKs; drain/reset is required.
 
 Still engineering work: actual UART adapter/ACK event interpretation, variable
-discovery event parsing, bond erase confirmation, output-router mute sequencing,
+discovery event parsing, module-specific bond erase command/event mapping, output-router mute sequencing,
 UI/persistence integration, PCM clock/rate conversion and diagnostics wiring.
 Keep firmware backend unavailable until those are implemented; do not represent
 these software tasks as awaiting physical hardware alone.
+
+2026-10-12: HAL now supports an explicit asynchronous forgetting state. Backend
+support defaults to false, and success requires a matching completion epoch.
+Connected/streaming forget attempts are rejected until an explicit disconnect.
+Timeout, unsupported backend, stale event and cancellation never report erased
+bonds. Tests exercise these transitions and timer wrap. This closes control-model
+semantics only; no BM83 bond command has been sent and host NVS is not silently
+cleared as a substitute for module confirmation.
 
 Best architectural fallback remains replacing S3 with ESP32-WROVER-E-N8R8:
 single Classic-Bluetooth-capable MCU/antenna, but native USB is lost and GPIO,
