@@ -42,12 +42,22 @@ def report():
         charging[mode] = {}
         for level, p in modes[mode].items():
             charging[mode][level] = {}
-            for source in (100, 500, 1500):
-                c = charge_screen(5000, 960, source, p["cell_equivalent_w"])
+            for source in (100, 500, 1500, 3000):
+                # Approved policy: default-current sources cannot feed the
+                # main power path. 3 A advertisements do not raise our ceiling.
+                allowed = source >= 1500
+                path_ma = 1400 if allowed else 0
+                c = charge_screen(5000, 960, max(1, path_ma), p["cell_equivalent_w"])
                 c.pop("linear_charger_heat_w_at_3v7")
-                available_w = 5 * source / 1000 * .85
+                if not allowed:
+                    c["optimistic_charge_current_ma"] = 0
+                    c["optimistic_charge_hours"] = None
+                c["main_input_path_permitted"] = allowed
+                c["main_path_planning_limit_ma"] = path_ma
+                c["source_advertisement_ma"] = source
+                available_w = 5 * path_ma / 1000 * .85
                 c["battery_discharge_deficit_w"] = max(0, p["cell_equivalent_w"] - available_w)
-                c["input_conversion_heat_w_at_full_source"] = 5 * source / 1000 * .15
+                c["input_conversion_heat_w_at_full_source"] = 5 * path_ma / 1000 * .15
                 charging[mode][level][str(source)] = c
     return {
         "classification": {"load_currents_and_efficiencies": "ESTIMATED",
@@ -61,7 +71,8 @@ def report():
             "28 mA analog quiescent allowance retained even in Bluetooth mode; no fictional DAC power gating",
             "20 mA paused display input requires validated dimming; otherwise use conservative case",
             "Scan mode is paused, not a simultaneous playback stress profile",
-            "5 V source currents are conditional permissions, never inferred from connector shape",
+            "Charging/dead-battery startup requires >=1.5 A Type-C advertisement; default USB main path off",
+            "1400 mA main-path planning ceiling excludes upstream CC/protection overhead; exact tolerances unqualified",
             "960 mA requested charge is a proposed limit, not a programmed or pack-approved value",
         ],
         "modes": modes, "charging_while_playing_CALCULATED": charging,

@@ -34,5 +34,21 @@ class OutputPowerTests(unittest.TestCase):
                 self.assertLessEqual(sources["1500"]["optimistic_charge_current_ma"], 960)
                 self.assertFalse(sources["1500"]["safe_charge_configuration_established"])
 
+    def test_approved_type_c_gate(self):
+        for mode, levels in report()["charging_while_playing_CALCULATED"].items():
+            for level, sources in levels.items():
+                load=report()["modes"][mode][level]["cell_equivalent_w"]
+                for source in ("100", "500"):
+                    c=sources[source]
+                    self.assertFalse(c["main_input_path_permitted"])
+                    self.assertEqual(c["optimistic_charge_current_ma"],0)
+                    self.assertIsNone(c["optimistic_charge_hours"])
+                    self.assertEqual(c["battery_discharge_deficit_w"],load)
+                for source in ("1500", "3000"):
+                    self.assertTrue(sources[source]["main_input_path_permitted"])
+                    self.assertEqual(sources[source]["main_path_planning_limit_ma"],1400)
+                self.assertEqual(sources["1500"]["optimistic_charge_current_ma"],
+                                 sources["3000"]["optimistic_charge_current_ma"])
+
 
 if __name__ == "__main__": unittest.main()

@@ -26,13 +26,17 @@ screening inputs; display90 mA is a conservative allowance grounded in the maker
 maximum, not a measured playback average. No inactive analog power-off assumed.
 
 F: charging while playing is calculated separately for each of the three routes,
-at both loads and 100/500/1500 mA conditional 5 V sources. Tool reports source
+at both loads and 100/500/1500/3000 mA 5 V source cases. Tool reports source
 energy floor, available charging, deficit and a 5000 mAh/960 mA charge sensitivity.
-100 mA cannot sustain any playback mode in this model; it provides no charging
-headroom. At sufficient source power, 5000/960*1.3 = 6.77 h estimated charge
+Updated for the approved >=1.5 A Type-C requirement: 100/500 mA cases keep the
+main input OFF and all playback load on the battery. They never charge, even
+if an energy-only calculation suggests spare power. 1500/3000 mA cases both
+use the proposed 1400 mA path ceiling; upstream control consumption and actual
+limiter tolerances still require qualification. At sufficient source power,
+5000/960*1.3 = 6.77 h estimated charge
 screen, not a measured or guaranteed charge time. Runtime while powered is not
-reported as battery-only runtime. Source conversion heat at full 1.5 A and85%
-efficiency is1.125 W; this is an assumed loss screen, not IC junction temperature.
+reported as battery-only runtime. Source conversion heat at the 1.4 A planning
+ceiling and85% efficiency is1.05 W; this is not IC junction temperature.
 
 Speaker heat/peak current, headphone charge-pump/load, BT regulator/RF, paused
 retained rails and SD scan bursts all require thermal/current verification.
