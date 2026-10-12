@@ -10,6 +10,13 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-12 Bluetooth transport checkpoint: bounded four-command queue and host
+regressions added; partial UART write/ACK timeout errors fail closed without
+replaying potentially non-idempotent commands. Transport reset requires drain/
+resynchronization; no claim of live BM83 operation or full Bluetooth completion.
+054a8d2 Project quality CI 38222354225 succeeded. Firmware CI was still running
+at this note; compact-area checkpoint da26cf5 is pushed.
+
 2026-10-12: successfully pushed 054a8d2 after prior GitHub server failures.
 Current-revision CI started; do not equate queued/running checks with success.
 Added docs/compact-area-feasibility.md: estimated functional area 3309..4459 mm2

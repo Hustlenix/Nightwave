@@ -58,7 +58,15 @@ failure-safe decode and commit-result handling. Clearing the preference is NOT
 erasing BM83 bond keys. New host tests cover every corrupted record byte, partial
 records, NVS failures, stale events and timer wrap. No automatic speaker fallback.
 
-Still engineering work: actual UART command queue/ACK/error recovery, variable
+2026-10-12: added fixed four-command framing queue with partial-write accounting,
+single outstanding ACK, opcode/generation matching, bounded send/ACK deadlines,
+fault flush and explicit transport-resynchronization reset. No automatic retry of
+ambiguous commands. Host tests cover capacity, malformed sizes, partial writes,
+stale/mismatched/negative ACKs, timeout, timer wrap and recovery. This is transport
+infrastructure, not version-qualified command semantics or live UART integration.
+An epoch cannot disambiguate identical delayed wire ACKs; drain/reset is required.
+
+Still engineering work: actual UART adapter/ACK event interpretation, variable
 discovery event parsing, bond erase confirmation, output-router mute sequencing,
 UI/persistence integration, PCM clock/rate conversion and diagnostics wiring.
 Keep firmware backend unavailable until those are implemented; do not represent
