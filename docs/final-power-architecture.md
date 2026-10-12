@@ -70,6 +70,16 @@ fresh detached fault-free state. It is deliberately not connected to charging
 writes on the unsafe historical reference board. The upstream hardware gate
 must react without waiting for this policy; CE alone is not input isolation.
 
+2026-10-12 current-limit correction: qualification must supply a verified
+positive current-error envelope across every enabled setting and operating
+condition. Unknown/zero envelope disables charging. Requested current is reduced
+by that envelope, then rounded down; neither pack nor available-current ceiling
+is treated as a nominal register setting. Tests use a synthetic 25% envelope,
+not a claimed charger-wide specification. Datasheet accuracy varies by setting;
+do not use the headline accuracy for all low-current/temperature conditions.
+Voltage regulation tolerance, precharge/trickle and termination limits still
+need pack-specific qualification before any physical charging is enabled.
+
 Correction: BQ25628E Rev C table 8-9 specifies 20 mA per IINDPM code and 3200 mA
 POR. The previous telemetry decoder used 10 mA/code and reported half the actual
 limit. Code, full-range regression and reference power screen are corrected.

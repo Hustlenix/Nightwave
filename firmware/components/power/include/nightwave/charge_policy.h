@@ -21,6 +21,10 @@ struct ChargeQualification {
     // Defaults deliberately prevent enabling a not-yet-selected pack/circuit.
     bool hardware_reviewed{false}, pack_reviewed{false};
     std::uint16_t max_pack_charge_ma{0}, max_charge_mv{0};
+    // Qualified positive current error across ALL enabled current settings,
+    // temperatures and cell voltages. Zero means unknown, not perfect accuracy.
+    // Caller must establish this bound; no blanket datasheet accuracy assumed.
+    std::uint16_t current_error_permille{0};
 };
 struct ChargePlan {
     bool input_permitted{false}, charge_permitted{false};
@@ -38,7 +42,8 @@ class ChargePolicy {
         if (!o.cc_valid || !o.attached || !o.source_at_least_1500ma || !o.protection_good) return p;
         if (!qualification_.hardware_reviewed || !qualification_.pack_reviewed ||
             qualification_.max_charge_mv != 4200 || qualification_.max_pack_charge_ma < 40 ||
-            qualification_.max_pack_charge_ma > 2000) {
+            qualification_.max_pack_charge_ma > 2000 ||
+            !qualification_.current_error_permille || qualification_.current_error_permille>1000) {
             p.blocked=ChargeBlock::kUnqualified; return p;
         }
         if (fault_latched_ || !o.charger_valid || !o.register_readback_ok) {
@@ -50,8 +55,10 @@ class ChargePolicy {
         if (!o.pack_present || !o.ntc_valid || !o.temperature_in_window) {
             p.blocked=ChargeBlock::kTemperature; return p;
         }
-        const auto limit=std::min<std::uint16_t>(960,
-            std::min(qualification_.max_pack_charge_ma, o.available_charge_ma));
+        const auto physical_limit=std::min(qualification_.max_pack_charge_ma, o.available_charge_ma);
+        const auto tolerance_limited=static_cast<std::uint16_t>(
+            std::uint32_t(physical_limit)*1000/(1000+qualification_.current_error_permille));
+        const auto limit=std::min<std::uint16_t>(960,tolerance_limited);
         p.charge_limit_ma=static_cast<std::uint16_t>((limit/40)*40);
         if (!p.charge_limit_ma) { p.blocked=ChargeBlock::kBudget; return p; }
         p.charge_permitted=true; p.blocked=ChargeBlock::kNone; return p;

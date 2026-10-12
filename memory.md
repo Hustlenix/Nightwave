@@ -10,6 +10,13 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-12: charge policy now requires an explicitly qualified positive-current
+error envelope and derates pack/available current before register quantization.
+Unknown tolerance blocks charging. Synthetic-envelope host regression passes;
+this does not qualify any physical current setting. Full local Python suite now
+56 tests passes. a989a95 and eacb4c7 are pushed; remaining circuit/integration/BOM
+work must not be labelled complete because these narrower checks succeed.
+
 2026-10-12 continuation: pushed a989a95 propagates approved USB-C gating into
 mode-specific charging model (default-source main path OFF; 3 A capped at same
 1400 mA planning limit). Added NTC reset-window necessary-condition calculation

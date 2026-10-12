@@ -12,14 +12,16 @@ static ChargeObservation good() {
 int main() {
     ChargePolicy unqualified;
     assert(!unqualified.update(good(),1000).input_permitted);
-    ChargePolicy policy({true,true,1000,4200});
+    // Synthetic 25% qualification envelope, NOT approval of charger accuracy.
+    ChargePolicy policy({true,true,1000,4200,250});
     auto o=good(); auto p=policy.update(o,1000);
-    assert(p.input_permitted && p.charge_permitted && p.input_limit_ma==1400 && p.charge_limit_ma==960);
+    assert(p.input_permitted && p.charge_permitted && p.input_limit_ma==1400 && p.charge_limit_ma==800);
     for (unsigned budget=0; budget<=2000; ++budget) {
         o=good(); o.available_charge_ma=static_cast<std::uint16_t>(budget);
         p=policy.update(o,1000);
         assert(p.charge_limit_ma<=budget && p.charge_limit_ma<=960 && p.charge_limit_ma%40==0);
-        assert(p.charge_permitted==(budget>=40));
+        assert(unsigned(p.charge_limit_ma)*1250<=budget*1000);
+        assert(p.charge_permitted==(budget>=50));
     }
     for (auto member : {&ChargeObservation::cc_valid, &ChargeObservation::attached,
          &ChargeObservation::source_at_least_1500ma, &ChargeObservation::protection_good,
@@ -47,10 +49,17 @@ int main() {
         assert(policy.update(good(),1000).charge_permitted);
     }
     for (unsigned pack=40; pack<=2000; ++pack) {
-        ChargePolicy limited({true,true,static_cast<std::uint16_t>(pack),4200});
-        assert(limited.update(good(),1000).charge_limit_ma<=pack);
+        ChargePolicy limited({true,true,static_cast<std::uint16_t>(pack),4200,250});
+        assert(unsigned(limited.update(good(),1000).charge_limit_ma)*1250<=pack*1000);
     }
     ChargePolicy wrong_voltage({true,true,1000,4350});
     assert(!wrong_voltage.update(good(),1000).charge_permitted);
+    ChargePolicy unknown_tolerance({true,true,1000,4200});
+    assert(!unknown_tolerance.update(good(),1000).charge_permitted);
+    for (unsigned error=1;error<=1000;++error) {
+        ChargePolicy bounded({true,true,1000,4200,static_cast<std::uint16_t>(error)});
+        const auto result=bounded.update(good(),1000);
+        assert(unsigned(result.charge_limit_ma)*(1000+error)<=1000000);
+    }
     std::puts("Charge policy permission, bounds, freshness and latched-fault tests passed");
 }
