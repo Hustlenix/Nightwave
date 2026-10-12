@@ -10,6 +10,12 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-12: successfully pushed 054a8d2 after prior GitHub server failures.
+Current-revision CI started; do not equate queued/running checks with success.
+Added docs/compact-area-feasibility.md: estimated functional area 3309..4459 mm2
+before routing/RF exclusions on a 5400 mm2 target. Plausibility only, not packing
+or fit proof; no final CAD changed. Exact pack/antenna/vertical stack remains open.
+
 2026-10-07: builder approved requiring >=1.5 A Type-C advertisement for charging
 and dead-battery startup; default-current ports are battery-powered programming
 only. Added default-off, pack-qualified supervisory charge policy with freshness,
