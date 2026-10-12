@@ -80,6 +80,13 @@ do not use the headline accuracy for all low-current/temperature conditions.
 Voltage regulation tolerance, precharge/trickle and termination limits still
 need pack-specific qualification before any physical charging is enabled.
 
+The supervisory policy additionally rejects unknown voltage tolerance or
+unreviewed charge stages. It derates the physical 4200 mV ceiling, rounds down
+to the device's 10 mV VREG step and requires matching voltage readback. A 4-per-
+mille example yields 4180 mV, not the POR 4200 mV. This example does not approve
+the pack, its capacity at reduced voltage, other charge stages or the circuit.
+No charging writes or CE control are enabled by this change.
+
 Correction: BQ25628E Rev C table 8-9 specifies 20 mA per IINDPM code and 3200 mA
 POR. The previous telemetry decoder used 10 mA/code and reported half the actual
 limit. Code, full-range regression and reference power screen are corrected.

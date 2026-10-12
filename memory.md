@@ -10,6 +10,10 @@ The project targets Pixl T4 Nexus depth, but T4 is not guaranteed.
 
 ## Current objective
 
+2026-10-12: supervisory charge policy now also requires positive voltage-error
+qualification, matching derated/quantized voltage readback and review of all
+charge stages. Unknowns stay disabled; no physical charger writes added.
+
 2026-10-12: 5be1fe5 is pushed; Project quality and both-profile Firmware CI
 succeeded. Independent thermal-window sensitivity now has enumerated resistor,
 sensor and comparator-error corners with explicit non-qualified status.
